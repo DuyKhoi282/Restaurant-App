@@ -28,7 +28,7 @@ CREATE TABLE Account
 	username NVARCHAR(50) PRIMARY KEY NOT NULL,
 	password NVARCHAR(100) NOT NULL,
 	displayName NVARCHAR(100) NOT NULL,
-	type INT NOT NULL DEFAULT 0 --1: Admin, 0: Staff //test
+	type INT NOT NULL DEFAULT 0 --1: Admin, 0: Staff
 )
 GO
 
