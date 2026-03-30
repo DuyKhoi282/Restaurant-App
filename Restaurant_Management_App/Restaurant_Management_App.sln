@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.37012.4 d17.14
+VisualStudioVersion = 17.14.37012.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant_Management_App", "Restaurant_Management_App\Restaurant_Management_App.csproj", "{2B1B1F1D-9554-437B-BC76-65A8409CE2C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Login&DashboardForm", "..\..\Code project\Code_Project\Login&DashboardForm\Login&DashboardForm\Login&DashboardForm.csproj", "{96733E81-7D89-4CEE-B901-4D05C32F7761}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2B1B1F1D-9554-437B-BC76-65A8409CE2C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B1B1F1D-9554-437B-BC76-65A8409CE2C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B1B1F1D-9554-437B-BC76-65A8409CE2C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96733E81-7D89-4CEE-B901-4D05C32F7761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96733E81-7D89-4CEE-B901-4D05C32F7761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96733E81-7D89-4CEE-B901-4D05C32F7761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96733E81-7D89-4CEE-B901-4D05C32F7761}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
