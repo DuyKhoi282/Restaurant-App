@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.tlpSidebar = new System.Windows.Forms.TableLayoutPanel();
-            this.btnStaffMNG = new System.Windows.Forms.Button();
-            this.btnCustomerCaring = new System.Windows.Forms.Button();
-            this.btnRevenueMNG = new System.Windows.Forms.Button();
-            this.btnItemMNG = new System.Windows.Forms.Button();
-            this.btnOrderMNG = new System.Windows.Forms.Button();
-            this.btnCreateOrder = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnCreateOrder = new System.Windows.Forms.Button();
+            this.btnOrderMNG = new System.Windows.Forms.Button();
+            this.btnItemMNG = new System.Windows.Forms.Button();
+            this.btnRevenueMNG = new System.Windows.Forms.Button();
+            this.btnCustomerCaring = new System.Windows.Forms.Button();
+            this.btnStaffMNG = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelContent = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -50,14 +50,14 @@
             this.tlpSidebar.BackColor = System.Drawing.Color.Brown;
             this.tlpSidebar.ColumnCount = 1;
             this.tlpSidebar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpSidebar.Controls.Add(this.btnItemMNG, 0, 6);
             this.tlpSidebar.Controls.Add(this.pictureBox1, 0, 0);
             this.tlpSidebar.Controls.Add(this.btnCreateOrder, 0, 2);
             this.tlpSidebar.Controls.Add(this.btnOrderMNG, 0, 3);
-            this.tlpSidebar.Controls.Add(this.btnItemMNG, 0, 4);
             this.tlpSidebar.Controls.Add(this.btnRevenueMNG, 0, 5);
-            this.tlpSidebar.Controls.Add(this.btnCustomerCaring, 0, 6);
             this.tlpSidebar.Controls.Add(this.btnStaffMNG, 0, 7);
             this.tlpSidebar.Controls.Add(this.label1, 0, 1);
+            this.tlpSidebar.Controls.Add(this.btnCustomerCaring, 0, 4);
             this.tlpSidebar.Dock = System.Windows.Forms.DockStyle.Left;
             this.tlpSidebar.Location = new System.Drawing.Point(0, 0);
             this.tlpSidebar.Name = "tlpSidebar";
@@ -73,70 +73,14 @@
             this.tlpSidebar.Size = new System.Drawing.Size(285, 664);
             this.tlpSidebar.TabIndex = 0;
             // 
-            // btnStaffMNG
+            // pictureBox1
             // 
-            this.btnStaffMNG.FlatAppearance.BorderColor = System.Drawing.Color.Brown;
-            this.btnStaffMNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStaffMNG.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStaffMNG.ForeColor = System.Drawing.Color.White;
-            this.btnStaffMNG.Location = new System.Drawing.Point(3, 582);
-            this.btnStaffMNG.Name = "btnStaffMNG";
-            this.btnStaffMNG.Size = new System.Drawing.Size(279, 79);
-            this.btnStaffMNG.TabIndex = 2;
-            this.btnStaffMNG.Text = "Staff Management";
-            this.btnStaffMNG.UseVisualStyleBackColor = true;
-            // 
-            // btnCustomerCaring
-            // 
-            this.btnCustomerCaring.FlatAppearance.BorderColor = System.Drawing.Color.Brown;
-            this.btnCustomerCaring.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCustomerCaring.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCustomerCaring.ForeColor = System.Drawing.Color.White;
-            this.btnCustomerCaring.Location = new System.Drawing.Point(3, 499);
-            this.btnCustomerCaring.Name = "btnCustomerCaring";
-            this.btnCustomerCaring.Size = new System.Drawing.Size(279, 76);
-            this.btnCustomerCaring.TabIndex = 2;
-            this.btnCustomerCaring.Text = "Customer Caring";
-            this.btnCustomerCaring.UseVisualStyleBackColor = true;
-            // 
-            // btnRevenueMNG
-            // 
-            this.btnRevenueMNG.FlatAppearance.BorderColor = System.Drawing.Color.Brown;
-            this.btnRevenueMNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRevenueMNG.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRevenueMNG.ForeColor = System.Drawing.Color.White;
-            this.btnRevenueMNG.Location = new System.Drawing.Point(3, 416);
-            this.btnRevenueMNG.Name = "btnRevenueMNG";
-            this.btnRevenueMNG.Size = new System.Drawing.Size(279, 76);
-            this.btnRevenueMNG.TabIndex = 2;
-            this.btnRevenueMNG.Text = "Revenue Management";
-            this.btnRevenueMNG.UseVisualStyleBackColor = true;
-            // 
-            // btnItemMNG
-            // 
-            this.btnItemMNG.FlatAppearance.BorderColor = System.Drawing.Color.Brown;
-            this.btnItemMNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnItemMNG.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnItemMNG.ForeColor = System.Drawing.Color.White;
-            this.btnItemMNG.Location = new System.Drawing.Point(3, 333);
-            this.btnItemMNG.Name = "btnItemMNG";
-            this.btnItemMNG.Size = new System.Drawing.Size(279, 76);
-            this.btnItemMNG.TabIndex = 2;
-            this.btnItemMNG.Text = "Item Management";
-            this.btnItemMNG.UseVisualStyleBackColor = true;
-            // 
-            // btnOrderMNG
-            // 
-            this.btnOrderMNG.FlatAppearance.BorderColor = System.Drawing.Color.Brown;
-            this.btnOrderMNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOrderMNG.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOrderMNG.ForeColor = System.Drawing.Color.White;
-            this.btnOrderMNG.Location = new System.Drawing.Point(3, 250);
-            this.btnOrderMNG.Name = "btnOrderMNG";
-            this.btnOrderMNG.Size = new System.Drawing.Size(279, 76);
-            this.btnOrderMNG.TabIndex = 2;
-            this.btnOrderMNG.Text = "Order Management";
-            this.btnOrderMNG.UseVisualStyleBackColor = true;
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox1.Location = new System.Drawing.Point(85, 5);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(115, 72);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // btnCreateOrder
             // 
@@ -152,6 +96,71 @@
             this.btnCreateOrder.Text = "Create Order";
             this.btnCreateOrder.UseVisualStyleBackColor = false;
             // 
+            // btnOrderMNG
+            // 
+            this.btnOrderMNG.FlatAppearance.BorderColor = System.Drawing.Color.Brown;
+            this.btnOrderMNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOrderMNG.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOrderMNG.ForeColor = System.Drawing.Color.White;
+            this.btnOrderMNG.Location = new System.Drawing.Point(3, 250);
+            this.btnOrderMNG.Name = "btnOrderMNG";
+            this.btnOrderMNG.Size = new System.Drawing.Size(279, 76);
+            this.btnOrderMNG.TabIndex = 2;
+            this.btnOrderMNG.Text = "Order Management";
+            this.btnOrderMNG.UseVisualStyleBackColor = true;
+            // 
+            // btnItemMNG
+            // 
+            this.btnItemMNG.FlatAppearance.BorderColor = System.Drawing.Color.Brown;
+            this.btnItemMNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnItemMNG.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnItemMNG.ForeColor = System.Drawing.Color.White;
+            this.btnItemMNG.Location = new System.Drawing.Point(3, 499);
+            this.btnItemMNG.Name = "btnItemMNG";
+            this.btnItemMNG.Size = new System.Drawing.Size(279, 76);
+            this.btnItemMNG.TabIndex = 2;
+            this.btnItemMNG.Text = "Item Management";
+            this.btnItemMNG.UseVisualStyleBackColor = true;
+            // 
+            // btnRevenueMNG
+            // 
+            this.btnRevenueMNG.FlatAppearance.BorderColor = System.Drawing.Color.Brown;
+            this.btnRevenueMNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRevenueMNG.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRevenueMNG.ForeColor = System.Drawing.Color.White;
+            this.btnRevenueMNG.Location = new System.Drawing.Point(3, 416);
+            this.btnRevenueMNG.Name = "btnRevenueMNG";
+            this.btnRevenueMNG.Size = new System.Drawing.Size(279, 76);
+            this.btnRevenueMNG.TabIndex = 2;
+            this.btnRevenueMNG.Text = "Revenue Management";
+            this.btnRevenueMNG.UseVisualStyleBackColor = true;
+            // 
+            // btnCustomerCaring
+            // 
+            this.btnCustomerCaring.FlatAppearance.BorderColor = System.Drawing.Color.Brown;
+            this.btnCustomerCaring.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCustomerCaring.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCustomerCaring.ForeColor = System.Drawing.Color.White;
+            this.btnCustomerCaring.Location = new System.Drawing.Point(3, 333);
+            this.btnCustomerCaring.Name = "btnCustomerCaring";
+            this.btnCustomerCaring.Size = new System.Drawing.Size(279, 76);
+            this.btnCustomerCaring.TabIndex = 2;
+            this.btnCustomerCaring.Text = "Customer Caring";
+            this.btnCustomerCaring.UseVisualStyleBackColor = true;
+            // 
+            // btnStaffMNG
+            // 
+            this.btnStaffMNG.FlatAppearance.BorderColor = System.Drawing.Color.Brown;
+            this.btnStaffMNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStaffMNG.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStaffMNG.ForeColor = System.Drawing.Color.White;
+            this.btnStaffMNG.Location = new System.Drawing.Point(3, 582);
+            this.btnStaffMNG.Name = "btnStaffMNG";
+            this.btnStaffMNG.Size = new System.Drawing.Size(279, 79);
+            this.btnStaffMNG.TabIndex = 2;
+            this.btnStaffMNG.Text = "Staff Management";
+            this.btnStaffMNG.UseVisualStyleBackColor = true;
+            // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -163,15 +172,6 @@
             this.label1.Size = new System.Drawing.Size(203, 29);
             this.label1.TabIndex = 1;
             this.label1.Text = "THE CHILL RES";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox1.Location = new System.Drawing.Point(85, 5);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(115, 72);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // panelContent
             // 
@@ -208,7 +208,6 @@
             this.Controls.Add(this.panel1);
             this.Name = "MainForm";
             this.Text = "MainForm";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.tlpSidebar.ResumeLayout(false);
             this.tlpSidebar.PerformLayout();

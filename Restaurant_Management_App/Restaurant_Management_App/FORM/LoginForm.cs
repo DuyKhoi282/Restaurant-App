@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Restaurant_Management_App
     public partial class LoginForm : Form
     {
         public LoginForm()
-        {           
+        {
             InitializeComponent();
             //Form ban đầu mở ra sẽ ở trạng thái phóng to(maximize)
             this.WindowState = FormWindowState.Maximized;
@@ -24,8 +25,8 @@ namespace Restaurant_Management_App
 
             // Set nền panel trong suốt  
             panelLogin.BackColor = Color.FromArgb(130, 255, 255, 255);
-            
-            
+
+
 
             this.Resize += LoginForm_Resize;
             this.Shown += LoginForm_Shown;
@@ -67,5 +68,47 @@ namespace Restaurant_Management_App
         //                   RowCount = 6 | Padding = 20
         // Đã setting Rows 
 
+        //kết nối với database 
+        SqlConnection conn = new SqlConnection(Database.connStr);
+
+        private int CheckLogin(string username, string password)
+        {
+            using (SqlConnection conn = new SqlConnection(Database.connStr))
+            {
+                string query = "SELECT type FROM account WHERE username=@user AND password=@pass";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@user", username);
+                cmd.Parameters.AddWithValue("@pass", password);
+
+                conn.Open();
+                object result = cmd.ExecuteScalar();
+
+                if (result != null)
+                    return Convert.ToInt32(result); // 0 hoặc 1
+
+                return 2;
+            }
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            int type = CheckLogin(txtUsername.Text, txtPassword.Text);
+
+            if (type == 0 | type == 1)
+            {
+                string role = (type == 1) ? "Admin" : "Staff";
+
+                MessageBox.Show("Đăng nhập thành công! Role: " + role);
+
+                MainForm main = new MainForm(role);
+                main.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Sai tài khoản hoặc mật khẩu!");
+            }
+        }
     }
 }

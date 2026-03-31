@@ -12,7 +12,8 @@ namespace Restaurant_Management_App
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        string role;
+        public MainForm(string role)
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
@@ -23,15 +24,23 @@ namespace Restaurant_Management_App
 
             this.Resize += MainForm_Resize;
             this.Shown += MainForm_Shown;
-        }
 
-        // Biến lưu tỉ lệ giữa kích thước ban đầu của form và kích thước hiện tại để giữ cho panelLogin luôn ở giữa form khi form được resize
-        double widthRatio = 0.55;   // panel chiếm 25% chiều ngang
-        double heightRatio = 0.80;  // panel chiếm 35% chiều dọc
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
+            // Set quyền truy cập dựa trên vai trò
+            //Admin có tất cả quyền 
+            //Staff chỉ có quyền tạo đơn, quản lí đơn, chăm sóc khách hàng.
+            this.role=role;
+            if (role == "Admin")
+            {
+                btnStaffMNG.Visible = true;
+                btnRevenueMNG.Visible = true;
+                btnItemMNG.Visible = true;
+            }
+            else
+            {
+                btnStaffMNG.Visible = false;
+                btnRevenueMNG.Visible = false;
+                btnItemMNG.Visible = false;
+            }
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -43,5 +52,7 @@ namespace Restaurant_Management_App
         {
             MainForm_Resize(null, null);
         }
+
+
     }
 }
