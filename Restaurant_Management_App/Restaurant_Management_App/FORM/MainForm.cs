@@ -53,6 +53,10 @@ namespace Restaurant_Management_App
             MainForm_Resize(null, null);
         }
 
-
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Khi main form đóng, sẽ đóng luôn ứng dụng
+            Application.Exit();
+        }
     }
 }

@@ -102,6 +102,10 @@ namespace Restaurant_Management_App
                 MessageBox.Show("Đăng nhập thành công! Role: " + role);
 
                 MainForm main = new MainForm(role);
+               
+                // Khi MainForm đóng → đóng luôn app
+                main.FormClosed += (s, args) => this.Close();
+
                 main.Show();
                 this.Hide();
             }
