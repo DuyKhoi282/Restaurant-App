@@ -111,8 +111,19 @@ namespace Restaurant_Management_App
             }
             else
             {
-                MessageBox.Show("Sai tài khoản hoặc mật khẩu!");
+                if(txtUsername.Text == "" || txtPassword.Text == "")
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
+                    return;
+                }
+                else
+                    MessageBox.Show("Sai tài khoản hoặc mật khẩu!");
             }
+        }
+
+        private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

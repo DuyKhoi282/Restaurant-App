@@ -58,5 +58,12 @@ namespace Restaurant_Management_App
             // Khi main form đóng, sẽ đóng luôn ứng dụng
             Application.Exit();
         }
+
+        private void btnSignout_Click(object sender, EventArgs e)
+        {
+            LoginForm LoginForm = new LoginForm();
+            LoginForm.Show();
+            this.Hide();
+        }
     }
 }

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.tlpSidebar = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnCreateOrder = new System.Windows.Forms.Button();
             this.btnOrderMNG = new System.Windows.Forms.Button();
             this.btnItemMNG = new System.Windows.Forms.Button();
@@ -40,9 +39,11 @@
             this.panelContent = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnSignout = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tlpSidebar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tlpSidebar
@@ -50,6 +51,7 @@
             this.tlpSidebar.BackColor = System.Drawing.Color.Brown;
             this.tlpSidebar.ColumnCount = 1;
             this.tlpSidebar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpSidebar.Controls.Add(this.btnSignout, 0, 8);
             this.tlpSidebar.Controls.Add(this.btnItemMNG, 0, 6);
             this.tlpSidebar.Controls.Add(this.pictureBox1, 0, 0);
             this.tlpSidebar.Controls.Add(this.btnCreateOrder, 0, 2);
@@ -61,26 +63,18 @@
             this.tlpSidebar.Dock = System.Windows.Forms.DockStyle.Left;
             this.tlpSidebar.Location = new System.Drawing.Point(0, 0);
             this.tlpSidebar.Name = "tlpSidebar";
-            this.tlpSidebar.RowCount = 8;
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.51885F));
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.21719F));
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tlpSidebar.RowCount = 9;
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 28F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9F));
             this.tlpSidebar.Size = new System.Drawing.Size(285, 664);
             this.tlpSidebar.TabIndex = 0;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox1.Location = new System.Drawing.Point(85, 5);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(115, 72);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // btnCreateOrder
             // 
@@ -89,9 +83,9 @@
             this.btnCreateOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCreateOrder.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCreateOrder.ForeColor = System.Drawing.Color.White;
-            this.btnCreateOrder.Location = new System.Drawing.Point(3, 167);
+            this.btnCreateOrder.Location = new System.Drawing.Point(3, 247);
             this.btnCreateOrder.Name = "btnCreateOrder";
-            this.btnCreateOrder.Size = new System.Drawing.Size(279, 76);
+            this.btnCreateOrder.Size = new System.Drawing.Size(279, 53);
             this.btnCreateOrder.TabIndex = 2;
             this.btnCreateOrder.Text = "Create Order";
             this.btnCreateOrder.UseVisualStyleBackColor = false;
@@ -102,9 +96,9 @@
             this.btnOrderMNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOrderMNG.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOrderMNG.ForeColor = System.Drawing.Color.White;
-            this.btnOrderMNG.Location = new System.Drawing.Point(3, 250);
+            this.btnOrderMNG.Location = new System.Drawing.Point(3, 306);
             this.btnOrderMNG.Name = "btnOrderMNG";
-            this.btnOrderMNG.Size = new System.Drawing.Size(279, 76);
+            this.btnOrderMNG.Size = new System.Drawing.Size(279, 53);
             this.btnOrderMNG.TabIndex = 2;
             this.btnOrderMNG.Text = "Order Management";
             this.btnOrderMNG.UseVisualStyleBackColor = true;
@@ -115,9 +109,9 @@
             this.btnItemMNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnItemMNG.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnItemMNG.ForeColor = System.Drawing.Color.White;
-            this.btnItemMNG.Location = new System.Drawing.Point(3, 499);
+            this.btnItemMNG.Location = new System.Drawing.Point(3, 483);
             this.btnItemMNG.Name = "btnItemMNG";
-            this.btnItemMNG.Size = new System.Drawing.Size(279, 76);
+            this.btnItemMNG.Size = new System.Drawing.Size(279, 53);
             this.btnItemMNG.TabIndex = 2;
             this.btnItemMNG.Text = "Item Management";
             this.btnItemMNG.UseVisualStyleBackColor = true;
@@ -128,9 +122,9 @@
             this.btnRevenueMNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRevenueMNG.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRevenueMNG.ForeColor = System.Drawing.Color.White;
-            this.btnRevenueMNG.Location = new System.Drawing.Point(3, 416);
+            this.btnRevenueMNG.Location = new System.Drawing.Point(3, 424);
             this.btnRevenueMNG.Name = "btnRevenueMNG";
-            this.btnRevenueMNG.Size = new System.Drawing.Size(279, 76);
+            this.btnRevenueMNG.Size = new System.Drawing.Size(279, 53);
             this.btnRevenueMNG.TabIndex = 2;
             this.btnRevenueMNG.Text = "Revenue Management";
             this.btnRevenueMNG.UseVisualStyleBackColor = true;
@@ -141,9 +135,9 @@
             this.btnCustomerCaring.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCustomerCaring.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCustomerCaring.ForeColor = System.Drawing.Color.White;
-            this.btnCustomerCaring.Location = new System.Drawing.Point(3, 333);
+            this.btnCustomerCaring.Location = new System.Drawing.Point(3, 365);
             this.btnCustomerCaring.Name = "btnCustomerCaring";
-            this.btnCustomerCaring.Size = new System.Drawing.Size(279, 76);
+            this.btnCustomerCaring.Size = new System.Drawing.Size(279, 53);
             this.btnCustomerCaring.TabIndex = 2;
             this.btnCustomerCaring.Text = "Customer Caring";
             this.btnCustomerCaring.UseVisualStyleBackColor = true;
@@ -154,9 +148,9 @@
             this.btnStaffMNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStaffMNG.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStaffMNG.ForeColor = System.Drawing.Color.White;
-            this.btnStaffMNG.Location = new System.Drawing.Point(3, 582);
+            this.btnStaffMNG.Location = new System.Drawing.Point(3, 542);
             this.btnStaffMNG.Name = "btnStaffMNG";
-            this.btnStaffMNG.Size = new System.Drawing.Size(279, 79);
+            this.btnStaffMNG.Size = new System.Drawing.Size(279, 53);
             this.btnStaffMNG.TabIndex = 2;
             this.btnStaffMNG.Text = "Staff Management";
             this.btnStaffMNG.UseVisualStyleBackColor = true;
@@ -167,7 +161,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(3, 109);
+            this.label1.Location = new System.Drawing.Point(3, 200);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(203, 29);
             this.label1.TabIndex = 1;
@@ -199,6 +193,31 @@
             this.panel2.Size = new System.Drawing.Size(932, 664);
             this.panel2.TabIndex = 3;
             // 
+            // btnSignout
+            // 
+            this.btnSignout.FlatAppearance.BorderColor = System.Drawing.Color.Brown;
+            this.btnSignout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSignout.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSignout.ForeColor = System.Drawing.Color.White;
+            this.btnSignout.Location = new System.Drawing.Point(3, 601);
+            this.btnSignout.Name = "btnSignout";
+            this.btnSignout.Size = new System.Drawing.Size(279, 60);
+            this.btnSignout.TabIndex = 3;
+            this.btnSignout.Text = "Sign out";
+            this.btnSignout.UseVisualStyleBackColor = true;
+            this.btnSignout.Click += new System.EventHandler(this.btnSignout_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pictureBox1.Image = global::Restaurant_Management_App.Properties.Resources.logoChillRes;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(279, 179);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -212,8 +231,8 @@
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.tlpSidebar.ResumeLayout(false);
             this.tlpSidebar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -231,5 +250,6 @@
         private System.Windows.Forms.Panel panelContent;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btnSignout;
     }
 }
