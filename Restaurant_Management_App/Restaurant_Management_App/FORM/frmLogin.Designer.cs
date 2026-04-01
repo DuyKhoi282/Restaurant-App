@@ -1,6 +1,6 @@
 ﻿namespace Restaurant_Management_App
 {
-    partial class LoginForm
+    partial class frmLogin
     {
         /// <summary>
         /// Required designer variable.
@@ -135,6 +135,7 @@
             this.lblPassword.TabIndex = 1;
             this.lblPassword.Text = "Password";
             this.lblPassword.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+<<<<<<< HEAD:Restaurant_Management_App/Restaurant_Management_App/FORM/LoginForm.Designer.cs
             // 
             // lblUsername
             // 
@@ -148,9 +149,27 @@
             this.lblUsername.TabIndex = 1;
             this.lblUsername.Text = "Username";
             this.lblUsername.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+=======
+>>>>>>> 33b019fa652ad0d1993be7db234fbd84cd92f521:Restaurant_Management_App/Restaurant_Management_App/FORM/frmLogin.Designer.cs
             // 
-            // LoginForm
+            // lblUsername
             // 
+<<<<<<< HEAD:Restaurant_Management_App/Restaurant_Management_App/FORM/LoginForm.Designer.cs
+=======
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblUsername.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsername.ForeColor = System.Drawing.Color.Red;
+            this.lblUsername.Location = new System.Drawing.Point(23, 88);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(513, 45);
+            this.lblUsername.TabIndex = 1;
+            this.lblUsername.Text = "Username";
+            this.lblUsername.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // frmLogin
+            // 
+>>>>>>> 33b019fa652ad0d1993be7db234fbd84cd92f521:Restaurant_Management_App/Restaurant_Management_App/FORM/frmLogin.Designer.cs
             this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -158,7 +177,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(903, 614);
             this.Controls.Add(this.panelLogin);
-            this.Name = "LoginForm";
+            this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginForm_FormClosing);
