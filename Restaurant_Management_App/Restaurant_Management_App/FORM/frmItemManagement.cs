@@ -16,5 +16,10 @@ namespace Restaurant_Management_App.FORM
         {
             InitializeComponent();
         }
+
+        private void frmItemManagement_Load(object sender, EventArgs e)
+        {
+           
+        }
     }
 }
