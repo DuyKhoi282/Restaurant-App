@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace Restaurant_Management_App
 {
-    public partial class LoginForm : Form
+    public partial class frmLogin : Form
     {
-        public LoginForm()
+        public frmLogin()
         {
             InitializeComponent();
             //Form ban đầu mở ra sẽ ở trạng thái phóng to(maximize)
@@ -101,7 +101,7 @@ namespace Restaurant_Management_App
 
                 MessageBox.Show("Đăng nhập thành công! Role: " + role);
 
-                MainForm main = new MainForm(role);
+                frmMain main = new frmMain(role);
                
                 // Khi MainForm đóng → đóng luôn app
                 main.FormClosed += (s, args) => this.Close();

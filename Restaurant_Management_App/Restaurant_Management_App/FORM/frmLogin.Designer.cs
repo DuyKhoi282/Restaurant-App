@@ -1,6 +1,6 @@
 ﻿namespace Restaurant_Management_App
 {
-    partial class LoginForm
+    partial class frmLogin
     {
         /// <summary>
         /// Required designer variable.

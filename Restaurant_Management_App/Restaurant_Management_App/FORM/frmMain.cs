@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace Restaurant_Management_App
 {
-    public partial class MainForm : Form
+    public partial class frmMain : Form
     {
         string role;
-        public MainForm(string role)
+        public frmMain(string role)
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
@@ -61,7 +61,7 @@ namespace Restaurant_Management_App
 
         private void btnSignout_Click(object sender, EventArgs e)
         {
-            LoginForm LoginForm = new LoginForm();
+            frmLogin LoginForm = new frmLogin();
             LoginForm.Show();
             this.Hide();
         }
