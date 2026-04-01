@@ -39,10 +39,10 @@ Sử dụng các procedure như USP_Login, USP_InsertBill, USP_InsertBillInfo, U
 
 ## Thành viên
 
-* [Tên bạn]
-* [Thành viên 2]
-* [Thành viên 3]
-* [Thành viên 4]
+* Trần Quốc Duy Khôi
+* Nguyễn Lê Đàm Văn
+* Nguyễn Hoàng Trọng Phúc
+* Nguyễn Trần Công Hậu
 
 ## Trạng thái
 
