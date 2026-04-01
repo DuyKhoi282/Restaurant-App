@@ -125,5 +125,10 @@ namespace Restaurant_Management_App
         {
             Application.Exit();
         }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+            txtUsername.Focus();
+        }
     }
 }
