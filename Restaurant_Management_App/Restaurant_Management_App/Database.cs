@@ -11,6 +11,6 @@ namespace Restaurant_Management_App
         // Chuỗi kết nối đến cơ sở dữ liệu SQL Server,
         // sử dụng Integrated Security để xác thực bằng tài khoản Windows
         public static string connStr =
-        @"Data Source=DESKTOP-OV7KJ7S\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
+        @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
     }
 }
