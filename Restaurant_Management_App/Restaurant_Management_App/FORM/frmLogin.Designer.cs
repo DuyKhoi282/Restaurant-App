@@ -135,7 +135,6 @@
             this.lblPassword.TabIndex = 1;
             this.lblPassword.Text = "Password";
             this.lblPassword.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-<<<<<<< HEAD:Restaurant_Management_App/Restaurant_Management_App/FORM/LoginForm.Designer.cs
             // 
             // lblUsername
             // 
@@ -149,13 +148,7 @@
             this.lblUsername.TabIndex = 1;
             this.lblUsername.Text = "Username";
             this.lblUsername.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-=======
->>>>>>> 33b019fa652ad0d1993be7db234fbd84cd92f521:Restaurant_Management_App/Restaurant_Management_App/FORM/frmLogin.Designer.cs
-            // 
-            // lblUsername
-            // 
-<<<<<<< HEAD:Restaurant_Management_App/Restaurant_Management_App/FORM/LoginForm.Designer.cs
-=======
+
             this.lblUsername.AutoSize = true;
             this.lblUsername.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblUsername.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -166,10 +159,7 @@
             this.lblUsername.TabIndex = 1;
             this.lblUsername.Text = "Username";
             this.lblUsername.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // frmLogin
-            // 
->>>>>>> 33b019fa652ad0d1993be7db234fbd84cd92f521:Restaurant_Management_App/Restaurant_Management_App/FORM/frmLogin.Designer.cs
+            
             this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
