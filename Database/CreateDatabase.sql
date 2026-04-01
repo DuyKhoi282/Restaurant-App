@@ -1,14 +1,13 @@
--- =============================================
--- FILE: CreateDatabase.sql
--- PROJECT: Restaurant Management System
--- AUTHOR: Tran Quoc Duy Khoi
--- DESCRIPTION:
--- This file creates the database, tables, 
--- relationships and constraints for the system.
---
--- HOW TO USE:
--- Run this file first to initialize database
--- =============================================
+USE master
+GO
+
+IF DB_ID('QuanLyNhaHang') IS NOT NULL -- Kiểm tra nếu cơ sở dữ liệu đã tồn tại
+BEGIN
+    ALTER DATABASE QuanLyNhaHang SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE QuanLyNhaHang;
+END
+GO
+
 CREATE DATABASE QuanLyNhaHang
 GO
 
@@ -45,6 +44,7 @@ CREATE TABLE Food
 	name NVARCHAR(100) NOT NULL DEFAULT N'Chưa đặt tên',
 	idCategory INT NOT NULL,
 	price FLOAT NOT NULL DEFAULT 0,
+	status NVARCHAR(20) DEFAULT N'Available',--Tình trạng món ăn (Available, Out of stock)
 	FOREIGN KEY (idCategory) REFERENCES FoodCategory(id)
 )
 GO
