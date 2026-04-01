@@ -54,25 +54,22 @@ namespace Restaurant_Management_App.FORM
         {
             if (dgvFood.Columns["colEdit"] == null)
             {
-                if (dgvFood.Columns["colEdit"] == null)//Kiểm tra nếu cột Edit chưa tồn tại thì mới thêm vào để tránh việc thêm nhiều cột Edit khi load lại dữ liệu
-                {
-                    DataGridViewButtonColumn btnEdit = new DataGridViewButtonColumn();
-                    btnEdit.Name = "colEdit";
-                    btnEdit.HeaderText = "";
-                    btnEdit.Text = "Edit";
-                    btnEdit.UseColumnTextForButtonValue = true;
-                    dgvFood.Columns.Add(btnEdit);
-                }
+                DataGridViewButtonColumn btnEdit = new DataGridViewButtonColumn();
+                btnEdit.Name = "colEdit";
+                btnEdit.HeaderText = "";
+                btnEdit.Text = "Edit";
+                btnEdit.UseColumnTextForButtonValue = true;
+                dgvFood.Columns.Add(btnEdit);
+            }
 
-                if (dgvFood.Columns["colDelete"] == null)//Kiểm tra nếu cột Delete chưa tồn tại thì mới thêm vào để tránh việc thêm nhiều cột Delete khi load lại dữ liệu
-                {
-                    DataGridViewButtonColumn btnDelete = new DataGridViewButtonColumn();
-                    btnDelete.Name = "colDelete";
-                    btnDelete.HeaderText = "";
-                    btnDelete.Text = "Delete";
-                    btnDelete.UseColumnTextForButtonValue = true;
-                    dgvFood.Columns.Add(btnDelete);
-                }
+            if (dgvFood.Columns["colDelete"] == null)
+            {
+                DataGridViewButtonColumn btnDelete = new DataGridViewButtonColumn();
+                btnDelete.Name = "colDelete";
+                btnDelete.HeaderText = "";
+                btnDelete.Text = "Delete";
+                btnDelete.UseColumnTextForButtonValue = true;
+                dgvFood.Columns.Add(btnDelete);
             }
         }
         private void loadFoodItems()//Hàm này dùng để load dữ liệu món ăn vào DataGridView, hiện tại đang là dữ liệu giả để test giao diện
@@ -118,6 +115,7 @@ namespace Restaurant_Management_App.FORM
             dgvFood.DataSource = table;//Hiển thị kết quả tìm kiếm lên DataGridView
 
             addButtonColumns();
+            FormatGridColumns();
         }
     }
 }
