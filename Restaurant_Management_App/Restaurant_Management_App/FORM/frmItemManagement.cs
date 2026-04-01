@@ -74,13 +74,24 @@ namespace Restaurant_Management_App.FORM
         }
         private void loadFoodItems()//Hàm này dùng để load dữ liệu món ăn vào DataGridView, hiện tại đang là dữ liệu giả để test giao diện
         {
-            string query = "SELECT id, name, price FROM Food";
+            string query = 
+                @"
+    SELECT f.id, 
+           f.name, 
+           c.name AS category, 
+           f.price,
+           f.status
+    FROM Food f
+    JOIN FoodCategory c ON f.idCategory = c.id";
 
             SqlDataAdapter adapter = new SqlDataAdapter(query, Database.connStr);
             DataTable table = new DataTable();
             adapter.Fill(table);
 
             dgvFood.DataSource = table;
+
+            addButtonColumns();
+            FormatGridColumns();
         }
 
         private void FormatGridColumns()//Định dạng lại kích thước của các cột trong DataGridView, bao gồm cột id, cột Edit và cột Delete 
@@ -104,7 +115,15 @@ namespace Restaurant_Management_App.FORM
                 return;
             }
 
-            string query = @"SELECT id, name, price FROM Food WHERE name COLLATE Latin1_General_CI_AI LIKE @key";//Hàm giúp không phân biệt chữ hoa chữ thường và dấu khi tìm kiếm món ăn theo tên
+            string query = @"
+SELECT f.id, 
+       f.name, 
+       c.name AS category, 
+       f.price,
+       f.status
+FROM Food f
+JOIN FoodCategory c ON f.idCategory = c.id
+WHERE f.name COLLATE Latin1_General_CI_AI LIKE @key"; ;//Hàm giúp không phân biệt chữ hoa chữ thường và dấu khi tìm kiếm món ăn theo tên
 
             SqlDataAdapter adapter = new SqlDataAdapter(query, Database.connStr);
             adapter.SelectCommand.Parameters.AddWithValue("@key", "%" + keyword + "%");//Thêm tham số tìm kiếm vào câu truy vấn để tránh lỗi SQL Injection
