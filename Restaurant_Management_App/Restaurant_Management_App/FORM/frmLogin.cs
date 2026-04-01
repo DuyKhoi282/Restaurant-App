@@ -95,7 +95,7 @@ namespace Restaurant_Management_App
         {
             int type = CheckLogin(txtUsername.Text, txtPassword.Text);
 
-            if (type == 0 | type == 1)
+            if (type == 0 || type == 1)
             {
                 string role = (type == 1) ? "Admin" : "Staff";
 
