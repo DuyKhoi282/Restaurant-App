@@ -23,7 +23,9 @@ namespace Restaurant_Management_App
             //Form sẽ giới hạn kích thước tối thiểu là 1300x700 để đảm bảo giao diện không bị quá nhỏ
             this.MinimumSize = new Size(1300, 700);
 
+            // Khi form thay đổi kích thước sẽ gọi hàm MainForm_Resize để điều chỉnh kích thước 
             this.Resize += MainForm_Resize;
+            // Khi form được hiển thị sẽ gọi hàm MainForm_Shown để đảm bảo kích thước sidebar chính xác
             this.Shown += MainForm_Shown;
 
             // Set quyền truy cập dựa trên vai trò
@@ -46,7 +48,7 @@ namespace Restaurant_Management_App
         
         private void MainForm_Resize(object sender, EventArgs e)//Hàm này dùng để tự động điều chỉnh kích thước của sidebar khi form thay đổi kích thước
         {
-            tlpSidebar.Width = Math.Max(180, this.Width / 6);
+            tlpSidebar.Width = Math.Max(180, this.Width / 6); // Đặt chiều rộng của sidebar bằng 1/6 chiều rộng của form, nhưng không nhỏ hơn 180px
         }
 
         private void MainForm_Shown(object sender, EventArgs e)//Hàm này dùng để gọi hàm resize lần đầu khi form được hiển thị để đảm bảo sidebar có kích thước phù hợp ngay từ đầu
@@ -60,6 +62,7 @@ namespace Restaurant_Management_App
             Application.Exit();
         }
 
+        // Nút đăng xuất sẽ quay về frmLogin
         private void btnSignout_Click(object sender, EventArgs e)
         {
             frmLogin LoginForm = new frmLogin();

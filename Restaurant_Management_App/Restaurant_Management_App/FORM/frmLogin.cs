@@ -23,18 +23,19 @@ namespace Restaurant_Management_App
             //Form sẽ giới hạn kích thước tối thiểu là 1300x700 để đảm bảo giao diện không bị quá nhỏ
             this.MinimumSize = new Size(1300, 700);
 
-            // Set nền panel trong suốt  
+            // Set nền panelLogin trong suốt  
             panelLogin.BackColor = Color.FromArgb(130, 255, 255, 255);
 
 
-
+            // Khi form thay đổi kích thước sẽ gọi hàm LoginForm_Resize để điều chỉnh kích thước 
             this.Resize += LoginForm_Resize;
+            // Khi form được hiển thị sẽ gọi hàm LoginForm_Shown 
             this.Shown += LoginForm_Shown;
         }
 
         // Biến lưu tỉ lệ giữa kích thước ban đầu của form và kích thước hiện tại để giữ cho panelLogin luôn ở giữa form khi form được resize
-        double widthRatio = 0.55;   // panel chiếm 25% chiều ngang
-        double heightRatio = 0.80;  // panel chiếm 35% chiều dọc
+        double widthRatio = 0.55;   // panel chiếm 55% chiều ngang
+        double heightRatio = 0.80;  // panel chiếm 80% chiều dọc
 
 
 
