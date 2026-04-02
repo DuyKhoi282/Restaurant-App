@@ -1,8 +1,15 @@
 USE QuanLyNhaHang
 GO
 -- Xoa du lieu cu
-DELETE FROM BillInfo
-DELETE FROM Bill
-DELETE FROM Account
-DELETE FROM Food
+DELETE FROM tableFood
+DELETE FROM BillInfo       
+DELETE FROM Bill           
+DELETE FROM Food           
 DELETE FROM FoodCategory
+
+DELETE FROM RolePermission 
+DELETE FROM Account        
+
+DELETE FROM Role
+DELETE FROM Permission
+

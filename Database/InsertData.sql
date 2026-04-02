@@ -29,14 +29,74 @@ VALUES
 (N'Cơm gà', 2, 50000),
 (N'Bún bò', 2, 45000),
 (N'Bánh flan', 3, 15000)
+
 -- ========================
--- Account (PHÂN QUYỀN)
+-- Role 
 -- ========================
-INSERT INTO Account(username, password, displayName, type)
+INSERT INTO Role (RoleName)
 VALUES 
-(N'admin', N'123', N'Quản lý', 1),   -- Admin
-(N'staff1', N'123', N'Nhân viên 1', 0),
-(N'staff2', N'123', N'Nhân viên 2', 0)
+('Admin'),
+('Manager'),
+('Chef'),
+('Staff');
+
+-- ========================
+-- Permission
+-- ========================
+INSERT INTO Permission (PermissionName)
+VALUES
+('MANAGE_PRODUCTS'),      -- quản lý menu
+('CREATE_ORDER'),         -- tạo đơn
+('MANAGE_ORDER'),         -- quản lý đơn
+('CUSTOMER_CARE'),        -- chăm sóc khách hàng
+('MANAGE_REVENUE'),       -- quản lý doanh thu
+('MANAGE_STAFF'),         -- quản lý nhân viên
+('MANAGE_ACCOUNT'),       -- tạo tài khoản
+('MANAGE_PERMISSION');    -- phân quyền
+
+-- ========================
+-- Gán Permission cho Role
+-- ========================
+		-- Role Admin có tất cả các Permission
+INSERT INTO RolePermission
+SELECT r.Id, p.Id
+FROM Role r, Permission p
+WHERE r.RoleName = 'Admin';
+		-- Role Quản lý có một số Permission liên quan đến quản lý menu và bill
+INSERT INTO RolePermission
+SELECT r.Id, p.Id
+FROM Role r, Permission p
+WHERE r.RoleName = 'Manager'
+AND p.PermissionName IN 
+('MANAGE_PRODUCTS','CREATE_ORDER','MANAGE_ORDER','CUSTOMER_CARE','MANAGE_REVENUE','MANAGE_STAFF');
+		-- Role Nhân viên có	Permission liên quan đến xem menu và tạo bill, chăm sóc khách hàng 
+INSERT INTO RolePermission
+SELECT r.Id, p.Id
+FROM Role r, Permission p
+WHERE r.RoleName = 'Staff'
+AND p.PermissionName IN ('CREATE_ORDER','MANAGE_ORDER','CUSTOMER_CARE');
+	-- Role Đầu bếp chỉ có Permission liên quan đến quản lý menu
+INSERT INTO RolePermission
+SELECT r.Id, p.Id
+FROM Role r, Permission p
+WHERE r.RoleName = 'Chef'
+AND p.PermissionName = 'MANAGE_PRODUCTS';	
+
+-- ========================
+-- Account (Dữ liệu tài khoản)
+-- ========================
+	-- 
+INSERT INTO Account (Username, Password, DisplayName, RoleId)
+VALUES ('admin', '123', N'Admin', 1);
+	-- 
+INSERT INTO Account (Username, Password, DisplayName, RoleId)
+VALUES ('manager', '123', N'Quản lý', 2);
+	--
+INSERT INTO Account (Username, Password, DisplayName, RoleId)
+VALUES ('chef', '123', N'Bếp trưởng', 3);
+	--
+INSERT INTO Account (Username, Password, DisplayName, RoleId)
+VALUES ('staff', '123', N'Nhân viên', 4);
 -- ========================
 -- Bill
 -- ========================
@@ -55,3 +115,4 @@ VALUES
 (2, 4, 1),
 (2, 5, 2),
 (3, 6, 1)
+
