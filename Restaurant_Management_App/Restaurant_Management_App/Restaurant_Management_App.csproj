@@ -108,5 +108,17 @@
   <ItemGroup>
     <None Include="Resources\logoChillRes.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logoChillRes_fix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InfoUsers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ResetPassword.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ava.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
