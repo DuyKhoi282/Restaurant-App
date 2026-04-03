@@ -119,12 +119,5 @@ namespace Restaurant_Management_App
         {
             LoadForm(new frmCreateOrder());
         }
-
-
-        private void btnCreateOrder_Click(object sender, EventArgs e)
-        {
-            LoadForm(new frmCreateOrder());
-        }
-
     }
 }
