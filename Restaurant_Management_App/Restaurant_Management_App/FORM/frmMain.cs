@@ -55,6 +55,7 @@ namespace Restaurant_Management_App
                 btnStaffMNG.Visible = false;
                 btnAdministrator.Visible = false;
 
+
             }
             else if (currentRole == "Staff")
             {
@@ -62,6 +63,7 @@ namespace Restaurant_Management_App
                 btnRevenueMNG.Visible = false;
                 btnStaffMNG.Visible = false;
                 btnAdministrator.Visible = false;
+
 
             }
         }
@@ -116,5 +118,10 @@ namespace Restaurant_Management_App
         {
             LoadForm(new frmMenuReveneu());
         }
+        private void btnCreateOrder_Click(object sender, EventArgs e)
+        {
+            LoadForm(new frmCreateOrder());
+        }
+
     }
 }

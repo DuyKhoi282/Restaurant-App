@@ -47,6 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database.cs" />
+    <Compile Include="FORM\frmFoodDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORM\frmFoodDetail.Designer.cs">
+      <DependentUpon>frmFoodDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORM\frmItemManagement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,20 +71,30 @@
     <Compile Include="FORM\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="MenuReveneu.cs">
+    <Compile Include="FORM\frmCreateOrder.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MenuReveneu.Designer.cs">
-      <DependentUpon>MenuReveneu.cs</DependentUpon>
+    <Compile Include="FORM\frmCreateOrder.Designer.cs">
+      <DependentUpon>frmCreateOrder.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORM\OrderManegement.cs">
+    <Compile Include="FORM\frmMenuReveneu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FORM\OrderManegement.Designer.cs">
-      <DependentUpon>OrderManegement.cs</DependentUpon>
+    <Compile Include="FORM\frmMenuReveneu.Designer.cs">
+      <DependentUpon>frmMenuReveneu.cs</DependentUpon>
     </Compile>
+    <Compile Include="FORM\frmOrderManegement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORM\frmOrderManegement.Designer.cs">
+      <DependentUpon>frmOrderManegement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FORM\frmFoodDetail.resx">
+      <DependentUpon>frmFoodDetail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FORM\frmItemManagement.resx">
       <DependentUpon>frmItemManagement.cs</DependentUpon>
     </EmbeddedResource>
@@ -88,11 +104,14 @@
     <EmbeddedResource Include="FORM\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MenuReveneu.resx">
-      <DependentUpon>MenuReveneu.cs</DependentUpon>
+    <EmbeddedResource Include="FORM\frmCreateOrder.resx">
+      <DependentUpon>frmCreateOrder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FORM\OrderManegement.resx">
-      <DependentUpon>OrderManegement.cs</DependentUpon>
+    <EmbeddedResource Include="FORM\frmMenuReveneu.resx">
+      <DependentUpon>frmMenuReveneu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORM\frmOrderManegement.resx">
+      <DependentUpon>frmOrderManegement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

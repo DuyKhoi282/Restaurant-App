@@ -79,6 +79,7 @@ CREATE TABLE Food
 	idCategory INT NOT NULL,
 	price FLOAT NOT NULL DEFAULT 0,
 	status NVARCHAR(20) DEFAULT N'Available',--Tình trạng món ăn (Available, Out of stock)
+	image NVARCHAR(255), --hình ảnh món ăn
 	FOREIGN KEY (idCategory) REFERENCES FoodCategory(id)
 )
 GO
@@ -103,3 +104,36 @@ CREATE TABLE BillInfo
 	FOREIGN KEY (idBill) REFERENCES Bill(id),
 	FOREIGN KEY (idFood) REFERENCES Food(id)
 )
+GO
+
+ALTER TABLE Bill
+ADD 
+    customerName NVARCHAR(100),   -- NAME
+    caseName NVARCHAR(50),        -- CASE
+    payMethod NVARCHAR(50),       -- PAY METHOD
+    note NVARCHAR(255)            -- NOTE
+
+GO
+CREATE PROCEDURE USP_GetOrderList
+AS
+BEGIN
+    SELECT 
+        b.id AS [NO.],
+        b.id AS [ID ORDER],
+        CONVERT(DATE, b.dateCheckIn) AS [DATE],
+        CONVERT(TIME, b.dateCheckIn) AS [TIME],
+        b.caseName AS [CASE],
+        tf.name AS [TABLE],
+        b.customerName AS [NAME],
+        SUM(f.price * bi.quantity) AS [TOTAL PRICE],
+        b.payMethod AS [PAY METHOD],
+        b.note AS [NOTE]
+    FROM Bill b
+    JOIN tableFood tf ON b.idTable = tf.id
+    LEFT JOIN BillInfo bi ON b.id = bi.idBill
+    LEFT JOIN Food f ON bi.idFood = f.id
+    GROUP BY 
+        b.id, b.dateCheckIn, b.caseName, tf.name,
+        b.customerName, b.payMethod, b.note
+    ORDER BY b.id DESC
+END

@@ -35,7 +35,7 @@
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnAddCate = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.pnlData = new System.Windows.Forms.Panel();
@@ -64,7 +64,7 @@
             this.pnlTop.BackColor = System.Drawing.Color.LightGray;
             this.pnlTop.Controls.Add(this.pnlSearch);
             this.pnlTop.Controls.Add(this.label1);
-            this.pnlTop.Controls.Add(this.btnAddCate);
+            this.pnlTop.Controls.Add(this.btnAdd);
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
             this.pnlTop.Name = "pnlTop";
@@ -116,19 +116,20 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Category List";
             // 
-            // btnAddCate
+            // btnAdd
             // 
-            this.btnAddCate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnAddCate.BackColor = System.Drawing.Color.IndianRed;
-            this.btnAddCate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddCate.BackgroundImage")));
-            this.btnAddCate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAddCate.FlatAppearance.BorderSize = 0;
-            this.btnAddCate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddCate.Location = new System.Drawing.Point(3, 22);
-            this.btnAddCate.Name = "btnAddCate";
-            this.btnAddCate.Size = new System.Drawing.Size(40, 40);
-            this.btnAddCate.TabIndex = 3;
-            this.btnAddCate.UseVisualStyleBackColor = false;
+            this.btnAdd.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnAdd.BackColor = System.Drawing.Color.IndianRed;
+            this.btnAdd.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAdd.BackgroundImage")));
+            this.btnAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAdd.FlatAppearance.BorderSize = 0;
+            this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdd.Location = new System.Drawing.Point(3, 22);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(40, 40);
+            this.btnAdd.TabIndex = 3;
+            this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAddCate_Click);
             // 
             // panel3
             // 
@@ -216,7 +217,7 @@
         private System.Windows.Forms.Label lblTest;
         private System.Windows.Forms.Panel pnlTop;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnAddCate;
+        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Panel pnlSearch;
