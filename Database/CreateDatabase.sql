@@ -79,6 +79,7 @@ CREATE TABLE Food
 	idCategory INT NOT NULL,
 	price FLOAT NOT NULL DEFAULT 0,
 	status NVARCHAR(20) DEFAULT N'Available',--Tình trạng món ăn (Available, Out of stock)
+	image NVARCHAR(255), --hình ảnh món ăn
 	FOREIGN KEY (idCategory) REFERENCES FoodCategory(id)
 )
 GO
