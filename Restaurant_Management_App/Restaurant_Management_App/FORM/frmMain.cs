@@ -44,7 +44,7 @@ namespace Restaurant_Management_App
             }
             else if (currentRole == "Manager")
             {
-                
+                btnAdmin.Visible = false;
             }
             else if (currentRole == "Chef")
             {
@@ -53,14 +53,16 @@ namespace Restaurant_Management_App
                 btnOrderMNG.Visible = false;
                 btnCustomerCaring.Visible = false;
                 btnStaffMNG.Visible = false;
-                //btnStaff.Visible = false;
+                btnAdmin.Visible = false;
+               
             }
             else if (currentRole == "Staff")
             {
                 btnItemMNG.Visible = false;
                 btnRevenueMNG.Visible = false;
                 btnStaffMNG.Visible = false;
-                //btnStaff.Visible = false;
+                btnAdmin.Visible = false;
+               
             }
         }
 
@@ -90,13 +92,13 @@ namespace Restaurant_Management_App
         }
         private void LoadForm(Form frm)//Hàm này dùng để load form con vào panel chinh
         {
-            pnlMain.Controls.Clear(); // Xóa form cũ nếu có
+            btnAdmin.Controls.Clear(); // Xóa form cũ nếu có
 
             frm.TopLevel = false; // Đặt form con không phải là top-level
             frm.FormBorderStyle = FormBorderStyle.None; // Loại bỏ border của form con
             frm.Dock = DockStyle.Fill; // Đặt form con chiếm toàn bộ panel
 
-            pnlMain.Controls.Add(frm); // Thêm form con vào panel
+            btnAdmin.Controls.Add(frm); // Thêm form con vào panel
             frm.Show(); // Hiển thị form con
         }
 
