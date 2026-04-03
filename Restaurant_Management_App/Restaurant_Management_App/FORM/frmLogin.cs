@@ -121,10 +121,8 @@ namespace Restaurant_Management_App
 
                     // Mở MainForm + truyền role
                     frmMain main = new frmMain(role);
-                    this.Hide();
-                    main.ShowDialog();
-                    this.Show();
-                }
+                    main.Show();
+                    this.Hide();                                   }
                 else
                 {
                     MessageBox.Show("Sai tài khoản hoặc mật khẩu!");

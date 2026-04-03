@@ -148,6 +148,7 @@
     <Content Include="Images\Icon\Screenshot_2026-04-01_152815-removebg-preview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Admin.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\Avatar\" />
