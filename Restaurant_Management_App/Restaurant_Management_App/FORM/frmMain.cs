@@ -85,5 +85,16 @@ namespace Restaurant_Management_App
         {
             LoadForm(new frmItemManagement());
         }
+
+        private void btnRevenueMNG_Click(object sender, EventArgs e)
+        {
+            LoadForm(new frmMenuReveneu());
+
+        }
+
+        private void btnOrderMNG_Click(object sender, EventArgs e)
+        {
+            LoadForm(new frmOrderManegement());
+        }
     }
 }

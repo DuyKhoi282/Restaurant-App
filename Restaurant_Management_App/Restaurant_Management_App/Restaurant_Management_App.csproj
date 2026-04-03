@@ -47,12 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database.cs" />
-    <Compile Include="FORM\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FORM\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="FORM\frmItemManagement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +65,18 @@
     <Compile Include="FORM\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="MenuReveneu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuReveneu.Designer.cs">
+      <DependentUpon>MenuReveneu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORM\OrderManegement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORM\OrderManegement.Designer.cs">
+      <DependentUpon>OrderManegement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FORM\frmItemManagement.resx">
@@ -81,6 +87,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORM\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuReveneu.resx">
+      <DependentUpon>MenuReveneu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORM\OrderManegement.resx">
+      <DependentUpon>OrderManegement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
