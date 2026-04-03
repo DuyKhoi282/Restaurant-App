@@ -47,6 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database.cs" />
+    <Compile Include="FORM\frmFoodDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORM\frmFoodDetail.Designer.cs">
+      <DependentUpon>frmFoodDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORM\frmItemManagement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +85,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FORM\frmFoodDetail.resx">
+      <DependentUpon>frmFoodDetail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FORM\frmItemManagement.resx">
       <DependentUpon>frmItemManagement.cs</DependentUpon>
     </EmbeddedResource>

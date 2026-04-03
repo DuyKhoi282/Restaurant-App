@@ -136,6 +136,16 @@ WHERE f.name COLLATE Latin1_General_CI_AI LIKE @key"; ;//Hàm giúp không phân
             addButtonColumns();
             FormatGridColumns();
         }
+
+        private void btnAddCate_Click(object sender, EventArgs e)
+        {
+            frmFoodDetail f = new frmFoodDetail(); // form add
+
+            if (f.ShowDialog() == DialogResult.OK)
+            {
+                loadFoodItems(); // reload lại grid
+            }
+        }
     }
 }
 
