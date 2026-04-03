@@ -132,5 +132,16 @@
   <ItemGroup>
     <None Include="Resources\ava.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Food\Tra-Dao.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icon\Screenshot_2026-04-01_152815-removebg-preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\Avatar\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
