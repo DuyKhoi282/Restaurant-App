@@ -50,7 +50,7 @@ namespace Restaurant_Management_App
             {
                 btnCreateOrder.Visible = false;
                 btnRevenueMNG.Visible = false;
-                btnItemMNG.Visible = false;
+                btnOrderMNG.Visible = false;
                 btnCustomerCaring.Visible = false;
                 btnStaffMNG.Visible = false;
                 //btnStaff.Visible = false;
