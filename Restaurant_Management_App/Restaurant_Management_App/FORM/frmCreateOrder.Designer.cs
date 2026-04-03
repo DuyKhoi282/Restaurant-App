@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Restaurant_Management_App.FORM
 {
-    partial class frmOrder
+    partial class frmCreateOrder
     {
         private IContainer components = null;
 

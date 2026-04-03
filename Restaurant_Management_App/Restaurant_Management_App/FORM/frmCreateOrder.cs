@@ -6,11 +6,11 @@ using System.Windows.Forms;
 
 namespace Restaurant_Management_App.FORM
 {
-    public partial class frmOrder : Form
+    public partial class frmCreateOrder : Form
     {
         private readonly OrderRepository _repo = new OrderRepository();
 
-        public frmOrder()
+        public frmCreateOrder()
         {
             InitializeComponent();
 
