@@ -22,12 +22,42 @@ CREATE TABLE tableFood
 )
 GO
 
+
+
+-- Bảng role dùng để phân loại người dùng theo chức vụ 
+-- ( vd Rolename = Admin, Manager, Chef, Stafff )
+CREATE TABLE Role (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    RoleName NVARCHAR(50) NOT NULL
+);
+
+-- Bảng permission dùng để lưu các các hành động cụ thể ( tính năng ) mà hệ thống cho phép 
+--( vd PermissionName = ViewMenu, EditMenu, ViewBill, EditBill, ManageAccount,... )
+CREATE TABLE Permission (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    PermissionName NVARCHAR(100) NOT NULL
+);
+
+-- Bảng liên kết giữa Role và Permission (Many-to-Many) để xác định quyền hạn của từng Role trong hệ thống 
+--( vd Role Admin có tất cả các Permission, Role Manager có một số Permission liên quan đến quản lý menu và bill, 
+-- Role Staff chỉ có Permission liên quan đến xem menu và tạo bill,...)
+CREATE TABLE RolePermission (
+    RoleId INT,
+    PermissionId INT,
+    PRIMARY KEY (RoleId, PermissionId),
+    FOREIGN KEY (RoleId) REFERENCES Role(Id),
+    FOREIGN KEY (PermissionId) REFERENCES Permission(Id)
+);
+
+-- Bảng dùng để lưu thông tin tài khoản đăng nhập hệ thống , có liên kết với bảng Role để phân quyền
+-- ( vd username = admin, password = 123, displayName = Quản lý, RoleId = 1 (Admin) )
 CREATE TABLE Account
 (
 	username NVARCHAR(50) PRIMARY KEY NOT NULL,
 	password NVARCHAR(100) NOT NULL,
 	displayName NVARCHAR(100) NOT NULL,
-	type INT NOT NULL DEFAULT 0 --1: Admin, 0: Staff
+	RoleId INT,
+    FOREIGN KEY (RoleId) REFERENCES Role(Id)
 )
 GO
 

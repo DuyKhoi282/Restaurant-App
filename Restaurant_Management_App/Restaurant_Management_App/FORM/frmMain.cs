@@ -48,7 +48,8 @@ namespace Restaurant_Management_App
         
         private void MainForm_Resize(object sender, EventArgs e)//Hàm này dùng để tự động điều chỉnh kích thước của sidebar khi form thay đổi kích thước
         {
-            tlpSidebar.Width = Math.Max(180, this.Width / 6); // Đặt chiều rộng của sidebar bằng 1/6 chiều rộng của form, nhưng không nhỏ hơn 180px
+            tlpSidebar.Width = Math.Max(180, this.Width / 7); // Đặt chiều rộng của sidebar bằng 1/7 chiều rộng của form, nhưng không nhỏ hơn 180px
+            panelSidebar.Width = tlpSidebar.Width; // Đảm bảo panelSidebar có cùng chiều rộng với tlpSidebar
         }
 
         private void MainForm_Shown(object sender, EventArgs e)//Hàm này dùng để gọi hàm resize lần đầu khi form được hiển thị để đảm bảo sidebar có kích thước phù hợp ngay từ đầu
