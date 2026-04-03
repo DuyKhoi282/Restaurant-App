@@ -163,6 +163,7 @@
             this.btnOrderMNG.TabIndex = 2;
             this.btnOrderMNG.Text = "Order Management";
             this.btnOrderMNG.UseVisualStyleBackColor = true;
+            this.btnOrderMNG.Click += new System.EventHandler(this.btnOrderMNG_Click);
             // 
             // btnRevenueMNG
             // 
@@ -179,6 +180,7 @@
             this.btnRevenueMNG.TabIndex = 2;
             this.btnRevenueMNG.Text = "Revenue Management";
             this.btnRevenueMNG.UseVisualStyleBackColor = true;
+            this.btnRevenueMNG.Click += new System.EventHandler(this.btnRevenueMNG_Click);
             // 
             // btnStaffMNG
             // 
