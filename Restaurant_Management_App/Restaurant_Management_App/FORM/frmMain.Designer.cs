@@ -298,6 +298,46 @@
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
             // 
+            // button3
+            // 
+            this.button3.BackgroundImage = global::Restaurant_Management_App.Properties.Resources.Admin;
+            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button3.Location = new System.Drawing.Point(209, 3);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(61, 56);
+            this.button3.TabIndex = 1;
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.BackgroundImage = global::Restaurant_Management_App.Properties.Resources.ResetPassword;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.Location = new System.Drawing.Point(142, 3);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(61, 56);
+            this.button2.TabIndex = 1;
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.BackgroundImage = global::Restaurant_Management_App.Properties.Resources.InfoUsers;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Location = new System.Drawing.Point(75, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(61, 56);
+            this.button1.TabIndex = 1;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Restaurant_Management_App.Properties.Resources.ava;
+            this.pictureBox2.Location = new System.Drawing.Point(9, 3);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(57, 59);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
+            // 
             // panelLogo
             // 
             this.panelLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
