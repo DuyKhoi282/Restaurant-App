@@ -56,7 +56,11 @@ CREATE TABLE Account
 	username NVARCHAR(50) PRIMARY KEY NOT NULL,
 	password NVARCHAR(100) NOT NULL,
 	displayName NVARCHAR(100) NOT NULL,
-	RoleId INT,
+	RoleId INT NOT NULL,
+	fullname nvarchar(50) NOT NULL,
+	birthday date NOT NULL,
+	email nvarchar(50) NOT NULL,
+	phone nvarchar(20) NOT NULL,
     FOREIGN KEY (RoleId) REFERENCES Role(Id)
 )
 GO

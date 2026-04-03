@@ -86,17 +86,17 @@ AND p.PermissionName = 'MANAGE_PRODUCTS';
 -- Account (Dữ liệu tài khoản)
 -- ========================
 	-- 
-INSERT INTO Account (Username, Password, DisplayName, RoleId)
-VALUES ('admin', '123', N'Admin', 1);
+INSERT INTO Account (Username, Password, DisplayName, RoleId, fullname, birthday, email, phone)
+VALUES ('admin', '123', N'Admin', 1, 'Nguyen Van A', '2005/04/19', 'avn1@gmail.com', '0901234567');
 	-- 
-INSERT INTO Account (Username, Password, DisplayName, RoleId)
-VALUES ('manager', '123', N'Quản lý', 2);
+INSERT INTO Account (Username, Password, DisplayName, RoleId, fullname, birthday, email, phone)
+VALUES ('manager', '123', N'Quản lý', 2, 'Le Hoang B', '2005/12/01', 'blh1@gmail.com', '0801674567');
 	--
-INSERT INTO Account (Username, Password, DisplayName, RoleId)
-VALUES ('chef', '123', N'Bếp trưởng', 3);
+INSERT INTO Account (Username, Password, DisplayName, RoleId, fullname, birthday, email, phone)
+VALUES ('chef', '123', N'Bếp trưởng', 3, 'Tran Thi C', '2005/03/25', 'ctt1@gmail.com', '0909804567');
 	--
-INSERT INTO Account (Username, Password, DisplayName, RoleId)
-VALUES ('staff', '123', N'Nhân viên', 4);
+INSERT INTO Account (Username, Password, DisplayName, RoleId, fullname, birthday, email, phone)
+VALUES ('staff', '123', N'Nhân viên', 4, 'Pham Thanh D', '2005/04/07', 'dpt1@gmail.com', '0907654567');
 -- ========================
 -- Bill
 -- ========================
