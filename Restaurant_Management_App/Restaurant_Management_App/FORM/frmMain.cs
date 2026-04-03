@@ -119,5 +119,17 @@ namespace Restaurant_Management_App
         {
             LoadForm(new frmCreateOrder());
         }
+
+        private void btnInfoUser_Click(object sender, EventArgs e)
+        {
+            frmUserInfo f = new frmUserInfo();
+            f.Show();
+        }
+
+        private void btnResetPassword_Click(object sender, EventArgs e)
+        {
+            frmResetPassword f = new frmResetPassword();
+            f.Show();
+        }
     }
 }
