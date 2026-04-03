@@ -71,6 +71,12 @@
     <Compile Include="FORM\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FORM\frmOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORM\frmOrder.Designer.cs">
+      <DependentUpon>frmOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="MenuReveneu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +89,7 @@
     <Compile Include="FORM\OrderManegement.Designer.cs">
       <DependentUpon>OrderManegement.cs</DependentUpon>
     </Compile>
+    <Compile Include="OrderRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FORM\frmFoodDetail.resx">
@@ -96,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORM\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORM\frmOrder.resx">
+      <DependentUpon>frmOrder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuReveneu.resx">
       <DependentUpon>MenuReveneu.cs</DependentUpon>
