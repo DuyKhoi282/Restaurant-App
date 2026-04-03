@@ -76,7 +76,7 @@ namespace Restaurant_Management_App
         {
             using (SqlConnection conn = new SqlConnection(Database.connStr))
             {
-                string query = "SELECT type FROM account WHERE username=@user AND password=@pass";
+                string query = "SELECT role FROM account WHERE username=@user AND password=@pass";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@user", username);
@@ -92,35 +92,46 @@ namespace Restaurant_Management_App
             }
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+            private void btnLogin_Click(object sender, EventArgs e)
         {
-            int type = CheckLogin(txtUsername.Text, txtPassword.Text);
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text.Trim();
 
-            if (type == 0 || type == 1)
+            using (SqlConnection conn = new SqlConnection(Database.connStr))
             {
-                string role = (type == 1) ? "Admin" : "Staff";
+                conn.Open();
 
-                MessageBox.Show("Đăng nhập thành công! Role: " + role);
+                string query = @"
+        SELECT a.Username, r.RoleName
+        FROM Account a
+        JOIN Role r ON a.RoleId = r.Id
+        WHERE a.Username = @username AND a.Password = @password";
 
-                frmMain main = new frmMain(role);
-               
-                // Khi MainForm đóng → đóng luôn app
-                main.FormClosed += (s, args) => this.Close();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password", password);
 
-                main.Show();
-                this.Hide();
-            }
-            else
-            {
-                if(txtUsername.Text == "" || txtPassword.Text == "")
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
                 {
-                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
-                    return;
+                    string role = reader["RoleName"].ToString();
+
+                    MessageBox.Show("Đăng nhập thành công!");
+
+                    // Mở MainForm + truyền role
+                    frmMain main = new frmMain(role);
+                    this.Hide();
+                    main.ShowDialog();
+                    this.Show();
                 }
                 else
+                {
                     MessageBox.Show("Sai tài khoản hoặc mật khẩu!");
+                }
             }
         }
+        
 
         private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
         {

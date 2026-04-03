@@ -13,7 +13,7 @@ namespace Restaurant_Management_App
 {
     public partial class frmMain : Form
     {
-        string role;
+        string currentRole;
         public frmMain(string role)
         {
             InitializeComponent();
@@ -31,21 +31,39 @@ namespace Restaurant_Management_App
             // Set quyền truy cập dựa trên vai trò
             //Admin có tất cả quyền 
             //Staff chỉ có quyền tạo đơn, quản lí đơn, chăm sóc khách hàng.
-            this.role=role;
-            if (role == "Admin")
+            currentRole = role;
+
+            PhanQuyen(); // gọi hàm phân quyền
+        }
+
+        void PhanQuyen()
+        {
+            if (currentRole == "Admin")
             {
-                btnStaffMNG.Visible = true;
-                btnRevenueMNG.Visible = true;
-                btnItemManagement.Visible = true;
+                // Admin thấy tất cả
             }
-            else
+            else if (currentRole == "Manager")
             {
-                btnStaffMNG.Visible = false;
+                
+            }
+            else if (currentRole == "Chef")
+            {
+                btnCreateOrder.Visible = false;
                 btnRevenueMNG.Visible = false;
-                btnItemManagement.Visible = false;
+                btnItemMNG.Visible = false;
+                btnCustomerCaring.Visible = false;
+                btnStaffMNG.Visible = false;
+                //btnStaff.Visible = false;
+            }
+            else if (currentRole == "Staff")
+            {
+                btnItemMNG.Visible = false;
+                btnRevenueMNG.Visible = false;
+                btnStaffMNG.Visible = false;
+                //btnStaff.Visible = false;
             }
         }
-        
+
         private void MainForm_Resize(object sender, EventArgs e)//Hàm này dùng để tự động điều chỉnh kích thước của sidebar khi form thay đổi kích thước
         {
             tlpSidebar.Width = Math.Max(180, this.Width / 7); // Đặt chiều rộng của sidebar bằng 1/7 chiều rộng của form, nhưng không nhỏ hơn 180px
