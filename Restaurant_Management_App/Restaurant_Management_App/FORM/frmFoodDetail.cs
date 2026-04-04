@@ -32,6 +32,7 @@ namespace Restaurant_Management_App.FORM
         {
             LoadCategory();
             LoadStatus();
+            cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;//Chỉ cho phép chọn trạng thái từ danh sách, không cho nhập tự do
 
             if (foodId > 0)//Nếu có ID -> thì là edit món ăn, ngược lại là thêm món ăn mới
             {
@@ -47,6 +48,12 @@ namespace Restaurant_Management_App.FORM
             {
                 DataTable table = new DataTable();
                 adapter.Fill(table);// Điền dữ liệu từ DB vào DataTable
+
+                // Thêm một dòng đặc biệt để đại diện cho việc thêm mới loại món ăn
+                DataRow newRow = table.NewRow();
+                newRow["id"] = 0;
+                newRow["name"] = "+ Add new...";
+                table.Rows.InsertAt(newRow, 0);
 
                 cmbCategory.DataSource = table;// Gán DB vào ComboBox
                 cmbCategory.DisplayMember = "name";// Hiển thị tên loại món ăn
@@ -176,5 +183,58 @@ namespace Restaurant_Management_App.FORM
             cmd.Parameters.AddWithValue("@status",cmbStatus.SelectedIndex == 0 ? "Available" : "Out of stock");
         }
 
+        private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)//Hàm này sẽ được gọi khi người dùng chọn một loại món ăn khác trong ComboBox
+        {
+            if (cmbCategory.SelectedValue != null &&
+        cmbCategory.SelectedValue.ToString() == "0")
+            {
+                string name = ShowInputDialog("Thêm Category", "Nhập tên loại:");
+
+                if (!string.IsNullOrWhiteSpace(name))
+                {
+                    InsertCategory(name);
+
+                    MessageBox.Show("Thêm thành công!");
+
+                    LoadCategory();
+
+                    cmbCategory.SelectedIndex = cmbCategory.Items.Count - 1;
+                }
+            }
+        }
+        private void InsertCategory(string name)//Thêm loại món ăn mới vào DB
+        {
+            string query = "INSERT INTO FoodCategory(name) VALUES(@name)";
+
+            using (SqlConnection conn = new SqlConnection(Database.connStr))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                conn.Open();
+                cmd.Parameters.AddWithValue("@name", name);
+                cmd.ExecuteNonQuery();
+            }
+        }
+        private string ShowInputDialog(string title, string prompt)//Hàm này sẽ hiển thị một hộp thoại để người dùng nhập tên loại món ăn mới
+        {
+            Form form = new Form();
+            form.Text = title;
+            form.Width = 300;
+            form.Height = 150;
+            form.StartPosition = FormStartPosition.CenterParent;
+
+            Label label = new Label() { Left = 10, Top = 10, Text = prompt, Width = 260 };
+            TextBox textBox = new TextBox() { Left = 10, Top = 40, Width = 260 };
+
+            Button buttonOk = new Button() { Text = "OK", Left = 110, Width = 70, Top = 70 };
+            buttonOk.DialogResult = DialogResult.OK;
+
+            form.Controls.Add(label);
+            form.Controls.Add(textBox);
+            form.Controls.Add(buttonOk);
+
+            form.AcceptButton = buttonOk;
+
+            return form.ShowDialog() == DialogResult.OK ? textBox.Text : "";
+        }
     }
 }
