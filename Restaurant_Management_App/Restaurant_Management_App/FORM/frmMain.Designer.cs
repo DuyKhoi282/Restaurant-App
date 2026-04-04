@@ -38,23 +38,23 @@
             this.btnStaffMNG = new System.Windows.Forms.Button();
             this.btnCustomerCaring = new System.Windows.Forms.Button();
             this.panelInfoBar = new System.Windows.Forms.Panel();
-            this.panelLogo = new System.Windows.Forms.Panel();
-            this.PanelNameRes = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panelContent = new System.Windows.Forms.Panel();
-            this.panelSidebar = new System.Windows.Forms.Panel();
             this.btnAdministrator = new System.Windows.Forms.Button();
             this.btnResetPassword = new System.Windows.Forms.Button();
             this.btnInfoUser = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.panelLogo = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.PanelNameRes = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panelContent = new System.Windows.Forms.Panel();
+            this.panelSidebar = new System.Windows.Forms.Panel();
             this.tlpSidebar.SuspendLayout();
             this.panelInfoBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panelLogo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.PanelNameRes.SuspendLayout();
             this.panelSidebar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAdmin
@@ -64,6 +64,7 @@
             this.btnAdmin.Name = "btnAdmin";
             this.btnAdmin.Size = new System.Drawing.Size(932, 664);
             this.btnAdmin.TabIndex = 3;
+            this.btnAdmin.Paint += new System.Windows.Forms.PaintEventHandler(this.btnAdmin_Paint);
             // 
             // tlpSidebar
             // 
@@ -214,55 +215,6 @@
             this.panelInfoBar.Size = new System.Drawing.Size(283, 62);
             this.panelInfoBar.TabIndex = 4;
             // 
-            // panelLogo
-            // 
-            this.panelLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panelLogo.Controls.Add(this.pictureBox1);
-            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelLogo.Location = new System.Drawing.Point(3, 3);
-            this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(283, 102);
-            this.panelLogo.TabIndex = 5;
-            // 
-            // PanelNameRes
-            // 
-            this.PanelNameRes.Controls.Add(this.label1);
-            this.PanelNameRes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PanelNameRes.Location = new System.Drawing.Point(3, 111);
-            this.PanelNameRes.Name = "PanelNameRes";
-            this.PanelNameRes.Size = new System.Drawing.Size(283, 55);
-            this.PanelNameRes.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(23, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(230, 32);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "THE CHILL RES";
-            // 
-            // panelContent
-            // 
-            this.panelContent.Location = new System.Drawing.Point(291, 0);
-            this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(932, 663);
-            this.panelContent.TabIndex = 1;
-            // 
-            // panelSidebar
-            // 
-            this.panelSidebar.BackColor = System.Drawing.Color.Brown;
-            this.panelSidebar.Controls.Add(this.panelContent);
-            this.panelSidebar.Controls.Add(this.tlpSidebar);
-            this.panelSidebar.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelSidebar.Location = new System.Drawing.Point(0, 0);
-            this.panelSidebar.Name = "panelSidebar";
-            this.panelSidebar.Size = new System.Drawing.Size(289, 664);
-            this.panelSidebar.TabIndex = 2;
-            // 
             // btnAdministrator
             // 
             this.btnAdministrator.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -310,6 +262,16 @@
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
             // 
+            // panelLogo
+            // 
+            this.panelLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panelLogo.Controls.Add(this.pictureBox1);
+            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelLogo.Location = new System.Drawing.Point(3, 3);
+            this.panelLogo.Name = "panelLogo";
+            this.panelLogo.Size = new System.Drawing.Size(283, 102);
+            this.panelLogo.TabIndex = 5;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -321,6 +283,45 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // PanelNameRes
+            // 
+            this.PanelNameRes.Controls.Add(this.label1);
+            this.PanelNameRes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PanelNameRes.Location = new System.Drawing.Point(3, 111);
+            this.PanelNameRes.Name = "PanelNameRes";
+            this.PanelNameRes.Size = new System.Drawing.Size(283, 55);
+            this.PanelNameRes.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(23, 11);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(230, 32);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "THE CHILL RES";
+            // 
+            // panelContent
+            // 
+            this.panelContent.Location = new System.Drawing.Point(291, 0);
+            this.panelContent.Name = "panelContent";
+            this.panelContent.Size = new System.Drawing.Size(932, 663);
+            this.panelContent.TabIndex = 1;
+            // 
+            // panelSidebar
+            // 
+            this.panelSidebar.BackColor = System.Drawing.Color.Brown;
+            this.panelSidebar.Controls.Add(this.panelContent);
+            this.panelSidebar.Controls.Add(this.tlpSidebar);
+            this.panelSidebar.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelSidebar.Location = new System.Drawing.Point(0, 0);
+            this.panelSidebar.Name = "panelSidebar";
+            this.panelSidebar.Size = new System.Drawing.Size(289, 664);
+            this.panelSidebar.TabIndex = 2;
             // 
             // frmMain
             // 
@@ -335,12 +336,12 @@
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.tlpSidebar.ResumeLayout(false);
             this.panelInfoBar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panelLogo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.PanelNameRes.ResumeLayout(false);
             this.PanelNameRes.PerformLayout();
             this.panelSidebar.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -145,5 +145,10 @@ namespace Restaurant_Management_App
         {
             LoadForm(new frmHomepage());
         }
+
+        private void btnAdmin_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

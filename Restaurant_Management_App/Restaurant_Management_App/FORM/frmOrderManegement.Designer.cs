@@ -28,8 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.dtgvOrderMagagement = new System.Windows.Forms.DataGridView();
             this.No = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IdOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,30 +44,70 @@
             this.TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PayMethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvOrderMagagement)).BeginInit();
             this.SuspendLayout();
             // 
-            // panel1
+            // label1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.dataGridView1);
-            this.panel1.Location = new System.Drawing.Point(191, 390);
-            this.panel1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1568, 392);
-            this.panel1.TabIndex = 2;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(75, 52);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(598, 54);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Order Management System";
             // 
-            // dataGridView1
+            // panel2
             // 
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(90)))), ((int)(((byte)(120)))));
+            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.btnUpdate);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1808, 159);
+            this.panel2.TabIndex = 4;
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.AutoSize = true;
+            this.btnUpdate.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdate.ForeColor = System.Drawing.Color.Black;
+            this.btnUpdate.Location = new System.Drawing.Point(1309, 60);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(163, 64);
+            this.btnUpdate.TabIndex = 5;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = false;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // button2
+            // 
+            this.button2.AutoSize = true;
+            this.button2.BackColor = System.Drawing.Color.Gold;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.Black;
+            this.button2.Location = new System.Drawing.Point(1555, 60);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(215, 64);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "Best Seller";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // dtgvOrderMagagement
+            // 
+            this.dtgvOrderMagagement.AllowUserToAddRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LightBlue;
+            this.dtgvOrderMagagement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dtgvOrderMagagement.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dtgvOrderMagagement.BackgroundColor = System.Drawing.Color.White;
+            this.dtgvOrderMagagement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgvOrderMagagement.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.No,
             this.IdOrder,
             this.Date,
@@ -74,15 +118,17 @@
             this.TotalPrice,
             this.PayMethod,
             this.Note});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(9, 9, 9, 9);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1568, 392);
-            this.dataGridView1.TabIndex = 0;
+            this.dtgvOrderMagagement.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtgvOrderMagagement.EnableHeadersVisualStyles = false;
+            this.dtgvOrderMagagement.Location = new System.Drawing.Point(0, 159);
+            this.dtgvOrderMagagement.Margin = new System.Windows.Forms.Padding(9);
+            this.dtgvOrderMagagement.Name = "dtgvOrderMagagement";
+            this.dtgvOrderMagagement.RowHeadersVisible = false;
+            this.dtgvOrderMagagement.RowHeadersWidth = 51;
+            this.dtgvOrderMagagement.RowTemplate.Height = 24;
+            this.dtgvOrderMagagement.Size = new System.Drawing.Size(1808, 512);
+            this.dtgvOrderMagagement.TabIndex = 0;
+            this.dtgvOrderMagagement.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // No
             // 
@@ -90,6 +136,7 @@
             this.No.MinimumWidth = 6;
             this.No.Name = "No";
             this.No.ReadOnly = true;
+            this.No.Visible = false;
             // 
             // IdOrder
             // 
@@ -97,6 +144,7 @@
             this.IdOrder.MinimumWidth = 6;
             this.IdOrder.Name = "IdOrder";
             this.IdOrder.ReadOnly = true;
+            this.IdOrder.Visible = false;
             // 
             // Date
             // 
@@ -104,6 +152,7 @@
             this.Date.MinimumWidth = 6;
             this.Date.Name = "Date";
             this.Date.ReadOnly = true;
+            this.Date.Visible = false;
             // 
             // Time
             // 
@@ -111,6 +160,7 @@
             this.Time.MinimumWidth = 6;
             this.Time.Name = "Time";
             this.Time.ReadOnly = true;
+            this.Time.Visible = false;
             // 
             // Case
             // 
@@ -118,6 +168,7 @@
             this.Case.MinimumWidth = 6;
             this.Case.Name = "Case";
             this.Case.ReadOnly = true;
+            this.Case.Visible = false;
             // 
             // Table
             // 
@@ -125,6 +176,7 @@
             this.Table.MinimumWidth = 6;
             this.Table.Name = "Table";
             this.Table.ReadOnly = true;
+            this.Table.Visible = false;
             // 
             // NameStaff
             // 
@@ -132,6 +184,7 @@
             this.NameStaff.MinimumWidth = 6;
             this.NameStaff.Name = "NameStaff";
             this.NameStaff.ReadOnly = true;
+            this.NameStaff.Visible = false;
             // 
             // TotalPrice
             // 
@@ -139,6 +192,7 @@
             this.TotalPrice.MinimumWidth = 6;
             this.TotalPrice.Name = "TotalPrice";
             this.TotalPrice.ReadOnly = true;
+            this.TotalPrice.Visible = false;
             // 
             // PayMethod
             // 
@@ -146,6 +200,7 @@
             this.PayMethod.MinimumWidth = 6;
             this.PayMethod.Name = "PayMethod";
             this.PayMethod.ReadOnly = true;
+            this.PayMethod.Visible = false;
             // 
             // Note
             // 
@@ -153,50 +208,34 @@
             this.Note.MinimumWidth = 6;
             this.Note.Name = "Note";
             this.Note.ReadOnly = true;
-            // 
-            // button2
-            // 
-            this.button2.AutoSize = true;
-            this.button2.Location = new System.Drawing.Point(1162, 174);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(170, 83);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Update";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.AutoSize = true;
-            this.button3.Location = new System.Drawing.Point(1447, 174);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(170, 83);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Best Seller";
-            this.button3.UseVisualStyleBackColor = true;
+            this.Note.Visible = false;
             // 
             // frmOrderManegement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1950, 1171);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(1808, 671);
+            this.Controls.Add(this.dtgvOrderMagagement);
+            this.Controls.Add(this.panel2);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.ForeColor = System.Drawing.Color.Black;
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "frmOrderManegement";
             this.Text = "OrderManegement";
-            this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.frmOrderManegement_Load);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvOrderMagagement)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DataGridView dtgvOrderMagagement;
         private System.Windows.Forms.DataGridViewTextBoxColumn No;
         private System.Windows.Forms.DataGridViewTextBoxColumn IdOrder;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
@@ -207,7 +246,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn PayMethod;
         private System.Windows.Forms.DataGridViewTextBoxColumn Note;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
     }
 }
