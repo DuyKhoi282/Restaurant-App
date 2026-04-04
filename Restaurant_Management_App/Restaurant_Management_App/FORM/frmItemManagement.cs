@@ -20,10 +20,10 @@ namespace Restaurant_Management_App.FORM
 
         private void frmItemManagement_Load(object sender, EventArgs e)
         {
+            dgvFood.CellClick += dgvFood_CellClick;
+            dgvFood.CellFormatting += dgvFood_CellFormatting;
             SetupDataGridView();
             LoadFoodItems();
-            AddButtonColumns();
-            FormatGridColumns();
         }
         private void SetupDataGridView()//Hàm này dùng để thiết lập giao diện cho DataGridView, bao gồm màu nền, màu chữ, kiểu đường viền, v.v.
         {
@@ -74,15 +74,15 @@ namespace Restaurant_Management_App.FORM
         }
         private void LoadFoodItems()//Hàm này dùng để load dữ liệu món ăn vào DataGridView, hiện tại đang là dữ liệu giả để test giao diện
         {
-            string query = 
-                @"
-    SELECT f.id, 
-           f.name, 
-           c.name AS category, 
-           f.price,
-           f.status
-    FROM Food f
-    JOIN FoodCategory c ON f.idCategory = c.id";
+            string query =
+@"
+SELECT f.id, 
+       f.name, 
+       c.name AS category, 
+       f.price,
+       f.status
+FROM Food f
+JOIN FoodCategory c ON f.idCategory = c.id";
 
             SqlDataAdapter adapter = new SqlDataAdapter(query, Database.connStr);
             DataTable table = new DataTable();
@@ -135,15 +135,92 @@ WHERE f.name COLLATE Latin1_General_CI_AI LIKE @key"; ;//Hàm giúp không phân
 
             AddButtonColumns();
             FormatGridColumns();
+            dgvFood.Refresh();
         }
 
-        private void btnAddCate_Click(object sender, EventArgs e)
+        private void btnAddCate_Click(object sender, EventArgs e)//Mở form thêm món ăn mới khi người dùng click vào nút Add
         {
             frmFoodDetail f = new frmFoodDetail(); // form add
 
             if (f.ShowDialog() == DialogResult.OK)//
             {
                 LoadFoodItems(); // reload lại grid
+            }
+        }
+        private void dgvFood_CellClick(object sender, DataGridViewCellEventArgs e)//Xử lý sự kiện khi click vào các nút Edit/Delete trong DataGridView
+        {
+            if (e.RowIndex < 0) return;
+
+            string columnName = dgvFood.Columns[e.ColumnIndex].Name;
+
+            int id = Convert.ToInt32(dgvFood.Rows[e.RowIndex].Cells["id"].Value);
+
+            if (columnName == "colEdit")//nút Edit
+            {
+                frmFoodDetail f = new frmFoodDetail(id);
+
+                if (f.ShowDialog() == DialogResult.OK)
+                {
+                    LoadFoodItems();
+                }
+            }
+
+            if (columnName == "colDelete")//nút Delete
+            {
+                DialogResult result = MessageBox.Show("Xóa món này?", "Confirm", MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.Yes)
+                {
+                    DeleteFood(id);
+                    LoadFoodItems();
+                }
+            }
+        }
+        private void DeleteFood(int id)//Xóa món ăn
+        {
+            using (SqlConnection conn = new SqlConnection(Database.connStr))
+            {
+                conn.Open();
+
+                // kiểm tra tồn tại trong BillInfo
+                string checkQuery = "SELECT COUNT(*) FROM BillInfo WHERE idFood = @id";
+                SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
+                checkCmd.Parameters.AddWithValue("@id", id);
+
+                int count = (int)checkCmd.ExecuteScalar();
+
+                if (count > 0)
+                {
+                    MessageBox.Show("Món này đã có trong hóa đơn, không thể xóa!");
+                    return;
+                }
+
+                // nếu không có thì mới xóa
+                string deleteQuery = "DELETE FROM Food WHERE id = @id";
+                SqlCommand cmd = new SqlCommand(deleteQuery, conn);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+            }
+
+        }
+
+        private void dgvFood_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)//Chỉnh màu cho status
+        {
+            if (dgvFood.Columns[e.ColumnIndex].Name == "status")
+            {
+                if (e.Value != null)
+                {
+                    string status = e.Value.ToString();
+
+                    if (status == "Available")
+                    {
+                        e.CellStyle.ForeColor = Color.Green;
+                    }
+                    else if (status == "Out of stock")
+                    {
+                        e.CellStyle.ForeColor = Color.Red;
+                    }
+                }
             }
         }
     }

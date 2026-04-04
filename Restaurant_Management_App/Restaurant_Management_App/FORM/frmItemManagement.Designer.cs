@@ -183,6 +183,7 @@
             this.dgvFood.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvFood.Size = new System.Drawing.Size(1052, 550);
             this.dgvFood.TabIndex = 0;
+            this.dgvFood.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvFood_CellFormatting);
             // 
             // frmItemManagement
             // 
