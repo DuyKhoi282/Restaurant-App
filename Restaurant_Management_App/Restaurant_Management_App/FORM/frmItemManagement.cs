@@ -181,17 +181,21 @@ WHERE f.name COLLATE Latin1_General_CI_AI LIKE @key"; ;//Hàm giúp không phân
             using (SqlConnection conn = new SqlConnection(Database.connStr))
             {
                 conn.Open();
+                //Check bill chưa thanh toán
+                string checkQuery = @"
+            SELECT COUNT(*) 
+            FROM BillInfo bi
+            JOIN Bill b ON bi.idBill = b.id
+            WHERE bi.idFood = @id AND b.status = 0";
 
-                // kiểm tra tồn tại trong BillInfo
-                string checkQuery = "SELECT COUNT(*) FROM BillInfo WHERE idFood = @id";
                 SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
                 checkCmd.Parameters.AddWithValue("@id", id);
 
                 int count = (int)checkCmd.ExecuteScalar();
 
-                if (count > 0)
+                if (count > 0)//nếu có món này trong hóa đơn chưa thanh toán
                 {
-                    MessageBox.Show("Món này đã có trong hóa đơn, không thể xóa!");
+                    MessageBox.Show("Món này đang nằm trong hóa đơn chưa thanh toán, không thể xóa!");
                     return;
                 }
 
@@ -201,8 +205,9 @@ WHERE f.name COLLATE Latin1_General_CI_AI LIKE @key"; ;//Hàm giúp không phân
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
             }
-
         }
+
+        
 
         private void dgvFood_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)//Chỉnh màu cho status
         {
