@@ -34,6 +34,9 @@ namespace Restaurant_Management_App
             currentRole = role;
 
             PhanQuyen(); // gọi hàm phân quyền
+
+            // load form homepage mặc định lên panel con sau mỗi lần đăng nhập thành công
+            LoadForm(new frmHomepage());
         }
 
         void PhanQuyen()
@@ -122,7 +125,7 @@ namespace Restaurant_Management_App
 
         private void btnInfoUser_Click(object sender, EventArgs e)
         {
-            frmUserInfo f = new frmUserInfo();
+            frmUserInfor f = new frmUserInfor();
             f.Show();
         }
 
@@ -130,6 +133,17 @@ namespace Restaurant_Management_App
         {
             frmResetPassword f = new frmResetPassword();
             f.Show();
+        }
+
+        private void btnAdministrator_Click(object sender, EventArgs e)
+        {
+            frmCreateUser_Authority f = new frmCreateUser_Authority();
+            f.Show();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            LoadForm(new frmHomepage());
         }
     }
 }
