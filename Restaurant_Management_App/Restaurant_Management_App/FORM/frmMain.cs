@@ -39,32 +39,58 @@ namespace Restaurant_Management_App
             LoadForm(new frmHomepage());
         }
 
+        void RemoveButtons()//Hàm này dùng để xóa tất cả các button trên sidebar trước khi phân quyền lại
+        {
+            tlpSidebar.Controls.Remove(btnCreateOrder);
+            tlpSidebar.Controls.Remove(btnItemMNG);
+            tlpSidebar.Controls.Remove(btnOrderMNG);
+            tlpSidebar.Controls.Remove(btnRevenueMNG);
+            tlpSidebar.Controls.Remove(btnCustomerCaring);
+            tlpSidebar.Controls.Remove(btnStaffMNG);
+        }
         void PhanQuyen()
         {
+            // tlpSidebar.Controls.Add(btnX, column, row)
+            // dùng để thêm button vào tlpSidebar ở vị trí cột và hàng cụ thể
             if (currentRole == "Admin")
             {
-                // Admin thấy tất cả
+                int row = 2; // dong dau tien
+                RemoveButtons(); // Xóa tất cả button trước khi thêm lại theo quyền
+                tlpSidebar.Controls.Add(btnCreateOrder,0,row++);               
+                tlpSidebar.Controls.Add(btnOrderMNG, 0, row++);
+                tlpSidebar.Controls.Add(btnItemMNG, 0, row++);
+                tlpSidebar.Controls.Add(btnRevenueMNG, 0, row++);            
+                tlpSidebar.Controls.Add(btnCustomerCaring, 0, row++);
+                tlpSidebar.Controls.Add(btnStaffMNG, 0, row++);                        
             }
             else if (currentRole == "Manager")
             {
+                int row = 2;
+                RemoveButtons(); // Xóa tất cả button trước khi thêm lại theo quyền
+                tlpSidebar.Controls.Add(btnCreateOrder, 0, row++);
+                tlpSidebar.Controls.Add(btnOrderMNG, 0, row++);
+                tlpSidebar.Controls.Add(btnItemMNG, 0, row++);
+                tlpSidebar.Controls.Add(btnRevenueMNG, 0, row++);
+                tlpSidebar.Controls.Add(btnCustomerCaring, 0, row++);
+                tlpSidebar.Controls.Add(btnStaffMNG, 0, row++);
                 btnAdministrator.Visible = false;
             }
             else if (currentRole == "Chef")
             {
-                btnCreateOrder.Visible = false;
-                btnRevenueMNG.Visible = false;
-                btnOrderMNG.Visible = false;
-                btnCustomerCaring.Visible = false;
-                btnStaffMNG.Visible = false;
+                int row = 2;
+                RemoveButtons(); // Xóa tất cả button trước khi thêm lại theo quyền
+               tlpSidebar.Controls.Add(btnItemMNG, 0, row++);
                 btnAdministrator.Visible = false;
+             
             }
             else if (currentRole == "Staff")
             {
-                btnItemMNG.Visible = false;
-                btnRevenueMNG.Visible = false;
-                btnStaffMNG.Visible = false;
+                int row = 2;
+                RemoveButtons(); // Xóa tất cả button trước khi thêm lại theo quyền
+                tlpSidebar.Controls.Add(btnCreateOrder, 0, row++);                
+                tlpSidebar.Controls.Add(btnOrderMNG, 0, row++);                
+                tlpSidebar.Controls.Add(btnCustomerCaring, 0, row++);                
                 btnAdministrator.Visible = false;
-
             }
         }
 
