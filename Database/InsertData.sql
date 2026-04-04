@@ -116,3 +116,20 @@ VALUES
 (2, 5, 2),
 (3, 6, 1)
 
+-- Thêm món
+INSERT INTO Food(name, idCategory, price)
+VALUES (N'Cơm chiên', 1, 30000),
+       (N'Nước ngọt', 1, 15000)
+
+INSERT INTO Bill(idTable, dateCheckIn, status)
+VALUES (1, GETDATE(), 0)
+
+DECLARE @BillId INT
+SET @BillId = SCOPE_IDENTITY()
+
+INSERT INTO BillInfo (idBill, idFood, quantity)
+VALUES
+(@BillId, 1, 2),  -- 2 cơm chiên
+(@BillId, 2, 1)   -- 1 nước ngọt
+
+EXEC USP_GetOrderList
