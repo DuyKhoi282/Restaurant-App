@@ -114,6 +114,7 @@ ADD
     note NVARCHAR(255)            -- NOTE
 
 GO
+
 CREATE PROCEDURE USP_GetOrderList
 AS
 BEGIN
