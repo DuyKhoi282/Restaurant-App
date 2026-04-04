@@ -21,8 +21,8 @@ namespace Restaurant_Management_App.FORM
         private void frmItemManagement_Load(object sender, EventArgs e)
         {
             SetupDataGridView();
-            loadFoodItems();
-            addButtonColumns();
+            LoadFoodItems();
+            AddButtonColumns();
             FormatGridColumns();
         }
         private void SetupDataGridView()//Hàm này dùng để thiết lập giao diện cho DataGridView, bao gồm màu nền, màu chữ, kiểu đường viền, v.v.
@@ -50,7 +50,7 @@ namespace Restaurant_Management_App.FORM
             dgvFood.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvFood.GridColor = Color.LightGray;
         }
-        private void addButtonColumns()//Hàm này dùng để thêm cột chứa nút Edit và Delete vào DataGridView
+        private void AddButtonColumns()//Hàm này dùng để thêm cột chứa nút Edit và Delete vào DataGridView
         {
             if (dgvFood.Columns["colEdit"] == null)
             {
@@ -72,7 +72,7 @@ namespace Restaurant_Management_App.FORM
                 dgvFood.Columns.Add(btnDelete);
             }
         }
-        private void loadFoodItems()//Hàm này dùng để load dữ liệu món ăn vào DataGridView, hiện tại đang là dữ liệu giả để test giao diện
+        private void LoadFoodItems()//Hàm này dùng để load dữ liệu món ăn vào DataGridView, hiện tại đang là dữ liệu giả để test giao diện
         {
             string query = 
                 @"
@@ -90,7 +90,7 @@ namespace Restaurant_Management_App.FORM
 
             dgvFood.DataSource = table;
 
-            addButtonColumns();
+            AddButtonColumns();
             FormatGridColumns();
         }
 
@@ -111,7 +111,7 @@ namespace Restaurant_Management_App.FORM
 
             if (keyword == "")//Nếu ô tìm kiếm trống thì load lại tất cả món ăn
             {
-                loadFoodItems();
+                LoadFoodItems();
                 return;
             }
 
@@ -133,7 +133,7 @@ WHERE f.name COLLATE Latin1_General_CI_AI LIKE @key"; ;//Hàm giúp không phân
 
             dgvFood.DataSource = table;//Hiển thị kết quả tìm kiếm lên DataGridView
 
-            addButtonColumns();
+            AddButtonColumns();
             FormatGridColumns();
         }
 
@@ -141,9 +141,9 @@ WHERE f.name COLLATE Latin1_General_CI_AI LIKE @key"; ;//Hàm giúp không phân
         {
             frmFoodDetail f = new frmFoodDetail(); // form add
 
-            if (f.ShowDialog() == DialogResult.OK)
+            if (f.ShowDialog() == DialogResult.OK)//
             {
-                loadFoodItems(); // reload lại grid
+                LoadFoodItems(); // reload lại grid
             }
         }
     }
