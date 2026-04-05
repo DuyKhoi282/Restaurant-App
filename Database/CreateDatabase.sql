@@ -61,6 +61,10 @@ CREATE TABLE Account
 	birthday date NOT NULL,
 	email nvarchar(50) NOT NULL,
 	phone nvarchar(20) NOT NULL,
+    address NVARCHAR(100) NOT NULL, -- Địa chỉ của người dùng
+    ward NVARCHAR(50) NOT NULL,-- Phường/xã
+    district NVARCHAR(50) NOT NULL,-- Quận/huyện
+    city NVARCHAR(50) NOT NULL,-- Thành phố
     FOREIGN KEY (RoleId) REFERENCES Role(Id)
 )
 GO

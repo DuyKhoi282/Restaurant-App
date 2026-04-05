@@ -43,7 +43,7 @@
             this.btnInfoUser = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panelLogo = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.picLogo = new System.Windows.Forms.PictureBox();
             this.PanelNameRes = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panelContent = new System.Windows.Forms.Panel();
@@ -52,7 +52,7 @@
             this.panelInfoBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panelLogo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.PanelNameRes.SuspendLayout();
             this.panelSidebar.SuspendLayout();
             this.SuspendLayout();
@@ -265,24 +265,24 @@
             // panelLogo
             // 
             this.panelLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panelLogo.Controls.Add(this.pictureBox1);
+            this.panelLogo.Controls.Add(this.picLogo);
             this.panelLogo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelLogo.Location = new System.Drawing.Point(3, 3);
             this.panelLogo.Name = "panelLogo";
             this.panelLogo.Size = new System.Drawing.Size(283, 102);
             this.panelLogo.TabIndex = 5;
             // 
-            // pictureBox1
+            // picLogo
             // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox1.Image = global::Restaurant_Management_App.Properties.Resources.logoChillRes_fix;
-            this.pictureBox1.Location = new System.Drawing.Point(79, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(124, 100);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.picLogo.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.picLogo.Image = global::Restaurant_Management_App.Properties.Resources.logoChillRes_fix;
+            this.picLogo.Location = new System.Drawing.Point(79, 0);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(124, 100);
+            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picLogo.TabIndex = 0;
+            this.picLogo.TabStop = false;
+            this.picLogo.Click += new System.EventHandler(this.picLogo_Click);
             // 
             // PanelNameRes
             // 
@@ -338,7 +338,7 @@
             this.panelInfoBar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panelLogo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.PanelNameRes.ResumeLayout(false);
             this.PanelNameRes.PerformLayout();
             this.panelSidebar.ResumeLayout(false);
@@ -361,7 +361,7 @@
         private System.Windows.Forms.Panel panelContent;
         private System.Windows.Forms.Panel panelSidebar;
         private System.Windows.Forms.Panel panelLogo;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox picLogo;
         private System.Windows.Forms.Panel PanelNameRes;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnInfoUser;
