@@ -1,0 +1,172 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Restaurant_Management_App
+{
+    public partial class frmOrderDetails : Form
+    {
+        string _idOrder;
+        public frmOrderDetails(string idOrder)
+        {
+            InitializeComponent();
+            _idOrder = idOrder;
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPay_Click(object sender, EventArgs e)
+        {
+            // Xác nhận
+            DialogResult result = MessageBox.Show(
+                "Xác nhận thanh toán đơn này?",
+                "Thông báo",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                PayOrder();
+            }
+        }
+
+        void PayOrder()
+        {
+            string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"
+        UPDATE Bill
+        SET 
+            status = 1,
+            dateCheckOut = GETDATE()
+        WHERE idOrder = @id";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", _idOrder);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+
+        }
+
+        void LoadOrderDetails()
+        {
+            string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"
+        SELECT 
+            b.numr ,
+            b.idTable,
+            b.idOrder,
+            
+            CONVERT(DATE, b.dateCheckIn) AS [date],
+            CONVERT(TIME, b.dateCheckIn) AS [time],
+            b.customerName,
+            b.payMethod,
+            CASE 
+                WHEN b.status = 0 THEN 'Unpaid'
+                ELSE 'Paid'
+            END AS status,
+            ISNULL(SUM(f.price * bi.quantity),0) AS totalPrice
+        FROM Bill b
+        LEFT JOIN BillInfo bi ON b.numr = bi.idBill
+        LEFT JOIN Food f ON bi.idFood = f.id
+        WHERE b.idOrder = @id
+        GROUP BY 
+            b.numr, b.idTable, b.dateCheckIn,
+            b.customerName, b.payMethod, b.status, b.idOrder";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", _idOrder);
+
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+
+                    txtIdOrder.Text = reader["idOrder"].ToString();
+                    txtIdTable.Text = reader["idTable"].ToString(); 
+                    gbxListDetails.Text = reader["idOrder"].ToString();
+                    txtDate.Text = reader["date"].ToString();
+                    txtTime.Text = reader["time"].ToString();
+                    txtCustomerName.Text = reader["customerName"].ToString();
+                    txtPayMethod.Text = reader["payMethod"].ToString();
+                    txtStatus.Text = reader["status"].ToString();
+                    txtTotalPrice.Text = reader["totalPrice"].ToString();
+                }
+
+                conn.Close();
+            }
+
+            // Load danh sách món
+            LoadFoodList();
+        }
+
+        void LoadFoodList()
+        {
+            string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
+
+            string query = @"
+    SELECT 
+        ROW_NUMBER() OVER (ORDER BY f.name) AS STT,
+        f.name AS FoodName,
+        bi.quantity,
+        f.price,
+        (f.price * bi.quantity) AS TotalPrice
+    FROM Bill b
+    JOIN BillInfo bi ON b.numr = bi.idBill
+    JOIN Food f ON bi.idFood = f.id
+    WHERE b.idOrder = @idOrder";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@idOrder", _idOrder);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                dgvFoodDetails.DataSource = dt;
+            }
+
+            
+            }
+        
+
+        private void frmOrderDetails_Load(object sender, EventArgs e)
+        {
+            LoadOrderDetails();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}
