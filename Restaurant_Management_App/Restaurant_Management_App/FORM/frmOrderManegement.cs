@@ -26,7 +26,7 @@ namespace Restaurant_Management_App
 
         void LoadOrderList()
         {
-            string connectionString = @"Data Source=LAPTOP-WIN\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
+            string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {

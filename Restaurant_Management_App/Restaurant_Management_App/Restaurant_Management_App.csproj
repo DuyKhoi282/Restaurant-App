@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BillDAL.cs" />
+    <Compile Include="BillInfoDAL.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="FORM\frmFoodDetail.cs">
       <SubType>Form</SubType>
