@@ -236,5 +236,12 @@ namespace Restaurant_Management_App.FORM
 
             return form.ShowDialog() == DialogResult.OK ? textBox.Text : "";
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
     }
+    
 }
