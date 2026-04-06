@@ -33,9 +33,9 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.txtPassword = new System.Windows.Forms.TextBox();
-            this.txtUsername = new System.Windows.Forms.TextBox();
+            this.txtUserId = new System.Windows.Forms.TextBox();
             this.lblPassword = new System.Windows.Forms.Label();
-            this.lblUsername = new System.Windows.Forms.Label();
+            this.lblUserID = new System.Windows.Forms.Label();
             this.panelLogin.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -57,9 +57,9 @@
             this.tableLayoutPanel1.Controls.Add(this.lblTitle, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnLogin, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.txtPassword, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.txtUsername, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtUserId, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.lblPassword, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.lblUsername, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lblUserID, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -113,15 +113,15 @@
             this.txtPassword.TabIndex = 4;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
-            // txtUsername
+            // txtUserId
             // 
-            this.txtUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.txtUsername.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtUsername.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUsername.Location = new System.Drawing.Point(23, 136);
-            this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(513, 39);
-            this.txtUsername.TabIndex = 3;
+            this.txtUserId.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.txtUserId.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtUserId.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUserId.Location = new System.Drawing.Point(23, 136);
+            this.txtUserId.Name = "txtUserId";
+            this.txtUserId.Size = new System.Drawing.Size(513, 39);
+            this.txtUserId.TabIndex = 3;
             // 
             // lblPassword
             // 
@@ -136,18 +136,18 @@
             this.lblPassword.Text = "Password";
             this.lblPassword.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lblUsername
+            // lblUserID
             // 
-            this.lblUsername.AutoSize = true;
-            this.lblUsername.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblUsername.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsername.ForeColor = System.Drawing.Color.Red;
-            this.lblUsername.Location = new System.Drawing.Point(23, 88);
-            this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(513, 45);
-            this.lblUsername.TabIndex = 1;
-            this.lblUsername.Text = "Username";
-            this.lblUsername.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblUserID.AutoSize = true;
+            this.lblUserID.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblUserID.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUserID.ForeColor = System.Drawing.Color.Red;
+            this.lblUserID.Location = new System.Drawing.Point(23, 88);
+            this.lblUserID.Name = "lblUserID";
+            this.lblUserID.Size = new System.Drawing.Size(513, 45);
+            this.lblUserID.TabIndex = 1;
+            this.lblUserID.Text = "UserID";
+            this.lblUserID.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmLogin
             // 
@@ -177,11 +177,11 @@
         private System.Windows.Forms.Panel panelLogin;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Label lblUsername;
+        private System.Windows.Forms.Label lblUserID;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.TextBox txtUsername;
+        private System.Windows.Forms.TextBox txtUserId;
     }
 }
 

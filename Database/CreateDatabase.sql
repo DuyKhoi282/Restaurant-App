@@ -53,7 +53,8 @@ CREATE TABLE RolePermission (
 -- ( vd username = admin, password = 123, displayName = Quản lý, RoleId = 1 (Admin) )
 CREATE TABLE Account
 (
-	username NVARCHAR(50) PRIMARY KEY NOT NULL,
+    userId NVARCHAR(20) PRIMARY KEY, 
+	
 	password NVARCHAR(100) NOT NULL,
 	displayName NVARCHAR(100) NOT NULL,
 	RoleId INT NOT NULL,

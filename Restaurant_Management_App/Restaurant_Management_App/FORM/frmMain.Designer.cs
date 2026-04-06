@@ -254,7 +254,6 @@
             // pictureBox2
             // 
             this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox2.Image = global::Restaurant_Management_App.Properties.Resources.ava;
             this.pictureBox2.Location = new System.Drawing.Point(9, 3);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(57, 59);

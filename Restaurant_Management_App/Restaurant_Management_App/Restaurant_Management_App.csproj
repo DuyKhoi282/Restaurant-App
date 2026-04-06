@@ -46,9 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BillDAL.cs" />
-    <Compile Include="BillInfoDAL.cs" />
-    <Compile Include="Database.cs" />
+    <Compile Include="DAL %28 Data Access Layer %29\AccountDAL.cs" />
+    <Compile Include="DTO %28 Data Transfer Object %29\AccountDTO.cs" />
+    <Compile Include="DAL %28 Data Access Layer %29\BillDAL.cs" />
+    <Compile Include="DAL %28 Data Access Layer %29\BillInfoDAL.cs" />
+    <Compile Include="DAL %28 Data Access Layer %29\Database.cs" />
     <Compile Include="FORM\frmFoodDetail.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +120,7 @@
     <Compile Include="OrderRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserSession.cs" />
     <EmbeddedResource Include="FORM\frmFoodDetail.resx">
       <DependentUpon>frmFoodDetail.cs</DependentUpon>
     </EmbeddedResource>
