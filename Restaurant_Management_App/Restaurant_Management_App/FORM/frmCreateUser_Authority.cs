@@ -72,7 +72,26 @@ namespace Restaurant_Management_App
                 cmd.Parameters.AddWithValue("@a", address);
                 cmd.Parameters.AddWithValue("@w", ward);
                 cmd.Parameters.AddWithValue("@d", district);
-                cmd.Parameters.AddWithValue("@c", city);
+                cmd.Parameters.AddWithValue("@c", city);               
+
+                // check tài khoản đã tồn tại chưa 
+                string checkQuery = "SELECT COUNT(*) FROM Account WHERE Username = @u";
+                SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
+                checkCmd.Parameters.AddWithValue("@u", username);
+
+                int count = (int)checkCmd.ExecuteScalar();
+
+                if (count > 0)
+                {
+                    MessageBox.Show("Username đã tồn tại!");
+                    return;
+                }
+
+                if (username == "" || password == "" )
+                {
+                    MessageBox.Show("Nhập đầy đủ thông tin!");
+                    return;
+                }
 
                 cmd.ExecuteNonQuery();// Thực thi truy vấn để chèn dữ liệu vào cơ sở dữ liệu
 

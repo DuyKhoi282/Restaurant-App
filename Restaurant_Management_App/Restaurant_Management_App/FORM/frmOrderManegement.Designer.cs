@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnUpdate = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.dtgvOrderMagagement = new System.Windows.Forms.DataGridView();
             this.No = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IdOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,7 +53,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(75, 52);
+            this.label1.Location = new System.Drawing.Point(53, 52);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(598, 54);
             this.label1.TabIndex = 3;
@@ -68,22 +68,8 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1808, 159);
+            this.panel2.Size = new System.Drawing.Size(1280, 159);
             this.panel2.TabIndex = 4;
-            // 
-            // btnUpdate
-            // 
-            this.btnUpdate.AutoSize = true;
-            this.btnUpdate.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdate.ForeColor = System.Drawing.Color.Black;
-            this.btnUpdate.Location = new System.Drawing.Point(1309, 60);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(163, 64);
-            this.btnUpdate.TabIndex = 5;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = false;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // button2
             // 
@@ -91,19 +77,33 @@
             this.button2.BackColor = System.Drawing.Color.Gold;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.Black;
-            this.button2.Location = new System.Drawing.Point(1555, 60);
+            this.button2.Location = new System.Drawing.Point(1002, 52);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(215, 64);
             this.button2.TabIndex = 5;
             this.button2.Text = "Best Seller";
             this.button2.UseVisualStyleBackColor = false;
             // 
+            // btnUpdate
+            // 
+            this.btnUpdate.AutoSize = true;
+            this.btnUpdate.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdate.ForeColor = System.Drawing.Color.Black;
+            this.btnUpdate.Location = new System.Drawing.Point(795, 52);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(163, 64);
+            this.btnUpdate.TabIndex = 5;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = false;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
             // dtgvOrderMagagement
             // 
             this.dtgvOrderMagagement.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LightBlue;
-            this.dtgvOrderMagagement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LightBlue;
+            this.dtgvOrderMagagement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dtgvOrderMagagement.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dtgvOrderMagagement.BackgroundColor = System.Drawing.Color.White;
             this.dtgvOrderMagagement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -126,9 +126,8 @@
             this.dtgvOrderMagagement.RowHeadersVisible = false;
             this.dtgvOrderMagagement.RowHeadersWidth = 51;
             this.dtgvOrderMagagement.RowTemplate.Height = 24;
-            this.dtgvOrderMagagement.Size = new System.Drawing.Size(1808, 512);
+            this.dtgvOrderMagagement.Size = new System.Drawing.Size(1280, 512);
             this.dtgvOrderMagagement.TabIndex = 0;
-            this.dtgvOrderMagagement.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // No
             // 
@@ -214,7 +213,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1808, 671);
+            this.ClientSize = new System.Drawing.Size(1280, 671);
             this.Controls.Add(this.dtgvOrderMagagement);
             this.Controls.Add(this.panel2);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

@@ -59,9 +59,11 @@
             this.picAvaUser = new System.Windows.Forms.PictureBox();
             this.btnCreate_CUA = new System.Windows.Forms.Button();
             this.btnBack_CUA = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.gbxInfor_CUA.SuspendLayout();
             this.gbxAccount.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAvaUser)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -287,7 +289,7 @@
             this.gbxAccount.ForeColor = System.Drawing.Color.Firebrick;
             this.gbxAccount.Location = new System.Drawing.Point(12, 322);
             this.gbxAccount.Name = "gbxAccount";
-            this.gbxAccount.Size = new System.Drawing.Size(657, 162);
+            this.gbxAccount.Size = new System.Drawing.Size(651, 137);
             this.gbxAccount.TabIndex = 5;
             this.gbxAccount.TabStop = false;
             this.gbxAccount.Text = "Account";
@@ -297,7 +299,7 @@
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.Black;
-            this.label13.Location = new System.Drawing.Point(343, 123);
+            this.label13.Location = new System.Drawing.Point(343, 105);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(121, 19);
             this.label13.TabIndex = 7;
@@ -306,7 +308,7 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(464, 93);
+            this.textBox1.Location = new System.Drawing.Point(464, 75);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(166, 27);
             this.textBox1.TabIndex = 2;
@@ -314,7 +316,7 @@
             // txtPassword_CUA
             // 
             this.txtPassword_CUA.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword_CUA.Location = new System.Drawing.Point(120, 93);
+            this.txtPassword_CUA.Location = new System.Drawing.Point(120, 75);
             this.txtPassword_CUA.Name = "txtPassword_CUA";
             this.txtPassword_CUA.Size = new System.Drawing.Size(195, 27);
             this.txtPassword_CUA.TabIndex = 2;
@@ -341,7 +343,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.Black;
-            this.label12.Location = new System.Drawing.Point(354, 96);
+            this.label12.Location = new System.Drawing.Point(354, 78);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(97, 19);
             this.label12.TabIndex = 1;
@@ -363,7 +365,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(25, 96);
+            this.label10.Location = new System.Drawing.Point(25, 78);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(83, 19);
             this.label10.TabIndex = 0;
@@ -391,7 +393,7 @@
             // btnCreate_CUA
             // 
             this.btnCreate_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreate_CUA.Location = new System.Drawing.Point(689, 342);
+            this.btnCreate_CUA.Location = new System.Drawing.Point(702, 322);
             this.btnCreate_CUA.MaximumSize = new System.Drawing.Size(187, 60);
             this.btnCreate_CUA.MinimumSize = new System.Drawing.Size(187, 60);
             this.btnCreate_CUA.Name = "btnCreate_CUA";
@@ -404,18 +406,29 @@
             // btnBack_CUA
             // 
             this.btnBack_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBack_CUA.Location = new System.Drawing.Point(689, 415);
+            this.btnBack_CUA.Location = new System.Drawing.Point(702, 400);
             this.btnBack_CUA.Name = "btnBack_CUA";
             this.btnBack_CUA.Size = new System.Drawing.Size(187, 60);
             this.btnBack_CUA.TabIndex = 7;
             this.btnBack_CUA.Text = "Back";
             this.btnBack_CUA.UseVisualStyleBackColor = true;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(12, 465);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(875, 213);
+            this.dataGridView1.TabIndex = 8;
+            // 
             // frmCreateUser_Authority
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(903, 497);
+            this.ClientSize = new System.Drawing.Size(901, 690);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnBack_CUA);
             this.Controls.Add(this.btnCreate_CUA);
             this.Controls.Add(this.gbxAccount);
@@ -424,8 +437,6 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.picAvaUser);
             this.Controls.Add(this.gbxInfor_CUA);
-            this.MaximumSize = new System.Drawing.Size(921, 544);
-            this.MinimumSize = new System.Drawing.Size(921, 544);
             this.Name = "frmCreateUser_Authority";
             this.Text = "frmCreateUser_Authority";
             this.Load += new System.EventHandler(this.frmCreateUser_Authority_Load);
@@ -434,6 +445,7 @@
             this.gbxAccount.ResumeLayout(false);
             this.gbxAccount.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAvaUser)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -472,5 +484,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
