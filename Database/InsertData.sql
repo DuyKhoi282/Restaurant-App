@@ -97,24 +97,7 @@ VALUES ('CHF01', '123', N'Bếp trưởng', 3, 'Tran Thi C', '2005/03/25', 'ctt1
 	--
 INSERT INTO Account (userId,  Password, DisplayName, RoleId, fullname, birthday, email, phone, address, ward, district, city)
 VALUES ('STF01', '123', N'Nhân viên', 4, 'Pham Thanh D', '2005/04/07', 'dpt1@gmail.com', '0907654567', '141 DPB', 'Phuong 2', 'Quan Binh Thanh', ' TPHCM ');
--- ========================
--- Bill
--- ========================
-INSERT INTO Bill(idTable, dateCheckIn, status, idOrder, customerName)
-VALUES 
-(1, GETDATE(), 0, 101, 'TrongPhuc'),
-(2, GETDATE(), 0, 102, 'DuyKhoi'),
-(3, GETDATE(), 1, 103, 'DamVan')
--- ========================
--- BillInfo
--- ========================
-INSERT INTO BillInfo(idBill, idFood, quantity)
-VALUES 
-(1, 1, 2),
-(1, 2, 1),
-(2, 4, 1),
-(2, 5, 2),
-(3, 6, 1)
+
 
 
 

@@ -1,19 +1,19 @@
 SELECT 
-    b.id AS [Mã Hóa Đơn], 
-    f.name AS [Tên Món], 
-    bi.quantity AS [Số Lượng], -- Đổi quantity thành count cho giống lệnh INSERT
-    f.price AS [Đơn Giá], 
-    (bi.quantity * f.price) AS [Thành Tiền]
-FROM dbo.Bill AS b
-JOIN dbo.BillInfo AS bi ON b.id = bi.idBill
-JOIN dbo.Food AS f ON bi.idFood = f.id
-ORDER BY b.id DESC
+    id AS [Mã HĐ], 
+    idTable AS [Bàn], 
+    customerName AS [Tên Khách], 
+    caseName AS [Loại Đơn], 
+    payMethod AS [P.Thức TToán], 
+    status AS [Trạng Thái], -- 0: Chưa thanh toán, 1: Đã thanh toán
+    dateCheckIn AS [Giờ Vào]
+FROM dbo.Bill
+ORDER BY dateCheckIn DESC;
 SELECT 
-    b.id AS [Mã Hóa Đơn], 
-    b.DateCheckIn AS [Ngày Vào],
-    SUM(f.price * bi.quantity) AS [Tổng Tiền]
-FROM dbo.Bill AS b
-JOIN dbo.BillInfo AS bi ON b.id = bi.idBill
-JOIN dbo.Food AS f ON bi.idFood = f.id
-GROUP BY b.id, b.DateCheckIn
-SELECT * FROM Account
+    bi.idBill AS [Mã HĐ],
+    f.name AS [Tên Món],
+    bi.quantity AS [Số Lượng], -- Kiểm tra đúng cột quantity bạn vừa sửa
+    f.price AS [Đơn Giá],
+    (f.price * bi.quantity) AS [Thành Tiền]
+FROM dbo.BillInfo bi
+JOIN dbo.Food f ON bi.idFood = f.id
+WHERE bi.idBill = 1; -- <<< THAY SỐ ORDER NO CỦA BẠN VÀO ĐÂY
