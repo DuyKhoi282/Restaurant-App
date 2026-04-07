@@ -412,6 +412,7 @@
             this.btnBack_CUA.TabIndex = 7;
             this.btnBack_CUA.Text = "Back";
             this.btnBack_CUA.UseVisualStyleBackColor = true;
+            this.btnBack_CUA.Click += new System.EventHandler(this.btnBack_CUA_Click);
             // 
             // dgvAccount
             // 

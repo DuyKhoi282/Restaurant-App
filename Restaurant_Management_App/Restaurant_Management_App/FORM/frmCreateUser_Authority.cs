@@ -158,5 +158,10 @@ namespace Restaurant_Management_App
             // Vẽ số thứ tự lên Header bằng Graphics (không làm thay đổi dữ liệu nên không gây lặp)
             e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
         }
+
+        private void btnBack_CUA_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
     }    
 }
