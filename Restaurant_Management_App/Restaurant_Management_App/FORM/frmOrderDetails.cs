@@ -62,7 +62,9 @@ namespace Restaurant_Management_App
             status = 1,
             dateCheckOut = GETDATE(),
             payMethod = @payMethod
-        WHERE id = @id";
+
+              WHERE id = @id";
+
 
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@id", _idOrder);
@@ -90,8 +92,10 @@ namespace Restaurant_Management_App
             {
                 string query = @"
         SELECT 
+
             b.id,
             b.idTable,
+
             
             CONVERT(DATE, b.dateCheckIn) AS [date],
             CONVERT(TIME, b.dateCheckIn) AS [time],
@@ -103,6 +107,7 @@ namespace Restaurant_Management_App
             END AS status,
             ISNULL(SUM(f.price * bi.quantity),0) AS totalPrice
         FROM Bill b
+
         LEFT JOIN BillInfo bi ON b.id = bi.idBill
         LEFT JOIN Food f ON bi.idFood = f.id
         WHERE b.id= @id
@@ -119,6 +124,7 @@ namespace Restaurant_Management_App
                 dgvFoodDetails.DefaultCellStyle.SelectionBackColor = Color.Blue;
                 dgvFoodDetails.DefaultCellStyle.SelectionForeColor = Color.White;
 
+
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", _idOrder);
 
@@ -128,9 +134,11 @@ namespace Restaurant_Management_App
                 if (reader.Read())
                 {
 
+
                     txtIdOrder.Text = reader["id"].ToString();
                     txtIdTable.Text = reader["idTable"].ToString(); 
                     gbxListDetails.Text = reader["id"].ToString();
+
                     txtDate.Text = reader["date"].ToString();
                     txtTime.Text = reader["time"].ToString();
                     txtCustomerName.Text = reader["customerName"].ToString();
@@ -158,16 +166,20 @@ namespace Restaurant_Management_App
         f.price,
         (f.price * bi.quantity) AS TotalPrice
     FROM Bill b
+
     JOIN BillInfo bi ON b.id = bi.idBill
     JOIN Food f ON bi.idFood = f.id
     WHERE b.id = @id";
+
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand(query, conn);
+
                 cmd.Parameters.AddWithValue("@id", _idOrder);
+
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();

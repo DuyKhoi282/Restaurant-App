@@ -33,9 +33,11 @@ namespace Restaurant_Management_App
         f.price,
         (bi.quantity * f.price) AS totalprice
     FROM Bill b
+
     JOIN BillInfo bi ON b.id = bi.idBill
     JOIN Food f ON bi.idFood = f.id
     WHERE b.id = @id";
+
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -50,6 +52,8 @@ namespace Restaurant_Management_App
                     conn.Close();
 
                     dgvBill.DataSource = dt;
+
+
 
                     // 
                     dgvBill.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
