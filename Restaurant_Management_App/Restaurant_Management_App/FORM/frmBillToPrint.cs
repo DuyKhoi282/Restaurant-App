@@ -51,14 +51,23 @@ namespace Restaurant_Management_App
 
                     dgvBill.DataSource = dt;
 
-                    // 👉 UI đẹp
+                    
                     dgvBill.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
                     dgvBill.Columns["price"].DefaultCellStyle.Format = "N0";
-                dgvBill.Columns["totalprice"].DefaultCellStyle.Format = "N0";
+                    dgvBill.Columns["totalprice"].DefaultCellStyle.Format = "N0";
+                    dgvBill.CellBorderStyle = DataGridViewCellBorderStyle.None;
+                    dgvBill.BorderStyle = BorderStyle.None;
+                    dgvBill.GridColor = Color.White;
+                    dgvBill.BackgroundColor = Color.White;
+                    dgvBill.EnableHeadersVisualStyles = false;
+                    dgvBill.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
+                    dgvBill.DefaultCellStyle.BackColor = Color.White;
+                    dgvBill.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    dgvBill.RowTemplate.Height = 30;
+                    dgvBill.RowHeadersVisible = false;
 
 
-                }
+            }
             }
             
         

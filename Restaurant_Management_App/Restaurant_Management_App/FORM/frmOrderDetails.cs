@@ -116,6 +116,13 @@ namespace Restaurant_Management_App
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
 
+                dgvFoodDetails.BackgroundColor = Color.White;
+                dgvFoodDetails.BorderStyle = BorderStyle.None;
+                dgvFoodDetails.RowHeadersVisible = false;
+                dgvFoodDetails.CellBorderStyle = DataGridViewCellBorderStyle.None;
+                dgvFoodDetails.BorderStyle = BorderStyle.None;
+                dgvFoodDetails.GridColor = Color.White;
+
                 if (reader.Read())
                 {
 
