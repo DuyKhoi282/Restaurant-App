@@ -33,11 +33,9 @@ namespace Restaurant_Management_App
         f.price,
         (bi.quantity * f.price) AS totalprice
     FROM Bill b
-
-    JOIN BillInfo bi ON b.id = bi.idBill
+    JOIN BillInfo bi ON b.numr = bi.idBill
     JOIN Food f ON bi.idFood = f.id
-    WHERE b.id = @id";
-
+    WHERE b.idOrder = @id";
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -53,29 +51,14 @@ namespace Restaurant_Management_App
 
                     dgvBill.DataSource = dt;
 
-
-
-                    // 
+                    // 👉 UI đẹp
                     dgvBill.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
                     dgvBill.Columns["price"].DefaultCellStyle.Format = "N0";
-                    dgvBill.Columns["totalprice"].DefaultCellStyle.Format = "N0";
-                    dgvBill.CellBorderStyle = DataGridViewCellBorderStyle.None;
-                    dgvBill.BorderStyle = BorderStyle.None;
-                    dgvBill.GridColor = Color.White;
-                    dgvBill.Columns[0].Visible = false;
-                    dgvBill.Columns["numr"].Visible = false;
-                    dgvBill.DefaultCellStyle.Font = new Font("Segoe UI", 11);
-                    dgvBill.DefaultCellStyle.SelectionBackColor = Color.White;
-                    dgvBill.DefaultCellStyle.SelectionForeColor = Color.Black;
-                    dgvBill.RowTemplate.Height = 30;
-                    dgvBill.RowHeadersVisible = false;
-                    dgvBill.BackgroundColor = Color.White;
-                    dgvBill.BorderStyle = BorderStyle.None;
+                dgvBill.Columns["totalprice"].DefaultCellStyle.Format = "N0";
 
 
-
-            }
+                }
             }
             
         

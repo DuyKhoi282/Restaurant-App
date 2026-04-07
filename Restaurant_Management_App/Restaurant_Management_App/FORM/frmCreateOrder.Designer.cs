@@ -13,7 +13,7 @@ namespace Restaurant_Management_App.FORM
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.pnlMenu = new System.Windows.Forms.Panel();
             this.dgvMenu = new System.Windows.Forms.DataGridView();
@@ -50,7 +50,6 @@ namespace Restaurant_Management_App.FORM
             this.lblPayMethod = new System.Windows.Forms.Label();
             this.cbPayMethod = new System.Windows.Forms.ComboBox();
             this.pnlSummary = new System.Windows.Forms.Panel();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnCheckout = new System.Windows.Forms.Button();
             this.lblSubtotalCaption = new System.Windows.Forms.Label();
@@ -61,6 +60,7 @@ namespace Restaurant_Management_App.FORM
             this.lblTaxValue = new System.Windows.Forms.Label();
             this.lblTotalCaption = new System.Windows.Forms.Label();
             this.lblTotalValue = new System.Windows.Forms.Label();
+            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -154,9 +154,9 @@ namespace Restaurant_Management_App.FORM
             // 
             // colFoodPrice
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "C2";
-            this.colFoodPrice.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle1.Format = "C2";
+            this.colFoodPrice.DefaultCellStyle = dataGridViewCellStyle1;
             this.colFoodPrice.HeaderText = "Price";
             this.colFoodPrice.MinimumWidth = 6;
             this.colFoodPrice.Name = "colFoodPrice";
@@ -429,7 +429,6 @@ namespace Restaurant_Management_App.FORM
             this.lblCase.Size = new System.Drawing.Size(39, 16);
             this.lblCase.TabIndex = 9;
             this.lblCase.Text = "Case";
-            this.lblCase.Visible = false;
             // 
             // cbCase
             // 
@@ -439,7 +438,6 @@ namespace Restaurant_Management_App.FORM
             this.cbCase.Name = "cbCase";
             this.cbCase.Size = new System.Drawing.Size(84, 24);
             this.cbCase.TabIndex = 10;
-            this.cbCase.Visible = false;
             // 
             // lblPayMethod
             // 
@@ -478,16 +476,6 @@ namespace Restaurant_Management_App.FORM
             this.pnlSummary.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
             this.pnlSummary.Size = new System.Drawing.Size(745, 150);
             this.pnlSummary.TabIndex = 3;
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(565, 13);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(80, 32);
-            this.btnDelete.TabIndex = 9;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
             // 
             // btnClear
             // 
@@ -597,6 +585,16 @@ namespace Restaurant_Management_App.FORM
             this.lblTotalValue.TabIndex = 8;
             this.lblTotalValue.Text = "$0.00";
             this.lblTotalValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDelete.Location = new System.Drawing.Point(565, 13);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(80, 32);
+            this.btnDelete.TabIndex = 9;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
             // 
             // frmCreateOrder
             // 
