@@ -86,4 +86,3 @@ Restaurant-App/
 
 ---
 
-Nếu bạn muốn, mình có thể viết thêm phần **“Hướng dẫn đóng góp (Contributing)”** và **“Ảnh minh họa giao diện”** để README đầy đủ hơn.
