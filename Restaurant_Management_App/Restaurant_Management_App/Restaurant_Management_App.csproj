@@ -130,6 +130,7 @@
       <DependentUpon>frmHomepage.cs</DependentUpon>
     </Compile>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <Compile Include="frmBillToPrint.cs" />
     <Compile Include="frmBillToPrint.Designer.cs">
       <DependentUpon>frmBillToPrint.cs</DependentUpon>
@@ -146,6 +147,17 @@
       <SubType>Form</SubType>
     </Compile>
 >>>>>>> parent of 53f0228 (design lại cho đẹp và sửa lại id)
+=======
+    <Compile Include="frmBillToPrint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBillToPrint.Designer.cs">
+      <DependentUpon>frmBillToPrint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmOrderDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+>>>>>>> parent of 22eedcc (Merge branch 'main' of https://github.com/DuyKhoi282/Restaurant-App)
     <Compile Include="frmOrderDetails.Designer.cs">
       <DependentUpon>frmOrderDetails.cs</DependentUpon>
     </Compile>

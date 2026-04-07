@@ -73,7 +73,7 @@ namespace Restaurant_Management_App
                     conn.Close();
                 }
 
-                // MỞ FORM BILL
+                // 👉 MỞ FORM BILL
                 frmBillToPrint f = new frmBillToPrint(_idOrder);
                 f.Show();
 

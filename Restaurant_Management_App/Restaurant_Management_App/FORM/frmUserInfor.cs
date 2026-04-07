@@ -50,11 +50,7 @@ namespace Restaurant_Management_App
 
         private void btnBack_InfoUser_Click(object sender, EventArgs e)
         {
-
-
-
             this.Hide();
-
         }
     }
 }
