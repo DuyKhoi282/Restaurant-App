@@ -28,10 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+
             this.btnBestSeller = new System.Windows.Forms.Button();
+
+
             this.btnUpdate = new System.Windows.Forms.Button();
             this.dtgvOrderMagagement = new System.Windows.Forms.DataGridView();
             this.panel2.SuspendLayout();
@@ -43,7 +46,10 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
+
             this.label1.Location = new System.Drawing.Point(34, 49);
+
+
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(598, 54);
             this.label1.TabIndex = 3;
@@ -58,9 +64,10 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1808, 159);
+            this.panel2.Size = new System.Drawing.Size(1280, 159);
             this.panel2.TabIndex = 4;
             // 
+
             // btnBestSeller
             // 
             this.btnBestSeller.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -79,13 +86,18 @@
             // btnUpdate
             // 
             this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+
+            
+
             this.btnUpdate.AutoSize = true;
             this.btnUpdate.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpdate.ForeColor = System.Drawing.Color.Black;
+
             this.btnUpdate.Location = new System.Drawing.Point(1374, 60);
             this.btnUpdate.MaximumSize = new System.Drawing.Size(163, 64);
             this.btnUpdate.MinimumSize = new System.Drawing.Size(163, 64);
+
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(163, 64);
             this.btnUpdate.TabIndex = 5;
@@ -96,9 +108,9 @@
             // dtgvOrderMagagement
             // 
             this.dtgvOrderMagagement.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LightBlue;
-            this.dtgvOrderMagagement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LightBlue;
+            this.dtgvOrderMagagement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dtgvOrderMagagement.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dtgvOrderMagagement.BackgroundColor = System.Drawing.Color.White;
             this.dtgvOrderMagagement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -110,15 +122,17 @@
             this.dtgvOrderMagagement.RowHeadersVisible = false;
             this.dtgvOrderMagagement.RowHeadersWidth = 51;
             this.dtgvOrderMagagement.RowTemplate.Height = 24;
-            this.dtgvOrderMagagement.Size = new System.Drawing.Size(1808, 512);
+            this.dtgvOrderMagagement.Size = new System.Drawing.Size(1280, 512);
             this.dtgvOrderMagagement.TabIndex = 0;
+
             this.dtgvOrderMagagement.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvOrderMagagement_CellClick);
+
             // 
             // frmOrderManegement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1808, 671);
+            this.ClientSize = new System.Drawing.Size(1280, 671);
             this.Controls.Add(this.dtgvOrderMagagement);
             this.Controls.Add(this.panel2);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

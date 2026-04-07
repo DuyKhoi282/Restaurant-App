@@ -53,7 +53,8 @@ CREATE TABLE RolePermission (
 -- ( vd username = admin, password = 123, displayName = Quản lý, RoleId = 1 (Admin) )
 CREATE TABLE Account
 (
-	username NVARCHAR(50) PRIMARY KEY NOT NULL,
+    userId NVARCHAR(20) PRIMARY KEY, 
+	
 	password NVARCHAR(100) NOT NULL,
 	displayName NVARCHAR(100) NOT NULL,
 	RoleId INT NOT NULL,
@@ -61,6 +62,10 @@ CREATE TABLE Account
 	birthday date NOT NULL,
 	email nvarchar(50) NOT NULL,
 	phone nvarchar(20) NOT NULL,
+    address NVARCHAR(100) NOT NULL, -- Địa chỉ của người dùng
+    ward NVARCHAR(50) NOT NULL,-- Phường/xã
+    district NVARCHAR(50) NOT NULL,-- Quận/huyện
+    city NVARCHAR(50) NOT NULL,-- Thành phố
     FOREIGN KEY (RoleId) REFERENCES Role(Id)
 )
 GO

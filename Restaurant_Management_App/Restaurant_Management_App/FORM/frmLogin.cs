@@ -69,66 +69,31 @@ namespace Restaurant_Management_App
         //                   RowCount = 6 | Padding = 20
         // Đã setting Rows 
 
-        //kết nối với database 
-        SqlConnection conn = new SqlConnection(Database.connStr);
-
-        private int CheckLogin(string username, string password)
-        {
-            using (SqlConnection conn = new SqlConnection(Database.connStr))
-            {
-                string query = "SELECT role FROM account WHERE username=@user AND password=@pass";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@user", username);
-                cmd.Parameters.AddWithValue("@pass", password);
-
-                conn.Open();
-                object result = cmd.ExecuteScalar();
-
-                if (result != null)
-                    return Convert.ToInt32(result); // 0 hoặc 1
-
-                return 2;
-            }
-        }
-
             private void btnLogin_Click(object sender, EventArgs e)
         {
-            string username = txtUsername.Text.Trim();
+            string userId  = txtUserId.Text.Trim();
             string password = txtPassword.Text.Trim();
 
-            using (SqlConnection conn = new SqlConnection(Database.connStr))
+            AccountDAL dao = new AccountDAL();
+            var user = dao.Login(userId, password);
+
+            if (user != null)
             {
-                conn.Open();
+                MessageBox.Show("Đăng nhập thành công!");
 
-                string query = @"
-        SELECT a.Username, r.RoleName
-        FROM Account a
-        JOIN Role r ON a.RoleId = r.Id
-        WHERE a.Username = @username AND a.Password = @password";
+                // 🔥 LƯU SESSION
+                UserSession.UserId = user.UserId;           
 
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@username", username);
-                cmd.Parameters.AddWithValue("@password", password);
-
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    string role = reader["RoleName"].ToString();
-
-                    MessageBox.Show("Đăng nhập thành công!");
-
-                    // Mở MainForm + truyền role
-                    frmMain main = new frmMain(role);
-                    main.Show();
-                    this.Hide();                                   
-                }
-                else
-                {
-                    MessageBox.Show("Sai tài khoản hoặc mật khẩu!");
-                }
+                frmMain main = new frmMain(user.RoleName);
+                main.Show();
+                this.Hide();
             }
+            else
+            {
+                MessageBox.Show("Sai tài khoản hoặc mật khẩu!");
+            }
+
+
         }
         
 
@@ -139,7 +104,7 @@ namespace Restaurant_Management_App
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
-            txtUsername.Focus();
+            txtUserId.Focus();
         }
     }
 }

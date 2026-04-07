@@ -166,15 +166,15 @@ namespace Restaurant_Management_App
             frmCreateUser_Authority f = new frmCreateUser_Authority();
             f.Show();
         }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            LoadForm(new frmHomepage());
-        }
-
+   
         private void btnAdmin_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void picLogo_Click(object sender, EventArgs e)
+        {
+            LoadForm(new frmHomepage());
         }
     }
 }
