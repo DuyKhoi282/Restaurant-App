@@ -89,12 +89,14 @@ namespace Restaurant_Management_App
                 main.Show();
                 this.Hide();
             }
-            else
+            else if ( userId == "" || password == "")
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
+            }
+            else 
             {
                 MessageBox.Show("Sai tài khoản hoặc mật khẩu!");
             }
-
-
         }
         
 
