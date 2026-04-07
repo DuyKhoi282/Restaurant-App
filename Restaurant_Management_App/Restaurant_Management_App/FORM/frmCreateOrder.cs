@@ -76,7 +76,7 @@ namespace Restaurant_Management_App.FORM
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load menu: " + ex.Message);
+                MessageBox.Show("Failed to load menu: " + ex.Message); //alooooooooo
             }
         }
 

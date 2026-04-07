@@ -202,7 +202,7 @@ WHERE f.name COLLATE Latin1_General_CI_AI LIKE @key"; ;//Hàm giúp không phân
                 // nếu không có thì mới xóa
                 string deleteQuery = "DELETE FROM Food WHERE id = @id";
                 SqlCommand cmd = new SqlCommand(deleteQuery, conn);
-                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@id", id); 
                 cmd.ExecuteNonQuery();
             }
         }
