@@ -62,7 +62,7 @@ namespace Restaurant_Management_App
             status = 1,
             dateCheckOut = GETDATE(),
             payMethod = @payMethod
-        WHERE id = @id";
+        WHERE idOrder = @id";
 
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@id", _idOrder);
@@ -90,8 +90,9 @@ namespace Restaurant_Management_App
             {
                 string query = @"
         SELECT 
-            b.id,
+            b.numr ,
             b.idTable,
+            b.idOrder,
             
             CONVERT(DATE, b.dateCheckIn) AS [date],
             CONVERT(TIME, b.dateCheckIn) AS [time],
@@ -103,21 +104,12 @@ namespace Restaurant_Management_App
             END AS status,
             ISNULL(SUM(f.price * bi.quantity),0) AS totalPrice
         FROM Bill b
-        LEFT JOIN BillInfo bi ON b.id = bi.idBill
+        LEFT JOIN BillInfo bi ON b.numr = bi.idBill
         LEFT JOIN Food f ON bi.idFood = f.id
-        WHERE b.id= @id
+        WHERE b.idOrder = @id
         GROUP BY 
-            b.id, b.idTable, b.dateCheckIn,
-            b.customerName, b.payMethod, b.status";
-
-                dgvFoodDetails.BackgroundColor = Color.White;
-                dgvFoodDetails.BorderStyle = BorderStyle.None;
-                dgvFoodDetails.GridColor = Color.White;
-                dgvFoodDetails.DefaultCellStyle.SelectionBackColor = Color.White;
-                dgvFoodDetails.RowHeadersVisible = false;
-                dgvFoodDetails.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                dgvFoodDetails.DefaultCellStyle.SelectionBackColor = Color.Blue;
-                dgvFoodDetails.DefaultCellStyle.SelectionForeColor = Color.White;
+            b.numr, b.idTable, b.dateCheckIn,
+            b.customerName, b.payMethod, b.status, b.idOrder";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", _idOrder);
@@ -128,9 +120,9 @@ namespace Restaurant_Management_App
                 if (reader.Read())
                 {
 
-                    txtIdOrder.Text = reader["id"].ToString();
+                    txtIdOrder.Text = reader["idOrder"].ToString();
                     txtIdTable.Text = reader["idTable"].ToString(); 
-                    gbxListDetails.Text = reader["id"].ToString();
+                    gbxListDetails.Text = reader["idOrder"].ToString();
                     txtDate.Text = reader["date"].ToString();
                     txtTime.Text = reader["time"].ToString();
                     txtCustomerName.Text = reader["customerName"].ToString();
@@ -158,16 +150,16 @@ namespace Restaurant_Management_App
         f.price,
         (f.price * bi.quantity) AS TotalPrice
     FROM Bill b
-    JOIN BillInfo bi ON b.id = bi.idBill
+    JOIN BillInfo bi ON b.numr = bi.idBill
     JOIN Food f ON bi.idFood = f.id
-    WHERE b.id = @id";
+    WHERE b.idOrder = @idOrder";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@id", _idOrder);
+                cmd.Parameters.AddWithValue("@idOrder", _idOrder);
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();

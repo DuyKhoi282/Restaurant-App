@@ -147,7 +147,7 @@ namespace Restaurant_Management_App.FORM
 
             // 2. Xác nhận thanh toán
             string totalMoney = lblTotalValue.Text;
-            DialogResult result = MessageBox.Show("Tạo đơn thành công:>!", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show($"Tổng tiền là {totalMoney}. Xác nhận tạo đơn?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
@@ -164,7 +164,7 @@ namespace Restaurant_Management_App.FORM
                     string updateTableQuery = $"UPDATE tableFood SET status = N'Trống' WHERE id = {tableId}";
                     Database.Instance.ExecuteNonQuery(updateTableQuery);
 
-                    //MessageBox.Show("Tạo đơn thành công:>!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Tạo đơn thành công:>!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // 5. Làm mới màn hình để đón khách tiếp theo
                     ResetForm();
