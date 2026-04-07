@@ -17,11 +17,16 @@ namespace Restaurant_Management_App
             InitializeComponent();
         }
 
-        private void frmUserInfor_Load(object sender, EventArgs e)
+
+        // Hàm này sẽ được gọi khi form được tải lên,
+        // nó sẽ gọi hàm LoadUserInfo để lấy thông tin người dùng và hiển thị lên giao diện
+        private void frmUserInfor_Load(object sender, EventArgs e) 
         {
             LoadUserInfo();
         }
 
+
+        // Hàm này sẽ lấy thông tin chi tiết của người dùng đã đăng nhập từ database thông qua AccountDAL
         void LoadUserInfo()
         {
             AccountDAL dao = new AccountDAL();
@@ -34,9 +39,11 @@ namespace Restaurant_Management_App
                 return;
             }
 
-            BindUserToUI(user);
+            BindUserToUI(user); //Hiển thị thông tin người dùng lên giao diện
         }
 
+
+        //gán thông tin người dùng từ đối tượng AccountDTO vào giao diện để hiển thị chi tiết thông tin người dùng
         void BindUserToUI(AccountDTO user)
         {
             lblUserId_Detail.Text = user.UserId;

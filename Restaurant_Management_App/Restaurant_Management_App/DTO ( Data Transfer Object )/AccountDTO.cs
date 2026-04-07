@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant_Management_App
 {
-    public class AccountDTO
+    public class AccountDTO //đối tượng dùng để truyền dữ liệu người dùng
     {
         public string UserId { get; set; }
         public string FullName { get; set; }

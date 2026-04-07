@@ -9,7 +9,7 @@ namespace Restaurant_Management_App
 {
     public class AccountDAL
     {
-        public AccountDTO Login(string userId, string password)
+        public AccountDTO Login(string userId, string password) // hàm login được gọi ở frmLogin
         {
             string query = @"
         SELECT a.UserId, a.fullName, r.RoleName
@@ -17,14 +17,15 @@ namespace Restaurant_Management_App
         JOIN Role r ON a.RoleId = r.Id
         WHERE a.UserId = @userId AND a.Password = @password";
 
+            // Thực thi truy vấn và lấy dữ liệu
             DataTable dt = Database.Instance.ExecuteQuery(query, new object[] { userId, password });
 
-            if (dt.Rows.Count == 0)
+            if (dt.Rows.Count == 0) // không có tài khoản nào phù hợp với userId và password đã nhập
                 return null;
 
-            DataRow row = dt.Rows[0];
+            DataRow row = dt.Rows[0]; // Lấy dòng dữ liệu đầu tiên (vì userId là duy nhất nên chỉ có một dòng)
 
-            return new AccountDTO()
+            return new AccountDTO() // Trả về một đối tượng AccountDTO chứa thông tin người dùng đã tìm thấy 
             {
                 UserId = row["userId"].ToString(),
                 FullName = row["fullName"].ToString(),
@@ -32,7 +33,7 @@ namespace Restaurant_Management_App
             };
         }
 
-        public AccountDTO GetUserById(string userId)
+        public AccountDTO GetUserById(string userId) // Hàm lấy thông tin chi tiết của người dùng đã được đăng nhập
         {
             string query = @"
     SELECT 
@@ -47,14 +48,14 @@ namespace Restaurant_Management_App
     JOIN Role r ON a.RoleId = r.Id
     WHERE a.UserId = @userId";
 
-            DataTable dt = Database.Instance.ExecuteQuery(query, new object[] { userId });
+            DataTable dt = Database.Instance.ExecuteQuery(query, new object[] { userId }); // truy vấn đối tượng người dùng theo userId
 
-            if (dt.Rows.Count == 0)
+            if (dt.Rows.Count == 0) // không tìm thấy 
                 return null;
 
-            DataRow row = dt.Rows[0];
+            DataRow row = dt.Rows[0]; // đối tượng phù hợp với userId
 
-            return new AccountDTO()
+            return new AccountDTO() // Trả về một đối tượng AccountDTO chứa thông tin chi tiết của người dùng
             {
                 UserId = row["userId"]?.ToString(),
                 FullName = row["fullName"]?.ToString(),
@@ -66,7 +67,7 @@ namespace Restaurant_Management_App
             };
         }
 
-        public DataTable GetAllUsers()
+        public DataTable GetAllUsers() // Hàm lấy danh sách tất cả người dùng trong hệ thống - các tài khoản đã được tạo 
         {
             string query = @"
     SELECT 
@@ -78,7 +79,7 @@ namespace Restaurant_Management_App
     FROM Account a
     JOIN Role r ON a.RoleId = r.Id";
 
-            return Database.Instance.ExecuteQuery(query);
+            return Database.Instance.ExecuteQuery(query); //
         }
     }
 }

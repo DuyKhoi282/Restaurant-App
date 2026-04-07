@@ -18,7 +18,7 @@ namespace Restaurant_Management_App
             InitializeComponent();
         }
 
-        private void frmCreateUser_Authority_Load(object sender, EventArgs e)
+        private void frmCreateUser_Authority_Load(object sender, EventArgs e)//
         {
             using (SqlConnection conn = new SqlConnection(Database.connStr)) // Kết nối đến cơ sở dữ liệu
             {
@@ -34,9 +34,9 @@ namespace Restaurant_Management_App
                 cbxRole_CUA.ValueMember = "Id";// Thiết lập ValueMember để lấy giá trị Id của quyền khi chọn trong ComboBox
             }
 
-            LoadAccountList();
+            LoadAccountList(); //load ds tài khoản lên DataGridView
 
-            dgvAccount.RowPostPaint += dgvAccount_RowPostPaint_1;
+            dgvAccount.RowPostPaint += dgvAccount_RowPostPaint_1; //số thứ tự mỗi dòng trong dgv
         }
 
         void LoadAccountList()
@@ -47,7 +47,7 @@ namespace Restaurant_Management_App
             dgvAccount.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;            
         }
 
-        private void btnCreate_CUA_Click(object sender, EventArgs e)
+        private void btnCreate_CUA_Click(object sender, EventArgs e) 
         {
             // Lấy thông tin từ các TextBox và ComboBox
             string userId = txtUserId_CUA.Text.Trim();// Lấy tên đăng nhập từ TextBox và loại bỏ khoảng trắng ở đầu và cuối
@@ -111,7 +111,9 @@ namespace Restaurant_Management_App
             }
         }
 
-        private void dgvAccount_CellClick(object sender, DataGridViewCellEventArgs e)
+        // click vào 1 dòng sẽ hiện thị thông tin chi tiết của tài khoản đó lên các TextBox, ComboBox và DateTimePicker bên dưới 
+        // để dễ dàng chỉnh sửa hoặc xem thông tin chi tiết
+        private void dgvAccount_CellClick(object sender, DataGridViewCellEventArgs e) 
         {
             if (e.RowIndex >= 0)
             {
@@ -139,6 +141,7 @@ namespace Restaurant_Management_App
         }
     
 
+        // số thứ tự lên header của dgv
         private void dgvAccount_RowPostPaint_1(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             // Thiết lập số thứ tự

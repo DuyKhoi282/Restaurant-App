@@ -71,17 +71,18 @@ namespace Restaurant_Management_App
 
             private void btnLogin_Click(object sender, EventArgs e)
         {
+            // lấy dữ liệu từ 2 textbox, dùng hàm Trim() để loại bỏ khoảng trắng thừa ở đầu và cuối
             string userId  = txtUserId.Text.Trim();
             string password = txtPassword.Text.Trim();
 
-            AccountDAL dao = new AccountDAL();
-            var user = dao.Login(userId, password);
+            AccountDAL dao = new AccountDAL(); // dao giúp tách biệt logic winform và logic truy cập dữ liệu, giúp code dễ bảo trì hơn
+            var user = dao.Login(userId, password); // var giúp tự động suy luận kiểu dữ liệu trả về từ hàm Login
 
             if (user != null)
             {
                 MessageBox.Show("Đăng nhập thành công!");
 
-                // 🔥 LƯU SESSION
+                // lưu trạng thái đăng nhập của người dùng vào UserSession để sử dụng trong các form khác
                 UserSession.UserId = user.UserId;           
 
                 frmMain main = new frmMain(user.RoleName);
