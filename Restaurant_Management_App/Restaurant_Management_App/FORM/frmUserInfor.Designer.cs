@@ -209,6 +209,7 @@
             this.btnBack_InfoUser.TabIndex = 7;
             this.btnBack_InfoUser.Text = "Back";
             this.btnBack_InfoUser.UseVisualStyleBackColor = true;
+            this.btnBack_InfoUser.Click += new System.EventHandler(this.btnBack_InfoUser_Click);
             // 
             // gbxInformations_UserInfor
             // 

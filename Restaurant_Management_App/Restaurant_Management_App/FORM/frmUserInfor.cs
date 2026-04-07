@@ -47,5 +47,10 @@ namespace Restaurant_Management_App
             lblAddress_Detail.Text = user.Address;
             lblBirthday_Detail.Text = user.Birthday;
         }
+
+        private void btnBack_InfoUser_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
     }
 }
