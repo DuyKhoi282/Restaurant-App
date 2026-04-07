@@ -130,5 +130,10 @@ namespace Restaurant_Management_App
                 f.ShowDialog();
             }
         }
+
+        private void btnReload_Click(object sender, EventArgs e)
+        {
+            LoadOrderList();
+        }
     }
 }
