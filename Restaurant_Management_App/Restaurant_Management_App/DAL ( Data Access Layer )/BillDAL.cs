@@ -49,8 +49,9 @@ namespace Restaurant_Management_App
         {
             try
             {
-                // Lấy ID lớn nhất vừa được tạo trong bảng Bill
-                return (int)Database.Instance.ExecuteScalar("SELECT MAX(id) FROM dbo.Bill");
+                // Sử dụng ISNULL để nếu bảng trống thì trả về 0, giúp mã đơn tiếp theo là 1
+                string query = "SELECT ISNULL(MAX(id), 0) FROM dbo.Bill";
+                return (int)Database.Instance.ExecuteScalar(query);
             }
             catch
             {

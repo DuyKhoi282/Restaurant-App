@@ -17,7 +17,6 @@ namespace Restaurant_Management_App.FORM
             // Đăng ký các sự kiện
             this.Load += FrmOrder_Load;
             btnCheckout.Click += BtnCheckout_Click;
-            btnHold.Click += BtnHold_Click;
             btnClear.Click += BtnClear_Click;
 
             // Đăng ký thêm sự kiện cho numDiscount để tự tính lại tiền khi đổi giảm giá
@@ -83,7 +82,15 @@ namespace Restaurant_Management_App.FORM
 
         private void dgvMenu_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            // Giả sử đây là chỗ bạn đổ dữ liệu vào dgvMenu
+            DataTable dt = Database.Instance.ExecuteQuery("SELECT * FROM Food");
+            dgvMenu.DataSource = dt;
 
+            // QUAN TRỌNG: Gán ID vào thuộc tính DataPropertyName của cột ID
+            if (dgvMenu.Columns.Contains("colId")) // "colId" là tên (Name) bạn đặt trong Edit Columns
+            {
+                dgvMenu.Columns["colId"].DataPropertyName = "id";
+            }
         }
 
         void LoadBillDetails(int billId)
@@ -140,7 +147,7 @@ namespace Restaurant_Management_App.FORM
 
             // 2. Xác nhận thanh toán
             string totalMoney = lblTotalValue.Text;
-            DialogResult result = MessageBox.Show($"Tổng tiền là {totalMoney}. Xác nhận thanh toán?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show($"Tổng tiền là {totalMoney}. Xác nhận tạo đơn?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
@@ -157,7 +164,7 @@ namespace Restaurant_Management_App.FORM
                     string updateTableQuery = $"UPDATE tableFood SET status = N'Trống' WHERE id = {tableId}";
                     Database.Instance.ExecuteNonQuery(updateTableQuery);
 
-                    MessageBox.Show("Thanh toán thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Tạo đơn thành công:>!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // 5. Làm mới màn hình để đón khách tiếp theo
                     ResetForm();
@@ -167,39 +174,76 @@ namespace Restaurant_Management_App.FORM
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi thanh toán: " + ex.Message);
+                    MessageBox.Show("Tạo đơn thất bại :< " + ex.Message);
                 }
             }
         }
 
         // Gom nhóm việc clear giao diện vào 1 hàm cho sạch code
-        void ResetForm()
+        private void ResetForm()
         {
-            txtOrderNo.Clear();
-            txtCustomerName.Clear();
-            dgvCart.DataSource = null; // Xóa giỏ hàng
-            numDiscount.Value = 0;     // Reset giảm giá về 0
-            CalculateTotal();          // Tính lại tổng tiền (sẽ về 0)
+            // 1. Xóa tên khách hàng và mã đơn
+            txtCustomerName.Text = "";
+            txtOrderNo.Text = ""; // Hoặc gán lại "0000"
+
+            // 2. Đưa các ComboBox về lựa chọn mặc định
+            if (cbTable.Items.Count > 0) cbTable.SelectedIndex = 0;
+            if (cbCase.Items.Count > 0) cbCase.SelectedIndex = 0;
+            if (cbPayMethod.Items.Count > 0) cbPayMethod.SelectedIndex = 0;
+
+            // 3. Xóa sạch danh sách món trong giỏ hàng (dgvCart)
+            // Nếu dgvCart dùng DataSource:
+            dgvCart.DataSource = null;
+            // Nếu dgvCart nạp thủ công từng dòng:
+            // dgvCart.Rows.Clear();
+
+            // 4. Reset tổng tiền về 0
+            lblTotalValue.Text = "0 VNĐ";
+
+            // 5. Đưa con trỏ chuột về ô tên khách hàng để nhập đơn mới cho nhanh
+            txtCustomerName.Focus();
         }
         private void BtnClear_Click(object sender, EventArgs e)
         {
-            // Hỏi trước khi xóa sạch
-            DialogResult result = MessageBox.Show(
-                "Bạn có chắc chắn muốn làm mới toàn bộ hóa đơn hiện tại không?",
-                "Xác nhận làm mới",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
+            // 1. Kiểm tra xem có mã hóa đơn (Order No) chưa
+            if (string.IsNullOrEmpty(txtOrderNo.Text))
+            {
+                MessageBox.Show("Không có hóa đơn nào để xóa!", "Thông báo");
+                return;
+            }
+
+            // Lấy ID hóa đơn từ ô nhập liệu (vì bạn đã format 0001 nên cần ép kiểu lại)
+            int billId = int.Parse(txtOrderNo.Text);
+
+            // 2. Hỏi xác nhận để tránh bấm nhầm
+            DialogResult result = MessageBox.Show($"Bạn có chắc muốn XÓA TẤT CẢ món ăn của hóa đơn {txtOrderNo.Text} không?",
+                                                "Cảnh báo xóa dữ liệu",
+                                                MessageBoxButtons.YesNo,
+                                                MessageBoxIcon.Warning);
 
             if (result == DialogResult.Yes)
             {
-                ResetForm();
-            }
-        }
+                try
+                {
+                    // 3. Thực hiện lệnh xóa trong SQL
+                    // Xóa tất cả các dòng trong BillInfo có mã idBill này
+                    string query = "DELETE dbo.BillInfo WHERE idBill = " + billId;
+                    int check = Database.Instance.ExecuteNonQuery(query);
 
-        private void BtnHold_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Order has been saved as 'Unpaid'. You can close the form.");
+                    if (check >= 0)
+                    {
+                        MessageBox.Show("Đã xóa sạch các món trong đơn hàng!", "Thành công");
+
+                        // 4. Cập nhật lại giao diện
+                        LoadBillDetails(billId); // Nạp lại giỏ hàng (lúc này sẽ trống)
+                        CalculateTotal();        // Tính lại tổng tiền (sẽ về 0)
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi xóa: " + ex.Message);
+                }
+            }
         }
 
         private void cbCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -218,58 +262,7 @@ namespace Restaurant_Management_App.FORM
             dgvMenu.DataSource = Database.Instance.ExecuteQuery(query);
         }
         // Giả sử đây là hàm xử lý khi nhân viên click chọn món
-        private void AddFoodToBill()
-        {
-            if (cbTable.SelectedValue == null)
-            {
-                MessageBox.Show("Vui lòng chọn bàn trước!", "Thông báo");
-                return;
-            }
-            if (cbTable.SelectedValue == null) return;
-            int tableId = (int)cbTable.SelectedValue;
-
-            // BƯỚC 1: Tìm hóa đơn cũ (status = 0)
-            int billId = BillDAL.Instance.GetUncheckBillIDByTableID(tableId);
-
-            if (billId == -1) // Nếu bàn trống
-            {
-                // BƯỚC 2: Lấy thông tin từ giao diện truyền vào hàm Insert
-                string customer = txtCustomerName.Text;
-                string cases = cbCase.Text;         // Dining/Takeaway...
-                string method = cbPayMethod.Text;   // Cash/Card...
-
-                BillDAL.Instance.InsertBill(tableId, customer, cases, method);
-                billId = BillDAL.Instance.GetMaxIDBill();
-            }
-
-            // BƯỚC 3: Ghi món vào chi tiết hóa đơn (BillInfo)
-            // BƯỚC 3: Ghi món vào chi tiết hóa đơn (BillInfo)
-             if (dgvMenu.CurrentRow == null) return;
-
-            // Dựa vào hình image_f3fa6d, cột chứa số ID (1, 2, 3...) nằm ở vị trí số 3 (tính từ 0)
-            // Bạn dùng index để lấy cho CHÍNH XÁC, không sợ trùng tên cột
-            int foodId = Convert.ToInt32(dgvMenu.CurrentRow.Cells[3].Value);
-
-            int quantity = 1; // Mặc định mỗi lần click là thêm 1
-
-            // Kiểm tra xem billId có hợp lệ không trước khi chèn
-            if (billId != -1)
-            {
-                try
-                {
-                    BillInfoDAL.Instance.InsertBillInfo(billId, foodId, quantity);
-
-                    // BƯỚC 4: Load lại giỏ hàng và tính tiền
-                    LoadBillDetails(billId);
-                    txtOrderNo.Text = billId.ToString();
-                    CalculateTotal();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi khi thêm món: " + ex.Message);
-                }
-            }
-        }
+        
 
         private void txtSearchFood_TextChanged(object sender, EventArgs e)
         {
@@ -284,22 +277,45 @@ namespace Restaurant_Management_App.FORM
 
         private void dgvCart_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Kiểm tra nếu bấm đúng vào cột nút X
-            if (e.RowIndex >= 0 && dgvCart.Columns[e.ColumnIndex].Name == "colDelete")
+            // 1. Kiểm tra RowIndex để tránh click vào tiêu đề
+            if (e.RowIndex < 0) return;
+
+            // 2. Kiểm tra tên cột - Hãy đảm bảo Name trong Edit Columns là "colDelete"
+            if (dgvCart.Columns[e.ColumnIndex].Name == "colDelete")
             {
-                // Lấy ID món ăn từ cột FoodId (cột đầu tiên trong hình image_f33411.png của bạn)
-                int foodId = (int)dgvCart.Rows[e.RowIndex].Cells["FoodId"].Value;
-                int billId = int.Parse(txtOrderNo.Text);
-
-                if (MessageBox.Show("Bạn muốn xóa món này?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                try
                 {
-                    // Lệnh xóa trong SQL
-                    string query = $"DELETE dbo.BillInfo WHERE idBill = {billId} AND idFood = {foodId}";
-                    Database.Instance.ExecuteNonQuery(query);
+                    // Lấy FoodId an toàn hơn
+                    object foodIdObj = dgvCart.Rows[e.RowIndex].Cells["FoodId"].Value;
+                    if (foodIdObj == null) return;
 
-                    // Nạp lại giỏ hàng và tính lại tiền
-                    LoadBillDetails(billId);
-                    CalculateTotal();
+                    int foodId = Convert.ToInt32(foodIdObj);
+
+                    // Lấy BillId (Xử lý trường hợp bạn có format 0001)
+                    // Dùng hàm thay thế nếu mã đơn có chứa chữ như "HD0001"
+                    string rawBillId = txtOrderNo.Text.Replace("HD", "");
+                    int billId = int.Parse(rawBillId);
+
+                    if (MessageBox.Show("Bạn muốn xóa món này khỏi đơn hàng?", "Xác nhận",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        // 3. Lệnh xóa trong SQL
+                        // Lưu ý: Nếu cột trong SQL của bạn là 'quantity' thay vì 'count', hãy kiểm tra lại nhé
+                        string query = $"DELETE dbo.BillInfo WHERE idBill = {billId} AND idFood = {foodId}";
+
+                        int result = Database.Instance.ExecuteNonQuery(query);
+
+                        if (result > 0)
+                        {
+                            // 4. Cập nhật giao diện
+                            LoadBillDetails(billId);
+                            CalculateTotal();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi xóa món: " + ex.Message, "Thông báo lỗi");
                 }
             }
         }
@@ -311,55 +327,119 @@ namespace Restaurant_Management_App.FORM
 
         private void AddFootToBill(object sender, DataGridViewCellEventArgs e)
         {
-            // 1. Chống click vào tiêu đề cột
             if (e.RowIndex < 0) return;
+
+            // Khai báo biến ở đầu để tránh lỗi "không tìm thấy billId"
+            int billId = -1;
 
             try
             {
-                // 2. Kiểm tra chọn bàn
-                if (cbTable.SelectedValue == null)
-                {
-                    MessageBox.Show("Vui lòng chọn bàn trước!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                // 1. Lấy mã món ăn từ cột "id"
+                int foodId = -1;
+                if (dgvMenu.Columns.Contains("id"))
+                    foodId = Convert.ToInt32(dgvMenu.Rows[e.RowIndex].Cells["id"].Value);
+                else if (dgvMenu.Columns.Contains("colId"))
+                    foodId = Convert.ToInt32(dgvMenu.Rows[e.RowIndex].Cells["colId"].Value);
 
+                if (foodId <= 0) return;
+
+                // 2. Kiểm tra bàn
+                if (cbTable.SelectedValue == null) return;
                 int tableId = (int)cbTable.SelectedValue;
 
-                // 3. Lấy foodId từ cột số 3 (Cột 'id' chứa số 1, 2, 3... trong hình image_f3fa6d)
-                // Mình dùng TryParse để nếu ô đó trống hoặc lỗi thì chương trình không bị văng
-                if (dgvMenu.Rows[e.RowIndex].Cells[3].Value == null ||
-                    string.IsNullOrEmpty(dgvMenu.Rows[e.RowIndex].Cells[3].Value.ToString()))
-                {
-                    MessageBox.Show("Không tìm thấy mã món ăn ở dòng này!", "Lỗi dữ liệu");
-                    return;
-                }
-
-                int foodId = Convert.ToInt32(dgvMenu.Rows[e.RowIndex].Cells[3].Value);
-
-                // 4. Tìm hoặc tạo Bill
-                int billId = BillDAL.Instance.GetUncheckBillIDByTableID(tableId);
+                // 3. Tìm hoặc tạo hóa đơn mới
+                billId = BillDAL.Instance.GetUncheckBillIDByTableID(tableId);
 
                 if (billId == -1)
                 {
-                    // Truyền đủ 4 tham số như BillDAL đã sửa
                     BillDAL.Instance.InsertBill(tableId, txtCustomerName.Text, cbCase.Text, cbPayMethod.Text);
                     billId = BillDAL.Instance.GetMaxIDBill();
                 }
 
-                // 5. Chèn vào BillInfo (Chi tiết hóa đơn)
-                // Nếu dòng này vẫn báo lỗi Foreign Key, tức là số foodId lấy ra không tồn tại trong bảng Food ở SQL
+                // 4. Lưu món vào BillInfo
                 BillInfoDAL.Instance.InsertBillInfo(billId, foodId, 1);
 
-                // 6. Cập nhật giao diện
-                txtOrderNo.Text = billId.ToString();
+                // 5. Cập nhật giao diện (Load giỏ hàng + Format mã đơn)
                 LoadBillDetails(billId);
+
+                // GỌI HÀM FORMAT TẠI ĐÂY
+                txtOrderNo.Text = FormatBillId(billId);
+
                 CalculateTotal();
             }
             catch (Exception ex)
             {
-                // Hiện lỗi chi tiết để bạn dễ debug
-                MessageBox.Show("Lỗi hệ thống: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi: " + ex.Message);
             }
         }
+
+        private void btnCheckout_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                // 1. Kiểm tra mã hóa đơn
+                if (string.IsNullOrEmpty(txtOrderNo.Text))
+                {
+                    MessageBox.Show("Vui lòng thêm món trước khi Submit!", "Thông báo");
+                    return;
+                }
+
+                int billId = int.Parse(txtOrderNo.Text);
+
+                // 2. Xóa dữ liệu cũ trong BillInfo để lưu mới (Tránh trùng lặp)
+                string deleteOldInfo = "DELETE dbo.BillInfo WHERE idBill = " + billId;
+                Database.Instance.ExecuteNonQuery(deleteOldInfo);
+
+                // 3. Lưu danh sách món từ dgvCart vào SQL
+                int countSuccess = 0;
+                foreach (DataGridViewRow row in dgvCart.Rows)
+                {
+                    if (row.Cells["FoodId"].Value != null)
+                    {
+                        int foodId = Convert.ToInt32(row.Cells["FoodId"].Value);
+                        int quantity = Convert.ToInt32(row.Cells["Qty"].Value);
+
+                        string query = $"INSERT INTO dbo.BillInfo (idBill, idFood, count) VALUES ({billId}, {foodId}, {quantity})";
+                        Database.Instance.ExecuteNonQuery(query);
+                        countSuccess++;
+                    }
+                }
+
+                // 4. Xử lý sau khi thành công
+                if (countSuccess > 0)
+                {
+                    MessageBox.Show($"Đã gửi {countSuccess} món vào hệ thống!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // --- BẮT ĐẦU ĐOẠN BỔ SUNG Ở ĐÂY ---
+
+                    // Làm sạch giỏ hàng trên màn hình sau khi đã gửi xong
+                    dgvCart.DataSource = null;
+                    if (dgvCart.Rows.Count > 0) dgvCart.Rows.Clear(); // Nếu dùng nạp tay thì dùng dòng này
+
+                    // Cập nhật lại tổng tiền về 0
+                    CalculateTotal();
+
+                    // Dự báo mã đơn tiếp theo cho nhân viên biết
+                    int nextBillId = BillDAL.Instance.GetMaxIDBill() + 1;
+                    txtOrderNo.Text = FormatBillId(nextBillId);
+
+                    // Xóa tên khách hàng để nhập đơn mới
+                    txtCustomerName.Text = "";
+                    txtCustomerName.Focus();
+
+                    // --- KẾT THÚC ĐOẠN BỔ SUNG ---
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi gửi đơn: " + ex.Message);
+            }
+        }
+        private string FormatBillId(int id)
+        {
+            // "D4" nghĩa là Decimal với 4 chữ số, tự động bù số 0 ở trước
+            return id.ToString("D4");
+        }
+
     }
 }
