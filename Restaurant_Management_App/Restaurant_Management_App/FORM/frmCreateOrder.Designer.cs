@@ -13,25 +13,25 @@ namespace Restaurant_Management_App.FORM
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.pnlMenu = new System.Windows.Forms.Panel();
             this.dgvMenu = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFoodName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFoodPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlMenuSearch = new System.Windows.Forms.Panel();
             this.txtSearchFood = new System.Windows.Forms.TextBox();
             this.cbCategory = new System.Windows.Forms.ComboBox();
             this.lblMenu = new System.Windows.Forms.Label();
             this.pnlOrder = new System.Windows.Forms.Panel();
             this.dgvCart = new System.Windows.Forms.DataGridView();
-            this.colCartId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colUnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colLineTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDelete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.colPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FoodID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlNote = new System.Windows.Forms.Panel();
             this.txtNote = new System.Windows.Forms.TextBox();
             this.lblNote = new System.Windows.Forms.Label();
@@ -51,7 +51,6 @@ namespace Restaurant_Management_App.FORM
             this.cbPayMethod = new System.Windows.Forms.ComboBox();
             this.pnlSummary = new System.Windows.Forms.Panel();
             this.btnClear = new System.Windows.Forms.Button();
-            this.btnHold = new System.Windows.Forms.Button();
             this.btnCheckout = new System.Windows.Forms.Button();
             this.lblSubtotalCaption = new System.Windows.Forms.Label();
             this.lblSubtotalValue = new System.Windows.Forms.Label();
@@ -61,10 +60,7 @@ namespace Restaurant_Management_App.FORM
             this.lblTaxValue = new System.Windows.Forms.Label();
             this.lblTotalCaption = new System.Windows.Forms.Label();
             this.lblTotalValue = new System.Windows.Forms.Label();
-            this.colFoodPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFoodName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colMenuId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -117,7 +113,7 @@ namespace Restaurant_Management_App.FORM
             this.dgvMenu.BackgroundColor = System.Drawing.Color.White;
             this.dgvMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMenu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colMenuId,
+            this.id,
             this.colFoodName,
             this.colCategory,
             this.colFoodPrice});
@@ -133,6 +129,38 @@ namespace Restaurant_Management_App.FORM
             this.dgvMenu.Size = new System.Drawing.Size(411, 650);
             this.dgvMenu.TabIndex = 2;
             this.dgvMenu.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.AddFootToBill);
+            // 
+            // id
+            // 
+            this.id.HeaderText = "MenuId";
+            this.id.MinimumWidth = 6;
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // colFoodName
+            // 
+            this.colFoodName.HeaderText = "Food";
+            this.colFoodName.MinimumWidth = 6;
+            this.colFoodName.Name = "colFoodName";
+            this.colFoodName.ReadOnly = true;
+            // 
+            // colCategory
+            // 
+            this.colCategory.HeaderText = "Category";
+            this.colCategory.MinimumWidth = 6;
+            this.colCategory.Name = "colCategory";
+            this.colCategory.ReadOnly = true;
+            // 
+            // colFoodPrice
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle1.Format = "C2";
+            this.colFoodPrice.DefaultCellStyle = dataGridViewCellStyle1;
+            this.colFoodPrice.HeaderText = "Price";
+            this.colFoodPrice.MinimumWidth = 6;
+            this.colFoodPrice.Name = "colFoodPrice";
+            this.colFoodPrice.ReadOnly = true;
             // 
             // pnlMenuSearch
             // 
@@ -198,12 +226,11 @@ namespace Restaurant_Management_App.FORM
             this.dgvCart.BackgroundColor = System.Drawing.Color.White;
             this.dgvCart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCart.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colCartId,
-            this.colItem,
-            this.colQty,
-            this.colUnitPrice,
-            this.colLineTotal,
-            this.colDelete});
+            this.colDelete,
+            this.colPrice,
+            this.FoodID,
+            this.colName,
+            this.colQty});
             this.dgvCart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCart.Location = new System.Drawing.Point(10, 200);
             this.dgvCart.MultiSelect = false;
@@ -216,56 +243,50 @@ namespace Restaurant_Management_App.FORM
             this.dgvCart.TabIndex = 2;
             this.dgvCart.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCart_CellContentClick);
             // 
-            // colCartId
-            // 
-            this.colCartId.HeaderText = "FoodId";
-            this.colCartId.MinimumWidth = 6;
-            this.colCartId.Name = "colCartId";
-            this.colCartId.Visible = false;
-            // 
-            // colItem
-            // 
-            this.colItem.HeaderText = "Item";
-            this.colItem.MinimumWidth = 6;
-            this.colItem.Name = "colItem";
-            this.colItem.ReadOnly = true;
-            // 
-            // colQty
-            // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colQty.DefaultCellStyle = dataGridViewCellStyle5;
-            this.colQty.HeaderText = "Qty";
-            this.colQty.MinimumWidth = 6;
-            this.colQty.Name = "colQty";
-            this.colQty.ReadOnly = true;
-            // 
-            // colUnitPrice
-            // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle6.Format = "C2";
-            this.colUnitPrice.DefaultCellStyle = dataGridViewCellStyle6;
-            this.colUnitPrice.HeaderText = "Unit price";
-            this.colUnitPrice.MinimumWidth = 6;
-            this.colUnitPrice.Name = "colUnitPrice";
-            this.colUnitPrice.ReadOnly = true;
-            // 
-            // colLineTotal
-            // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Format = "C2";
-            this.colLineTotal.DefaultCellStyle = dataGridViewCellStyle7;
-            this.colLineTotal.HeaderText = "Total";
-            this.colLineTotal.MinimumWidth = 6;
-            this.colLineTotal.Name = "colLineTotal";
-            this.colLineTotal.ReadOnly = true;
-            // 
             // colDelete
             // 
+            this.colDelete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colDelete.Frozen = true;
             this.colDelete.HeaderText = "Action";
             this.colDelete.MinimumWidth = 6;
             this.colDelete.Name = "colDelete";
             this.colDelete.Text = "X";
             this.colDelete.UseColumnTextForButtonValue = true;
+            this.colDelete.Width = 148;
+            // 
+            // colPrice
+            // 
+            this.colPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colPrice.DataPropertyName = "price";
+            this.colPrice.Frozen = true;
+            this.colPrice.HeaderText = "Unit price";
+            this.colPrice.MinimumWidth = 6;
+            this.colPrice.Name = "colPrice";
+            this.colPrice.Width = 149;
+            // 
+            // FoodID
+            // 
+            this.FoodID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.FoodID.DataPropertyName = "foodId";
+            this.FoodID.HeaderText = "ID";
+            this.FoodID.MinimumWidth = 6;
+            this.FoodID.Name = "FoodID";
+            this.FoodID.Visible = false;
+            this.FoodID.Width = 148;
+            // 
+            // colName
+            // 
+            this.colName.DataPropertyName = "name";
+            this.colName.HeaderText = "Item";
+            this.colName.MinimumWidth = 6;
+            this.colName.Name = "colName";
+            // 
+            // colQty
+            // 
+            this.colQty.DataPropertyName = "quantity";
+            this.colQty.HeaderText = "Qty";
+            this.colQty.MinimumWidth = 6;
+            this.colQty.Name = "colQty";
             // 
             // pnlNote
             // 
@@ -438,8 +459,8 @@ namespace Restaurant_Management_App.FORM
             // 
             // pnlSummary
             // 
+            this.pnlSummary.Controls.Add(this.btnDelete);
             this.pnlSummary.Controls.Add(this.btnClear);
-            this.pnlSummary.Controls.Add(this.btnHold);
             this.pnlSummary.Controls.Add(this.btnCheckout);
             this.pnlSummary.Controls.Add(this.lblSubtotalCaption);
             this.pnlSummary.Controls.Add(this.lblSubtotalValue);
@@ -459,22 +480,12 @@ namespace Restaurant_Management_App.FORM
             // btnClear
             // 
             this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClear.Location = new System.Drawing.Point(531, 12);
+            this.btnClear.Location = new System.Drawing.Point(463, 12);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(80, 32);
             this.btnClear.TabIndex = 9;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
-            // 
-            // btnHold
-            // 
-            this.btnHold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnHold.Location = new System.Drawing.Point(617, 12);
-            this.btnHold.Name = "btnHold";
-            this.btnHold.Size = new System.Drawing.Size(55, 32);
-            this.btnHold.TabIndex = 10;
-            this.btnHold.Text = "Hold";
-            this.btnHold.UseVisualStyleBackColor = true;
             // 
             // btnCheckout
             // 
@@ -483,12 +494,13 @@ namespace Restaurant_Management_App.FORM
             this.btnCheckout.FlatAppearance.BorderSize = 0;
             this.btnCheckout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCheckout.ForeColor = System.Drawing.Color.White;
-            this.btnCheckout.Location = new System.Drawing.Point(678, 12);
+            this.btnCheckout.Location = new System.Drawing.Point(663, 12);
             this.btnCheckout.Name = "btnCheckout";
             this.btnCheckout.Size = new System.Drawing.Size(67, 32);
             this.btnCheckout.TabIndex = 11;
-            this.btnCheckout.Text = "Pay";
+            this.btnCheckout.Text = "Submit";
             this.btnCheckout.UseVisualStyleBackColor = false;
+            this.btnCheckout.Click += new System.EventHandler(this.btnCheckout_Click_1);
             // 
             // lblSubtotalCaption
             // 
@@ -502,7 +514,7 @@ namespace Restaurant_Management_App.FORM
             // lblSubtotalValue
             // 
             this.lblSubtotalValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSubtotalValue.Location = new System.Drawing.Point(419, 16);
+            this.lblSubtotalValue.Location = new System.Drawing.Point(287, 13);
             this.lblSubtotalValue.Name = "lblSubtotalValue";
             this.lblSubtotalValue.Size = new System.Drawing.Size(160, 23);
             this.lblSubtotalValue.TabIndex = 1;
@@ -526,7 +538,7 @@ namespace Restaurant_Management_App.FORM
             0,
             0,
             0});
-            this.numDiscount.Location = new System.Drawing.Point(527, 45);
+            this.numDiscount.Location = new System.Drawing.Point(515, 50);
             this.numDiscount.Name = "numDiscount";
             this.numDiscount.Size = new System.Drawing.Size(80, 22);
             this.numDiscount.TabIndex = 3;
@@ -574,37 +586,15 @@ namespace Restaurant_Management_App.FORM
             this.lblTotalValue.Text = "$0.00";
             this.lblTotalValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // colFoodPrice
+            // btnDelete
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "C2";
-            this.colFoodPrice.DefaultCellStyle = dataGridViewCellStyle4;
-            this.colFoodPrice.HeaderText = "Price";
-            this.colFoodPrice.MinimumWidth = 6;
-            this.colFoodPrice.Name = "colFoodPrice";
-            this.colFoodPrice.ReadOnly = true;
-            // 
-            // colCategory
-            // 
-            this.colCategory.HeaderText = "Category";
-            this.colCategory.MinimumWidth = 6;
-            this.colCategory.Name = "colCategory";
-            this.colCategory.ReadOnly = true;
-            // 
-            // colFoodName
-            // 
-            this.colFoodName.HeaderText = "Food";
-            this.colFoodName.MinimumWidth = 6;
-            this.colFoodName.Name = "colFoodName";
-            this.colFoodName.ReadOnly = true;
-            // 
-            // colMenuId
-            // 
-            this.colMenuId.HeaderText = "MenuId";
-            this.colMenuId.MinimumWidth = 6;
-            this.colMenuId.Name = "colMenuId";
-            this.colMenuId.ReadOnly = true;
-            this.colMenuId.Visible = false;
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDelete.Location = new System.Drawing.Point(565, 13);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(80, 32);
+            this.btnDelete.TabIndex = 9;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
             // 
             // frmCreateOrder
             // 
@@ -680,18 +670,17 @@ namespace Restaurant_Management_App.FORM
         private Label lblTotalCaption;
         private Label lblTotalValue;
         private Button btnClear;
-        private Button btnHold;
         private Button btnCheckout;
         private TextBox txtNote;
-        private DataGridViewTextBoxColumn colCartId;
-        private DataGridViewTextBoxColumn colItem;
-        private DataGridViewTextBoxColumn colQty;
-        private DataGridViewTextBoxColumn colUnitPrice;
-        private DataGridViewTextBoxColumn colLineTotal;
-        private DataGridViewButtonColumn colDelete;
-        private DataGridViewTextBoxColumn colMenuId;
+        private DataGridViewTextBoxColumn id;
         private DataGridViewTextBoxColumn colFoodName;
         private DataGridViewTextBoxColumn colCategory;
         private DataGridViewTextBoxColumn colFoodPrice;
+        private DataGridViewButtonColumn colDelete;
+        private DataGridViewTextBoxColumn colPrice;
+        private DataGridViewTextBoxColumn FoodID;
+        private DataGridViewTextBoxColumn colName;
+        private DataGridViewTextBoxColumn colQty;
+        private Button btnDelete;
     }
 }

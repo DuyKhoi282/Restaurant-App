@@ -91,9 +91,8 @@ GO
 
 CREATE TABLE Bill
 (
-	numr INT IDENTITY PRIMARY KEY NOT NULL,
-	idTable INT NOT NULL,
-	idOrder NVARCHAR(20),
+	idTable INT  NOT NULL,
+	id int PRIMARY KEY NOT NULL,
 	dateCheckIn DATETIME NOT NULL DEFAULT GETDATE(),
 	dateCheckOut DATETIME,
 	customerName NVARCHAR(100),   -- NAME
@@ -111,7 +110,7 @@ CREATE TABLE BillInfo
 	idBill INT NOT NULL,
 	idFood INT NOT NULL,
 	quantity INT NOT NULL DEFAULT 1,
-	FOREIGN KEY (idBill) REFERENCES Bill(numr),
+	FOREIGN KEY (idBill) REFERENCES Bill(id),
 	FOREIGN KEY (idFood) REFERENCES Food(id)
 )
 GO

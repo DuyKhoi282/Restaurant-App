@@ -43,31 +43,44 @@ namespace Restaurant_Management_App
             if (result == DialogResult.Yes)
             {
                 PayOrder();
+                
             }
         }
+
+        
 
         void PayOrder()
         {
-            string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
+ 
+                string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                string query = @"
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    string query = @"
         UPDATE Bill
         SET 
             status = 1,
-            dateCheckOut = GETDATE()
+            dateCheckOut = GETDATE(),
+            payMethod = @payMethod
         WHERE idOrder = @id";
 
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@id", _idOrder);
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@id", _idOrder);
+                    cmd.Parameters.AddWithValue("@payMethod", "Cash"); // hoặc Bank
 
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+
+                // 👉 MỞ FORM BILL
+                frmBillToPrint f = new frmBillToPrint(_idOrder);
+                f.Show();
+
+                MessageBox.Show("Thanh toán thành công!");
             }
 
-        }
+        
 
         void LoadOrderDetails()
         {
@@ -153,10 +166,36 @@ namespace Restaurant_Management_App
                 da.Fill(dt);
 
                 dgvFoodDetails.DataSource = dt;
+
+                dgvFoodDetails.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                // Đẹp hơn
+                dgvFoodDetails.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                dgvFoodDetails.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+                dgvFoodDetails.RowTemplate.Height = 30;
+
+                // Không cho resize lung tung
+                dgvFoodDetails.AllowUserToResizeRows = false;
+                dgvFoodDetails.AllowUserToResizeColumns = false;
+
+                // Full chiều cao
+                dgvFoodDetails.Dock = DockStyle.Fill;
+
+                dgvFoodDetails.Columns["STT"].FillWeight = 10;
+                dgvFoodDetails.Columns["FoodName"].FillWeight = 40;
+                dgvFoodDetails.Columns["quantity"].FillWeight = 15;
+                dgvFoodDetails.Columns["price"].FillWeight = 15;
+                dgvFoodDetails.Columns["TotalPrice"].FillWeight = 20;
+
+                dgvFoodDetails.Columns["price"].DefaultCellStyle.Format = "N0";
+                dgvFoodDetails.Columns["TotalPrice"].DefaultCellStyle.Format = "N0";
+
+                dgvFoodDetails.AllowUserToAddRows = false;
             }
 
             
             }
+
         
 
         private void frmOrderDetails_Load(object sender, EventArgs e)
@@ -168,5 +207,7 @@ namespace Restaurant_Management_App
         {
             this.Close();
         }
+
+
     }
 }
