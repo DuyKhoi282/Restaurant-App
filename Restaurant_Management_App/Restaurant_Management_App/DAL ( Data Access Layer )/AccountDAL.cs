@@ -65,5 +65,20 @@ namespace Restaurant_Management_App
                 RoleName = row["RoleName"]?.ToString()
             };
         }
+
+        public DataTable GetAllUsers()
+        {
+            string query = @"
+    SELECT 
+        a.UserId,        
+        a.FullName,
+        a.Phone,
+        a.Email,
+        r.RoleName
+    FROM Account a
+    JOIN Role r ON a.RoleId = r.Id";
+
+            return Database.Instance.ExecuteQuery(query);
+        }
     }
 }

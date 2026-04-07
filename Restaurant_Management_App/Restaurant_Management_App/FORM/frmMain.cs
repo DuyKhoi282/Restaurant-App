@@ -157,7 +157,7 @@ namespace Restaurant_Management_App
 
         private void btnResetPassword_Click(object sender, EventArgs e)
         {
-            frmResetPassword f = new frmResetPassword();
+            frmChangePassword f = new frmChangePassword();
             f.Show();
         }
 

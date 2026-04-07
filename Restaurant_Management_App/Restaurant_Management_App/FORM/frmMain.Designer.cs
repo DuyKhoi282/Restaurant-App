@@ -39,7 +39,7 @@
             this.btnCustomerCaring = new System.Windows.Forms.Button();
             this.panelInfoBar = new System.Windows.Forms.Panel();
             this.btnAdministrator = new System.Windows.Forms.Button();
-            this.btnResetPassword = new System.Windows.Forms.Button();
+            this.btnChangePassword = new System.Windows.Forms.Button();
             this.btnInfoUser = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panelLogo = new System.Windows.Forms.Panel();
@@ -206,7 +206,7 @@
             // 
             this.panelInfoBar.BackColor = System.Drawing.Color.Chocolate;
             this.panelInfoBar.Controls.Add(this.btnAdministrator);
-            this.panelInfoBar.Controls.Add(this.btnResetPassword);
+            this.panelInfoBar.Controls.Add(this.btnChangePassword);
             this.panelInfoBar.Controls.Add(this.btnInfoUser);
             this.panelInfoBar.Controls.Add(this.pictureBox2);
             this.panelInfoBar.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -227,17 +227,17 @@
             this.btnAdministrator.UseVisualStyleBackColor = true;
             this.btnAdministrator.Click += new System.EventHandler(this.btnAdministrator_Click);
             // 
-            // btnResetPassword
+            // btnChangePassword
             // 
-            this.btnResetPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnResetPassword.BackgroundImage = global::Restaurant_Management_App.Properties.Resources.ResetPassword;
-            this.btnResetPassword.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnResetPassword.Location = new System.Drawing.Point(142, 3);
-            this.btnResetPassword.Name = "btnResetPassword";
-            this.btnResetPassword.Size = new System.Drawing.Size(61, 56);
-            this.btnResetPassword.TabIndex = 1;
-            this.btnResetPassword.UseVisualStyleBackColor = true;
-            this.btnResetPassword.Click += new System.EventHandler(this.btnResetPassword_Click);
+            this.btnChangePassword.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnChangePassword.BackgroundImage = global::Restaurant_Management_App.Properties.Resources.ResetPassword;
+            this.btnChangePassword.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnChangePassword.Location = new System.Drawing.Point(142, 3);
+            this.btnChangePassword.Name = "btnChangePassword";
+            this.btnChangePassword.Size = new System.Drawing.Size(61, 56);
+            this.btnChangePassword.TabIndex = 1;
+            this.btnChangePassword.UseVisualStyleBackColor = true;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnResetPassword_Click);
             // 
             // btnInfoUser
             // 
@@ -365,6 +365,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnInfoUser;
         private System.Windows.Forms.Button btnAdministrator;
-        private System.Windows.Forms.Button btnResetPassword;
+        private System.Windows.Forms.Button btnChangePassword;
     }
 }

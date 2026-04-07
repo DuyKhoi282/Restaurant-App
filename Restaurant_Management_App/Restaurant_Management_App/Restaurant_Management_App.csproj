@@ -99,11 +99,11 @@
     <Compile Include="FORM\frmUserInfor.Designer.cs">
       <DependentUpon>frmUserInfor.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORM\frmResetPassword.cs">
+    <Compile Include="FORM\frmChangePassword.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FORM\frmResetPassword.Designer.cs">
-      <DependentUpon>frmResetPassword.cs</DependentUpon>
+    <Compile Include="FORM\frmChangePassword.Designer.cs">
+      <DependentUpon>frmChangePassword.cs</DependentUpon>
     </Compile>
     <Compile Include="FORM\frmCreateUser_Authority.cs">
       <SubType>Form</SubType>
@@ -157,8 +157,8 @@
     <EmbeddedResource Include="FORM\frmOrderManegement.resx">
       <DependentUpon>frmOrderManegement.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FORM\frmResetPassword.resx">
-      <DependentUpon>frmResetPassword.cs</DependentUpon>
+    <EmbeddedResource Include="FORM\frmChangePassword.resx">
+      <DependentUpon>frmChangePassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORM\frmUserInfor.resx">
       <DependentUpon>frmUserInfor.cs</DependentUpon>

@@ -1,6 +1,6 @@
 ﻿namespace Restaurant_Management_App
 {
-    partial class frmResetPassword
+    partial class frmChangePassword
     {
         /// <summary>
         /// Required designer variable.
@@ -112,7 +112,7 @@
             this.btnBack_ResetPassword.Text = "Back";
             this.btnBack_ResetPassword.UseVisualStyleBackColor = true;
             // 
-            // frmResetPassword
+            // frmChangePassword
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -128,7 +128,7 @@
             this.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximumSize = new System.Drawing.Size(526, 313);
             this.MinimumSize = new System.Drawing.Size(526, 313);
-            this.Name = "frmResetPassword";
+            this.Name = "frmChangePassword";
             this.Text = "frmResetPassword";
             this.ResumeLayout(false);
             this.PerformLayout();

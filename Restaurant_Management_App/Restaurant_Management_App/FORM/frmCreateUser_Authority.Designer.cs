@@ -50,7 +50,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.txtPassword_CUA = new System.Windows.Forms.TextBox();
-            this.txtUserID_CUA = new System.Windows.Forms.TextBox();
+            this.txtUserId_CUA = new System.Windows.Forms.TextBox();
             this.cbxRole_CUA = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -59,11 +59,11 @@
             this.picAvaUser = new System.Windows.Forms.PictureBox();
             this.btnCreate_CUA = new System.Windows.Forms.Button();
             this.btnBack_CUA = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvAccount = new System.Windows.Forms.DataGridView();
             this.gbxInfor_CUA.SuspendLayout();
             this.gbxAccount.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAvaUser)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAccount)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -279,7 +279,7 @@
             this.gbxAccount.Controls.Add(this.label13);
             this.gbxAccount.Controls.Add(this.textBox1);
             this.gbxAccount.Controls.Add(this.txtPassword_CUA);
-            this.gbxAccount.Controls.Add(this.txtUserID_CUA);
+            this.gbxAccount.Controls.Add(this.txtUserId_CUA);
             this.gbxAccount.Controls.Add(this.cbxRole_CUA);
             this.gbxAccount.Controls.Add(this.label12);
             this.gbxAccount.Controls.Add(this.label11);
@@ -321,13 +321,13 @@
             this.txtPassword_CUA.Size = new System.Drawing.Size(195, 27);
             this.txtPassword_CUA.TabIndex = 2;
             // 
-            // txtUserID_CUA
+            // txtUserId_CUA
             // 
-            this.txtUserID_CUA.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUserID_CUA.Location = new System.Drawing.Point(120, 38);
-            this.txtUserID_CUA.Name = "txtUserID_CUA";
-            this.txtUserID_CUA.Size = new System.Drawing.Size(195, 27);
-            this.txtUserID_CUA.TabIndex = 2;
+            this.txtUserId_CUA.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUserId_CUA.Location = new System.Drawing.Point(120, 38);
+            this.txtUserId_CUA.Name = "txtUserId_CUA";
+            this.txtUserId_CUA.Size = new System.Drawing.Size(195, 27);
+            this.txtUserId_CUA.TabIndex = 2;
             // 
             // cbxRole_CUA
             // 
@@ -406,29 +406,32 @@
             // btnBack_CUA
             // 
             this.btnBack_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBack_CUA.Location = new System.Drawing.Point(702, 400);
+            this.btnBack_CUA.Location = new System.Drawing.Point(702, 397);
             this.btnBack_CUA.Name = "btnBack_CUA";
             this.btnBack_CUA.Size = new System.Drawing.Size(187, 60);
             this.btnBack_CUA.TabIndex = 7;
             this.btnBack_CUA.Text = "Back";
             this.btnBack_CUA.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // dgvAccount
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 465);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(875, 213);
-            this.dataGridView1.TabIndex = 8;
+            this.dgvAccount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAccount.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dgvAccount.Location = new System.Drawing.Point(0, 475);
+            this.dgvAccount.Name = "dgvAccount";
+            this.dgvAccount.RowHeadersWidth = 51;
+            this.dgvAccount.RowTemplate.Height = 24;
+            this.dgvAccount.Size = new System.Drawing.Size(901, 247);
+            this.dgvAccount.TabIndex = 8;
+            this.dgvAccount.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAccount_CellClick);
+            this.dgvAccount.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvAccount_RowPostPaint_1);
             // 
             // frmCreateUser_Authority
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(901, 690);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(901, 722);
+            this.Controls.Add(this.dgvAccount);
             this.Controls.Add(this.btnBack_CUA);
             this.Controls.Add(this.btnCreate_CUA);
             this.Controls.Add(this.gbxAccount);
@@ -445,7 +448,7 @@
             this.gbxAccount.ResumeLayout(false);
             this.gbxAccount.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAvaUser)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAccount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -477,13 +480,13 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtPassword_CUA;
-        private System.Windows.Forms.TextBox txtUserID_CUA;
+        private System.Windows.Forms.TextBox txtUserId_CUA;
         private System.Windows.Forms.ComboBox cbxRole_CUA;
         private System.Windows.Forms.Button btnCreate_CUA;
         private System.Windows.Forms.Button btnBack_CUA;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvAccount;
     }
 }

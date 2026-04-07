@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Restaurant_Management_App
 {
-    public partial class frmResetPassword : Form
+    public partial class frmChangePassword : Form
     {
-        public frmResetPassword()
+        public frmChangePassword()
         {
             InitializeComponent();
         }

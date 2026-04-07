@@ -33,12 +33,24 @@ namespace Restaurant_Management_App
                 cbxRole_CUA.DisplayMember = "RoleName";// Thiết lập DisplayMember để hiển thị tên quyền trong ComboBox
                 cbxRole_CUA.ValueMember = "Id";// Thiết lập ValueMember để lấy giá trị Id của quyền khi chọn trong ComboBox
             }
+
+            LoadAccountList();
+
+            dgvAccount.RowPostPaint += dgvAccount_RowPostPaint_1;
         }
-       
+
+        void LoadAccountList()
+        {
+            AccountDAL dao = new AccountDAL();
+            dgvAccount.DataSource = dao.GetAllUsers();
+            dgvAccount.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvAccount.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;            
+        }
+
         private void btnCreate_CUA_Click(object sender, EventArgs e)
         {
             // Lấy thông tin từ các TextBox và ComboBox
-            string userId = txtUserID_CUA.Text.Trim();// Lấy tên đăng nhập từ TextBox và loại bỏ khoảng trắng ở đầu và cuối
+            string userId = txtUserId_CUA.Text.Trim();// Lấy tên đăng nhập từ TextBox và loại bỏ khoảng trắng ở đầu và cuối
             string password = txtPassword_CUA.Text.Trim();
             string fullname = txtFullname_CUA.Text.Trim();
             string phone = txtPhone_CUA.Text.Trim();
@@ -57,7 +69,7 @@ namespace Restaurant_Management_App
                 conn.Open();// Mở kết nối đến cơ sở dữ liệu
 
                 string query = @"INSERT INTO Account
-        (userId, password, displayName, RoleId, fullName, phone, email, birthday, address, ward, district, city)
+        (userId, password, displayName, RoleId, fullname, phone, email, birthday, address, ward, district, city)
         VALUES (@u, @p,@di, @r, @f, @ph, @e, @b,@a,@w,@d,@c)"; // Truy vấn SQL để chèn một tài khoản mới vào bảng Account
                 SqlCommand cmd = new SqlCommand(query, conn);// Tạo SqlCommand để thực thi truy vấn
 
@@ -83,7 +95,7 @@ namespace Restaurant_Management_App
 
                 if (count > 0)
                 {
-                    MessageBox.Show("Username đã tồn tại!");
+                    MessageBox.Show("UserID đã tồn tại!");
                     return;
                 }
 
@@ -97,6 +109,54 @@ namespace Restaurant_Management_App
 
                 MessageBox.Show("Tạo tài khoản thành công!");
             }
+        }
+
+        private void dgvAccount_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dgvAccount.Rows[e.RowIndex];
+
+                // TEXTBOX
+                txtUserId_CUA.Text = row.Cells["userId"].Value?.ToString();
+                txtPassword_CUA.Text = row.Cells["password"].Value?.ToString();
+                txtFullname_CUA.Text = row.Cells["fullname"].Value?.ToString();
+                txtPhone_CUA.Text = row.Cells["phone"].Value?.ToString();
+                txtEmail_CUA.Text = row.Cells["email"].Value?.ToString();
+                txtAddress_CUA.Text = row.Cells["address"].Value?.ToString();
+
+                // COMBOBOX
+                cbxWard_CUA.Text = row.Cells["ward"].Value?.ToString();
+                cbxDistrict_CUA.Text = row.Cells["district"].Value?.ToString();
+                cbxCity_CUA.Text = row.Cells["city"].Value?.ToString();
+
+                // DATETIMEPICKER
+                if (row.Cells["birthday"].Value != DBNull.Value)
+                {
+                    dtpBirthday_CUA.Value = Convert.ToDateTime(row.Cells["birthday"].Value);
+                }
+            }
+        }
+    
+
+        private void dgvAccount_RowPostPaint_1(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            // Thiết lập số thứ tự
+            var grid = sender as DataGridView;
+            var rowIdx = (e.RowIndex + 1).ToString();
+
+            // Định dạng font và căn lề cho số thứ tự
+            var centerFormat = new StringFormat()
+            {
+                Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
+
+            // Xác định vị trí để vẽ (vùng Header của dòng hiện tại)
+            var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
+
+            // Vẽ số thứ tự lên Header bằng Graphics (không làm thay đổi dữ liệu nên không gây lặp)
+            e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
         }
     }    
 }
