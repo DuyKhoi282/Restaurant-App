@@ -50,7 +50,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.txtPassword_CUA = new System.Windows.Forms.TextBox();
-            this.txtUsername_CUA = new System.Windows.Forms.TextBox();
+            this.txtUserID_CUA = new System.Windows.Forms.TextBox();
             this.cbxRole_CUA = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -279,7 +279,7 @@
             this.gbxAccount.Controls.Add(this.label13);
             this.gbxAccount.Controls.Add(this.textBox1);
             this.gbxAccount.Controls.Add(this.txtPassword_CUA);
-            this.gbxAccount.Controls.Add(this.txtUsername_CUA);
+            this.gbxAccount.Controls.Add(this.txtUserID_CUA);
             this.gbxAccount.Controls.Add(this.cbxRole_CUA);
             this.gbxAccount.Controls.Add(this.label12);
             this.gbxAccount.Controls.Add(this.label11);
@@ -321,13 +321,13 @@
             this.txtPassword_CUA.Size = new System.Drawing.Size(195, 27);
             this.txtPassword_CUA.TabIndex = 2;
             // 
-            // txtUsername_CUA
+            // txtUserID_CUA
             // 
-            this.txtUsername_CUA.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUsername_CUA.Location = new System.Drawing.Point(120, 38);
-            this.txtUsername_CUA.Name = "txtUsername_CUA";
-            this.txtUsername_CUA.Size = new System.Drawing.Size(195, 27);
-            this.txtUsername_CUA.TabIndex = 2;
+            this.txtUserID_CUA.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUserID_CUA.Location = new System.Drawing.Point(120, 38);
+            this.txtUserID_CUA.Name = "txtUserID_CUA";
+            this.txtUserID_CUA.Size = new System.Drawing.Size(195, 27);
+            this.txtUserID_CUA.TabIndex = 2;
             // 
             // cbxRole_CUA
             // 
@@ -378,9 +378,9 @@
             this.label9.ForeColor = System.Drawing.Color.Black;
             this.label9.Location = new System.Drawing.Point(25, 41);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(87, 19);
+            this.label9.Size = new System.Drawing.Size(72, 19);
             this.label9.TabIndex = 0;
-            this.label9.Text = "Username :";
+            this.label9.Text = "UserID  :";
             // 
             // picAvaUser
             // 
@@ -477,7 +477,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtPassword_CUA;
-        private System.Windows.Forms.TextBox txtUsername_CUA;
+        private System.Windows.Forms.TextBox txtUserID_CUA;
         private System.Windows.Forms.ComboBox cbxRole_CUA;
         private System.Windows.Forms.Button btnCreate_CUA;
         private System.Windows.Forms.Button btnBack_CUA;
