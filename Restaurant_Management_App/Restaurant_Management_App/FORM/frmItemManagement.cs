@@ -207,6 +207,8 @@ WHERE f.name COLLATE Latin1_General_CI_AI LIKE @key"; ;//Hàm giúp không phân
             }
         }
 
+
+
         
 
         private void dgvFood_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)//Chỉnh màu cho status

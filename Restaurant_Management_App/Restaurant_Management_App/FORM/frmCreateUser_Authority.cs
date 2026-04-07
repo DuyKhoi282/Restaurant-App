@@ -38,7 +38,7 @@ namespace Restaurant_Management_App
         private void btnCreate_CUA_Click(object sender, EventArgs e)
         {
             // Lấy thông tin từ các TextBox và ComboBox
-            string username = txtUsername_CUA.Text.Trim();// Lấy tên đăng nhập từ TextBox và loại bỏ khoảng trắng ở đầu và cuối
+            string userId = txtUserID_CUA.Text.Trim();// Lấy tên đăng nhập từ TextBox và loại bỏ khoảng trắng ở đầu và cuối
             string password = txtPassword_CUA.Text.Trim();
             string fullname = txtFullname_CUA.Text.Trim();
             string phone = txtPhone_CUA.Text.Trim();
@@ -57,11 +57,11 @@ namespace Restaurant_Management_App
                 conn.Open();// Mở kết nối đến cơ sở dữ liệu
 
                 string query = @"INSERT INTO Account
-        (username, password, displayName, RoleId, fullName, phone, email, birthday, address, ward, district, city)
+        (userId, password, displayName, RoleId, fullName, phone, email, birthday, address, ward, district, city)
         VALUES (@u, @p,@di, @r, @f, @ph, @e, @b,@a,@w,@d,@c)"; // Truy vấn SQL để chèn một tài khoản mới vào bảng Account
                 SqlCommand cmd = new SqlCommand(query, conn);// Tạo SqlCommand để thực thi truy vấn
 
-                cmd.Parameters.AddWithValue("@u", username);// Thêm tham số @u với giá trị username vào SqlCommand
+                cmd.Parameters.AddWithValue("@u", userId);// Thêm tham số @u với giá trị username vào SqlCommand
                 cmd.Parameters.AddWithValue("@p", password);
                 cmd.Parameters.AddWithValue("@di", displayname);
                 cmd.Parameters.AddWithValue("@r", roleId);
@@ -75,9 +75,9 @@ namespace Restaurant_Management_App
                 cmd.Parameters.AddWithValue("@c", city);               
 
                 // check tài khoản đã tồn tại chưa 
-                string checkQuery = "SELECT COUNT(*) FROM Account WHERE Username = @u";
+                string checkQuery = "SELECT COUNT(*) FROM Account WHERE UserId = @u";
                 SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
-                checkCmd.Parameters.AddWithValue("@u", username);
+                checkCmd.Parameters.AddWithValue("@u", userId);
 
                 int count = (int)checkCmd.ExecuteScalar();
 
@@ -87,7 +87,7 @@ namespace Restaurant_Management_App
                     return;
                 }
 
-                if (username == "" || password == "" )
+                if (userId == "" || password == "" )
                 {
                     MessageBox.Show("Nhập đầy đủ thông tin!");
                     return;
