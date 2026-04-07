@@ -27,8 +27,8 @@ namespace Restaurant_Management_App
             {
                 string query = @"
         SELECT 
-            ROW_NUMBER() OVER (ORDER BY b.numr DESC) AS STT,
-            b.idOrder,
+            ROW_NUMBER() OVER (ORDER BY b.id DESC) AS STT,
+            b.id,
             CONVERT(DATE, b.dateCheckIn) AS [date],
             CONVERT(TIME, b.dateCheckIn) AS [time],
             b.idTable,
@@ -39,16 +39,15 @@ namespace Restaurant_Management_App
                 ELSE 'Paid'
             END AS status
         FROM Bill b
-        LEFT JOIN BillInfo bi ON b.numr = bi.idBill
+        LEFT JOIN BillInfo bi ON b.id = bi.idBill
         LEFT JOIN Food f ON bi.idFood = f.id
         GROUP BY 
-            b.numr,
-            b.idOrder,
+            b.id,
             b.dateCheckIn,
             b.idTable,
             b.customerName,
             b.status
-        ORDER BY b.numr DESC";
+        ORDER BY b.id DESC";
             
 
             SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
@@ -86,7 +85,7 @@ namespace Restaurant_Management_App
         SUM(f.price * bi.quantity) AS TotalRevenue
     FROM BillInfo bi
     JOIN Food f ON bi.idFood = f.id
-    JOIN Bill b ON b.numr = bi.idBill
+    JOIN Bill b ON b.id = bi.idBill
     WHERE b.status = 1
     GROUP BY f.name
     ORDER BY TotalSold DESC";
@@ -123,7 +122,7 @@ namespace Restaurant_Management_App
             {
                 DataGridViewRow row =  dtgvOrderMagagement.Rows[e.RowIndex];
 
-                string idOrder = row.Cells["idOrder"].Value.ToString();
+                string idOrder = row.Cells["id"].Value.ToString();
 
 
                 // Mở form chi tiết

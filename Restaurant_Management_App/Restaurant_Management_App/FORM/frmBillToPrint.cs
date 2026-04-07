@@ -33,9 +33,9 @@ namespace Restaurant_Management_App
         f.price,
         (bi.quantity * f.price) AS totalprice
     FROM Bill b
-    JOIN BillInfo bi ON b.numr = bi.idBill
+    JOIN BillInfo bi ON b.id = bi.idBill
     JOIN Food f ON bi.idFood = f.id
-    WHERE b.idOrder = @id";
+    WHERE b.id = @id";
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
