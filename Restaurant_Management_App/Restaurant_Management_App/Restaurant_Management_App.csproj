@@ -117,16 +117,16 @@
     <Compile Include="FORM\frmHomepage.Designer.cs">
       <DependentUpon>frmHomepage.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmBillToPrint.cs">
+    <Compile Include="FORM\frmBillToPrint.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmBillToPrint.Designer.cs">
+    <Compile Include="FORM\frmBillToPrint.Designer.cs">
       <DependentUpon>frmBillToPrint.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmOrderDetails.cs">
+    <Compile Include="FORM\frmOrderDetails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmOrderDetails.Designer.cs">
+    <Compile Include="FORM\frmOrderDetails.Designer.cs">
       <DependentUpon>frmOrderDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="OrderRepository.cs" />
@@ -166,10 +166,10 @@
     <EmbeddedResource Include="FORM\frmCreateUser_Authority.resx">
       <DependentUpon>frmCreateUser_Authority.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmBillToPrint.resx">
+    <EmbeddedResource Include="FORM\frmBillToPrint.resx">
       <DependentUpon>frmBillToPrint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmOrderDetails.resx">
+    <EmbeddedResource Include="FORM\frmOrderDetails.resx">
       <DependentUpon>frmOrderDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
