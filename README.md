@@ -22,7 +22,6 @@ Restaurant-App/
 │   ├── CreateDatabase.sql
 │   ├── InsertData.sql
 │   ├── ClearData.sql
-│   └── CheckOrder.sql
 ├── Restaurant_Management_App/
 │   ├── Restaurant_Management_App.sln
 │   └── Restaurant_Management_App/
