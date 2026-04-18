@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL %28 Data Access Layer %29\AccountDAL.cs" />
+    <Compile Include="DAL %28 Data Access Layer %29\DataProvider.cs" />
     <Compile Include="DTO %28 Data Transfer Object %29\AccountDTO.cs" />
     <Compile Include="DAL %28 Data Access Layer %29\BillDAL.cs" />
     <Compile Include="DAL %28 Data Access Layer %29\BillInfoDAL.cs" />
@@ -87,11 +88,11 @@
     <Compile Include="FORM\frmCreateOrder.Designer.cs">
       <DependentUpon>frmCreateOrder.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORM\frmMenuReveneu.cs">
+    <Compile Include="FORM\frmRevenue.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FORM\frmMenuReveneu.Designer.cs">
-      <DependentUpon>frmMenuReveneu.cs</DependentUpon>
+    <Compile Include="FORM\frmRevenue.Designer.cs">
+      <DependentUpon>frmRevenue.cs</DependentUpon>
     </Compile>
     <Compile Include="FORM\frmOrderDetails.cs">
       <SubType>Form</SubType>
@@ -104,6 +105,12 @@
     </Compile>
     <Compile Include="FORM\frmOrderManegement.Designer.cs">
       <DependentUpon>frmOrderManegement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORM\frmRevenueDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORM\frmRevenueDetail.Designer.cs">
+      <DependentUpon>frmRevenueDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="FORM\frmUserInfor.cs">
       <SubType>Form</SubType>
@@ -160,9 +167,6 @@
     <EmbeddedResource Include="FORM\frmCreateOrder.resx">
       <DependentUpon>frmCreateOrder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FORM\frmMenuReveneu.resx">
-      <DependentUpon>frmMenuReveneu.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FORM\frmOrderDetails.resx">
       <DependentUpon>frmOrderDetails.cs</DependentUpon>
     </EmbeddedResource>
@@ -171,6 +175,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORM\frmChangePassword.resx">
       <DependentUpon>frmChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORM\frmRevenue.resx">
+      <DependentUpon>frmRevenue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORM\frmRevenueDetail.resx">
+      <DependentUpon>frmRevenueDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORM\frmUserInfor.resx">
       <DependentUpon>frmUserInfor.cs</DependentUpon>
