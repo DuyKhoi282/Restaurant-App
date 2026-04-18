@@ -53,10 +53,8 @@ CREATE TABLE RolePermission (
 -- ( vd username = admin, password = 123, displayName = Quản lý, RoleId = 1 (Admin) )
 CREATE TABLE Account
 (
-    userId NVARCHAR(20) PRIMARY KEY, 
-	
+    userId NVARCHAR(20) PRIMARY KEY, 	
 	password NVARCHAR(100) NOT NULL,
-	displayName NVARCHAR(100) NOT NULL,
 	RoleId INT NOT NULL,
 	fullname nvarchar(50) NOT NULL,
 	birthday date NOT NULL,
@@ -66,9 +64,32 @@ CREATE TABLE Account
     ward NVARCHAR(50) NOT NULL,-- Phường/xã
     district NVARCHAR(50) NOT NULL,-- Quận/huyện
     city NVARCHAR(50) NOT NULL,-- Thành phố
+	salary decimal(18,2) default 0  NOT NULL, -- Lương của người dùng 
     FOREIGN KEY (RoleId) REFERENCES Role(Id)
-)
-GO
+);
+
+
+-- 1. Bảng Tỉnh / Thành Phố
+CREATE TABLE city (
+    cityId NVARCHAR(10) PRIMARY KEY,
+    cityName NVARCHAR(100) NOT NULL
+);
+
+-- 2. Bảng Quận / Huyện
+CREATE TABLE district (
+	cityId NVARCHAR(10) NOT NULL,
+    districtID NVARCHAR(10) PRIMARY KEY NOT NULL,
+    districtName NVARCHAR(50) NOT NULL,
+	FOREIGN KEY (cityId) REFERENCES city(cityId)
+);
+
+-- 3. Bảng Phường / Xã
+CREATE TABLE ward (
+	districtID NVARCHAR(10) NOT NULL,
+    wardID NVARCHAR(10) PRIMARY KEY,
+    wardName NVARCHAR(100) NOT NULL,
+    FOREIGN KEY (districtID) REFERENCES district(districtID)
+);
 
 CREATE TABLE FoodCategory
 (
