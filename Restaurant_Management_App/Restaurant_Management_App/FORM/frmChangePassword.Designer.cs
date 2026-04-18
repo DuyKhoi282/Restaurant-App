@@ -31,11 +31,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtCurPass = new System.Windows.Forms.TextBox();
+            this.txtCurrentPass = new System.Windows.Forms.TextBox();
             this.txtNewPass = new System.Windows.Forms.TextBox();
-            this.txtReNewPass = new System.Windows.Forms.TextBox();
-            this.btnSave_ResetPassword = new System.Windows.Forms.Button();
+            this.txtConfirmPass = new System.Windows.Forms.TextBox();
             this.btnBack_ResetPassword = new System.Windows.Forms.Button();
+            this.btnUpdate_ChangePassword = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -68,13 +68,13 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Re-enter your new Password :";
             // 
-            // txtCurPass
+            // txtCurrentPass
             // 
-            this.txtCurPass.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCurPass.Location = new System.Drawing.Point(235, 56);
-            this.txtCurPass.Name = "txtCurPass";
-            this.txtCurPass.Size = new System.Drawing.Size(252, 27);
-            this.txtCurPass.TabIndex = 1;
+            this.txtCurrentPass.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCurrentPass.Location = new System.Drawing.Point(235, 56);
+            this.txtCurrentPass.Name = "txtCurrentPass";
+            this.txtCurrentPass.Size = new System.Drawing.Size(252, 27);
+            this.txtCurrentPass.TabIndex = 1;
             // 
             // txtNewPass
             // 
@@ -84,26 +84,17 @@
             this.txtNewPass.Size = new System.Drawing.Size(252, 27);
             this.txtNewPass.TabIndex = 1;
             // 
-            // txtReNewPass
+            // txtConfirmPass
             // 
-            this.txtReNewPass.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtReNewPass.Location = new System.Drawing.Point(235, 159);
-            this.txtReNewPass.Name = "txtReNewPass";
-            this.txtReNewPass.Size = new System.Drawing.Size(252, 27);
-            this.txtReNewPass.TabIndex = 1;
-            // 
-            // btnSave_ResetPassword
-            // 
-            this.btnSave_ResetPassword.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave_ResetPassword.Location = new System.Drawing.Point(375, 207);
-            this.btnSave_ResetPassword.Name = "btnSave_ResetPassword";
-            this.btnSave_ResetPassword.Size = new System.Drawing.Size(112, 36);
-            this.btnSave_ResetPassword.TabIndex = 2;
-            this.btnSave_ResetPassword.Text = "Save";
-            this.btnSave_ResetPassword.UseVisualStyleBackColor = true;
+            this.txtConfirmPass.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConfirmPass.Location = new System.Drawing.Point(235, 159);
+            this.txtConfirmPass.Name = "txtConfirmPass";
+            this.txtConfirmPass.Size = new System.Drawing.Size(252, 27);
+            this.txtConfirmPass.TabIndex = 1;
             // 
             // btnBack_ResetPassword
             // 
+            this.btnBack_ResetPassword.CausesValidation = false;
             this.btnBack_ResetPassword.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBack_ResetPassword.Location = new System.Drawing.Point(235, 207);
             this.btnBack_ResetPassword.Name = "btnBack_ResetPassword";
@@ -112,16 +103,28 @@
             this.btnBack_ResetPassword.Text = "Back";
             this.btnBack_ResetPassword.UseVisualStyleBackColor = true;
             // 
+            // btnUpdate_ChangePassword
+            // 
+            this.btnUpdate_ChangePassword.CausesValidation = false;
+            this.btnUpdate_ChangePassword.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdate_ChangePassword.Location = new System.Drawing.Point(375, 207);
+            this.btnUpdate_ChangePassword.Name = "btnUpdate_ChangePassword";
+            this.btnUpdate_ChangePassword.Size = new System.Drawing.Size(112, 36);
+            this.btnUpdate_ChangePassword.TabIndex = 2;
+            this.btnUpdate_ChangePassword.Text = "Update";
+            this.btnUpdate_ChangePassword.UseVisualStyleBackColor = true;
+            this.btnUpdate_ChangePassword.Click += new System.EventHandler(this.btnUpdate_ChangePassword_Click);
+            // 
             // frmChangePassword
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(508, 266);
+            this.Controls.Add(this.btnUpdate_ChangePassword);
             this.Controls.Add(this.btnBack_ResetPassword);
-            this.Controls.Add(this.btnSave_ResetPassword);
-            this.Controls.Add(this.txtReNewPass);
+            this.Controls.Add(this.txtConfirmPass);
             this.Controls.Add(this.txtNewPass);
-            this.Controls.Add(this.txtCurPass);
+            this.Controls.Add(this.txtCurrentPass);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -129,7 +132,7 @@
             this.MaximumSize = new System.Drawing.Size(526, 313);
             this.MinimumSize = new System.Drawing.Size(526, 313);
             this.Name = "frmChangePassword";
-            this.Text = "frmResetPassword";
+            this.Text = "frmChangePassword";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -140,10 +143,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtCurPass;
+        private System.Windows.Forms.TextBox txtCurrentPass;
         private System.Windows.Forms.TextBox txtNewPass;
-        private System.Windows.Forms.TextBox txtReNewPass;
-        private System.Windows.Forms.Button btnSave_ResetPassword;
+        private System.Windows.Forms.TextBox txtConfirmPass;
         private System.Windows.Forms.Button btnBack_ResetPassword;
+        private System.Windows.Forms.Button btnUpdate_ChangePassword;
     }
 }

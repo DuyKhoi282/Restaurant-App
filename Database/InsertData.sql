@@ -86,20 +86,56 @@ AND p.PermissionName = 'MANAGE_PRODUCTS';
 -- Account (Dữ liệu tài khoản)
 -- ========================
 	-- 
-INSERT INTO Account (userId, Password, DisplayName, RoleId, fullname, birthday, email, phone, address, ward, district, city)
-VALUES ('ADM01', '123', N'Admin', 1, 'Nguyen Van A', '2005/04/19', 'avn1@gmail.com', '0901234567', '141 DPB', 'Phuong 2', 'Quan Binh Thanh', ' TPHCM ');
-	-- 
-INSERT INTO Account (userId, Password, DisplayName, RoleId, fullname, birthday, email, phone, address, ward, district, city)
-VALUES ('MNG01', '123', N'Quản lý', 2, 'Le Hoang B', '2005/12/01', 'blh1@gmail.com', '0801674567', '141 DPB', 'Phuong 2', 'Quan Binh Thanh', ' TPHCM ');
-	--
-INSERT INTO Account (userId, Password, DisplayName, RoleId, fullname, birthday, email, phone, address, ward, district, city)
-VALUES ('CHF01', '123', N'Bếp trưởng', 3, 'Tran Thi C', '2005/03/25', 'ctt1@gmail.com', '0909804567', '141 DPB', 'Phuong 2', 'Quan Binh Thanh', ' TPHCM ');
-	--
-INSERT INTO Account (userId,  Password, DisplayName, RoleId, fullname, birthday, email, phone, address, ward, district, city)
-VALUES ('STF01', '123', N'Nhân viên', 4, 'Pham Thanh D', '2005/04/07', 'dpt1@gmail.com', '0907654567', '141 DPB', 'Phuong 2', 'Quan Binh Thanh', ' TPHCM ');
+INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary)
+VALUES ('ADM01', '123', 1, 'Nguyen Van A', '2005/04/19', 'avn1@gmail.com', '0901234567', '141 DPB', 'Phuong Ben Nghe', 'Quan 1', 'TP. Ho Chi Minh','25000');
+
+INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary)
+VALUES ('MNG01', '123', 2, 'Le Hoang B', '2005/12/01', 'blh1@gmail.com', '0801674567', '141 DPB', 'Phuong Phuc Xa', 'Quan Ba Dinh', 'Ha Noi','25000');
+
+INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary)
+VALUES ('CHF01', '123', 3, 'Tran Thi C', '2005/03/25', 'ctt1@gmail.com', '0909804567', '141 DPB', 'Phuong Thach Thang', 'Quan Hai Chau', 'Da Nang','25000');
+
+INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary)
+VALUES ('STF01', '123', 4, 'Pham Thanh D', '2005/04/07', 'dpt1@gmail.com', '0907654567', '141 DPB', 'Phuong Ben Nghe', 'Quan 1', 'TP. Ho Chi Minh','25000');
 
 
+	-- INSERT Tỉnh/Thành phố
+INSERT INTO city (cityId, cityName) 
+VALUES ('79', 'TP. Ho Chi Minh'), ('01', 'Ha Noi'), ('48', 'Da Nang');
 
+	-- INSERT Quận/Huyện
+-- HCM
+INSERT INTO district (districtId, districtName, cityId)
+VALUES ('760', 'Quan 1', '79'), ('764', 'Quan Go Vap', '79'), ('761', 'Quan 12', '79');
+-- Ha Noi
+INSERT INTO district (districtId, districtName, cityId)
+VALUES ('001', 'Quan Ba Dinh', '01'), ('002', 'Quan Hoan Kiem', '01');
+-- Da Nang
+INSERT INTO district (districtId, districtName, cityId)
+VALUES ('490', 'Quan Hai Chau', '48'), ('492', 'Quan Thanh Khe', '48');
+
+	-- INSERT Phường/Xã
+-- Quan 1 - HCM
+INSERT INTO ward (wardId, wardName, districtId) 
+VALUES ('26734', 'Phuong Ben Nghe', '760'), ('26737', 'Phuong Ben Thanh', '760');
+-- Quan Go Vap - HCM
+INSERT INTO ward (wardId, wardName, districtId)
+VALUES ('26896', 'Phuong 1', '764'), ('26902', 'Phuong 10', '764');
+-- Quan 12 - HCM
+INSERT INTO ward (wardId, wardName, districtId) 
+VALUES ('26800', 'Phuong Tan Thoi Nhat', '761'), ('26801', 'Phuong Hiep Thanh', '761');
+-- Quan Ba Dinh - HN
+INSERT INTO ward (wardId, wardName, districtId)
+VALUES ('00001', 'Phuong Phuc Xa', '001'), ('00004', 'Phuong Truc Bach', '001');
+-- Quan Hoan Kiem - HN
+INSERT INTO ward (wardId, wardName, districtId) 
+VALUES ('00015', 'Phuong Hang Bac', '002'), ('00021', 'Phuong Trang Tien', '002');
+-- Quan Hai Chau - DN
+INSERT INTO ward (wardId, wardName, districtId) 
+VALUES ('32101', 'Phuong Thach Thang', '490'), ('32102', 'Phuong Hai Chau I', '490');
+-- Quan Thanh Khe - DN
+INSERT INTO ward (wardId, wardName, districtId) 
+VALUES ('32103', 'Phuong Chinh Gian', '492'), ('32104', 'Phuong Thac Gian', '492');
 
 -- Thêm món
 INSERT INTO Food(name, idCategory, price)

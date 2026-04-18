@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnAdmin = new System.Windows.Forms.Panel();
-            this.panelMain = new System.Windows.Forms.Panel();
+            this.panelInterface = new System.Windows.Forms.Panel();
             this.tlpSidebar = new System.Windows.Forms.TableLayoutPanel();
             this.btnSignout = new System.Windows.Forms.Button();
             this.btnItemMNG = new System.Windows.Forms.Button();
@@ -39,43 +38,32 @@
             this.btnStaffMNG = new System.Windows.Forms.Button();
             this.btnCustomerCaring = new System.Windows.Forms.Button();
             this.panelInfoBar = new System.Windows.Forms.Panel();
-            this.btnAdministrator = new System.Windows.Forms.Button();
-            this.btnChangePassword = new System.Windows.Forms.Button();
-            this.btnInfoUser = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panelLogo = new System.Windows.Forms.Panel();
-            this.picLogo = new System.Windows.Forms.PictureBox();
             this.PanelNameRes = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panelContent = new System.Windows.Forms.Panel();
             this.panelSidebar = new System.Windows.Forms.Panel();
-            this.btnAdmin.SuspendLayout();
+            this.btnChangePassword = new System.Windows.Forms.Button();
+            this.btnInfoUser = new System.Windows.Forms.Button();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.picLogo = new System.Windows.Forms.PictureBox();
             this.tlpSidebar.SuspendLayout();
             this.panelInfoBar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panelLogo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.PanelNameRes.SuspendLayout();
             this.panelSidebar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnAdmin
+            // panelInterface
             // 
-            this.btnAdmin.Controls.Add(this.panelMain);
-            this.btnAdmin.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAdmin.Location = new System.Drawing.Point(289, 0);
-            this.btnAdmin.Name = "btnAdmin";
-            this.btnAdmin.Size = new System.Drawing.Size(932, 664);
-            this.btnAdmin.TabIndex = 3;
-            this.btnAdmin.Paint += new System.Windows.Forms.PaintEventHandler(this.btnAdmin_Paint);
-            // 
-            // panelMain
-            // 
-            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMain.Location = new System.Drawing.Point(0, 0);
-            this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(932, 664);
-            this.panelMain.TabIndex = 0;
+            this.panelInterface.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelInterface.Location = new System.Drawing.Point(289, 0);
+            this.panelInterface.Name = "panelInterface";
+            this.panelInterface.Size = new System.Drawing.Size(932, 664);
+            this.panelInterface.TabIndex = 3;
+            this.panelInterface.Paint += new System.Windows.Forms.PaintEventHandler(this.btnAdmin_Paint);
             // 
             // tlpSidebar
             // 
@@ -198,6 +186,7 @@
             this.btnStaffMNG.TabIndex = 2;
             this.btnStaffMNG.Text = "Staff Management";
             this.btnStaffMNG.UseVisualStyleBackColor = true;
+            this.btnStaffMNG.Click += new System.EventHandler(this.btnStaffMNG_Click);
             // 
             // btnCustomerCaring
             // 
@@ -216,7 +205,6 @@
             // panelInfoBar
             // 
             this.panelInfoBar.BackColor = System.Drawing.Color.Chocolate;
-            this.panelInfoBar.Controls.Add(this.btnAdministrator);
             this.panelInfoBar.Controls.Add(this.btnChangePassword);
             this.panelInfoBar.Controls.Add(this.btnInfoUser);
             this.panelInfoBar.Controls.Add(this.pictureBox2);
@@ -225,52 +213,6 @@
             this.panelInfoBar.Name = "panelInfoBar";
             this.panelInfoBar.Size = new System.Drawing.Size(283, 62);
             this.panelInfoBar.TabIndex = 4;
-            // 
-            // btnAdministrator
-            // 
-            this.btnAdministrator.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnAdministrator.BackgroundImage = global::Restaurant_Management_App.Properties.Resources.Admin;
-            this.btnAdministrator.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAdministrator.Location = new System.Drawing.Point(209, 3);
-            this.btnAdministrator.Name = "btnAdministrator";
-            this.btnAdministrator.Size = new System.Drawing.Size(61, 56);
-            this.btnAdministrator.TabIndex = 1;
-            this.btnAdministrator.UseVisualStyleBackColor = true;
-            this.btnAdministrator.Click += new System.EventHandler(this.btnAdministrator_Click);
-            // 
-            // btnChangePassword
-            // 
-            this.btnChangePassword.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnChangePassword.BackgroundImage = global::Restaurant_Management_App.Properties.Resources.ResetPassword;
-            this.btnChangePassword.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnChangePassword.Location = new System.Drawing.Point(142, 3);
-            this.btnChangePassword.Name = "btnChangePassword";
-            this.btnChangePassword.Size = new System.Drawing.Size(61, 56);
-            this.btnChangePassword.TabIndex = 1;
-            this.btnChangePassword.UseVisualStyleBackColor = true;
-            this.btnChangePassword.Click += new System.EventHandler(this.btnResetPassword_Click);
-            // 
-            // btnInfoUser
-            // 
-            this.btnInfoUser.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnInfoUser.BackgroundImage = global::Restaurant_Management_App.Properties.Resources.InfoUsers;
-            this.btnInfoUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnInfoUser.Location = new System.Drawing.Point(75, 3);
-            this.btnInfoUser.Name = "btnInfoUser";
-            this.btnInfoUser.Size = new System.Drawing.Size(61, 56);
-            this.btnInfoUser.TabIndex = 1;
-            this.btnInfoUser.UseVisualStyleBackColor = true;
-            this.btnInfoUser.Click += new System.EventHandler(this.btnInfoUser_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox2.Location = new System.Drawing.Point(9, 3);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(57, 59);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
             // 
             // panelLogo
             // 
@@ -281,18 +223,6 @@
             this.panelLogo.Name = "panelLogo";
             this.panelLogo.Size = new System.Drawing.Size(283, 102);
             this.panelLogo.TabIndex = 5;
-            // 
-            // picLogo
-            // 
-            this.picLogo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.picLogo.Image = global::Restaurant_Management_App.Properties.Resources.logoChillRes_fix;
-            this.picLogo.Location = new System.Drawing.Point(79, 0);
-            this.picLogo.Name = "picLogo";
-            this.picLogo.Size = new System.Drawing.Size(124, 100);
-            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picLogo.TabIndex = 0;
-            this.picLogo.TabStop = false;
-            this.picLogo.Click += new System.EventHandler(this.picLogo_Click);
             // 
             // PanelNameRes
             // 
@@ -333,32 +263,77 @@
             this.panelSidebar.Size = new System.Drawing.Size(289, 664);
             this.panelSidebar.TabIndex = 2;
             // 
+            // btnChangePassword
+            // 
+            this.btnChangePassword.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnChangePassword.BackgroundImage = global::Restaurant_Management_App.Properties.Resources.ResetPassword;
+            this.btnChangePassword.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnChangePassword.Location = new System.Drawing.Point(142, 3);
+            this.btnChangePassword.Name = "btnChangePassword";
+            this.btnChangePassword.Size = new System.Drawing.Size(61, 56);
+            this.btnChangePassword.TabIndex = 1;
+            this.btnChangePassword.UseVisualStyleBackColor = true;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnResetPassword_Click);
+            // 
+            // btnInfoUser
+            // 
+            this.btnInfoUser.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnInfoUser.BackgroundImage = global::Restaurant_Management_App.Properties.Resources.InfoUsers;
+            this.btnInfoUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnInfoUser.Location = new System.Drawing.Point(75, 3);
+            this.btnInfoUser.Name = "btnInfoUser";
+            this.btnInfoUser.Size = new System.Drawing.Size(61, 56);
+            this.btnInfoUser.TabIndex = 1;
+            this.btnInfoUser.UseVisualStyleBackColor = true;
+            this.btnInfoUser.Click += new System.EventHandler(this.btnInfoUser_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox2.Location = new System.Drawing.Point(9, 3);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(57, 59);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
+            // 
+            // picLogo
+            // 
+            this.picLogo.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.picLogo.Image = global::Restaurant_Management_App.Properties.Resources.logoChillRes_fix;
+            this.picLogo.Location = new System.Drawing.Point(79, 0);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(124, 100);
+            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picLogo.TabIndex = 0;
+            this.picLogo.TabStop = false;
+            this.picLogo.Click += new System.EventHandler(this.picLogo_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1221, 664);
-            this.Controls.Add(this.btnAdmin);
+            this.Controls.Add(this.panelInterface);
             this.Controls.Add(this.panelSidebar);
             this.Name = "frmMain";
             this.Text = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
-            this.btnAdmin.ResumeLayout(false);
             this.tlpSidebar.ResumeLayout(false);
             this.panelInfoBar.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panelLogo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.PanelNameRes.ResumeLayout(false);
             this.PanelNameRes.PerformLayout();
             this.panelSidebar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Panel btnAdmin;
+        private System.Windows.Forms.Panel panelInterface;
         private System.Windows.Forms.TableLayoutPanel tlpSidebar;
         private System.Windows.Forms.Button btnSignout;
         private System.Windows.Forms.Button btnItemMNG;
@@ -376,8 +351,6 @@
         private System.Windows.Forms.Panel PanelNameRes;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnInfoUser;
-        private System.Windows.Forms.Button btnAdministrator;
         private System.Windows.Forms.Button btnChangePassword;
-        private System.Windows.Forms.Panel panelMain;
     }
 }

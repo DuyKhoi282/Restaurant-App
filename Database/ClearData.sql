@@ -13,3 +13,7 @@ DELETE FROM Account
 DELETE FROM Role
 DELETE FROM Permission
 
+DELETE FROM city
+DELETE FROM district
+DELETE FROM ward
+
