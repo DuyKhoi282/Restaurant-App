@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.btnAdmin = new System.Windows.Forms.Panel();
+            this.panelMain = new System.Windows.Forms.Panel();
             this.tlpSidebar = new System.Windows.Forms.TableLayoutPanel();
             this.btnSignout = new System.Windows.Forms.Button();
             this.btnItemMNG = new System.Windows.Forms.Button();
@@ -48,6 +49,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panelContent = new System.Windows.Forms.Panel();
             this.panelSidebar = new System.Windows.Forms.Panel();
+            this.btnAdmin.SuspendLayout();
             this.tlpSidebar.SuspendLayout();
             this.panelInfoBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -59,12 +61,21 @@
             // 
             // btnAdmin
             // 
+            this.btnAdmin.Controls.Add(this.panelMain);
             this.btnAdmin.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAdmin.Location = new System.Drawing.Point(289, 0);
             this.btnAdmin.Name = "btnAdmin";
             this.btnAdmin.Size = new System.Drawing.Size(932, 664);
             this.btnAdmin.TabIndex = 3;
             this.btnAdmin.Paint += new System.Windows.Forms.PaintEventHandler(this.btnAdmin_Paint);
+            // 
+            // panelMain
+            // 
+            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMain.Location = new System.Drawing.Point(0, 0);
+            this.panelMain.Name = "panelMain";
+            this.panelMain.Size = new System.Drawing.Size(932, 664);
+            this.panelMain.TabIndex = 0;
             // 
             // tlpSidebar
             // 
@@ -333,6 +344,7 @@
             this.Text = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
+            this.btnAdmin.ResumeLayout(false);
             this.tlpSidebar.ResumeLayout(false);
             this.panelInfoBar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -366,5 +378,6 @@
         private System.Windows.Forms.Button btnInfoUser;
         private System.Windows.Forms.Button btnAdministrator;
         private System.Windows.Forms.Button btnChangePassword;
+        private System.Windows.Forms.Panel panelMain;
     }
 }
