@@ -114,10 +114,3 @@ CREATE TABLE BillInfo
 	FOREIGN KEY (idFood) REFERENCES Food(id)
 )
 GO
-
-
-
-
-
-
-
