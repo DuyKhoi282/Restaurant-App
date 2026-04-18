@@ -31,10 +31,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnBestSeller = new System.Windows.Forms.Button();
+            this.btnReload = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.dtgvOrderMagagement = new System.Windows.Forms.DataGridView();
-            this.btnReload = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvOrderMagagement)).BeginInit();
             this.SuspendLayout();
@@ -54,7 +53,6 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(90)))), ((int)(((byte)(120)))));
             this.panel2.Controls.Add(this.btnReload);
-            this.panel2.Controls.Add(this.btnBestSeller);
             this.panel2.Controls.Add(this.btnUpdate);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -63,20 +61,19 @@
             this.panel2.Size = new System.Drawing.Size(1280, 159);
             this.panel2.TabIndex = 4;
             // 
-            // btnBestSeller
+            // btnReload
             // 
-            this.btnBestSeller.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBestSeller.AutoSize = true;
-            this.btnBestSeller.BackColor = System.Drawing.Color.Gold;
-            this.btnBestSeller.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBestSeller.ForeColor = System.Drawing.Color.Black;
-            this.btnBestSeller.Location = new System.Drawing.Point(1555, 60);
-            this.btnBestSeller.Name = "btnBestSeller";
-            this.btnBestSeller.Size = new System.Drawing.Size(215, 64);
-            this.btnBestSeller.TabIndex = 5;
-            this.btnBestSeller.Text = "Best Seller";
-            this.btnBestSeller.UseVisualStyleBackColor = false;
-            this.btnBestSeller.Click += new System.EventHandler(this.btnBestSeller_Click);
+            this.btnReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReload.AutoSize = true;
+            this.btnReload.BackColor = System.Drawing.Color.LightBlue;
+            this.btnReload.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReload.Location = new System.Drawing.Point(870, 57);
+            this.btnReload.Name = "btnReload";
+            this.btnReload.Size = new System.Drawing.Size(140, 49);
+            this.btnReload.TabIndex = 6;
+            this.btnReload.Text = "Reload";
+            this.btnReload.UseVisualStyleBackColor = false;
+            this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
             // 
             // btnUpdate
             // 
@@ -116,20 +113,6 @@
             this.dtgvOrderMagagement.TabIndex = 0;
             this.dtgvOrderMagagement.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvOrderMagagement_CellClick);
             // 
-            // btnReload
-            // 
-            this.btnReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReload.AutoSize = true;
-            this.btnReload.BackColor = System.Drawing.Color.LightBlue;
-            this.btnReload.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReload.Location = new System.Drawing.Point(919, 57);
-            this.btnReload.Name = "btnReload";
-            this.btnReload.Size = new System.Drawing.Size(140, 49);
-            this.btnReload.TabIndex = 6;
-            this.btnReload.Text = "Reload";
-            this.btnReload.UseVisualStyleBackColor = false;
-            this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
-            // 
             // frmOrderManegement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
@@ -154,7 +137,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.Button btnBestSeller;
         private System.Windows.Forms.DataGridView dtgvOrderMagagement;
         private System.Windows.Forms.Button btnReload;
     }

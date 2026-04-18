@@ -81,31 +81,21 @@ namespace Restaurant_Management_App
             string query = @"
     SELECT TOP 10
         f.name AS FoodName,
-        SUM(bi.quantity) AS TotalSold,
-        SUM(f.price * bi.quantity) AS TotalRevenue
+        SUM(bi.quantity) AS TotalSold
     FROM BillInfo bi
     JOIN Food f ON bi.idFood = f.id
     JOIN Bill b ON b.id = bi.idBill
-    WHERE b.status = 1
+    WHERE b.status = 1 -- chỉ tính bill đã thanh toán
     GROUP BY f.name
     ORDER BY TotalSold DESC";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                try
-                {
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
+                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
 
-                    conn.Open();
-                    adapter.Fill(dt);
-
-                    dtgvOrderMagagement.DataSource = dt;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi: " + ex.Message);
-                }
+                dtgvOrderMagagement.DataSource = dt;
             }
         }
 

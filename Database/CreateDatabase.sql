@@ -100,6 +100,7 @@ CREATE TABLE Bill
     payMethod NVARCHAR(50),       -- PAY METHOD
     note NVARCHAR(255),            -- NOTE
 	status INT NOT NULL DEFAULT 0, --0: Unpaid, 1: Paid
+	discount FLOAT DEFAULT 0,
 	FOREIGN KEY (idTable) REFERENCES tableFood(id)
 )
 GO

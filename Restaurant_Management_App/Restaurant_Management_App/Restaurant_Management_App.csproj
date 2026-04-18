@@ -87,12 +87,6 @@
     <Compile Include="FORM\frmCreateOrder.Designer.cs">
       <DependentUpon>frmCreateOrder.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORM\frmMenuReveneu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FORM\frmMenuReveneu.Designer.cs">
-      <DependentUpon>frmMenuReveneu.cs</DependentUpon>
-    </Compile>
     <Compile Include="FORM\frmOrderDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,9 +147,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORM\frmCreateOrder.resx">
       <DependentUpon>frmCreateOrder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FORM\frmMenuReveneu.resx">
-      <DependentUpon>frmMenuReveneu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORM\frmOrderDetails.resx">
       <DependentUpon>frmOrderDetails.cs</DependentUpon>

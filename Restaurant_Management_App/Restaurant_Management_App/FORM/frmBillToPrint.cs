@@ -18,6 +18,16 @@ namespace Restaurant_Management_App
         {
             InitializeComponent();
             orderId = id;
+
+            dgvBill.ReadOnly = true;
+            dgvBill.MultiSelect = false;
+            dgvBill.RowHeadersVisible = false;
+            txtTotalPrice.ReadOnly = true;
+            txtDiscount.ReadOnly = true;
+            txtAmountDue.ReadOnly = true;
+            txtTotalPrice.BorderStyle = BorderStyle.None;
+            txtDiscount.BorderStyle = BorderStyle.None;
+            txtAmountDue.BorderStyle = BorderStyle.None;
         }
 
         void LoadBill()
@@ -25,17 +35,19 @@ namespace Restaurant_Management_App
             
                 string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
 
-                string query = @"
+            string query = @"
     SELECT 
-        ROW_NUMBER() OVER (ORDER BY f.name) AS numr,
-        f.name,
-        bi.quantity,
-        f.price,
-        (bi.quantity * f.price) AS totalprice
-    FROM Bill b
-    JOIN BillInfo bi ON b.id = bi.idBill
-    JOIN Food f ON bi.idFood = f.id
-    WHERE b.id = @id";
+    ROW_NUMBER() OVER (ORDER BY f.name) AS STT,
+    f.name AS FoodName,
+    SUM(bi.quantity) AS quantity,
+    f.price,
+    SUM(f.price * bi.quantity) AS TotalPrice,
+    b.discount
+FROM Bill b
+JOIN BillInfo bi ON b.id = bi.idBill
+JOIN Food f ON bi.idFood = f.id
+WHERE b.id = @id
+GROUP BY f.name, f.price, b.discount";
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -78,17 +90,26 @@ namespace Restaurant_Management_App
 
             foreach (DataGridViewRow row in dgvBill.Rows)
             {
-                if (row.Cells["totalprice"].Value != null)
+                if (row.Cells["TotalPrice"].Value != null)
                 {
-                    total += Convert.ToDouble(row.Cells["totalprice"].Value);
+                    total += Convert.ToDouble(row.Cells["TotalPrice"].Value);
                 }
             }
 
-            txtTotalPrice.Text = total.ToString();
-            txtDiscount.Text = "0";
+            // 👉 LẤY DISCOUNT TỪ GRID (hoặc biến riêng)
+            double discountPercent = 0;
 
-            double amountDue = total - 0;
-            txtAmountDue.Text = amountDue.ToString();
+            if (dgvBill.Rows.Count > 0)
+            {
+                discountPercent = Convert.ToDouble(dgvBill.Rows[0].Cells["discount"].Value);
+            }
+
+            double discountAmount = total * discountPercent / 100;
+            double amountDue = total - discountAmount;
+
+            txtTotalPrice.Text = total.ToString("N0");
+            txtDiscount.Text = discountPercent + " %";
+            txtAmountDue.Text = amountDue.ToString("N0");
         }
 
         private void label3_Click(object sender, EventArgs e)
