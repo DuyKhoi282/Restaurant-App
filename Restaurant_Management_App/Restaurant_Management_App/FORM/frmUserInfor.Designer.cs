@@ -46,6 +46,8 @@
             this.gbxInformations_UserInfor = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.lblUserId_Detail = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picAvaUser_Detail)).BeginInit();
             this.gbxInformations_UserInfor.SuspendLayout();
             this.SuspendLayout();
@@ -65,7 +67,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(592, 61);
+            this.label2.Location = new System.Drawing.Point(652, 61);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 26);
             this.label2.TabIndex = 3;
@@ -76,7 +78,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(592, 112);
+            this.label3.Location = new System.Drawing.Point(652, 112);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 26);
             this.label3.TabIndex = 4;
@@ -98,7 +100,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(592, 163);
+            this.label5.Location = new System.Drawing.Point(652, 163);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(67, 26);
             this.label5.TabIndex = 6;
@@ -142,7 +144,7 @@
             this.lblEmail_Detail.AutoSize = true;
             this.lblEmail_Detail.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEmail_Detail.ForeColor = System.Drawing.Color.Black;
-            this.lblEmail_Detail.Location = new System.Drawing.Point(681, 61);
+            this.lblEmail_Detail.Location = new System.Drawing.Point(741, 61);
             this.lblEmail_Detail.Name = "lblEmail_Detail";
             this.lblEmail_Detail.Size = new System.Drawing.Size(131, 26);
             this.lblEmail_Detail.TabIndex = 3;
@@ -153,7 +155,7 @@
             this.lblPhone_Detail.AutoSize = true;
             this.lblPhone_Detail.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPhone_Detail.ForeColor = System.Drawing.Color.Black;
-            this.lblPhone_Detail.Location = new System.Drawing.Point(681, 112);
+            this.lblPhone_Detail.Location = new System.Drawing.Point(741, 112);
             this.lblPhone_Detail.Name = "lblPhone_Detail";
             this.lblPhone_Detail.Size = new System.Drawing.Size(137, 26);
             this.lblPhone_Detail.TabIndex = 4;
@@ -175,7 +177,7 @@
             this.lblRole_Detail.AutoSize = true;
             this.lblRole_Detail.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRole_Detail.ForeColor = System.Drawing.Color.Black;
-            this.lblRole_Detail.Location = new System.Drawing.Point(681, 163);
+            this.lblRole_Detail.Location = new System.Drawing.Point(741, 163);
             this.lblRole_Detail.Name = "lblRole_Detail";
             this.lblRole_Detail.Size = new System.Drawing.Size(121, 26);
             this.lblRole_Detail.TabIndex = 6;
@@ -184,7 +186,7 @@
             // btnEdit_InfoUser
             // 
             this.btnEdit_InfoUser.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEdit_InfoUser.Location = new System.Drawing.Point(895, 163);
+            this.btnEdit_InfoUser.Location = new System.Drawing.Point(1058, 163);
             this.btnEdit_InfoUser.Name = "btnEdit_InfoUser";
             this.btnEdit_InfoUser.Size = new System.Drawing.Size(88, 35);
             this.btnEdit_InfoUser.TabIndex = 7;
@@ -203,7 +205,7 @@
             // btnBack_InfoUser
             // 
             this.btnBack_InfoUser.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBack_InfoUser.Location = new System.Drawing.Point(895, 220);
+            this.btnBack_InfoUser.Location = new System.Drawing.Point(1058, 220);
             this.btnBack_InfoUser.Name = "btnBack_InfoUser";
             this.btnBack_InfoUser.Size = new System.Drawing.Size(88, 35);
             this.btnBack_InfoUser.TabIndex = 7;
@@ -216,7 +218,9 @@
             this.gbxInformations_UserInfor.Controls.Add(this.label7);
             this.gbxInformations_UserInfor.Controls.Add(this.label4);
             this.gbxInformations_UserInfor.Controls.Add(this.label6);
+            this.gbxInformations_UserInfor.Controls.Add(this.label9);
             this.gbxInformations_UserInfor.Controls.Add(this.label5);
+            this.gbxInformations_UserInfor.Controls.Add(this.label8);
             this.gbxInformations_UserInfor.Controls.Add(this.lblRole_Detail);
             this.gbxInformations_UserInfor.Controls.Add(this.btnEdit_InfoUser);
             this.gbxInformations_UserInfor.Controls.Add(this.label3);
@@ -231,9 +235,9 @@
             this.gbxInformations_UserInfor.Controls.Add(this.lblAddress_Detail);
             this.gbxInformations_UserInfor.Font = new System.Drawing.Font("Times New Roman", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbxInformations_UserInfor.ForeColor = System.Drawing.Color.Firebrick;
-            this.gbxInformations_UserInfor.Location = new System.Drawing.Point(24, 12);
+            this.gbxInformations_UserInfor.Location = new System.Drawing.Point(12, 12);
             this.gbxInformations_UserInfor.Name = "gbxInformations_UserInfor";
-            this.gbxInformations_UserInfor.Size = new System.Drawing.Size(1007, 261);
+            this.gbxInformations_UserInfor.Size = new System.Drawing.Size(1198, 261);
             this.gbxInformations_UserInfor.TabIndex = 8;
             this.gbxInformations_UserInfor.TabStop = false;
             this.gbxInformations_UserInfor.Text = "Informations";
@@ -260,15 +264,35 @@
             this.lblUserId_Detail.TabIndex = 2;
             this.lblUserId_Detail.Text = "IdUser_Detail";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.Location = new System.Drawing.Point(1013, 98);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(137, 26);
+            this.label8.TabIndex = 6;
+            this.label8.Text = "Salary_Detail";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.Black;
+            this.label9.Location = new System.Drawing.Point(1013, 61);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(151, 26);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "Salary / hour : ";
+            // 
             // frmUserInfor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1043, 285);
+            this.ClientSize = new System.Drawing.Size(1237, 285);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.gbxInformations_UserInfor);
-            this.MaximumSize = new System.Drawing.Size(1061, 332);
-            this.MinimumSize = new System.Drawing.Size(1061, 332);
             this.Name = "frmUserInfor";
             this.Text = "frmUserInfor";
             this.Load += new System.EventHandler(this.frmUserInfor_Load);
@@ -300,5 +324,7 @@
         private System.Windows.Forms.GroupBox gbxInformations_UserInfor;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblUserId_Detail;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
     }
 }

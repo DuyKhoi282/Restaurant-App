@@ -163,8 +163,7 @@ namespace Restaurant_Management_App
 
         private void btnAdministrator_Click(object sender, EventArgs e)
         {
-            frmCreateUser_Authority f = new frmCreateUser_Authority();
-            f.Show();
+            LoadForm(new frmCreateUser_Authority());
         }
    
         private void btnAdmin_Paint(object sender, PaintEventArgs e)

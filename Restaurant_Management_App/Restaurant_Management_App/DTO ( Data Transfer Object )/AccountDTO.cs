@@ -14,6 +14,11 @@ namespace Restaurant_Management_App
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
+        public string City { get; set; }
+        public string District { get; set; }
+        public string Ward { get; set; }
         public string Birthday { get; set; }
+
+        public string Salary { get; set; }
     }
 }

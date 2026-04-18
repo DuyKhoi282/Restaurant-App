@@ -43,6 +43,7 @@ namespace Restaurant_Management_App
         a.email,
         (a.address + ' ' + a.ward + ' ' + a.district + ' ' + a.city) AS fullAddress,
         a.birthday,
+        a.salary,
         r.RoleName
     FROM Account a
     JOIN Role r ON a.RoleId = r.Id
@@ -71,15 +72,52 @@ namespace Restaurant_Management_App
         {
             string query = @"
     SELECT 
-        a.UserId,        
-        a.FullName,
-        a.Phone,
-        a.Email,
+        a.userId,   
+        a.password,
+        a.fullname,
+        a.phone,
+        a.email,
+        a.address,
+        a.ward,
+        a.district,
+        a.city,
+        a.birthday,
+        a.salary,
         r.RoleName
     FROM Account a
     JOIN Role r ON a.RoleId = r.Id";
 
             return Database.Instance.ExecuteQuery(query); //
+        }
+
+        public DataTable GetCityList()
+        {
+            return Database.Instance.ExecuteQuery("SELECT * FROM city");
+        }
+
+        public DataTable GetDistrictListByCity(string cityId)
+        {
+            string query = "SELECT * FROM district WHERE cityId = @id";            
+            return Database.Instance.ExecuteQuery(query, new object[] { cityId });
+        }
+
+        public DataTable GetWardListByDistrict(string districtId)
+        {
+            string query = "SELECT * FROM ward WHERE districtId = @id";
+            return Database.Instance.ExecuteQuery(query, new object[] { districtId });
+        }
+
+        public bool UpdateAccount(string password, string  userId, string fullname, DateTime birthday, string phone, string address, string ward, string district, string city, double salary)
+        {
+            // Câu lệnh SQL (Không cần chữ N trước tham số vì dữ liệu đã là không dấu)
+            string query = "UPDATE Account SET password = @pass , fullname = @name , birthday = @birth , phone = @p , address = @addr , ward = @w , district = @d , city = @c , salary = @s WHERE userId = @id";
+
+            // Truyền mảng tham số vào
+            object[] parameter = new object[] { password, fullname, birthday, phone, address, ward, district, city, salary, userId };
+
+            int result = Database.Instance.ExecuteNonQuery(query, parameter);
+
+            return result > 0;
         }
     }
 }
