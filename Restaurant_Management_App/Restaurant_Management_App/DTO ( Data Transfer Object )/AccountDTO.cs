@@ -18,7 +18,13 @@ namespace Restaurant_Management_App
         public string District { get; set; }
         public string Ward { get; set; }
         public string Birthday { get; set; }
-
         public string Salary { get; set; }
+    }
+
+    public static class LoginAccount
+    {
+        // Lưu userID của người vừa đăng nhập thành công
+        public static string CurrentUserID;
+
     }
 }

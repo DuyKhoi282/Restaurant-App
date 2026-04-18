@@ -322,5 +322,16 @@ namespace Restaurant_Management_App
                 MessageBox.Show("Co loi xay ra khi cap nhat!");
             }
         }
+
+        private void btnHistoryChangePass_Click(object sender, EventArgs e)
+        {
+            string userId = txtUserId_CUA.Text.Trim();
+
+            // Nếu txtUserId có dữ liệu, truyền nó qua Form History
+            // Nếu trống, truyền chuỗi rỗng để Form History lấy tất cả
+            frmChangePasswordHistory f = new frmChangePasswordHistory(userId);
+
+            f.ShowDialog(); // Mở Form lịch sử dưới dạng hội thoại
+        }
     }    
 }

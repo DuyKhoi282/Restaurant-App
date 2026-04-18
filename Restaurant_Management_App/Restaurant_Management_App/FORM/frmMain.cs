@@ -72,15 +72,15 @@ namespace Restaurant_Management_App
                 tlpSidebar.Controls.Add(btnItemMNG, 0, row++);
                 tlpSidebar.Controls.Add(btnRevenueMNG, 0, row++);
                 tlpSidebar.Controls.Add(btnCustomerCaring, 0, row++);
-                tlpSidebar.Controls.Add(btnStaffMNG, 0, row++);
-                btnAdministrator.Visible = false;
+               // tlpSidebar.Controls.Add(btnStaffMNG, 0, row++);
+                
             }
             else if (currentRole == "Chef")
             {
                 int row = 2;
                 RemoveButtons(); // Xóa tất cả button trước khi thêm lại theo quyền
-               tlpSidebar.Controls.Add(btnItemMNG, 0, row++);
-                btnAdministrator.Visible = false;
+                tlpSidebar.Controls.Add(btnItemMNG, 0, row++);
+                
              
             }
             else if (currentRole == "Staff")
@@ -90,7 +90,7 @@ namespace Restaurant_Management_App
                 tlpSidebar.Controls.Add(btnCreateOrder, 0, row++);                
                 tlpSidebar.Controls.Add(btnOrderMNG, 0, row++);                
                 tlpSidebar.Controls.Add(btnCustomerCaring, 0, row++);                
-                btnAdministrator.Visible = false;
+                
             }
         }
 
@@ -120,13 +120,13 @@ namespace Restaurant_Management_App
         }
         private void LoadForm(Form frm)//Hàm này dùng để load form con vào panel chinh
         {
-            btnAdmin.Controls.Clear(); // Xóa form cũ nếu có
+            panelInterface.Controls.Clear(); // Xóa form cũ nếu có
 
             frm.TopLevel = false; // Đặt form con không phải là top-level
             frm.FormBorderStyle = FormBorderStyle.None; // Loại bỏ border của form con
             frm.Dock = DockStyle.Fill; // Đặt form con chiếm toàn bộ panel
 
-            btnAdmin.Controls.Add(frm); // Thêm form con vào panel
+            panelInterface.Controls.Add(frm); // Thêm form con vào panel
             frm.Show(); // Hiển thị form con
         }
 
@@ -161,10 +161,6 @@ namespace Restaurant_Management_App
             f.Show();
         }
 
-        private void btnAdministrator_Click(object sender, EventArgs e)
-        {
-            LoadForm(new frmCreateUser_Authority());
-        }
    
         private void btnAdmin_Paint(object sender, PaintEventArgs e)
         {
@@ -174,6 +170,11 @@ namespace Restaurant_Management_App
         private void picLogo_Click(object sender, EventArgs e)
         {
             LoadForm(new frmHomepage());
+        }
+
+        private void btnStaffMNG_Click(object sender, EventArgs e)
+        {
+            LoadForm(new frmCreateUser_Authority());
         }
     }
 }
