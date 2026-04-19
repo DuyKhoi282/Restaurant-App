@@ -118,7 +118,7 @@ namespace Restaurant_Management_App
             LoginForm.Show();
             this.Hide();
         }
-        private void LoadForm(Form frm)//Hàm này dùng để load form con vào panel chinh
+        public void LoadForm(Form frm)//Hàm này dùng để load form con vào panel chinh
         {
             panelInterface.Controls.Clear(); // Xóa form cũ nếu có
 

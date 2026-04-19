@@ -18,6 +18,16 @@ namespace Restaurant_Management_App
         {
             InitializeComponent();
             orderId = id;
+
+            dgvBill.ReadOnly = true;
+            txtTotalPrice.ReadOnly = true;
+            txtDiscount.ReadOnly = true;
+            txtAmountDue.ReadOnly = true;
+            txtTotalPrice.BorderStyle = BorderStyle.None;
+            txtDiscount.BorderStyle = BorderStyle.None;
+            txtAmountDue.BorderStyle = BorderStyle.None;
+            dgvBill.MultiSelect = false;
+            dgvBill.RowHeadersVisible = false;
         }
 
         void LoadBill()
@@ -27,17 +37,18 @@ namespace Restaurant_Management_App
 
                 string query = @"
     SELECT 
-        ROW_NUMBER() OVER (ORDER BY f.name) AS numr,
-        f.name,
-        bi.quantity,
-        f.price,
-        (bi.quantity * f.price) AS totalprice
-    FROM Bill b
-    JOIN BillInfo bi ON b.id = bi.idBill
-    JOIN Food f ON bi.idFood = f.id
-    WHERE b.id = @id";
+    ROW_NUMBER() OVER (ORDER BY f.name) AS STT,
+    f.name AS FoodName,
+    SUM(bi.quantity) AS quantity,
+    f.price,
+    SUM(f.price * bi.quantity) AS TotalPrice
+FROM Bill b
+JOIN BillInfo bi ON b.id = bi.idBill
+JOIN Food f ON bi.idFood = f.id
+WHERE b.id = @id
+GROUP BY f.name, f.price";
 
-                using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@id", orderId);

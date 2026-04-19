@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Restaurant_Management_App.FORM;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 
 namespace Restaurant_Management_App
 {
@@ -37,7 +38,8 @@ namespace Restaurant_Management_App
             CASE 
                 WHEN b.status = 0 THEN 'Unpaid'
                 ELSE 'Paid'
-            END AS status
+            END AS status,
+            ISNULL(b.kitchenStatus, 'Pending') AS [Kitchen Status]
         FROM Bill b
         LEFT JOIN BillInfo bi ON b.id = bi.idBill
         LEFT JOIN Food f ON bi.idFood = f.id
@@ -46,7 +48,8 @@ namespace Restaurant_Management_App
             b.dateCheckIn,
             b.idTable,
             b.customerName,
-            b.status
+            b.status,
+            b.kitchenStatus
         ORDER BY b.id DESC";
             
 
@@ -55,23 +58,30 @@ namespace Restaurant_Management_App
             adapter.Fill(dt);
 
             dtgvOrderMagagement.DataSource = dt; // DataGridView
-                
+            PaintKitchenStatus();
             }
         }
 
         private void frmOrderManegement_Load(object sender, EventArgs e)
         {
             LoadOrderList();
-            
-
-            
+            StartAutoRefresh();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             LoadOrderList();
-            
+        }
 
+        void StartAutoRefresh()
+        {
+            Timer t = new Timer();
+            t.Interval = 3000; // 3 giây
+            t.Tick += (s, e) =>
+            {
+                LoadOrderList();
+            };
+            t.Start();
         }
 
         void LoadBestSeller()
@@ -130,10 +140,38 @@ namespace Restaurant_Management_App
                 f.ShowDialog();
             }
         }
+        void PaintKitchenStatus()
+        {
+            foreach (DataGridViewRow row in dtgvOrderMagagement.Rows)
+            {
+                if (row.Cells["Kitchen Status"].Value == null) continue;
+
+                string status = row.Cells["Kitchen Status"].Value.ToString();
+
+                if (status == "Pending")
+                    row.Cells["Kitchen Status"].Style.BackColor = Color.LightYellow;
+
+                else if (status == "Cooking")
+                    row.Cells["Kitchen Status"].Style.BackColor = Color.Orange;
+
+                else if (status == "Ready")
+                    row.Cells["Kitchen Status"].Style.BackColor = Color.LightGreen;
+            }
+        }
 
         private void btnReload_Click(object sender, EventArgs e)
         {
             LoadOrderList();
+        }
+
+        private void btnStatusOrder_Click(object sender, EventArgs e)
+        {
+            Form parent = this.ParentForm;
+
+            if (parent is frmMain main)
+            {
+                main.LoadForm(new frmKitchen());
+            }
         }
     }
 }
