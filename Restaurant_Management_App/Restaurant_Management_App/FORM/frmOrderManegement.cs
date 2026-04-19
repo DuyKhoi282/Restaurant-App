@@ -14,10 +14,11 @@ namespace Restaurant_Management_App
 {
     public partial class frmOrderManegement : Form
     {
-        public frmOrderManegement()
+        string currentRole;
+        public frmOrderManegement(string role)
         {
             InitializeComponent();
-
+            currentRole = role;
         }
 
         void LoadOrderList()
@@ -66,6 +67,10 @@ namespace Restaurant_Management_App
         {
             LoadOrderList();
             StartAutoRefresh();
+            if (currentRole == "Staff")
+            {
+                btnStatusOrder.Visible = false;
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -128,6 +133,12 @@ namespace Restaurant_Management_App
 
         private void dtgvOrderMagagement_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (currentRole == "Chef")
+            {
+                MessageBox.Show("Bạn không có quyền xem chi tiết đơn!");
+                return;
+            }
+
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row =  dtgvOrderMagagement.Rows[e.RowIndex];

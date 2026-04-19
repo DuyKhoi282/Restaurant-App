@@ -80,8 +80,8 @@ namespace Restaurant_Management_App
                 int row = 2;
                 RemoveButtons(); // Xóa tất cả button trước khi thêm lại theo quyền
                 tlpSidebar.Controls.Add(btnItemMNG, 0, row++);
-                
-             
+                tlpSidebar.Controls.Add(btnOrderMNG, 0, row++);
+
             }
             else if (currentRole == "Staff")
             {
@@ -137,7 +137,7 @@ namespace Restaurant_Management_App
 
         private void btnOrderMNG_Click(object sender, EventArgs e)
         {
-            LoadForm(new frmOrderManegement());
+            LoadForm(new frmOrderManegement(currentRole));
         }
 
         private void btnRevenueMNG_Click(object sender, EventArgs e)

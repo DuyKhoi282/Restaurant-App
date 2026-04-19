@@ -50,6 +50,8 @@
             this.txtPayMethod = new System.Windows.Forms.TextBox();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnPay = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtStatusOrders = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.gbxListDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFoodDetails)).BeginInit();
@@ -234,7 +236,7 @@
             // btnBack
             // 
             this.btnBack.AutoSize = true;
-            this.btnBack.Location = new System.Drawing.Point(1313, 729);
+            this.btnBack.Location = new System.Drawing.Point(1314, 809);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(102, 39);
             this.btnBack.TabIndex = 4;
@@ -245,13 +247,30 @@
             // btnPay
             // 
             this.btnPay.AutoSize = true;
-            this.btnPay.Location = new System.Drawing.Point(1096, 728);
+            this.btnPay.Location = new System.Drawing.Point(1097, 808);
             this.btnPay.Name = "btnPay";
             this.btnPay.Size = new System.Drawing.Size(102, 39);
             this.btnPay.TabIndex = 4;
             this.btnPay.Text = "Pay";
             this.btnPay.UseVisualStyleBackColor = true;
             this.btnPay.Click += new System.EventHandler(this.btnPay_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(963, 729);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(154, 29);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Status Order:";
+            // 
+            // txtStatusOrders
+            // 
+            this.txtStatusOrders.Location = new System.Drawing.Point(1164, 726);
+            this.txtStatusOrders.Name = "txtStatusOrders";
+            this.txtStatusOrders.ReadOnly = true;
+            this.txtStatusOrders.Size = new System.Drawing.Size(211, 34);
+            this.txtStatusOrders.TabIndex = 3;
             // 
             // frmOrderDetails
             // 
@@ -260,6 +279,7 @@
             this.ClientSize = new System.Drawing.Size(1668, 1073);
             this.Controls.Add(this.btnPay);
             this.Controls.Add(this.btnBack);
+            this.Controls.Add(this.txtStatusOrders);
             this.Controls.Add(this.txtCustomerName);
             this.Controls.Add(this.txtTime);
             this.Controls.Add(this.txtPayMethod);
@@ -267,6 +287,7 @@
             this.Controls.Add(this.txtStatus);
             this.Controls.Add(this.txtDate);
             this.Controls.Add(this.txtIdTable);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.txtIdOrder);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label3);
@@ -314,5 +335,7 @@
         private System.Windows.Forms.TextBox txtIdTable;
         private System.Windows.Forms.TextBox txtIdOrder;
         private System.Windows.Forms.Button btnPay;
+        private System.Windows.Forms.TextBox txtStatusOrders;
+        private System.Windows.Forms.Label label9;
     }
 }

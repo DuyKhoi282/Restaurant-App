@@ -42,6 +42,12 @@ namespace Restaurant_Management_App
                 return;
             }
 
+            if (txtStatusOrders.Text != "Ready")
+            {
+                MessageBox.Show("Đơn hàng chưa hoàn thành, không thể thanh toán");
+                return;
+            }
+
             DialogResult result = MessageBox.Show(
                 "Xác nhận thanh toán đơn này?",
                 "Thông báo",
@@ -110,14 +116,15 @@ namespace Restaurant_Management_App
                 WHEN b.status = 0 THEN 'Unpaid'
                 ELSE 'Paid'
             END AS status,
-            ISNULL(SUM(f.price * bi.quantity),0) AS totalPrice
+            ISNULL(SUM(f.price * bi.quantity),0) AS totalPrice,
+            ISNULL(b.kitchenStatus, 'Pending') AS kitchenStatus
         FROM Bill b
         LEFT JOIN BillInfo bi ON b.id = bi.idBill
         LEFT JOIN Food f ON bi.idFood = f.id
         WHERE b.id = @id
         GROUP BY 
             b.id, b.idTable, b.dateCheckIn,
-            b.customerName, b.payMethod, b.status";
+            b.customerName, b.payMethod, b.status, b.kitchenStatus";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", _idOrder);
@@ -145,6 +152,9 @@ namespace Restaurant_Management_App
                     txtStatus.Text = reader["status"].ToString();
                     txtTotalPrice.Text = reader["totalPrice"].ToString();
 
+                    string kitchenStatus = reader["kitchenStatus"].ToString();
+                    txtStatusOrders.Text = kitchenStatus; // bạn cần thêm textbox
+
                     if (txtStatus.Text == "Paid")
                     {
                         btnPay.Text = "View Bill";
@@ -160,6 +170,7 @@ namespace Restaurant_Management_App
 
             // Load danh sách món
             LoadFoodList();
+            btnPay.Enabled = (txtStatusOrders.Text == "Ready" || txtStatus.Text == "Paid");
         }
 
         void LoadFoodList()
