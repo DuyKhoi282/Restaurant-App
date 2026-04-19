@@ -147,7 +147,9 @@ CREATE TABLE PasswordHistory (
     FOREIGN KEY (userId) REFERENCES Account(userId)
 );
 
-
+GO
+ALTER TABLE Bill
+ADD kitchenStatus NVARCHAR(50) DEFAULT N'Pending'
 
 
 
