@@ -136,6 +136,17 @@ CREATE TABLE BillInfo
 )
 GO
 
+CREATE TABLE PasswordHistory (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    userId NVARCHAR(20) NOT NULL,
+    oldPassword VARCHAR(100),
+    newPassword VARCHAR(100),
+    changeDate DATETIME DEFAULT GETDATE(),
+    -- Lưu lại ai là người thực hiện (Chính chủ hay Admin đổi hộ)
+    changedBy VARCHAR(50), 
+    FOREIGN KEY (userId) REFERENCES Account(userId)
+);
+
 
 
 
