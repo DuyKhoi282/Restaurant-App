@@ -52,19 +52,22 @@
             this.btnPay = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.txtStatusOrders = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1.SuspendLayout();
             this.gbxListDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFoodDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.tableLayoutPanel1.SetColumnSpan(this.panel1, 6);
             this.panel1.Controls.Add(this.gbxListDetails);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1668, 396);
+            this.panel1.Size = new System.Drawing.Size(1662, 573);
             this.panel1.TabIndex = 1;
             // 
             // gbxListDetails
@@ -73,7 +76,7 @@
             this.gbxListDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbxListDetails.Location = new System.Drawing.Point(0, 0);
             this.gbxListDetails.Name = "gbxListDetails";
-            this.gbxListDetails.Size = new System.Drawing.Size(1668, 396);
+            this.gbxListDetails.Size = new System.Drawing.Size(1662, 573);
             this.gbxListDetails.TabIndex = 0;
             this.gbxListDetails.TabStop = false;
             this.gbxListDetails.Text = "ID ORDER";
@@ -87,13 +90,13 @@
             this.dgvFoodDetails.Name = "dgvFoodDetails";
             this.dgvFoodDetails.RowHeadersWidth = 51;
             this.dgvFoodDetails.RowTemplate.Height = 24;
-            this.dgvFoodDetails.Size = new System.Drawing.Size(1662, 363);
+            this.dgvFoodDetails.Size = new System.Drawing.Size(1656, 540);
             this.dgvFoodDetails.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(96, 525);
+            this.label1.Location = new System.Drawing.Point(3, 579);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(114, 29);
             this.label1.TabIndex = 2;
@@ -102,7 +105,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(96, 623);
+            this.label2.Location = new System.Drawing.Point(3, 698);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(75, 29);
             this.label2.TabIndex = 2;
@@ -111,7 +114,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(96, 731);
+            this.label3.Location = new System.Drawing.Point(3, 804);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 29);
             this.label3.TabIndex = 2;
@@ -125,7 +128,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(508, 525);
+            this.label4.Location = new System.Drawing.Point(557, 579);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(108, 29);
             this.label4.TabIndex = 2;
@@ -134,7 +137,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(508, 613);
+            this.label5.Location = new System.Drawing.Point(557, 698);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(136, 29);
             this.label5.TabIndex = 2;
@@ -143,7 +146,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(508, 731);
+            this.label6.Location = new System.Drawing.Point(557, 804);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(194, 29);
             this.label6.TabIndex = 2;
@@ -152,7 +155,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(960, 525);
+            this.label7.Location = new System.Drawing.Point(1113, 579);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(184, 29);
             this.label7.TabIndex = 2;
@@ -162,7 +165,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(960, 613);
+            this.label8.Location = new System.Drawing.Point(1113, 698);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(146, 29);
             this.label8.TabIndex = 2;
@@ -171,7 +174,7 @@
             // 
             // txtIdOrder
             // 
-            this.txtIdOrder.Location = new System.Drawing.Point(248, 525);
+            this.txtIdOrder.Location = new System.Drawing.Point(144, 582);
             this.txtIdOrder.Name = "txtIdOrder";
             this.txtIdOrder.ReadOnly = true;
             this.txtIdOrder.Size = new System.Drawing.Size(211, 34);
@@ -179,7 +182,7 @@
             // 
             // txtDate
             // 
-            this.txtDate.Location = new System.Drawing.Point(248, 620);
+            this.txtDate.Location = new System.Drawing.Point(144, 701);
             this.txtDate.Name = "txtDate";
             this.txtDate.ReadOnly = true;
             this.txtDate.Size = new System.Drawing.Size(211, 34);
@@ -187,7 +190,7 @@
             // 
             // txtTime
             // 
-            this.txtTime.Location = new System.Drawing.Point(248, 731);
+            this.txtTime.Location = new System.Drawing.Point(144, 807);
             this.txtTime.Name = "txtTime";
             this.txtTime.ReadOnly = true;
             this.txtTime.Size = new System.Drawing.Size(211, 34);
@@ -195,7 +198,7 @@
             // 
             // txtIdTable
             // 
-            this.txtIdTable.Location = new System.Drawing.Point(709, 522);
+            this.txtIdTable.Location = new System.Drawing.Point(771, 582);
             this.txtIdTable.Name = "txtIdTable";
             this.txtIdTable.ReadOnly = true;
             this.txtIdTable.Size = new System.Drawing.Size(211, 34);
@@ -203,7 +206,7 @@
             // 
             // txtTotalPrice
             // 
-            this.txtTotalPrice.Location = new System.Drawing.Point(709, 617);
+            this.txtTotalPrice.Location = new System.Drawing.Point(771, 701);
             this.txtTotalPrice.Name = "txtTotalPrice";
             this.txtTotalPrice.ReadOnly = true;
             this.txtTotalPrice.Size = new System.Drawing.Size(211, 34);
@@ -211,7 +214,7 @@
             // 
             // txtCustomerName
             // 
-            this.txtCustomerName.Location = new System.Drawing.Point(709, 728);
+            this.txtCustomerName.Location = new System.Drawing.Point(771, 807);
             this.txtCustomerName.Name = "txtCustomerName";
             this.txtCustomerName.ReadOnly = true;
             this.txtCustomerName.Size = new System.Drawing.Size(211, 34);
@@ -219,7 +222,7 @@
             // 
             // txtStatus
             // 
-            this.txtStatus.Location = new System.Drawing.Point(1164, 525);
+            this.txtStatus.Location = new System.Drawing.Point(1309, 582);
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.ReadOnly = true;
             this.txtStatus.Size = new System.Drawing.Size(211, 34);
@@ -227,7 +230,7 @@
             // 
             // txtPayMethod
             // 
-            this.txtPayMethod.Location = new System.Drawing.Point(1164, 620);
+            this.txtPayMethod.Location = new System.Drawing.Point(1309, 701);
             this.txtPayMethod.Name = "txtPayMethod";
             this.txtPayMethod.ReadOnly = true;
             this.txtPayMethod.Size = new System.Drawing.Size(211, 34);
@@ -236,7 +239,7 @@
             // btnBack
             // 
             this.btnBack.AutoSize = true;
-            this.btnBack.Location = new System.Drawing.Point(1314, 809);
+            this.btnBack.Location = new System.Drawing.Point(1309, 941);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(102, 39);
             this.btnBack.TabIndex = 4;
@@ -247,7 +250,7 @@
             // btnPay
             // 
             this.btnPay.AutoSize = true;
-            this.btnPay.Location = new System.Drawing.Point(1097, 808);
+            this.btnPay.Location = new System.Drawing.Point(1113, 941);
             this.btnPay.Name = "btnPay";
             this.btnPay.Size = new System.Drawing.Size(102, 39);
             this.btnPay.TabIndex = 4;
@@ -258,7 +261,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(963, 729);
+            this.label9.Location = new System.Drawing.Point(1113, 804);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(154, 29);
             this.label9.TabIndex = 2;
@@ -266,38 +269,61 @@
             // 
             // txtStatusOrders
             // 
-            this.txtStatusOrders.Location = new System.Drawing.Point(1164, 726);
+            this.txtStatusOrders.Location = new System.Drawing.Point(1309, 807);
             this.txtStatusOrders.Name = "txtStatusOrders";
             this.txtStatusOrders.ReadOnly = true;
             this.txtStatusOrders.Size = new System.Drawing.Size(211, 34);
             this.txtStatusOrders.TabIndex = 3;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 6;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.453238F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.76019F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.82974F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.5036F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.7506F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.70264F));
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnBack, 5, 4);
+            this.tableLayoutPanel1.Controls.Add(this.btnPay, 4, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.txtIdOrder, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.txtStatusOrders, 5, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label9, 4, 3);
+            this.tableLayoutPanel1.Controls.Add(this.txtPayMethod, 5, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtCustomerName, 3, 3);
+            this.tableLayoutPanel1.Controls.Add(this.txtStatus, 5, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label8, 4, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtDate, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtTime, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.txtTotalPrice, 3, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.txtIdTable, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 2, 2);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 53.96086F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.0904F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.878844F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1668, 1073);
+            this.tableLayoutPanel1.TabIndex = 5;
             // 
             // frmOrderDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1668, 1073);
-            this.Controls.Add(this.btnPay);
-            this.Controls.Add(this.btnBack);
-            this.Controls.Add(this.txtStatusOrders);
-            this.Controls.Add(this.txtCustomerName);
-            this.Controls.Add(this.txtTime);
-            this.Controls.Add(this.txtPayMethod);
-            this.Controls.Add(this.txtTotalPrice);
-            this.Controls.Add(this.txtStatus);
-            this.Controls.Add(this.txtDate);
-            this.Controls.Add(this.txtIdTable);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.txtIdOrder);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "frmOrderDetails";
@@ -307,8 +333,9 @@
             this.gbxListDetails.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFoodDetails)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -337,5 +364,6 @@
         private System.Windows.Forms.Button btnPay;
         private System.Windows.Forms.TextBox txtStatusOrders;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
