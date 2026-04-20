@@ -148,7 +148,11 @@ namespace Restaurant_Management_App
 
                 // Mở form chi tiết
                 frmOrderDetails f = new frmOrderDetails(idOrder);
-                f.ShowDialog();
+                Form parent = this.ParentForm;
+                if (parent is frmMain main)
+                {
+                    main.LoadForm(new frmOrderDetails(idOrder));
+                }
             }
         }
         void PaintKitchenStatus()
