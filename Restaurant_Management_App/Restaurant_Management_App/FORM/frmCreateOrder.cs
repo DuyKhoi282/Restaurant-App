@@ -359,11 +359,17 @@ namespace Restaurant_Management_App.FORM
                 if (exists == 0)
                 {
                     // Chèn Bill mới (Parent)
-                    string queryInsertBill = @"INSERT INTO dbo.Bill (id, idTable, customerName, caseName, payMethod, status) 
-                                       VALUES ( @idBill , @idTable , @custName , @case , @pay , 0 )";
-                    Database.Instance.ExecuteNonQuery(queryInsertBill, new object[] {
-                billId, tableId, txtCustomerName.Text, cbCase.Text, cbPayMethod.Text
-            });
+                    string queryInsertBill = @"
+                    INSERT INTO dbo.Bill (idTable, customerName, caseName, payMethod, status) 
+                    VALUES ( @idTable , @custName , @case , @pay , 0 );
+
+                    SELECT SCOPE_IDENTITY();";
+                    object result = Database.Instance.ExecuteScalar(queryInsertBill, new object[] {
+                    tableId, txtCustomerName.Text, cbCase.Text, cbPayMethod.Text
+                });
+
+                    billId = Convert.ToInt32(result);
+                    txtOrderNo.Text = FormatBillId(billId);
                 }
 
                 // 3. Tăng số lượng món nếu đã tồn tại trong giỏ hoặc thêm mới
