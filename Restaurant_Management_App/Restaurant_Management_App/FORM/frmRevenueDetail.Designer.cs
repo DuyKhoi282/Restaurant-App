@@ -160,7 +160,7 @@
             this.panelChart.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelChart.Location = new System.Drawing.Point(0, 70);
             this.panelChart.Name = "panelChart";
-            this.panelChart.Size = new System.Drawing.Size(913, 666);
+            this.panelChart.Size = new System.Drawing.Size(805, 666);
             this.panelChart.TabIndex = 3;
             // 
             // dgvRevenue
@@ -172,13 +172,13 @@
             this.dgvRevenue.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvRevenue.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvRevenue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRevenue.Location = new System.Drawing.Point(1, 0);
+            this.dgvRevenue.Location = new System.Drawing.Point(0, 0);
             this.dgvRevenue.Name = "dgvRevenue";
             this.dgvRevenue.ReadOnly = true;
             this.dgvRevenue.RowHeadersWidth = 51;
             this.dgvRevenue.RowTemplate.Height = 24;
             this.dgvRevenue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRevenue.Size = new System.Drawing.Size(383, 666);
+            this.dgvRevenue.Size = new System.Drawing.Size(492, 666);
             this.dgvRevenue.TabIndex = 2;
             // 
             // panelDgv
@@ -186,9 +186,9 @@
             this.panelDgv.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.panelDgv.Controls.Add(this.dgvRevenue);
             this.panelDgv.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelDgv.Location = new System.Drawing.Point(913, 70);
+            this.panelDgv.Location = new System.Drawing.Point(805, 70);
             this.panelDgv.Name = "panelDgv";
-            this.panelDgv.Size = new System.Drawing.Size(387, 666);
+            this.panelDgv.Size = new System.Drawing.Size(495, 666);
             this.panelDgv.TabIndex = 4;
             // 
             // frmRevenueDetail
