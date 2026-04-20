@@ -224,12 +224,16 @@ namespace Restaurant_Management_App.FORM
                         int colCount = dgvRevenue.Columns.Count;
                         int rowCount = dgvRevenue.Rows.Count;
 
+                        if (dgvRevenue.Columns.Count == 0)//nếu không có cột nào thì không export
+                        {
+                            MessageBox.Show("Không có dữ liệu để export!");
+                            return;
+                        }
                         // ===== TITLE =====
-                        ws.Cells["A1"].Value = "BÁO CÁO DOANH THU";
+                        ws.Cells["A1"].Value = "BÁO CÁO";
                         ws.Cells["A1"].Style.Font.Size = 16;
                         ws.Cells["A1"].Style.Font.Bold = true;
                         ws.Cells["A1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-
                         ws.Cells[1, 1, 1, colCount].Merge = true;
 
                         // ===== HEADER =====
@@ -251,10 +255,10 @@ namespace Restaurant_Management_App.FORM
                         // ===== DATA =====
                         for (int i = 0; i < rowCount; i++)
                         {
+                            if (dgvRevenue.Rows[i].IsNewRow) continue;
                             for (int j = 0; j < colCount; j++)
                             {
                                 object value = dgvRevenue.Rows[i].Cells[j].Value;
-
                                 var cell = ws.Cells[i + 3, j + 1];
 
                                 if (value is DateTime dt)
@@ -267,22 +271,65 @@ namespace Restaurant_Management_App.FORM
                                     cell.Value = value;
                                 }
 
-                                // Font cho data
                                 cell.Style.Font.Size = 14;
+                            }
+
+                            if (i % 2 == 0)
+                            {
+                                var range = ws.Cells[i + 3, 1, i + 3, colCount];
+
+                                range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                range.Style.Fill.BackgroundColor.SetColor(Color.LightGray);
                             }
                         }
 
+                        int totalRow = rowCount + 3;
+
+                        // ===== TOP FOOD =====
+                        if (dgvRevenue.Columns.Contains("TotalSold"))
+                        {
+                            string topFood = dgvRevenue.Rows[0].Cells["FoodName"].Value.ToString();
+                            int sold = Convert.ToInt32(dgvRevenue.Rows[0].Cells["TotalSold"].Value);
+
+                            ws.Cells[totalRow, 1].Value = $"TOP 1: {topFood} ({sold} món)";
+                            ws.Cells[totalRow, 1, totalRow, colCount].Merge = true;
+                            ws.Cells[totalRow, 1].Style.Font.Bold = true;
+                            ws.Cells[totalRow, 1].Style.Font.Size = 14;
+                            ws.Cells[totalRow, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        }
+
+                        // ===== TOTAL MONEY =====
+                        if (dgvRevenue.Columns.Contains("TotalAmount"))
+                        {
+                            decimal total = 0;
+
+                            foreach (DataGridViewRow row in dgvRevenue.Rows)
+                            {
+                                if (row.IsNewRow) continue;
+
+                                total += Convert.ToDecimal(row.Cells["TotalAmount"].Value);
+                            }
+
+                            ws.Cells[totalRow, colCount - 1].Value = "TỔNG DOANH THU:";
+                            ws.Cells[totalRow, colCount].Value = total;
+
+                            ws.Cells[totalRow, colCount].Style.Numberformat.Format = "#,##0";
+                            ws.Cells[totalRow, colCount].Style.Font.Bold = true;
+                        }
+
                         // ===== BORDER =====
-                        var tableRange = ws.Cells[2, 1, rowCount + 2, colCount];
+                        var tableRange = ws.Cells[2, 1, totalRow, colCount];
                         tableRange.Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
                         tableRange.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
                         tableRange.Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
                         tableRange.Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
 
+                        tableRange.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+
                         // ===== FORMAT TIỀN =====
-                        if (ws.Cells[2, colCount].Value.ToString().Contains("Total"))
+                        if (dgvRevenue.Columns.Contains("TotalAmount"))
                         {
-                            var moneyCol = ws.Cells[3, colCount, rowCount + 2, colCount];
+                            var moneyCol = ws.Cells[3, colCount, totalRow, colCount];
                             moneyCol.Style.Numberformat.Format = "#,##0";
                             moneyCol.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
                         }
@@ -293,7 +340,7 @@ namespace Restaurant_Management_App.FORM
                         package.Save();
                     }
 
-                    MessageBox.Show("Export thành công !");
+                    MessageBox.Show("Export thành công!");
                 }
             }
         }
