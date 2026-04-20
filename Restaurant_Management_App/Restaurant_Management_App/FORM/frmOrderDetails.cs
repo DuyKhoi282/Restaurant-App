@@ -18,6 +18,8 @@ namespace Restaurant_Management_App
         {
             InitializeComponent();
             _idOrder = idOrder;
+
+            dgvFoodDetails.ReadOnly = true;
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -32,7 +34,20 @@ namespace Restaurant_Management_App
 
         private void btnPay_Click(object sender, EventArgs e)
         {
-            // Xác nhận
+            if (txtStatus.Text == "Paid")
+            {
+                // Đã thanh toán → chỉ mở lại hóa đơn
+                frmBillToPrint f = new frmBillToPrint(_idOrder);
+                f.Show();
+                return;
+            }
+
+            if (txtStatusOrders.Text != "Ready")
+            {
+                MessageBox.Show("Đơn hàng chưa hoàn thành, không thể thanh toán");
+                return;
+            }
+
             DialogResult result = MessageBox.Show(
                 "Xác nhận thanh toán đơn này?",
                 "Thông báo",
@@ -43,7 +58,7 @@ namespace Restaurant_Management_App
             if (result == DialogResult.Yes)
             {
                 PayOrder();
-                
+                LoadOrderDetails(); // reload lại để update status
             }
         }
 
@@ -62,7 +77,7 @@ namespace Restaurant_Management_App
             status = 1,
             dateCheckOut = GETDATE(),
             payMethod = @payMethod
-        WHERE id = @id";
+        WHERE id = @id AND status = 0";
 
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@id", _idOrder);
@@ -101,14 +116,15 @@ namespace Restaurant_Management_App
                 WHEN b.status = 0 THEN 'Unpaid'
                 ELSE 'Paid'
             END AS status,
-            ISNULL(SUM(f.price * bi.quantity),0) AS totalPrice
+            ISNULL(SUM(f.price * bi.quantity),0) AS totalPrice,
+            ISNULL(b.kitchenStatus, 'Pending') AS kitchenStatus
         FROM Bill b
         LEFT JOIN BillInfo bi ON b.id = bi.idBill
         LEFT JOIN Food f ON bi.idFood = f.id
         WHERE b.id = @id
         GROUP BY 
             b.id, b.idTable, b.dateCheckIn,
-            b.customerName, b.payMethod, b.status";
+            b.customerName, b.payMethod, b.status, b.kitchenStatus";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", _idOrder);
@@ -135,6 +151,18 @@ namespace Restaurant_Management_App
                     txtPayMethod.Text = reader["payMethod"].ToString();
                     txtStatus.Text = reader["status"].ToString();
                     txtTotalPrice.Text = reader["totalPrice"].ToString();
+
+                    string kitchenStatus = reader["kitchenStatus"].ToString();
+                    txtStatusOrders.Text = kitchenStatus; // bạn cần thêm textbox
+
+                    if (txtStatus.Text == "Paid")
+                    {
+                        btnPay.Text = "View Bill";
+                    }
+                    else
+                    {
+                        btnPay.Text = "Pay";
+                    }
                 }
 
                 conn.Close();
@@ -142,6 +170,7 @@ namespace Restaurant_Management_App
 
             // Load danh sách món
             LoadFoodList();
+            btnPay.Enabled = (txtStatusOrders.Text == "Ready" || txtStatus.Text == "Paid");
         }
 
         void LoadFoodList()
@@ -150,15 +179,16 @@ namespace Restaurant_Management_App
 
             string query = @"
     SELECT 
-        ROW_NUMBER() OVER (ORDER BY f.name) AS STT,
-        f.name AS FoodName,
-        bi.quantity,
-        f.price,
-        (f.price * bi.quantity) AS TotalPrice
-    FROM Bill b
-    JOIN BillInfo bi ON b.id = bi.idBill
-    JOIN Food f ON bi.idFood = f.id
-    WHERE b.id = @id";
+    ROW_NUMBER() OVER (ORDER BY f.name) AS STT,
+    f.name AS FoodName,
+    SUM(bi.quantity) AS quantity,
+    f.price,
+    SUM(f.price * bi.quantity) AS TotalPrice
+FROM Bill b
+JOIN BillInfo bi ON b.id = bi.idBill
+JOIN Food f ON bi.idFood = f.id
+WHERE b.id = @id
+GROUP BY f.name, f.price";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {

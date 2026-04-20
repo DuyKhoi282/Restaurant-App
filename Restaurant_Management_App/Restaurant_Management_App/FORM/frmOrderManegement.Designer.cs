@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnReload = new System.Windows.Forms.Button();
             this.btnBestSeller = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.dtgvOrderMagagement = new System.Windows.Forms.DataGridView();
-            this.btnReload = new System.Windows.Forms.Button();
+            this.btnStatusOrder = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvOrderMagagement)).BeginInit();
             this.SuspendLayout();
@@ -53,6 +54,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(90)))), ((int)(((byte)(120)))));
+            this.panel2.Controls.Add(this.btnStatusOrder);
             this.panel2.Controls.Add(this.btnReload);
             this.panel2.Controls.Add(this.btnBestSeller);
             this.panel2.Controls.Add(this.btnUpdate);
@@ -62,6 +64,20 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1280, 159);
             this.panel2.TabIndex = 4;
+            // 
+            // btnReload
+            // 
+            this.btnReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReload.AutoSize = true;
+            this.btnReload.BackColor = System.Drawing.Color.LightBlue;
+            this.btnReload.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReload.Location = new System.Drawing.Point(910, 57);
+            this.btnReload.Name = "btnReload";
+            this.btnReload.Size = new System.Drawing.Size(140, 49);
+            this.btnReload.TabIndex = 6;
+            this.btnReload.Text = "Reload";
+            this.btnReload.UseVisualStyleBackColor = false;
+            this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
             // 
             // btnBestSeller
             // 
@@ -98,9 +114,9 @@
             // dtgvOrderMagagement
             // 
             this.dtgvOrderMagagement.AllowUserToAddRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LightBlue;
-            this.dtgvOrderMagagement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LightBlue;
+            this.dtgvOrderMagagement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dtgvOrderMagagement.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dtgvOrderMagagement.BackgroundColor = System.Drawing.Color.White;
             this.dtgvOrderMagagement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -116,19 +132,19 @@
             this.dtgvOrderMagagement.TabIndex = 0;
             this.dtgvOrderMagagement.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvOrderMagagement_CellClick);
             // 
-            // btnReload
+            // btnStatusOrder
             // 
-            this.btnReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReload.AutoSize = true;
-            this.btnReload.BackColor = System.Drawing.Color.LightBlue;
-            this.btnReload.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReload.Location = new System.Drawing.Point(919, 57);
-            this.btnReload.Name = "btnReload";
-            this.btnReload.Size = new System.Drawing.Size(140, 49);
-            this.btnReload.TabIndex = 6;
-            this.btnReload.Text = "Reload";
-            this.btnReload.UseVisualStyleBackColor = false;
-            this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
+            this.btnStatusOrder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnStatusOrder.AutoSize = true;
+            this.btnStatusOrder.BackColor = System.Drawing.Color.LightBlue;
+            this.btnStatusOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStatusOrder.Location = new System.Drawing.Point(1064, 57);
+            this.btnStatusOrder.Name = "btnStatusOrder";
+            this.btnStatusOrder.Size = new System.Drawing.Size(213, 49);
+            this.btnStatusOrder.TabIndex = 6;
+            this.btnStatusOrder.Text = "Status Order";
+            this.btnStatusOrder.UseVisualStyleBackColor = false;
+            this.btnStatusOrder.Click += new System.EventHandler(this.btnStatusOrder_Click);
             // 
             // frmOrderManegement
             // 
@@ -157,5 +173,6 @@
         private System.Windows.Forms.Button btnBestSeller;
         private System.Windows.Forms.DataGridView dtgvOrderMagagement;
         private System.Windows.Forms.Button btnReload;
+        private System.Windows.Forms.Button btnStatusOrder;
     }
 }

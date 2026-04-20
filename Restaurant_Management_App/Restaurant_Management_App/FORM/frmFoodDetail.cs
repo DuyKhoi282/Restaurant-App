@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace Restaurant_Management_App.FORM
     public partial class frmFoodDetail : Form
     {
         private int foodId = 0; // Biến này sẽ lưu trữ ID của món ăn đang được hiển thị chi tiết
+        private string selectedImagePath = ""; // Biến này sẽ lưu trữ đường dẫn của ảnh món ăn được chọn
+        private string oldImagePath = "";
         public frmFoodDetail(int id)
         {
             InitializeComponent();
@@ -84,17 +87,26 @@ namespace Restaurant_Management_App.FORM
                         //Đổ dữ liệu vào form
                         txtName.Text = reader["name"].ToString();
                         txtPrice.Text = reader["price"].ToString();
-                        //Chọn đúng category & status trong ComboBox
-                        cmbCategory.SelectedValue = reader["idCategory"];//Chọn loại món ăn trong ComboBox
-                        string status = reader["status"].ToString();
 
-                        if (status == "Available")
+                        cmbCategory.SelectedValue = reader["idCategory"];
+
+                        string status = reader["status"].ToString();
+                        cmbStatus.SelectedIndex = status == "Available" ? 0 : 1;
+
+                        string imagePath = reader["image"].ToString();
+                        oldImagePath = imagePath;
+
+                        if (!string.IsNullOrEmpty(imagePath))
                         {
-                            cmbStatus.SelectedIndex = 0;
-                        }
-                        else
-                        {
-                            cmbStatus.SelectedIndex = 1;
+                            string fullPath = GetProjectImagePath(imagePath);
+
+                            if (File.Exists(fullPath))
+                            {
+                                using (var img = Image.FromFile(fullPath))
+                                {
+                                    picFoodImage.Image = new Bitmap(img);
+                                }
+                            }
                         }
                     }
                 }
@@ -108,6 +120,10 @@ namespace Restaurant_Management_App.FORM
                 return;
             }
 
+            if (string.IsNullOrEmpty(selectedImagePath))
+            {
+                selectedImagePath = oldImagePath;
+            }
             if (foodId == 0)
             {
                 InsertFood();//thêm mới
@@ -147,8 +163,8 @@ namespace Restaurant_Management_App.FORM
         }
         private void InsertFood()//Thêm mới món ăn vào DB
         {
-            string query = @"INSERT INTO Food(name, idCategory, price, status)
-                     VALUES(@name, @category, @price, @status)";
+            string query = @"INSERT INTO Food(name, idCategory, price, status, image)
+                 VALUES(@name, @category, @price, @status, @image)";
             using (SqlConnection conn = new SqlConnection(Database.connStr))
             using (SqlCommand cmd = new SqlCommand(query, conn))
             {
@@ -162,8 +178,8 @@ namespace Restaurant_Management_App.FORM
         private void UpdateFood()//Cập nhật món ăn trong DB
         {
             string query = @"UPDATE Food
-                     SET name=@name, idCategory=@category, price=@price, status=@status
-                     WHERE id=@id";
+                 SET name=@name, idCategory=@category, price=@price, status=@status, image=@image
+                 WHERE id=@id";
             using (SqlConnection conn = new SqlConnection(Database.connStr))
             using (SqlCommand cmd = new SqlCommand(query, conn))
             {
@@ -181,6 +197,7 @@ namespace Restaurant_Management_App.FORM
             cmd.Parameters.AddWithValue("@category", (int)cmbCategory.SelectedValue);
             cmd.Parameters.AddWithValue("@price", float.Parse(txtPrice.Text));
             cmd.Parameters.AddWithValue("@status",cmbStatus.SelectedIndex == 0 ? "Available" : "Out of stock");
+            cmd.Parameters.AddWithValue("@image", selectedImagePath);
         }
 
         private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)//Hàm này sẽ được gọi khi người dùng chọn một loại món ăn khác trong ComboBox
@@ -241,6 +258,56 @@ namespace Restaurant_Management_App.FORM
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void btnChooseImage_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image Files|*.jpg;,*.png;,*jpeg";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    string sourcePath = ofd.FileName;
+
+                    //tránh trùng tên file
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(sourcePath);
+
+                    string destFolder = GetProjectImagePath("Images/Food");
+                    string destPath = Path.Combine(destFolder, fileName);
+
+                    //nếu chưa có folder Images thì tạo mới
+                    if (!Directory.Exists(destFolder))
+                    {
+                        Directory.CreateDirectory(destFolder);
+                    }
+
+                    //copy file
+                    File.Copy(sourcePath, destPath, true);
+
+                    //lưu path vào DB
+                    selectedImagePath = "Images/Food/" + fileName;
+
+                    //hiển thị ảnh lên PictureBox
+                    using (var img = Image.FromFile(destPath))
+                    {
+                        picFoodImage.Image = new Bitmap(img);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi chọn ảnh: " + ex.Message);
+                }
+            }
+        }
+        private string GetProjectImagePath(string relativePath)
+        {
+            string exePath = Application.StartupPath;
+
+            string projectPath = Directory.GetParent(exePath).Parent.FullName;
+
+            return Path.Combine(projectPath, relativePath);
         }
     }
     
