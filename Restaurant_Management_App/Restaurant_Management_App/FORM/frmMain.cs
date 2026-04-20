@@ -137,7 +137,12 @@ namespace Restaurant_Management_App
 
         private void btnOrderMNG_Click(object sender, EventArgs e)
         {
-            LoadForm(new frmOrderManegement(currentRole));
+            if(currentRole == "Chef")
+            {
+                LoadForm(new frmKitchen());
+            }
+            else
+                LoadForm(new frmOrderManegement(currentRole));
         }
 
         private void btnRevenueMNG_Click(object sender, EventArgs e)

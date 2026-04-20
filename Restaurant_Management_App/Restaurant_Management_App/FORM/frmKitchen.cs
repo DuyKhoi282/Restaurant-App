@@ -136,5 +136,10 @@ namespace Restaurant_Management_App.FORM
             t.Tick += (s, e) => LoadKitchen();
             t.Start();
         }
+
+        private void lblTitle_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

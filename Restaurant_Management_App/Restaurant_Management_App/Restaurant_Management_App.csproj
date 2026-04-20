@@ -157,6 +157,9 @@
     <EmbeddedResource Include="FORM\frmItemManagement.resx">
       <DependentUpon>frmItemManagement.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FORM\frmKitchen.resx">
+      <DependentUpon>frmKitchen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FORM\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
