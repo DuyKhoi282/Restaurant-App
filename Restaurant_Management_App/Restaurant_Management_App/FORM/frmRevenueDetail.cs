@@ -187,7 +187,7 @@ namespace Restaurant_Management_App.FORM
             }
 
         }
-        void StyleDataGridView()
+        void StyleDataGridView()//định dạng lại datagridview cho đẹp hơn
         {
             dgvRevenue.Font = new Font("Segoe UI", 10);
 
@@ -221,27 +221,79 @@ namespace Restaurant_Management_App.FORM
                     {
                         var ws = package.Workbook.Worksheets.Add("Revenue");
 
-                        // Header
-                        for (int i = 0; i < dgvRevenue.Columns.Count; i++)
+                        int colCount = dgvRevenue.Columns.Count;
+                        int rowCount = dgvRevenue.Rows.Count;
+
+                        // ===== TITLE =====
+                        ws.Cells["A1"].Value = "BÁO CÁO DOANH THU";
+                        ws.Cells["A1"].Style.Font.Size = 16;
+                        ws.Cells["A1"].Style.Font.Bold = true;
+                        ws.Cells["A1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+
+                        ws.Cells[1, 1, 1, colCount].Merge = true;
+
+                        // ===== HEADER =====
+                        for (int i = 0; i < colCount; i++)
                         {
-                            ws.Cells[1, i + 1].Value = dgvRevenue.Columns[i].HeaderText;
+                            ws.Cells[2, i + 1].Value = dgvRevenue.Columns[i].HeaderText;
                         }
 
-                        // Data
-                        for (int i = 0; i < dgvRevenue.Rows.Count; i++)
+                        using (var range = ws.Cells[2, 1, 2, colCount])
                         {
-                            for (int j = 0; j < dgvRevenue.Columns.Count; j++)
+                            range.Style.Font.Bold = true;
+                            range.Style.Font.Size = 14;
+                            range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                            range.Style.Fill.BackgroundColor.SetColor(Color.Firebrick);
+                            range.Style.Font.Color.SetColor(Color.White);
+                            range.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        }
+
+                        // ===== DATA =====
+                        for (int i = 0; i < rowCount; i++)
+                        {
+                            for (int j = 0; j < colCount; j++)
                             {
-                                ws.Cells[i + 2, j + 1].Value = dgvRevenue.Rows[i].Cells[j].Value;
+                                object value = dgvRevenue.Rows[i].Cells[j].Value;
+
+                                var cell = ws.Cells[i + 3, j + 1];
+
+                                if (value is DateTime dt)
+                                {
+                                    cell.Value = dt;
+                                    cell.Style.Numberformat.Format = "dd/MM/yyyy";
+                                }
+                                else
+                                {
+                                    cell.Value = value;
+                                }
+
+                                // Font cho data
+                                cell.Style.Font.Size = 14;
                             }
                         }
 
+                        // ===== BORDER =====
+                        var tableRange = ws.Cells[2, 1, rowCount + 2, colCount];
+                        tableRange.Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        tableRange.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        tableRange.Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        tableRange.Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+
+                        // ===== FORMAT TIỀN =====
+                        if (ws.Cells[2, colCount].Value.ToString().Contains("Total"))
+                        {
+                            var moneyCol = ws.Cells[3, colCount, rowCount + 2, colCount];
+                            moneyCol.Style.Numberformat.Format = "#,##0";
+                            moneyCol.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
+                        }
+
+                        // ===== AUTO FIT =====
                         ws.Cells.AutoFitColumns();
 
                         package.Save();
                     }
 
-                    MessageBox.Show("Export thành công!");
+                    MessageBox.Show("Export đẹp thành công 😎");
                 }
             }
         }
