@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant_Management_App
 {
-    public class UserSession // biến toàn cục giúp lưu dữ liệu của user đã đăng nhập để sử dụng ở các form khác nhau trong ứng dụng
+    public static class UserSession // biến toàn cục giúp lưu dữ liệu của user đã đăng nhập để sử dụng ở các form khác nhau trong ứng dụng
     {
         public static string UserId { get; set; }
         public static string FullName { get; set; }

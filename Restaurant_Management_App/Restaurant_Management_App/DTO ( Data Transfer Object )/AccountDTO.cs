@@ -21,11 +21,4 @@ namespace Restaurant_Management_App
         public string Birthday { get; set; }
         public decimal  Salary { get; set; }
     }
-
-    public static class LoginAccount
-    {
-        // Lưu userID của người vừa đăng nhập thành công
-        public static string CurrentUserID;
-
-    }
 }

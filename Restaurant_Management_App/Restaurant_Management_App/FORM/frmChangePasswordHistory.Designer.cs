@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.cbxIdUser_ChangePass = new System.Windows.Forms.ComboBox();
             this.dgvHistoryChangePass = new System.Windows.Forms.DataGridView();
+            this.cbxIdUser_ChangePass = new System.Windows.Forms.ComboBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistoryChangePass)).BeginInit();
@@ -52,16 +52,6 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(736, 650);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
-            // cbxIdUser_ChangePass
-            // 
-            this.cbxIdUser_ChangePass.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.cbxIdUser_ChangePass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxIdUser_ChangePass.FormattingEnabled = true;
-            this.cbxIdUser_ChangePass.Location = new System.Drawing.Point(3, 3);
-            this.cbxIdUser_ChangePass.Name = "cbxIdUser_ChangePass";
-            this.cbxIdUser_ChangePass.Size = new System.Drawing.Size(237, 33);
-            this.cbxIdUser_ChangePass.TabIndex = 0;
-            // 
             // dgvHistoryChangePass
             // 
             this.dgvHistoryChangePass.AllowUserToAddRows = false;
@@ -74,6 +64,17 @@
             this.dgvHistoryChangePass.RowTemplate.Height = 24;
             this.dgvHistoryChangePass.Size = new System.Drawing.Size(730, 605);
             this.dgvHistoryChangePass.TabIndex = 1;
+            // 
+            // cbxIdUser_ChangePass
+            // 
+            this.cbxIdUser_ChangePass.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.cbxIdUser_ChangePass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxIdUser_ChangePass.FormattingEnabled = true;
+            this.cbxIdUser_ChangePass.Location = new System.Drawing.Point(3, 3);
+            this.cbxIdUser_ChangePass.Name = "cbxIdUser_ChangePass";
+            this.cbxIdUser_ChangePass.Size = new System.Drawing.Size(237, 33);
+            this.cbxIdUser_ChangePass.TabIndex = 0;
+            this.cbxIdUser_ChangePass.SelectedIndexChanged += new System.EventHandler(this.cbxIdUser_ChangePass_SelectedIndexChanged);
             // 
             // frmChangePasswordHistory
             // 
