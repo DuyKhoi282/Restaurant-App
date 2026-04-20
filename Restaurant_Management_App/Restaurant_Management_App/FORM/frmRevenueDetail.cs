@@ -11,12 +11,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OfficeOpenXml;
 using System.IO;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Restaurant_Management_App.FORM
 {
     public partial class frmRevenueDetail : Form
     {
         ReportType reportType;
+        Chart chartRevenue;
         public enum ReportType//phân biệt loại báo cáo nào đang được hiển thị
         {
             Date,
@@ -36,8 +38,19 @@ namespace Restaurant_Management_App.FORM
 
         private void frmRevenueDetail_Load(object sender, EventArgs e)
         {
+            panelChart.Visible = false;
             dtpFromDate.Value = DateTime.Now.AddDays(-7);
             dtpToDate.Value = DateTime.Now;
+            dgvRevenue.Dock = DockStyle.Fill;
+
+            chartRevenue = new Chart();
+            chartRevenue.Dock = DockStyle.Fill;
+
+            ChartArea chartArea = new ChartArea();
+            chartRevenue.ChartAreas.Add(chartArea);
+
+            //Add vào panel
+            panelChart.Controls.Add(chartRevenue);
 
             switch (reportType)
             {
@@ -141,6 +154,7 @@ namespace Restaurant_Management_App.FORM
             lblTotalRevenue.Text = "Tổng doanh thu: " + total.ToString("N0") + " VND";
             dgvRevenue.DataSource = dt;
             StyleDataGridView();
+            LoadChart(dt);
         }
         void LoadTopFood()
         {
@@ -167,21 +181,27 @@ namespace Restaurant_Management_App.FORM
             lblTotalRevenue.Text = "Top món bán chạy";
             dgvRevenue.DataSource = dt;
             StyleDataGridView();
+            LoadChart(dt);
         }
 
         private void btnThongKe_Click(object sender, EventArgs e)
         {
+            chartRevenue.Visible = true;
+
             switch (reportType)
             {
                 case ReportType.Date:
+                    panelChart.Visible = false;
                     LoadRevenueByDate();
                     break;
 
                 case ReportType.Month:
+                    panelChart.Visible = true;
                     LoadRevenueByMonth();
                     break;
 
                 case ReportType.TopFood:
+                    panelChart.Visible = true;
                     LoadTopFood();
                     break;
             }
@@ -343,6 +363,75 @@ namespace Restaurant_Management_App.FORM
                     MessageBox.Show("Export thành công!");
                 }
             }
+        }
+        void LoadChart(DataTable dt)
+        {
+            chartRevenue.Series.Clear();
+            chartRevenue.Titles.Clear();
+
+            Series series = new Series();
+
+            if (reportType == ReportType.Month)
+            {
+                series.ChartType = SeriesChartType.Column;
+                series.Name = "Doanh thu";
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    series.Points.AddXY("T" + row["Month"], row["TotalAmount"]);
+                }
+                chartRevenue.Titles.Add("DOANH THU THEO THÁNG");
+
+                series.Color = Color.SeaGreen;
+                series.IsValueShownAsLabel = true;
+                series.LabelFormat = "N0";
+            }
+            else if (reportType == ReportType.TopFood)
+            {
+                series.ChartType = SeriesChartType.Column;
+                series.Name = "Top Food";
+
+                int maxValue = 0;
+                int maxIndex = 0;
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    int value = Convert.ToInt32(dt.Rows[i]["TotalSold"]);
+                    if (value > maxValue)
+                    {
+                        maxValue = value;
+                        maxIndex = i;
+                    }
+                }
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    string name = dt.Rows[i]["FoodName"].ToString();
+                    int sold = Convert.ToInt32(dt.Rows[i]["TotalSold"]);
+
+                    int index = series.Points.AddXY(name, sold);
+
+                    //highlight top 1
+                    if (i == maxIndex)
+                    {
+                        series.Points[index].Color = Color.OrangeRed;
+                        series.Points[index].Label = "🔥 " + sold;
+                    }
+                    else
+                    {
+                        series.Points[index].Color = Color.SteelBlue;
+                    }
+                }
+                chartRevenue.Titles.Add("TOP MÓN BÁN CHẠY");
+
+                series.IsValueShownAsLabel = true;
+            }
+
+            chartRevenue.ChartAreas[0].AxisX.Interval = 1;
+            chartRevenue.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            chartRevenue.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
+
+            chartRevenue.Series.Add(series);
         }
     }
 }
