@@ -61,19 +61,19 @@
             this.tlpCUA = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tlpInformations_CUA = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tlpAccounts_CUA = new System.Windows.Forms.TableLayoutPanel();
             this.picAvaUser = new System.Windows.Forms.PictureBox();
             this.btnHistoryChangePass = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tlpAccounts_CUA = new System.Windows.Forms.TableLayoutPanel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAccount)).BeginInit();
             this.tlpCUA.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tlpInformations_CUA.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvaUser)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.tlpAccounts_CUA.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picAvaUser)).BeginInit();
             this.SuspendLayout();
             // 
             // label6
@@ -534,6 +534,30 @@
             this.tlpInformations_CUA.Size = new System.Drawing.Size(907, 209);
             this.tlpInformations_CUA.TabIndex = 9;
             // 
+            // picAvaUser
+            // 
+            this.picAvaUser.Dock = System.Windows.Forms.DockStyle.Left;
+            this.picAvaUser.Image = global::Restaurant_Management_App.Properties.Resources.ava;
+            this.picAvaUser.Location = new System.Drawing.Point(3, 3);
+            this.picAvaUser.Name = "picAvaUser";
+            this.tlpInformations_CUA.SetRowSpan(this.picAvaUser, 2);
+            this.picAvaUser.Size = new System.Drawing.Size(136, 98);
+            this.picAvaUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picAvaUser.TabIndex = 0;
+            this.picAvaUser.TabStop = false;
+            // 
+            // btnHistoryChangePass
+            // 
+            this.btnHistoryChangePass.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHistoryChangePass.ForeColor = System.Drawing.Color.Firebrick;
+            this.btnHistoryChangePass.Location = new System.Drawing.Point(3, 159);
+            this.btnHistoryChangePass.Name = "btnHistoryChangePass";
+            this.btnHistoryChangePass.Size = new System.Drawing.Size(136, 47);
+            this.btnHistoryChangePass.TabIndex = 6;
+            this.btnHistoryChangePass.Text = "Change Password History";
+            this.btnHistoryChangePass.UseVisualStyleBackColor = true;
+            this.btnHistoryChangePass.Click += new System.EventHandler(this.btnHistoryChangePass_Click);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.tlpAccounts_CUA);
@@ -577,30 +601,6 @@
             this.tlpAccounts_CUA.Size = new System.Drawing.Size(383, 209);
             this.tlpAccounts_CUA.TabIndex = 0;
             // 
-            // picAvaUser
-            // 
-            this.picAvaUser.Dock = System.Windows.Forms.DockStyle.Left;
-            this.picAvaUser.Image = global::Restaurant_Management_App.Properties.Resources.ava;
-            this.picAvaUser.Location = new System.Drawing.Point(3, 3);
-            this.picAvaUser.Name = "picAvaUser";
-            this.tlpInformations_CUA.SetRowSpan(this.picAvaUser, 2);
-            this.picAvaUser.Size = new System.Drawing.Size(136, 98);
-            this.picAvaUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picAvaUser.TabIndex = 0;
-            this.picAvaUser.TabStop = false;
-            // 
-            // btnHistoryChangePass
-            // 
-            this.btnHistoryChangePass.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHistoryChangePass.ForeColor = System.Drawing.Color.Firebrick;
-            this.btnHistoryChangePass.Location = new System.Drawing.Point(3, 159);
-            this.btnHistoryChangePass.Name = "btnHistoryChangePass";
-            this.btnHistoryChangePass.Size = new System.Drawing.Size(136, 47);
-            this.btnHistoryChangePass.TabIndex = 6;
-            this.btnHistoryChangePass.Text = "Change Password History";
-            this.btnHistoryChangePass.UseVisualStyleBackColor = true;
-            this.btnHistoryChangePass.Click += new System.EventHandler(this.btnHistoryChangePass_Click);
-            // 
             // textBox1
             // 
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -633,10 +633,10 @@
             this.groupBox1.ResumeLayout(false);
             this.tlpInformations_CUA.ResumeLayout(false);
             this.tlpInformations_CUA.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvaUser)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.tlpAccounts_CUA.ResumeLayout(false);
             this.tlpAccounts_CUA.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picAvaUser)).EndInit();
             this.ResumeLayout(false);
 
         }

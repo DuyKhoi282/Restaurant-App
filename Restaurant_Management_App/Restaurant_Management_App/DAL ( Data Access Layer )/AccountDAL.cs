@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Restaurant_Management_App
 {
@@ -72,6 +73,7 @@ namespace Restaurant_Management_App
         {
             string query = @"
     SELECT 
+        a.RoleId,
         a.userId,   
         a.password,
         a.fullname,
@@ -107,22 +109,41 @@ namespace Restaurant_Management_App
             return Database.Instance.ExecuteQuery(query, new object[] { districtId });
         }
 
-        public bool UpdateAccount(string password, string  userId, string fullname, DateTime birthday, string phone, string address, string ward, string district, string city, double salary)
+        public bool UpdateAccount(string password, string userId, string fullname, DateTime birthday, string phone, string address, string ward, string district, string city, decimal salary, string email, int roleId)
         {
-            // Câu lệnh SQL (Không cần chữ N trước tham số vì dữ liệu đã là không dấu)
-            string query = "UPDATE Account SET password = @pass , fullname = @name , birthday = @birth , phone = @p , address = @addr , ward = @w , district = @d , city = @c , salary = @s WHERE userId = @id";
+            string queryUpdate = "UPDATE Account SET password = @pass , fullname = @f , birthday = @b , phone = @ph , address = @a , ward = @w , district = @d , city = @c , salary = @s , email = @e , RoleId = @r WHERE userId = @id";
 
-            // Truyền mảng tham số vào
-            object[] parameter = new object[] { password, fullname, birthday, phone, address, ward, district, city, salary, userId };
+            // Mảng tham số: Đếm đủ 12 và đúng thứ tự dấu @ từ trái qua phải
+            object[] tempParams = new object[] {
+        password,   // 1. @pass
+        fullname,   // 2. @f
+        birthday,   // 3. @b
+        phone,      // 4. @ph
+        address,    // 5. @a
+        ward,       // 6. @w
+        district,   // 7. @d
+        city,       // 8. @c
+        salary,     // 9. @s
+        email,      // 10. @e
+        roleId,     // 11. @r
+        userId      // 12. @id
+    };
 
-            int result = Database.Instance.ExecuteNonQuery(query, parameter);
-
-            return result > 0;
+            try
+            {
+                return Database.Instance.ExecuteNonQuery(queryUpdate, tempParams) > 0;
+            }
+            catch (Exception ex)
+            {
+                // Hiện lỗi này để biết chính xác SQL đang nhận được gì
+                MessageBox.Show("Lỗi thực thi SQL: " + ex.Message);
+                return false;
+            }
         }
 
-//==============================================
-// Change Password - Đổi mật khẩu
-//==============================================
+        //==============================================
+        // Change Password - Đổi mật khẩu
+        //==============================================
         // Kiểm tra mật khẩu cũ
         public bool CheckOldPassword(string userId, string oldPass)
         {

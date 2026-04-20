@@ -165,7 +165,13 @@ namespace Restaurant_Management_App
                     cbxWard_CUA.Text = row.Cells["ward"].Value.ToString().Trim();
                 }
 
-                cbxRole_CUA.Text = row.Cells["RoleName"].Value?.ToString();
+                // 2. XỬ LÝ ROLE (Thay đổi ở đây)
+                // Thay vì: cbxRole_CUA.Text = row.Cells["RoleName"].Value?.ToString();
+                // Ta dùng SelectedValue để khớp theo ID
+                if (row.Cells["RoleId"].Value != null)
+                {
+                    cbxRole_CUA.SelectedValue = row.Cells["RoleId"].Value;
+                }
 
                 // DATETIMEPICKER
                 if (row.Cells["birthday"].Value != DBNull.Value)
@@ -272,8 +278,8 @@ namespace Restaurant_Management_App
 
         private void btnUpdate_CUA_Click(object sender, EventArgs e)
         {
-            string userId = txtUserId_CUA.Text.Trim();
-            string password = txtPassword_CUA.Text.Trim();
+            //string userId = txtUserId_CUA.Text.Trim();
+           // string password = txtPassword_CUA.Text.Trim();
             // Kiểm tra dữ liệu đầu vào cơ bản
             // 1. Kiểm tra các ô văn bản (TextBox)
             if (string.IsNullOrWhiteSpace(txtUserId_CUA.Text) ||
@@ -281,7 +287,9 @@ namespace Restaurant_Management_App
                 string.IsNullOrWhiteSpace(txtFullname_CUA.Text) ||
                 string.IsNullOrWhiteSpace(txtPhone_CUA.Text) ||
                 string.IsNullOrWhiteSpace(txtAddress_CUA.Text) ||
-                string.IsNullOrWhiteSpace(txtSalary_CUA.Text))
+                string.IsNullOrWhiteSpace(txtSalary_CUA.Text) ||
+                string.IsNullOrWhiteSpace(txtEmail_CUA.Text) ||
+                string.IsNullOrWhiteSpace(cbxRole_CUA.Text))
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ tất cả các thông tin cá nhân!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return; // Dừng lại không thực hiện Update nữa
@@ -297,29 +305,45 @@ namespace Restaurant_Management_App
                 return;
             }
 
-            // Lấy thông tin từ giao diện
-            string fullname = txtFullname_CUA.Text.Trim();
-            string phone = txtPhone_CUA.Text.Trim();
-            string address = txtAddress_CUA.Text.Trim();
-            string ward = cbxWard_CUA.Text;         // Lấy chữ không dấu
-            string district = cbxDistrict_CUA.Text; // Lấy chữ không dấu
-            string city = cbxCity_CUA.Text;         // Lấy chữ không dấu
-            double salary = double.Parse(txtSalary_CUA.Text);
-            DateTime birthday = dtpBirthday_CUA.Value;
-
-            // Gọi hàm Update từ DAL
-            
-            bool isUpdate = AccountDAL.UpdateAccount(password, userId, fullname, birthday, phone, address, ward, district, city, salary);
-
-            if (isUpdate)
+            try
             {
-                MessageBox.Show("Cap nhat thong tin thanh cong!");
-                // Gọi hàm load lại DataGridView ở Form cha nếu cần
-                LoadAccountList();
+                // Lấy thông tin từ giao diện
+               
+                string userId = txtUserId_CUA.Text.Trim();
+                string password = txtPassword_CUA.Text.Trim();
+                string fullname = txtFullname_CUA.Text.Trim();
+                string email = txtEmail_CUA.Text.Trim();
+                string phone = txtPhone_CUA.Text.Trim();
+                string address = txtAddress_CUA.Text.Trim();
+                string ward = cbxWard_CUA.Text;
+                string district = cbxDistrict_CUA.Text;
+                string city = cbxCity_CUA.Text;
+                if (!decimal.TryParse(txtSalary_CUA.Text.Trim(), out decimal salary))
+                {
+                    MessageBox.Show("Lương phải là số hợp lệ!");
+                    return;
+                }
+                DateTime birthday = dtpBirthday_CUA.Value;
+
+                // KIỂM TRA ROLEID TRƯỚC KHI UPDATE
+                if (cbxRole_CUA.SelectedValue == null)
+                {
+                    MessageBox.Show("Vui lòng chọn Quyền hạn!");
+                    return;
+                }
+                int roleId = Convert.ToInt32(cbxRole_CUA.SelectedValue);
+
+                // Gọi hàm Update từ DAL
+                bool isUpdate = AccountDAL.UpdateAccount(password, userId, fullname, birthday, phone, address, ward, district, city, salary, email, roleId);
+                if (isUpdate)
+                {
+                    MessageBox.Show("Cập nhật thông tin và Quyền hạn thành công!");
+                    LoadAccountList(); // Load lại để thấy RoleName mới trên DataGridView
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Co loi xay ra khi cap nhat!");
+                MessageBox.Show("Lỗi dữ liệu: " + ex.Message);
             }
         }
 
