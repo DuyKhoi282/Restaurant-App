@@ -185,7 +185,7 @@ namespace Restaurant_Management_App
 
             if (parent is frmMain main)
             {
-                main.LoadForm(new frmKitchen());
+                main.LoadForm(new frmKitchen(currentRole));
             }
         }
     }

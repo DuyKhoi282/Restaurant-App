@@ -139,7 +139,7 @@ namespace Restaurant_Management_App
         {
             if(currentRole == "Chef")
             {
-                LoadForm(new frmKitchen());
+                LoadForm(new frmKitchen(currentRole));
             }
             else
                 LoadForm(new frmOrderManegement(currentRole));

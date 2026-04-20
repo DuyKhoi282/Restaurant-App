@@ -7,10 +7,13 @@ namespace Restaurant_Management_App.FORM
 {
     public partial class frmKitchen : Form
     {
-        public frmKitchen()
+        string currentRole;
+
+        public frmKitchen(String role)
         {
             InitializeComponent();
 
+            currentRole = role;
             this.Load += FrmKitchen_Load;
             dgvKitchen.CellClick += DgvKitchen_CellClick;
             btnCooking.Click += BtnCooking_Click;
@@ -39,6 +42,11 @@ namespace Restaurant_Management_App.FORM
 
             LoadKitchen();
             StartAutoRefresh();
+
+            if (currentRole == "Chef")
+            {
+                btnBack.Visible = false;
+            }
         }
 
         // ================= LOAD DANH SÁCH ĐƠN =================
@@ -53,6 +61,8 @@ namespace Restaurant_Management_App.FORM
             dgvKitchen.DataSource = Database.Instance.ExecuteQuery(query);
 
             PaintStatus();
+
+            
         }
 
         // ================= LOAD CHI TIẾT =================
@@ -140,6 +150,15 @@ namespace Restaurant_Management_App.FORM
         private void lblTitle_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            Form parent = this.ParentForm;
+            if (parent is frmMain main)
+            {
+                main.LoadForm(new frmOrderManegement(currentRole));
+            }
         }
     }
 }
