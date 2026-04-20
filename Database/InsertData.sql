@@ -143,11 +143,20 @@ VALUES (N'Cơm chiên', 1, 30000),
        (N'Nước ngọt', 1, 15000)
 
 
+-- ========================
+-- TẠO BILL
+-- ========================
+DECLARE @BillId INT;
 
-DECLARE @BillId INT
-SET @BillId = SCOPE_IDENTITY()
+INSERT INTO Bill (idTable, status, customerName, caseName, payMethod)
+VALUES (1, 0, N'Khách lẻ', N'Tại chỗ', N'Tiền mặt');
 
+SET @BillId = SCOPE_IDENTITY();
+
+-- ========================
+-- BILL INFO
+-- ========================
 INSERT INTO BillInfo (idBill, idFood, quantity)
 VALUES
-(@BillId, 1, 2),  -- 2 cơm chiên
-(@BillId, 2, 1)   -- 1 nước ngọt
+(@BillId, 1, 2),
+(@BillId, 2, 1);
