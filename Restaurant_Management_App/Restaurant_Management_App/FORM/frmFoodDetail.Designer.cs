@@ -40,13 +40,13 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cmbCategory = new System.Windows.Forms.ComboBox();
             this.cmbStatus = new System.Windows.Forms.ComboBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.picFoodImage = new System.Windows.Forms.PictureBox();
+            this.btnChooseImage = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picFoodImage)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -161,27 +161,28 @@
             this.cmbStatus.Size = new System.Drawing.Size(308, 39);
             this.cmbStatus.TabIndex = 3;
             // 
-            // pictureBox2
+            // picFoodImage
             // 
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox2.Location = new System.Drawing.Point(489, 113);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(189, 180);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 4;
-            this.pictureBox2.TabStop = false;
+            this.picFoodImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picFoodImage.Location = new System.Drawing.Point(489, 113);
+            this.picFoodImage.Name = "picFoodImage";
+            this.picFoodImage.Size = new System.Drawing.Size(189, 180);
+            this.picFoodImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picFoodImage.TabIndex = 4;
+            this.picFoodImage.TabStop = false;
             // 
-            // button1
+            // btnChooseImage
             // 
-            this.button1.AutoSize = true;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.button1.Location = new System.Drawing.Point(471, 299);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(207, 42);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Choose Image";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnChooseImage.AutoSize = true;
+            this.btnChooseImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChooseImage.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnChooseImage.Location = new System.Drawing.Point(471, 299);
+            this.btnChooseImage.Name = "btnChooseImage";
+            this.btnChooseImage.Size = new System.Drawing.Size(207, 42);
+            this.btnChooseImage.TabIndex = 5;
+            this.btnChooseImage.Text = "Choose Image";
+            this.btnChooseImage.UseVisualStyleBackColor = true;
+            this.btnChooseImage.Click += new System.EventHandler(this.btnChooseImage_Click);
             // 
             // btnCancel
             // 
@@ -216,8 +217,8 @@
             this.ClientSize = new System.Drawing.Size(692, 466);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.btnChooseImage);
+            this.Controls.Add(this.picFoodImage);
             this.Controls.Add(this.cmbStatus);
             this.Controls.Add(this.cmbCategory);
             this.Controls.Add(this.txtPrice);
@@ -237,7 +238,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picFoodImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -256,8 +257,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cmbCategory;
         private System.Windows.Forms.ComboBox cmbStatus;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox picFoodImage;
+        private System.Windows.Forms.Button btnChooseImage;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
     }

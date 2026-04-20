@@ -147,7 +147,7 @@ namespace Restaurant_Management_App
 
         private void btnRevenueMNG_Click(object sender, EventArgs e)
         {
-            LoadForm(new frmMenuReveneu());
+            LoadForm(new frmRevenue());
         }
         private void btnCreateOrder_Click(object sender, EventArgs e)
         {

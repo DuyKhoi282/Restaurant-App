@@ -18,7 +18,7 @@ CREATE TABLE tableFood
 (
 	id INT IDENTITY PRIMARY KEY NOT NULL,
 	name NVARCHAR(100) NOT NULL DEFAULT N'Bàn chưa có tên',
-	status NVARCHAR(20) NOT NULL DEFAULT N'Available', --Tình trạng bàn (Available, Unavailable)
+	status NVARCHAR(20) NOT NULL DEFAULT N'Available' --Tình trạng bàn (Available, Unavailable)
 )
 GO
 
@@ -94,7 +94,7 @@ CREATE TABLE ward (
 CREATE TABLE FoodCategory
 (
 	id INT IDENTITY PRIMARY KEY NOT NULL,
-	name NVARCHAR(100) NOT NULL DEFAULT N'Chưa đặt tên',
+	name NVARCHAR(100) NOT NULL DEFAULT N'Chưa đặt tên'
 )
 GO
 
@@ -112,8 +112,8 @@ GO
 
 CREATE TABLE Bill
 (
+    id INT IDENTITY PRIMARY KEY NOT NULL,
 	idTable INT  NOT NULL,
-	id int PRIMARY KEY NOT NULL,
 	dateCheckIn DATETIME NOT NULL DEFAULT GETDATE(),
 	dateCheckOut DATETIME,
 	customerName NVARCHAR(100),   -- NAME
@@ -150,6 +150,7 @@ CREATE TABLE PasswordHistory (
 GO
 ALTER TABLE Bill
 ADD kitchenStatus NVARCHAR(50) DEFAULT N'Pending'
+
 
 
 

@@ -151,11 +151,3 @@ INSERT INTO BillInfo (idBill, idFood, quantity)
 VALUES
 (@BillId, 1, 2),  -- 2 cơm chiên
 (@BillId, 2, 1)   -- 1 nước ngọt
-
-
-
-
-
-
-
-
