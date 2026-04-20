@@ -101,6 +101,8 @@ namespace Restaurant_Management_App.FORM
             }
 
             lblTotalRevenue.Text = "Tổng doanh thu: " + total.ToString("N0") + " VND";
+            dgvRevenue.DataSource = dt;
+            StyleDataGridView();
         }
         void LoadRevenueByMonth()
         {
@@ -135,6 +137,8 @@ namespace Restaurant_Management_App.FORM
             }
 
             lblTotalRevenue.Text = "Tổng doanh thu: " + total.ToString("N0") + " VND";
+            dgvRevenue.DataSource = dt;
+            StyleDataGridView();
         }
         void LoadTopFood()
         {
@@ -159,8 +163,9 @@ namespace Restaurant_Management_App.FORM
 
             // ===== LABEL =====
             lblTotalRevenue.Text = "Top món bán chạy";
+            dgvRevenue.DataSource = dt;
+            StyleDataGridView();
         }
-
 
         private void btnThongKe_Click(object sender, EventArgs e)
         {
@@ -179,6 +184,23 @@ namespace Restaurant_Management_App.FORM
                     break;
             }
 
+        }
+        void StyleDataGridView()
+        {
+            dgvRevenue.Font = new Font("Segoe UI", 10);
+
+            dgvRevenue.EnableHeadersVisualStyles = false;
+            dgvRevenue.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11, FontStyle.Bold);
+            dgvRevenue.ColumnHeadersDefaultCellStyle.BackColor = Color.Firebrick;
+            dgvRevenue.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+
+            dgvRevenue.RowTemplate.Height = 30;
+
+            if (dgvRevenue.Columns.Contains("TotalAmount"))
+            {
+                dgvRevenue.Columns["TotalAmount"].DefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                dgvRevenue.Columns["TotalAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
         }
     }
 }
