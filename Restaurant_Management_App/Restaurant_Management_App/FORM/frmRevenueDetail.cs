@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OfficeOpenXml;
+using System.IO;
 
 namespace Restaurant_Management_App.FORM
 {
@@ -200,6 +202,47 @@ namespace Restaurant_Management_App.FORM
             {
                 dgvRevenue.Columns["TotalAmount"].DefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
                 dgvRevenue.Columns["TotalAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            ExcelPackage.License.SetNonCommercialPersonal("DuyKhoi");
+
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "Excel Files|*.xlsx";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    FileInfo file = new FileInfo(sfd.FileName);
+
+                    using (ExcelPackage package = new ExcelPackage(file))
+                    {
+                        var ws = package.Workbook.Worksheets.Add("Revenue");
+
+                        // Header
+                        for (int i = 0; i < dgvRevenue.Columns.Count; i++)
+                        {
+                            ws.Cells[1, i + 1].Value = dgvRevenue.Columns[i].HeaderText;
+                        }
+
+                        // Data
+                        for (int i = 0; i < dgvRevenue.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < dgvRevenue.Columns.Count; j++)
+                            {
+                                ws.Cells[i + 2, j + 1].Value = dgvRevenue.Rows[i].Cells[j].Value;
+                            }
+                        }
+
+                        ws.Cells.AutoFitColumns();
+
+                        package.Save();
+                    }
+
+                    MessageBox.Show("Export thành công!");
+                }
             }
         }
     }

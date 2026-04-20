@@ -99,6 +99,7 @@
             this.btnExport.TabIndex = 1;
             this.btnExport.Text = "Export";
             this.btnExport.UseVisualStyleBackColor = false;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // btnThongKe
             // 
