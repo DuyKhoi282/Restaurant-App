@@ -86,17 +86,17 @@ AND p.PermissionName = 'MANAGE_PRODUCTS';
 -- Account (Dữ liệu tài khoản)
 -- ========================
 	-- 
-INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary)
-VALUES ('ADM01', '123', 1, 'Nguyen Van A', '2005/04/19', 'avn1@gmail.com', '0901234567', '141 DPB', 'Phuong Ben Nghe', 'Quan 1', 'TP. Ho Chi Minh','25000');
+INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary, isDeleted)
+VALUES ('ADM01', '123', 1, 'Nguyen Van A', '2005/04/19', 'avn1@gmail.com', '0901234567', '141 DPB', 'Phuong Ben Nghe', 'Quan 1', 'TP. Ho Chi Minh',25000,0);
 
-INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary)
-VALUES ('MNG01', '123', 2, 'Le Hoang B', '2005/12/01', 'blh1@gmail.com', '0801674567', '141 DPB', 'Phuong Phuc Xa', 'Quan Ba Dinh', 'Ha Noi','25000');
+INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary, isDeleted)
+VALUES ('MNG01', '123', 2, 'Le Hoang B', '2005/12/01', 'blh1@gmail.com', '0801674567', '141 DPB', 'Phuong Phuc Xa', 'Quan Ba Dinh', 'Ha Noi',25000,0);
 
-INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary)
-VALUES ('CHF01', '123', 3, 'Tran Thi C', '2005/03/25', 'ctt1@gmail.com', '0909804567', '141 DPB', 'Phuong Thach Thang', 'Quan Hai Chau', 'Da Nang','25000');
+INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary, isDeleted)
+VALUES ('CHF01', '123', 3, 'Tran Thi C', '2005/03/25', 'ctt1@gmail.com', '0909804567', '141 DPB', 'Phuong Thach Thang', 'Quan Hai Chau', 'Da Nang',25000,0);
 
-INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary)
-VALUES ('STF01', '123', 4, 'Pham Thanh D', '2005/04/07', 'dpt1@gmail.com', '0907654567', '141 DPB', 'Phuong Ben Nghe', 'Quan 1', 'TP. Ho Chi Minh','25000');
+INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary, isDeleted)
+VALUES ('STF01', '123', 4, 'Pham Thanh D', '2005/04/07', 'dpt1@gmail.com', '0907654567', '141 DPB', 'Phuong Ben Nghe', 'Quan 1', 'TP. Ho Chi Minh',25000,0);
 
 
 	-- INSERT Tỉnh/Thành phố

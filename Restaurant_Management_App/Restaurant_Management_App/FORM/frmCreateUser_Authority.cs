@@ -51,6 +51,11 @@ namespace Restaurant_Management_App
         {
             AccountDAL dao = new AccountDAL();
             dgvAccount.DataSource = dao.GetAllUsers();
+            // Kiểm tra xem cột có tồn tại không rồi ẩn đi
+            if (dgvAccount.Columns["RoleId"] != null)
+            {
+                dgvAccount.Columns["RoleId"].Visible = false;
+            }
             dgvAccount.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvAccount.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;            
         }
@@ -165,7 +170,13 @@ namespace Restaurant_Management_App
                     cbxWard_CUA.Text = row.Cells["ward"].Value.ToString().Trim();
                 }
 
-                cbxRole_CUA.Text = row.Cells["RoleName"].Value?.ToString();
+                // 2. XỬ LÝ ROLE (Thay đổi ở đây)
+                // Thay vì: cbxRole_CUA.Text = row.Cells["RoleName"].Value?.ToString();
+                // Ta dùng SelectedValue để khớp theo ID
+                if (row.Cells["RoleId"].Value != null)
+                {
+                    cbxRole_CUA.SelectedValue = row.Cells["RoleId"].Value;
+                }
 
                 // DATETIMEPICKER
                 if (row.Cells["birthday"].Value != DBNull.Value)
@@ -272,8 +283,8 @@ namespace Restaurant_Management_App
 
         private void btnUpdate_CUA_Click(object sender, EventArgs e)
         {
-            string userId = txtUserId_CUA.Text.Trim();
-            string password = txtPassword_CUA.Text.Trim();
+            //string userId = txtUserId_CUA.Text.Trim();
+           // string password = txtPassword_CUA.Text.Trim();
             // Kiểm tra dữ liệu đầu vào cơ bản
             // 1. Kiểm tra các ô văn bản (TextBox)
             if (string.IsNullOrWhiteSpace(txtUserId_CUA.Text) ||
@@ -281,7 +292,9 @@ namespace Restaurant_Management_App
                 string.IsNullOrWhiteSpace(txtFullname_CUA.Text) ||
                 string.IsNullOrWhiteSpace(txtPhone_CUA.Text) ||
                 string.IsNullOrWhiteSpace(txtAddress_CUA.Text) ||
-                string.IsNullOrWhiteSpace(txtSalary_CUA.Text))
+                string.IsNullOrWhiteSpace(txtSalary_CUA.Text) ||
+                string.IsNullOrWhiteSpace(txtEmail_CUA.Text) ||
+                string.IsNullOrWhiteSpace(cbxRole_CUA.Text))
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ tất cả các thông tin cá nhân!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return; // Dừng lại không thực hiện Update nữa
@@ -297,30 +310,59 @@ namespace Restaurant_Management_App
                 return;
             }
 
-            // Lấy thông tin từ giao diện
-            string fullname = txtFullname_CUA.Text.Trim();
-            string phone = txtPhone_CUA.Text.Trim();
-            string address = txtAddress_CUA.Text.Trim();
-            string ward = cbxWard_CUA.Text;         // Lấy chữ không dấu
-            string district = cbxDistrict_CUA.Text; // Lấy chữ không dấu
-            string city = cbxCity_CUA.Text;         // Lấy chữ không dấu
-            double salary = double.Parse(txtSalary_CUA.Text);
-            DateTime birthday = dtpBirthday_CUA.Value;
-
-            // Gọi hàm Update từ DAL
-            
-            bool isUpdate = AccountDAL.UpdateAccount(password, userId, fullname, birthday, phone, address, ward, district, city, salary);
-
-            if (isUpdate)
+            try
             {
-                MessageBox.Show("Cap nhat thong tin thanh cong!");
-                // Gọi hàm load lại DataGridView ở Form cha nếu cần
-                LoadAccountList();
+                // Lấy thông tin từ giao diện
+               
+                string userId = txtUserId_CUA.Text.Trim();
+                string password = txtPassword_CUA.Text.Trim();
+                string fullname = txtFullname_CUA.Text.Trim();
+                string email = txtEmail_CUA.Text.Trim();
+                string phone = txtPhone_CUA.Text.Trim();
+                string address = txtAddress_CUA.Text.Trim();
+                string ward = cbxWard_CUA.Text;
+                string district = cbxDistrict_CUA.Text;
+                string city = cbxCity_CUA.Text;
+                if (!decimal.TryParse(txtSalary_CUA.Text.Trim(), out decimal salary))
+                {
+                    MessageBox.Show("Lương phải là số hợp lệ!");
+                    return;
+                }
+                DateTime birthday = dtpBirthday_CUA.Value;
+
+                // KIỂM TRA ROLEID TRƯỚC KHI UPDATE
+                if (cbxRole_CUA.SelectedValue == null)
+                {
+                    MessageBox.Show("Vui lòng chọn Quyền hạn!");
+                    return;
+                }
+                int roleId = Convert.ToInt32(cbxRole_CUA.SelectedValue);
+
+
+                // Lấy mật khẩu cũ đang có trong Database ra để so sánh
+                string currentPassInDb = AccountDAL.GetCurrentPassword(userId);
+
+                // Nếu mật khẩu trên TextBox khác với mật khẩu trong DB -> Admin đang đổi pass
+                if (password != currentPassInDb)
+                {
+                    // Ghi một dòng vào bảng PasswordHistory
+                    // changedBy sử dụng UserSession.UserId của Admin đang đăng nhập
+                    string queryHistory = "INSERT INTO PasswordHistory ( userId , oldPassword , newPassword , changedBy ) " +
+                                          "VALUES ( @id , @old , @new , @by )";
+
+                    Database.Instance.ExecuteNonQuery(queryHistory, new object[] { userId, currentPassInDb, password, UserSession.UserId });
+                }
+
+                //// Gọi hàm Update từ DAL (Hàm cũ của bạn vẫn chạy để update mọi thông tin khác)
+                bool isUpdate = AccountDAL.UpdateAccount(password, userId, fullname, birthday, phone, address, ward, district, city, salary, email, roleId);
+
+                if (isUpdate)
+                {
+                    MessageBox.Show("Cập nhật thông tin và Quyền hạn thành công!");
+                    LoadAccountList();
+                }
             }
-            else
-            {
-                MessageBox.Show("Co loi xay ra khi cap nhat!");
-            }
+            catch (Exception ex) { /* ... */ }
         }
 
         private void btnHistoryChangePass_Click(object sender, EventArgs e)
@@ -332,6 +374,93 @@ namespace Restaurant_Management_App
             frmChangePasswordHistory f = new frmChangePasswordHistory(userId);
 
             f.ShowDialog(); // Mở Form lịch sử dưới dạng hội thoại
+        }
+
+        private void btnSearchId_CUA_Click(object sender, EventArgs e)
+        {
+            // 1. Lấy mã ID cần tìm từ Textbox
+            string searchId = txtSearchId_CUA.Text.Trim();
+
+            if (string.IsNullOrEmpty(searchId))
+            {
+                MessageBox.Show("Vui lòng nhập mã nhân viên để tìm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            bool found = false;
+
+            // 2. Duyệt qua tất cả các dòng trong DataGridView để Reset màu trước khi tìm mới
+            // (Giúp bảng không bị lem nhem màu từ những lần search trước)
+            foreach (DataGridViewRow row in dgvAccount.Rows)
+            {
+                row.DefaultCellStyle.BackColor = Color.White; // Hoặc màu mặc định của bảng bạn
+            }
+
+            // 3. Bắt đầu vòng lặp tìm kiếm
+            foreach (DataGridViewRow row in dgvAccount.Rows)
+            {
+                // Kiểm tra xem ô userId có dữ liệu không và so sánh (không phân biệt hoa thường)
+                if (row.Cells["userId"].Value != null &&
+                    row.Cells["userId"].Value.ToString().Equals(searchId, StringComparison.OrdinalIgnoreCase))
+                {
+                    // --- A. TÔ MÀU VÀ CHỌN DÒNG ---
+                    row.DefaultCellStyle.BackColor = Color.Gold; // Tô màu vàng nổi bật
+                    row.Selected = true; // Bôi xanh (Select) dòng đó
+
+                    // Đặt ô đầu tiên của dòng này làm CurrentCell để hệ thống tiêu điểm vào đây
+                    dgvAccount.CurrentCell = row.Cells[0];
+
+                    // --- B. TỰ ĐỘNG CUỘN (AUTO SCROLL) ---
+                    // Lệnh này cực kỳ an toàn cho dù Form to hay nhỏ, ít hay nhiều dòng.
+                    // Nó sẽ cố gắng đưa dòng tìm thấy lên vị trí đầu tiên nhìn thấy được của DGV.
+                    dgvAccount.FirstDisplayedScrollingRowIndex = row.Index;
+
+                    found = true;
+                    break; // Tìm thấy rồi thì thoát vòng lặp ngay
+                }
+            }
+
+            // 4. Thông báo nếu không tìm thấy
+            if (!found)
+            {
+                MessageBox.Show($"Không tìm thấy nhân viên có mã: {searchId}", "Kết quả", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void btnDelete_CUA_Click(object sender, EventArgs e)
+        {
+            // 1. Kiểm tra xem đã chọn nhân viên nào trên Grid chưa
+            if (dgvAccount.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn nhân viên cần xóa khỏi danh sách!");
+                return;
+            }
+
+            // 2. Lấy ID nhân viên từ dòng đang chọn
+            string userId = dgvAccount.SelectedRows[0].Cells["userId"].Value.ToString();
+            string fullName = dgvAccount.SelectedRows[0].Cells["fullname"].Value.ToString();
+
+            // 3. Hỏi xác nhận (Tránh bấm nhầm)
+            DialogResult result = MessageBox.Show($"Bạn có chắc chắn muốn ẩn tài khoản của nhân viên [{fullName}] không?\n(Dữ liệu sẽ không bị xóa vĩnh viễn)",
+                                                   "Xác nhận xóa",
+                                                   MessageBoxButtons.YesNo,
+                                                   MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                // 4. Gọi hàm xóa từ DAL
+                if (AccountDAL.DeleteAccount(userId))
+                {
+                    MessageBox.Show("Đã ẩn tài khoản thành công!");
+
+                    // 5. Load lại danh sách để nhân viên đó biến mất khỏi DataGridView
+                    LoadAccountList();
+                }
+                else
+                {
+                    MessageBox.Show("Có lỗi xảy ra khi thực hiện xóa.");
+                }
+            }
         }
     }    
 }

@@ -17,3 +17,4 @@ DELETE FROM city
 DELETE FROM district
 DELETE FROM ward
 
+DELETE FROM PasswordHistory

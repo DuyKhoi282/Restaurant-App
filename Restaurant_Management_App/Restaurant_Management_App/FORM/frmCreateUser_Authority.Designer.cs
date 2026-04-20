@@ -61,19 +61,20 @@
             this.tlpCUA = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tlpInformations_CUA = new System.Windows.Forms.TableLayoutPanel();
+            this.picAvaUser = new System.Windows.Forms.PictureBox();
             this.btnHistoryChangePass = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tlpAccounts_CUA = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.picAvaUser = new System.Windows.Forms.PictureBox();
+            this.txtSearchId_CUA = new System.Windows.Forms.TextBox();
+            this.btnSearch_CUA = new System.Windows.Forms.Button();
+            this.btnDelete_CUA = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAccount)).BeginInit();
             this.tlpCUA.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tlpInformations_CUA.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvaUser)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.tlpAccounts_CUA.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picAvaUser)).BeginInit();
             this.SuspendLayout();
             // 
             // label6
@@ -113,6 +114,7 @@
             // 
             // dgvAccount
             // 
+            this.dgvAccount.BackgroundColor = System.Drawing.Color.White;
             this.dgvAccount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tlpCUA.SetColumnSpan(this.dgvAccount, 2);
             this.dgvAccount.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -303,12 +305,13 @@
             // label9
             // 
             this.label9.AutoSize = true;
+            this.tlpAccounts_CUA.SetColumnSpan(this.label9, 2);
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label9.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Black;
             this.label9.Location = new System.Drawing.Point(3, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(108, 34);
+            this.label9.Size = new System.Drawing.Size(120, 34);
             this.label9.TabIndex = 0;
             this.label9.Text = "UserID  :";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -316,12 +319,13 @@
             // label10
             // 
             this.label10.AutoSize = true;
+            this.tlpAccounts_CUA.SetColumnSpan(this.label10, 2);
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label10.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Black;
             this.label10.Location = new System.Drawing.Point(3, 34);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(108, 34);
+            this.label10.Size = new System.Drawing.Size(120, 34);
             this.label10.TabIndex = 0;
             this.label10.Text = "Password :";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -329,12 +333,13 @@
             // label11
             // 
             this.label11.AutoSize = true;
+            this.tlpAccounts_CUA.SetColumnSpan(this.label11, 2);
             this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label11.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Black;
             this.label11.Location = new System.Drawing.Point(3, 68);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(108, 34);
+            this.label11.Size = new System.Drawing.Size(120, 34);
             this.label11.TabIndex = 1;
             this.label11.Text = "Role :";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -342,26 +347,27 @@
             // label12
             // 
             this.label12.AutoSize = true;
+            this.tlpAccounts_CUA.SetColumnSpan(this.label12, 2);
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label12.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.Black;
             this.label12.Location = new System.Drawing.Point(3, 102);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(108, 34);
+            this.label12.Size = new System.Drawing.Size(120, 34);
             this.label12.TabIndex = 1;
             this.label12.Text = "Salary ( /h ) :";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // cbxRole_CUA
             // 
-            this.cbxRole_CUA.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.tlpAccounts_CUA.SetColumnSpan(this.cbxRole_CUA, 3);
+            this.tlpAccounts_CUA.SetColumnSpan(this.cbxRole_CUA, 4);
+            this.cbxRole_CUA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cbxRole_CUA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxRole_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxRole_CUA.FormattingEnabled = true;
-            this.cbxRole_CUA.Location = new System.Drawing.Point(117, 71);
+            this.cbxRole_CUA.Location = new System.Drawing.Point(129, 71);
             this.cbxRole_CUA.Name = "cbxRole_CUA";
-            this.cbxRole_CUA.Size = new System.Drawing.Size(263, 30);
+            this.cbxRole_CUA.Size = new System.Drawing.Size(251, 30);
             this.cbxRole_CUA.TabIndex = 5;
             // 
             // btnCreate_CUA
@@ -371,7 +377,7 @@
             this.btnCreate_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCreate_CUA.Location = new System.Drawing.Point(3, 139);
             this.btnCreate_CUA.Name = "btnCreate_CUA";
-            this.btnCreate_CUA.Size = new System.Drawing.Size(184, 28);
+            this.btnCreate_CUA.Size = new System.Drawing.Size(120, 28);
             this.btnCreate_CUA.TabIndex = 6;
             this.btnCreate_CUA.Text = "Create";
             this.btnCreate_CUA.UseVisualStyleBackColor = true;
@@ -382,9 +388,9 @@
             this.tlpAccounts_CUA.SetColumnSpan(this.btnUpdate_CUA, 2);
             this.btnUpdate_CUA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnUpdate_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdate_CUA.Location = new System.Drawing.Point(193, 139);
+            this.btnUpdate_CUA.Location = new System.Drawing.Point(129, 139);
             this.btnUpdate_CUA.Name = "btnUpdate_CUA";
-            this.btnUpdate_CUA.Size = new System.Drawing.Size(187, 28);
+            this.btnUpdate_CUA.Size = new System.Drawing.Size(120, 28);
             this.btnUpdate_CUA.TabIndex = 6;
             this.btnUpdate_CUA.Text = "Update";
             this.btnUpdate_CUA.UseVisualStyleBackColor = true;
@@ -392,12 +398,12 @@
             // 
             // txtUserId_CUA
             // 
-            this.txtUserId_CUA.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.tlpAccounts_CUA.SetColumnSpan(this.txtUserId_CUA, 3);
+            this.tlpAccounts_CUA.SetColumnSpan(this.txtUserId_CUA, 4);
+            this.txtUserId_CUA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtUserId_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUserId_CUA.Location = new System.Drawing.Point(117, 3);
+            this.txtUserId_CUA.Location = new System.Drawing.Point(129, 3);
             this.txtUserId_CUA.Name = "txtUserId_CUA";
-            this.txtUserId_CUA.Size = new System.Drawing.Size(263, 30);
+            this.txtUserId_CUA.Size = new System.Drawing.Size(251, 30);
             this.txtUserId_CUA.TabIndex = 2;
             // 
             // btnBack_CUA
@@ -405,9 +411,9 @@
             this.tlpAccounts_CUA.SetColumnSpan(this.btnBack_CUA, 2);
             this.btnBack_CUA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnBack_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBack_CUA.Location = new System.Drawing.Point(193, 173);
+            this.btnBack_CUA.Location = new System.Drawing.Point(129, 173);
             this.btnBack_CUA.Name = "btnBack_CUA";
-            this.btnBack_CUA.Size = new System.Drawing.Size(187, 33);
+            this.btnBack_CUA.Size = new System.Drawing.Size(120, 33);
             this.btnBack_CUA.TabIndex = 7;
             this.btnBack_CUA.Text = "Back";
             this.btnBack_CUA.UseVisualStyleBackColor = true;
@@ -415,12 +421,12 @@
             // 
             // txtPassword_CUA
             // 
-            this.txtPassword_CUA.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.tlpAccounts_CUA.SetColumnSpan(this.txtPassword_CUA, 3);
+            this.tlpAccounts_CUA.SetColumnSpan(this.txtPassword_CUA, 4);
+            this.txtPassword_CUA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtPassword_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword_CUA.Location = new System.Drawing.Point(117, 37);
+            this.txtPassword_CUA.Location = new System.Drawing.Point(129, 37);
             this.txtPassword_CUA.Name = "txtPassword_CUA";
-            this.txtPassword_CUA.Size = new System.Drawing.Size(263, 30);
+            this.txtPassword_CUA.Size = new System.Drawing.Size(251, 30);
             this.txtPassword_CUA.TabIndex = 2;
             // 
             // btnClear_CUA
@@ -430,7 +436,7 @@
             this.btnClear_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear_CUA.Location = new System.Drawing.Point(3, 173);
             this.btnClear_CUA.Name = "btnClear_CUA";
-            this.btnClear_CUA.Size = new System.Drawing.Size(184, 33);
+            this.btnClear_CUA.Size = new System.Drawing.Size(120, 33);
             this.btnClear_CUA.TabIndex = 7;
             this.btnClear_CUA.Text = "Clear";
             this.btnClear_CUA.UseVisualStyleBackColor = true;
@@ -438,12 +444,12 @@
             // 
             // txtSalary_CUA
             // 
-            this.txtSalary_CUA.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.tlpAccounts_CUA.SetColumnSpan(this.txtSalary_CUA, 3);
+            this.tlpAccounts_CUA.SetColumnSpan(this.txtSalary_CUA, 4);
+            this.txtSalary_CUA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtSalary_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSalary_CUA.Location = new System.Drawing.Point(117, 105);
+            this.txtSalary_CUA.Location = new System.Drawing.Point(129, 105);
             this.txtSalary_CUA.Name = "txtSalary_CUA";
-            this.txtSalary_CUA.Size = new System.Drawing.Size(263, 30);
+            this.txtSalary_CUA.Size = new System.Drawing.Size(251, 30);
             this.txtSalary_CUA.TabIndex = 2;
             // 
             // tlpCUA
@@ -451,11 +457,12 @@
             this.tlpCUA.ColumnCount = 2;
             this.tlpCUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tlpCUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tlpCUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlpCUA.Controls.Add(this.groupBox1, 0, 0);
             this.tlpCUA.Controls.Add(this.groupBox2, 1, 0);
             this.tlpCUA.Controls.Add(this.dgvAccount, 0, 2);
-            this.tlpCUA.Controls.Add(this.textBox1, 0, 1);
-            this.tlpCUA.Controls.Add(this.button1, 1, 1);
+            this.tlpCUA.Controls.Add(this.txtSearchId_CUA, 0, 1);
+            this.tlpCUA.Controls.Add(this.btnSearch_CUA, 1, 1);
             this.tlpCUA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpCUA.Location = new System.Drawing.Point(0, 0);
             this.tlpCUA.Name = "tlpCUA";
@@ -534,6 +541,18 @@
             this.tlpInformations_CUA.Size = new System.Drawing.Size(907, 209);
             this.tlpInformations_CUA.TabIndex = 9;
             // 
+            // picAvaUser
+            // 
+            this.picAvaUser.Dock = System.Windows.Forms.DockStyle.Left;
+            this.picAvaUser.Image = global::Restaurant_Management_App.Properties.Resources.ava;
+            this.picAvaUser.Location = new System.Drawing.Point(3, 3);
+            this.picAvaUser.Name = "picAvaUser";
+            this.tlpInformations_CUA.SetRowSpan(this.picAvaUser, 2);
+            this.picAvaUser.Size = new System.Drawing.Size(136, 98);
+            this.picAvaUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picAvaUser.TabIndex = 0;
+            this.picAvaUser.TabStop = false;
+            // 
             // btnHistoryChangePass
             // 
             this.btnHistoryChangePass.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -590,21 +609,84 @@
             this.tlpAccounts_CUA.TabIndex = 0;
             // 
             // textBox1
+
             // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(3, 239);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(913, 22);
-            this.textBox1.TabIndex = 11;
+            this.groupBox2.Controls.Add(this.tlpAccounts_CUA);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(922, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(389, 230);
+            this.groupBox2.TabIndex = 10;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Accounts";
             // 
-            // button1
+            // tlpAccounts_CUA
             // 
-            this.button1.Location = new System.Drawing.Point(922, 239);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.tlpAccounts_CUA.ColumnCount = 6;
+            this.tlpAccounts_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.6644F));
+            this.tlpAccounts_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.6644F));
+            this.tlpAccounts_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.6678F));
+            this.tlpAccounts_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.6678F));
+            this.tlpAccounts_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.6678F));
+            this.tlpAccounts_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.6678F));
+            this.tlpAccounts_CUA.Controls.Add(this.btnClear_CUA, 0, 5);
+            this.tlpAccounts_CUA.Controls.Add(this.label9, 0, 0);
+            this.tlpAccounts_CUA.Controls.Add(this.btnCreate_CUA, 0, 4);
+            this.tlpAccounts_CUA.Controls.Add(this.label10, 0, 1);
+            this.tlpAccounts_CUA.Controls.Add(this.label11, 0, 2);
+            this.tlpAccounts_CUA.Controls.Add(this.label12, 0, 3);
+            this.tlpAccounts_CUA.Controls.Add(this.btnUpdate_CUA, 2, 4);
+            this.tlpAccounts_CUA.Controls.Add(this.btnBack_CUA, 2, 5);
+            this.tlpAccounts_CUA.Controls.Add(this.txtUserId_CUA, 2, 0);
+            this.tlpAccounts_CUA.Controls.Add(this.txtPassword_CUA, 2, 1);
+            this.tlpAccounts_CUA.Controls.Add(this.cbxRole_CUA, 2, 2);
+            this.tlpAccounts_CUA.Controls.Add(this.txtSalary_CUA, 2, 3);
+            this.tlpAccounts_CUA.Controls.Add(this.btnDelete_CUA, 4, 4);
+            this.tlpAccounts_CUA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpAccounts_CUA.Location = new System.Drawing.Point(3, 18);
+            this.tlpAccounts_CUA.Name = "tlpAccounts_CUA";
+            this.tlpAccounts_CUA.RowCount = 6;
+            this.tlpAccounts_CUA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tlpAccounts_CUA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tlpAccounts_CUA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tlpAccounts_CUA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tlpAccounts_CUA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tlpAccounts_CUA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tlpAccounts_CUA.Size = new System.Drawing.Size(383, 209);
+            this.tlpAccounts_CUA.TabIndex = 0;
+            // 
+            // txtSearchId_CUA
+            // 
+            this.txtSearchId_CUA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSearchId_CUA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchId_CUA.Location = new System.Drawing.Point(3, 239);
+            this.txtSearchId_CUA.Name = "txtSearchId_CUA";
+            this.txtSearchId_CUA.Size = new System.Drawing.Size(913, 30);
+            this.txtSearchId_CUA.TabIndex = 11;
+            // 
+            // btnSearch_CUA
+            // 
+            this.btnSearch_CUA.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.btnSearch_CUA.Location = new System.Drawing.Point(922, 239);
+            this.btnSearch_CUA.Name = "btnSearch_CUA";
+            this.btnSearch_CUA.Size = new System.Drawing.Size(114, 33);
+            this.btnSearch_CUA.TabIndex = 12;
+            this.btnSearch_CUA.Text = "SEARCH";
+            this.btnSearch_CUA.UseVisualStyleBackColor = true;
+            this.btnSearch_CUA.Click += new System.EventHandler(this.btnSearchId_CUA_Click);
+            // 
+            // btnDelete_CUA
+            // 
+            this.tlpAccounts_CUA.SetColumnSpan(this.btnDelete_CUA, 2);
+            this.btnDelete_CUA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDelete_CUA.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.btnDelete_CUA.Location = new System.Drawing.Point(255, 139);
+            this.btnDelete_CUA.Name = "btnDelete_CUA";
+            this.btnDelete_CUA.Size = new System.Drawing.Size(125, 28);
+            this.btnDelete_CUA.TabIndex = 8;
+            this.btnDelete_CUA.Text = "Delete";
+            this.btnDelete_CUA.UseVisualStyleBackColor = true;
+            this.btnDelete_CUA.Click += new System.EventHandler(this.btnDelete_CUA_Click);
             // 
             // picAvaUser
             // 
@@ -633,10 +715,10 @@
             this.groupBox1.ResumeLayout(false);
             this.tlpInformations_CUA.ResumeLayout(false);
             this.tlpInformations_CUA.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvaUser)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.tlpAccounts_CUA.ResumeLayout(false);
             this.tlpAccounts_CUA.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picAvaUser)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -679,7 +761,8 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TableLayoutPanel tlpAccounts_CUA;
         private System.Windows.Forms.Button btnHistoryChangePass;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtSearchId_CUA;
+        private System.Windows.Forms.Button btnSearch_CUA;
+        private System.Windows.Forms.Button btnDelete_CUA;
     }
 }
