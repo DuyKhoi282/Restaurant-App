@@ -293,7 +293,7 @@ namespace Restaurant_Management_App.FORM
                         package.Save();
                     }
 
-                    MessageBox.Show("Export đẹp thành công 😎");
+                    MessageBox.Show("Export thành công !");
                 }
             }
         }
