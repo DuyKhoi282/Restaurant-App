@@ -19,7 +19,6 @@ namespace Restaurant_Management_App.FORM
             InitializeComponent();
 
             Load += FrmOrder_Load;
-            btnCheckout.Click += BtnCheckout_Click;
             btnClear.Click += BtnClear_Click;
             numDiscount.ValueChanged += (s, e) => CalculateTotal();
         }
@@ -266,32 +265,6 @@ namespace Restaurant_Management_App.FORM
             lblSubtotalValue.Text = subtotal.ToString("N0") + " VNĐ";
             lblTaxValue.Text = tax.ToString("N0") + " VNĐ";
             lblTotalValue.Text = total.ToString("N0") + " VNĐ";
-        }
-
-        private void BtnCheckout_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtOrderNo.Text))
-            {
-                MessageBox.Show("Không có hóa đơn nào để thanh toán!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            DialogResult result = MessageBox.Show("Tạo đơn thành công:>!", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result != DialogResult.Yes) return;
-
-            try
-            {
-                int billId = int.Parse(txtOrderNo.Text);
-                int tableId = (int)cbTable.SelectedValue;
-
-                BillDAL.Instance.CheckOut(billId);
-                Database.Instance.ExecuteNonQuery($"UPDATE tableFood SET status = N'Trống' WHERE id = {tableId}");
-                ResetForm();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Tạo đơn thất bại :< " + ex.Message);
-            }
         }
 
         private void ResetForm()
