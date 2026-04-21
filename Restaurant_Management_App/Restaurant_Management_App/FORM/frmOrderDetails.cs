@@ -228,6 +228,8 @@ namespace Restaurant_Management_App
         void LoadOrderDetails()
         {
             string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
+            // Đảm bảo schema loyalty/discount đã được tạo trước khi query các cột mới trên Bill
+            LoyaltyService loyaltyService = new LoyaltyService();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -255,7 +257,7 @@ namespace Restaurant_Management_App
         WHERE b.id = @id
         GROUP BY 
             b.id, b.idTable, b.dateCheckIn,
-            b.customerName, b.payMethod, b.status, b.kitchenStatus";
+            b.customerName, b.payMethod, b.status, b.kitchenStatus, b.finalAmount";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", _idOrder);
