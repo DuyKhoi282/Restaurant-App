@@ -151,7 +151,46 @@ GO
 ALTER TABLE Bill
 ADD kitchenStatus NVARCHAR(50) DEFAULT N'Pending'
 
+GO
 
+CREATE TABLE CustomerLoyalty
+(
+    id INT IDENTITY PRIMARY KEY NOT NULL,
+    customerName NVARCHAR(100) NOT NULL,
+    phone NVARCHAR(20) NULL,
+    points INT NOT NULL DEFAULT 0,
+    totalSpent DECIMAL(18,2) NOT NULL DEFAULT 0,
+    createdAt DATETIME NOT NULL DEFAULT GETDATE(),
+    updatedAt DATETIME NOT NULL DEFAULT GETDATE()
+)
+GO
+
+CREATE TABLE LoyaltyPointHistory
+(
+    id INT IDENTITY PRIMARY KEY NOT NULL,
+    customerId INT NOT NULL,
+    billId INT NOT NULL,
+    amount DECIMAL(18,2) NOT NULL DEFAULT 0,
+    pointsEarned INT NOT NULL DEFAULT 0,
+    createdAt DATETIME NOT NULL DEFAULT GETDATE(),
+    FOREIGN KEY (customerId) REFERENCES CustomerLoyalty(id),
+    FOREIGN KEY (billId) REFERENCES Bill(id)
+)
+GO
+
+CREATE TABLE PromotionProgram
+(
+    id INT IDENTITY PRIMARY KEY NOT NULL,
+    promoName NVARCHAR(120) NOT NULL,
+    description NVARCHAR(300) NULL,
+    startDate DATETIME NOT NULL,
+    endDate DATETIME NOT NULL,
+    minPoints INT NOT NULL DEFAULT 0,
+    discountPercent FLOAT NOT NULL DEFAULT 0,
+    isActive BIT NOT NULL DEFAULT 1,
+    createdAt DATETIME NOT NULL DEFAULT GETDATE()
+)
+GO
 
 
 

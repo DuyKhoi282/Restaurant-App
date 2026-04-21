@@ -84,8 +84,14 @@ namespace Restaurant_Management_App
                     cmd.Parameters.AddWithValue("@payMethod", "Cash"); // hoặc Bank
 
                     conn.Open();
-                    cmd.ExecuteNonQuery();
+                    int affected = cmd.ExecuteNonQuery();
                     conn.Close();
+
+                    if (affected > 0)
+                    {
+                        LoyaltyService loyaltyService = new LoyaltyService();
+                        loyaltyService.AwardPointsByBill(Convert.ToInt32(_idOrder), txtCustomerName.Text);
+                    }
                 }
 
                 // MỞ FORM BILL
