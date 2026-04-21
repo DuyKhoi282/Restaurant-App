@@ -172,6 +172,8 @@ CREATE TABLE LoyaltyPointHistory
     billId INT NOT NULL,
     amount DECIMAL(18,2) NOT NULL DEFAULT 0,
     pointsEarned INT NOT NULL DEFAULT 0,
+    pointsUsed INT NOT NULL DEFAULT 0,
+    promotionId INT NULL,
     createdAt DATETIME NOT NULL DEFAULT GETDATE(),
     FOREIGN KEY (customerId) REFERENCES CustomerLoyalty(id),
     FOREIGN KEY (billId) REFERENCES Bill(id)
@@ -192,6 +194,17 @@ CREATE TABLE PromotionProgram
 )
 GO
 
+ALTER TABLE Bill ADD discountPercent FLOAT NULL
+GO
+ALTER TABLE Bill ADD discountAmount DECIMAL(18,2) NULL
+GO
+ALTER TABLE Bill ADD finalAmount DECIMAL(18,2) NULL
+GO
+ALTER TABLE Bill ADD idPromotion INT NULL
+GO
+ALTER TABLE Bill
+ADD CONSTRAINT FK_Bill_PromotionProgram FOREIGN KEY (idPromotion) REFERENCES PromotionProgram(id)
+GO
 
 
 

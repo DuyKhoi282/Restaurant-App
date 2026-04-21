@@ -66,40 +66,162 @@ namespace Restaurant_Management_App
 
         void PayOrder()
         {
- 
-                string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
+            string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
+            int billId = Convert.ToInt32(_idOrder);
+            LoyaltyService loyaltyService = new LoyaltyService();
 
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    string query = @"
+            decimal originalAmount = loyaltyService.GetBillTotal(billId);
+            LoyaltyService.PromotionMatch promo = SelectPromotionForPayment(loyaltyService, txtCustomerName.Text);
+            if (promo == null && !string.IsNullOrWhiteSpace(txtCustomerName.Text))
+            {
+                // null nghĩa là user chọn "Không áp dụng" hoặc không đủ điều kiện
+            }
+
+            double discountPercent = promo == null ? 0 : promo.DiscountPercent;
+            decimal discountAmount = originalAmount * (decimal)(discountPercent / 100d);
+            decimal finalAmount = originalAmount - discountAmount;
+            int pointsUsed = promo == null ? 0 : promo.MinPoints;
+            int? promotionId = promo == null ? (int?)null : promo.PromotionId;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"
         UPDATE Bill
         SET 
             status = 1,
             dateCheckOut = GETDATE(),
-            payMethod = @payMethod
+            payMethod = @payMethod,
+            discountPercent = @discountPercent,
+            discountAmount = @discountAmount,
+            finalAmount = @finalAmount,
+            idPromotion = @idPromotion
         WHERE id = @id AND status = 0";
 
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@id", _idOrder);
-                    cmd.Parameters.AddWithValue("@payMethod", "Cash"); // hoặc Bank
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", _idOrder);
+                cmd.Parameters.AddWithValue("@payMethod", "Cash"); // hoặc Bank
+                cmd.Parameters.AddWithValue("@discountPercent", discountPercent);
+                cmd.Parameters.AddWithValue("@discountAmount", discountAmount);
+                cmd.Parameters.AddWithValue("@finalAmount", finalAmount);
+                cmd.Parameters.AddWithValue("@idPromotion", (object)promotionId ?? DBNull.Value);
 
-                    conn.Open();
-                    int affected = cmd.ExecuteNonQuery();
-                    conn.Close();
+                conn.Open();
+                int affected = cmd.ExecuteNonQuery();
+                conn.Close();
 
-                    if (affected > 0)
-                    {
-                        LoyaltyService loyaltyService = new LoyaltyService();
-                        loyaltyService.AwardPointsByBill(Convert.ToInt32(_idOrder), txtCustomerName.Text);
-                    }
+                if (affected > 0)
+                {
+                    loyaltyService.ApplyPaymentAndPoints(billId, txtCustomerName.Text, finalAmount, pointsUsed, promotionId);
+                }
+            }
+
+            // MỞ FORM BILL
+            frmBillToPrint f = new frmBillToPrint(_idOrder);
+            f.Show();
+
+            if (promo == null)
+            {
+                MessageBox.Show($"Thanh toán thành công!\nTổng bill: {originalAmount:N0} VNĐ");
+            }
+            else
+            {
+                MessageBox.Show($"Thanh toán thành công!\nÁp dụng CTKM: {promo.PromotionName} (-{discountPercent}%)\nGiảm: {discountAmount:N0} VNĐ\nCần thanh toán: {finalAmount:N0} VNĐ");
+            }
+        }
+
+        private LoyaltyService.PromotionMatch SelectPromotionForPayment(LoyaltyService loyaltyService, string customerName)
+        {
+            DataTable promos = loyaltyService.GetEligiblePromotionsForCustomer(customerName);
+            if (promos.Rows.Count == 0)
+            {
+                return null;
+            }
+
+            LoyaltyService.PromotionMatch autoPromo = loyaltyService.GetBestPromotionForCustomer(customerName);
+
+            using (Form picker = new Form())
+            {
+                picker.Text = "Chọn khuyến mãi";
+                picker.StartPosition = FormStartPosition.CenterParent;
+                picker.FormBorderStyle = FormBorderStyle.FixedDialog;
+                picker.MinimizeBox = false;
+                picker.MaximizeBox = false;
+                picker.ClientSize = new Size(460, 150);
+
+                Label lbl = new Label
+                {
+                    Left = 12,
+                    Top = 20,
+                    Width = 420,
+                    Text = "Chọn chương trình khuyến mãi khi thanh toán:"
+                };
+
+                ComboBox cbPromo = new ComboBox
+                {
+                    Left = 12,
+                    Top = 50,
+                    Width = 430,
+                    DropDownStyle = ComboBoxStyle.DropDownList
+                };
+                cbPromo.Items.Add("Tự động chọn tốt nhất");
+                cbPromo.Items.Add("Không áp dụng khuyến mãi");
+
+                foreach (DataRow row in promos.Rows)
+                {
+                    cbPromo.Items.Add($"{row["promoName"]} (-{row["discountPercent"]}%, cần {row["minPoints"]} điểm) [ID:{row["id"]}]");
+                }
+                cbPromo.SelectedIndex = 0;
+
+                Button btnOk = new Button
+                {
+                    Text = "OK",
+                    Left = 272,
+                    Width = 80,
+                    Top = 95,
+                    DialogResult = DialogResult.OK
+                };
+                Button btnCancel = new Button
+                {
+                    Text = "Cancel",
+                    Left = 362,
+                    Width = 80,
+                    Top = 95,
+                    DialogResult = DialogResult.Cancel
+                };
+
+                picker.Controls.Add(lbl);
+                picker.Controls.Add(cbPromo);
+                picker.Controls.Add(btnOk);
+                picker.Controls.Add(btnCancel);
+                picker.AcceptButton = btnOk;
+                picker.CancelButton = btnCancel;
+
+                DialogResult result = picker.ShowDialog(this);
+                if (result != DialogResult.OK)
+                {
+                    return autoPromo;
                 }
 
-                // MỞ FORM BILL
-                frmBillToPrint f = new frmBillToPrint(_idOrder);
-                f.Show();
+                if (cbPromo.SelectedIndex == 0)
+                {
+                    return autoPromo;
+                }
+                if (cbPromo.SelectedIndex == 1)
+                {
+                    return null;
+                }
 
-                MessageBox.Show("Thanh toán thành công!");
+                int promoRowIndex = cbPromo.SelectedIndex - 2;
+                DataRow selected = promos.Rows[promoRowIndex];
+                return new LoyaltyService.PromotionMatch
+                {
+                    PromotionId = Convert.ToInt32(selected["id"]),
+                    PromotionName = selected["promoName"].ToString(),
+                    MinPoints = Convert.ToInt32(selected["minPoints"]),
+                    DiscountPercent = Convert.ToDouble(selected["discountPercent"])
+                };
             }
+        }
 
         
 
@@ -122,7 +244,10 @@ namespace Restaurant_Management_App
                 WHEN b.status = 0 THEN 'Unpaid'
                 ELSE 'Paid'
             END AS status,
-            ISNULL(SUM(f.price * bi.quantity),0) AS totalPrice,
+            CASE 
+                WHEN b.finalAmount IS NULL THEN ISNULL(SUM(f.price * bi.quantity),0)
+                ELSE b.finalAmount
+            END AS totalPrice,
             ISNULL(b.kitchenStatus, 'Pending') AS kitchenStatus
         FROM Bill b
         LEFT JOIN BillInfo bi ON b.id = bi.idBill
