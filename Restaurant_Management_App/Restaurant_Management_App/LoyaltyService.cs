@@ -135,6 +135,17 @@ IF COL_LENGTH('dbo.LoyaltyPointHistory', 'promotionId') IS NULL
             };
         }
 
+        public DataTable GetEligiblePromotionsForCustomer(string customerName)
+        {
+            int points = GetCustomerPoints(customerName);
+            return Database.Instance.ExecuteQuery($@"SELECT id, promoName, minPoints, discountPercent
+                                                     FROM PromotionProgram
+                                                     WHERE isActive = 1
+                                                       AND GETDATE() BETWEEN startDate AND endDate
+                                                       AND minPoints <= {points}
+                                                     ORDER BY discountPercent DESC, minPoints DESC");
+        }
+
         public void ApplyPaymentAndPoints(int billId, string customerName, decimal payableAmount, int pointsUsed, int? promotionId)
         {
             if (string.IsNullOrWhiteSpace(customerName))

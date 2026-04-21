@@ -71,7 +71,11 @@ namespace Restaurant_Management_App
             LoyaltyService loyaltyService = new LoyaltyService();
 
             decimal originalAmount = loyaltyService.GetBillTotal(billId);
-            LoyaltyService.PromotionMatch promo = loyaltyService.GetBestPromotionForCustomer(txtCustomerName.Text);
+            LoyaltyService.PromotionMatch promo = SelectPromotionForPayment(loyaltyService, txtCustomerName.Text);
+            if (promo == null && !string.IsNullOrWhiteSpace(txtCustomerName.Text))
+            {
+                // null nghĩa là user chọn "Không áp dụng" hoặc không đủ điều kiện
+            }
 
             double discountPercent = promo == null ? 0 : promo.DiscountPercent;
             decimal discountAmount = originalAmount * (decimal)(discountPercent / 100d);
@@ -122,6 +126,100 @@ namespace Restaurant_Management_App
             else
             {
                 MessageBox.Show($"Thanh toán thành công!\nÁp dụng CTKM: {promo.PromotionName} (-{discountPercent}%)\nGiảm: {discountAmount:N0} VNĐ\nCần thanh toán: {finalAmount:N0} VNĐ");
+            }
+        }
+
+        private LoyaltyService.PromotionMatch SelectPromotionForPayment(LoyaltyService loyaltyService, string customerName)
+        {
+            DataTable promos = loyaltyService.GetEligiblePromotionsForCustomer(customerName);
+            if (promos.Rows.Count == 0)
+            {
+                return null;
+            }
+
+            LoyaltyService.PromotionMatch autoPromo = loyaltyService.GetBestPromotionForCustomer(customerName);
+
+            using (Form picker = new Form())
+            {
+                picker.Text = "Chọn khuyến mãi";
+                picker.StartPosition = FormStartPosition.CenterParent;
+                picker.FormBorderStyle = FormBorderStyle.FixedDialog;
+                picker.MinimizeBox = false;
+                picker.MaximizeBox = false;
+                picker.ClientSize = new Size(460, 150);
+
+                Label lbl = new Label
+                {
+                    Left = 12,
+                    Top = 20,
+                    Width = 420,
+                    Text = "Chọn chương trình khuyến mãi khi thanh toán:"
+                };
+
+                ComboBox cbPromo = new ComboBox
+                {
+                    Left = 12,
+                    Top = 50,
+                    Width = 430,
+                    DropDownStyle = ComboBoxStyle.DropDownList
+                };
+                cbPromo.Items.Add("Tự động chọn tốt nhất");
+                cbPromo.Items.Add("Không áp dụng khuyến mãi");
+
+                foreach (DataRow row in promos.Rows)
+                {
+                    cbPromo.Items.Add($"{row["promoName"]} (-{row["discountPercent"]}%, cần {row["minPoints"]} điểm) [ID:{row["id"]}]");
+                }
+                cbPromo.SelectedIndex = 0;
+
+                Button btnOk = new Button
+                {
+                    Text = "OK",
+                    Left = 272,
+                    Width = 80,
+                    Top = 95,
+                    DialogResult = DialogResult.OK
+                };
+                Button btnCancel = new Button
+                {
+                    Text = "Cancel",
+                    Left = 362,
+                    Width = 80,
+                    Top = 95,
+                    DialogResult = DialogResult.Cancel
+                };
+
+                picker.Controls.Add(lbl);
+                picker.Controls.Add(cbPromo);
+                picker.Controls.Add(btnOk);
+                picker.Controls.Add(btnCancel);
+                picker.AcceptButton = btnOk;
+                picker.CancelButton = btnCancel;
+
+                DialogResult result = picker.ShowDialog(this);
+                if (result != DialogResult.OK)
+                {
+                    return autoPromo;
+                }
+
+                if (cbPromo.SelectedIndex == 0)
+                {
+                    return autoPromo;
+                }
+                if (cbPromo.SelectedIndex == 1)
+                {
+                    return null;
+                }
+
+                int promoRowIndex = cbPromo.SelectedIndex - 2;
+                DataRow selected = promos.Rows[promoRowIndex];
+                return new LoyaltyService.PromotionMatch
+                {
+                    PromotionId = Convert.ToInt32(selected["id"]),
+                    PromotionName = selected["promoName"].ToString(),
+                    MinPoints = Convert.ToInt32(selected["minPoints"]),
+                    DiscountPercent = Convert.ToDouble(selected["discountPercent"])
+                };
             }
         }
 
