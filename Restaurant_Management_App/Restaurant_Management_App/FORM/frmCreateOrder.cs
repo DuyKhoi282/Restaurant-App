@@ -410,7 +410,9 @@ namespace Restaurant_Management_App.FORM
 
             string query = $@"SELECT TOP 1 id, customerName, caseName, payMethod
                               FROM Bill
-                              WHERE idTable = {tableId} AND status = 0
+                              WHERE idTable = {tableId}
+                                AND status = 0
+                                AND ISNULL(kitchenStatus, N'Pending') = N'Draft'
                               ORDER BY id DESC";
             DataTable dt = Database.Instance.ExecuteQuery(query);
 
@@ -445,7 +447,9 @@ namespace Restaurant_Management_App.FORM
         {
             object result = Database.Instance.ExecuteScalar($@"SELECT TOP 1 id
                                                                FROM Bill
-                                                               WHERE idTable = {tableId} AND status = 0
+                                                               WHERE idTable = {tableId}
+                                                                 AND status = 0
+                                                                 AND ISNULL(kitchenStatus, N'Pending') = N'Draft'
                                                                ORDER BY id DESC");
             return result == null || result == DBNull.Value ? 0 : Convert.ToInt32(result);
         }
