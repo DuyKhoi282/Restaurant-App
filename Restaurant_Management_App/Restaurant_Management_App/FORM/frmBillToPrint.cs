@@ -14,6 +14,7 @@ namespace Restaurant_Management_App
     public partial class frmBillToPrint : Form
     {
         string orderId;
+        double discountPercent = 0;
         public frmBillToPrint(string id)
         {
             InitializeComponent();
@@ -41,7 +42,8 @@ namespace Restaurant_Management_App
     f.name AS FoodName,
     SUM(bi.quantity) AS quantity,
     f.price,
-    SUM(f.price * bi.quantity) AS TotalPrice
+    SUM(f.price * bi.quantity) AS TotalPrice,
+    MAX(ISNULL(b.discountPercent, 0)) AS discountPercent
 FROM Bill b
 JOIN BillInfo bi ON b.id = bi.idBill
 JOIN Food f ON bi.idFood = f.id
@@ -62,8 +64,13 @@ GROUP BY f.name, f.price";
 
                     dgvBill.DataSource = dt;
 
-                    
-                    dgvBill.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    if (dt.Rows.Count > 0)
+                    {
+                        discountPercent = Convert.ToDouble(dt.Rows[0]["discountPercent"]);
+                    }
+
+
+                dgvBill.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     dgvBill.Columns["price"].DefaultCellStyle.Format = "N0";
                     dgvBill.Columns["totalprice"].DefaultCellStyle.Format = "N0";
                     dgvBill.CellBorderStyle = DataGridViewCellBorderStyle.None;
@@ -96,10 +103,11 @@ GROUP BY f.name, f.price";
             }
 
             txtTotalPrice.Text = total.ToString();
-            txtDiscount.Text = "0";
+            double discountAmount = total * (discountPercent / 100);
+            txtDiscount.Text = discountAmount.ToString("N0");
 
-            double amountDue = total - 0;
-            txtAmountDue.Text = amountDue.ToString();
+            double amountDue = total - discountAmount;
+            txtAmountDue.Text = amountDue.ToString("N0");
         }
 
         private void label3_Click(object sender, EventArgs e)
