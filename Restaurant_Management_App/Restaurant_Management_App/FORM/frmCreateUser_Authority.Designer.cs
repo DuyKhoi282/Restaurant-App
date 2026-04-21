@@ -537,7 +537,7 @@
             this.picAvaUser_CUA.Name = "picAvaUser_CUA";
             this.tlpInformations_CUA.SetRowSpan(this.picAvaUser_CUA, 3);
             this.picAvaUser_CUA.Size = new System.Drawing.Size(136, 150);
-            this.picAvaUser_CUA.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picAvaUser_CUA.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picAvaUser_CUA.TabIndex = 0;
             this.picAvaUser_CUA.TabStop = false;
             this.picAvaUser_CUA.Click += new System.EventHandler(this.picAvaUser_CUA_Click);
