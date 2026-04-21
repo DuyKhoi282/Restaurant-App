@@ -290,11 +290,39 @@ namespace Restaurant_Management_App.FORM
                         // ===== TOP FOOD =====
                         if (dgvRevenue.Columns.Contains("TotalSold"))
                         {
-                            string topFood = dgvRevenue.Rows[0].Cells["FoodName"].Value.ToString();
-                            int sold = Convert.ToInt32(dgvRevenue.Rows[0].Cells["TotalSold"].Value);
+                            int maxSold = 0;
 
-                            ws.Cells[totalRow, 1].Value = $"TOP 1: {topFood} ({sold} món)";
+                            // tìm max
+                            foreach (DataGridViewRow row in dgvRevenue.Rows)
+                            {
+                                if (row.IsNewRow) continue;
+
+                                int sold = Convert.ToInt32(row.Cells["TotalSold"].Value);
+                                if (sold > maxSold)
+                                    maxSold = sold;
+                            }
+
+                            // lấy tất cả món = max
+                            List<string> topFoods = new List<string>();
+
+                            foreach (DataGridViewRow row in dgvRevenue.Rows)
+                            {
+                                if (row.IsNewRow) continue;
+
+                                int sold = Convert.ToInt32(row.Cells["TotalSold"].Value);
+
+                                if (sold == maxSold)
+                                {
+                                    string name = row.Cells["FoodName"].Value.ToString();
+                                    topFoods.Add(name);
+                                }
+                            }
+
+                            string result = string.Join(", ", topFoods);
+
+                            ws.Cells[totalRow, 1].Value = $"TOP: {result} ({maxSold} món)";
                             ws.Cells[totalRow, 1, totalRow, colCount].Merge = true;
+
                             ws.Cells[totalRow, 1].Style.Font.Bold = true;
                             ws.Cells[totalRow, 1].Style.Font.Size = 14;
                             ws.Cells[totalRow, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
@@ -374,18 +402,16 @@ namespace Restaurant_Management_App.FORM
                 series.Name = "Top Food";
 
                 int maxValue = 0;
-                int maxIndex = 0;
 
+                // tìm max
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     int value = Convert.ToInt32(dt.Rows[i]["TotalSold"]);
                     if (value > maxValue)
-                    {
                         maxValue = value;
-                        maxIndex = i;
-                    }
                 }
 
+                // add + highlight tất cả top
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     string name = dt.Rows[i]["FoodName"].ToString();
@@ -393,8 +419,7 @@ namespace Restaurant_Management_App.FORM
 
                     int index = series.Points.AddXY(name, sold);
 
-                    //highlight top 1
-                    if (i == maxIndex)
+                    if (sold == maxValue)
                     {
                         series.Points[index].Color = Color.OrangeRed;
                         series.Points[index].Label = "🔥 " + sold;
@@ -404,8 +429,8 @@ namespace Restaurant_Management_App.FORM
                         series.Points[index].Color = Color.SteelBlue;
                     }
                 }
-                chartRevenue.Titles.Add("TOP MÓN BÁN CHẠY");
 
+                chartRevenue.Titles.Add("TOP MÓN BÁN CHẠY");
                 series.IsValueShownAsLabel = true;
             }
 
