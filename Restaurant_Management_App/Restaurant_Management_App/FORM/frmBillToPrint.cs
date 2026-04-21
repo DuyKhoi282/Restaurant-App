@@ -95,11 +95,44 @@ GROUP BY f.name, f.price";
                 }
             }
 
-            txtTotalPrice.Text = total.ToString();
-            txtDiscount.Text = "0";
+            double discountAmount = 0;
+            double amountDue = total;
 
-            double amountDue = total - 0;
-            txtAmountDue.Text = amountDue.ToString();
+            string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
+            string query = @"SELECT discountAmount, finalAmount
+                             FROM Bill
+                             WHERE id = @id";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", orderId);
+
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        if (reader["discountAmount"] != DBNull.Value)
+                        {
+                            discountAmount = Convert.ToDouble(reader["discountAmount"]);
+                        }
+
+                        if (reader["finalAmount"] != DBNull.Value)
+                        {
+                            amountDue = Convert.ToDouble(reader["finalAmount"]);
+                        }
+                        else
+                        {
+                            amountDue = total - discountAmount;
+                        }
+                    }
+                }
+            }
+
+            txtTotalPrice.Text = total.ToString("N0");
+            txtDiscount.Text = discountAmount.ToString("N0");
+            txtAmountDue.Text = amountDue.ToString("N0");
         }
 
         private void label3_Click(object sender, EventArgs e)
