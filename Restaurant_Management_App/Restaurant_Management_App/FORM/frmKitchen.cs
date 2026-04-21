@@ -56,6 +56,7 @@ namespace Restaurant_Management_App.FORM
                 SELECT id AS [Order ID], customerName AS [Customer], caseName AS [Type], kitchenStatus AS [Status]
                 FROM Bill
                 WHERE status = 0
+                  AND ISNULL(kitchenStatus, N'Pending') <> N'Draft'
                 ORDER BY dateCheckIn DESC";
 
             dgvKitchen.DataSource = Database.Instance.ExecuteQuery(query);
