@@ -21,6 +21,7 @@ namespace Restaurant_Management_App.FORM
             Load += FrmOrder_Load;
             btnClear.Click += BtnClear_Click;
             numDiscount.ValueChanged += (s, e) => CalculateTotal();
+            cbTable.SelectedIndexChanged += cbTable_SelectedIndexChanged;
         }
 
         private void FrmOrder_Load(object sender, EventArgs e)
@@ -34,6 +35,7 @@ namespace Restaurant_Management_App.FORM
 
             cbCase.SelectedIndex = 0;
             cbPayMethod.SelectedIndex = 0;
+            LoadOpenBillBySelectedTable();
         }
 
         private void LoadTables()
@@ -144,7 +146,7 @@ namespace Restaurant_Management_App.FORM
 
             if (!string.IsNullOrWhiteSpace(food.ImagePath))
             {
-                string fullPath = Path.IsPathRooted(food.ImagePath) ? food.ImagePath : Path.Combine(Application.StartupPath, food.ImagePath);
+                string fullPath = ResolveFoodImagePath(food.ImagePath);
                 if (File.Exists(fullPath))
                 {
                     pic.Image = Image.FromFile(fullPath);
@@ -200,17 +202,10 @@ namespace Restaurant_Management_App.FORM
 
             try
             {
-                if (string.IsNullOrEmpty(txtOrderNo.Text))
-                {
-                    int nextId = BillDAL.Instance.GetMaxIDBill() + 1;
-                    txtOrderNo.Text = FormatBillId(nextId);
-                }
-
-                int billId = int.Parse(txtOrderNo.Text);
                 int tableId = (int)cbTable.SelectedValue;
+                int billId = GetOpenBillIdByTable(tableId);
 
-                int exists = (int)Database.Instance.ExecuteScalar($"SELECT COUNT(*) FROM dbo.Bill WHERE id = {billId}");
-                if (exists == 0)
+                if (billId == 0)
                 {
                     string queryInsertBill = $@"INSERT INTO dbo.Bill (idTable, customerName, caseName, payMethod, status)
                                                VALUES ({tableId}, N'{EscapeSqlValue(txtCustomerName.Text)}', N'{EscapeSqlValue(cbCase.Text)}', N'{EscapeSqlValue(cbPayMethod.Text)}', 0);
@@ -219,6 +214,10 @@ namespace Restaurant_Management_App.FORM
                     object result = Database.Instance.ExecuteScalar(queryInsertBill);
 
                     billId = Convert.ToInt32(result);
+                    txtOrderNo.Text = FormatBillId(billId);
+                }
+                else
+                {
                     txtOrderNo.Text = FormatBillId(billId);
                 }
 
@@ -363,13 +362,20 @@ namespace Restaurant_Management_App.FORM
         {
             try
             {
-                if (string.IsNullOrEmpty(txtOrderNo.Text))
+                if (cbTable.SelectedValue == null)
                 {
-                    MessageBox.Show("Vui lòng thêm món trước khi lưu đơn!");
+                    MessageBox.Show("Vui lòng chọn bàn trước khi lưu đơn!");
                     return;
                 }
 
-                int billId = int.Parse(txtOrderNo.Text);
+                int tableId = (int)cbTable.SelectedValue;
+                int billId = GetOpenBillIdByTable(tableId);
+                if (billId == 0)
+                {
+                    MessageBox.Show("Bàn này chưa có món nào để lưu.", "Thông báo");
+                    return;
+                }
+
                 string updateBill = $@"UPDATE dbo.Bill
                                        SET customerName = N'{EscapeSqlValue(txtCustomerName.Text)}',
                                            caseName = N'{EscapeSqlValue(cbCase.Text)}',
@@ -377,16 +383,67 @@ namespace Restaurant_Management_App.FORM
                                        WHERE id = {billId}";
                 Database.Instance.ExecuteNonQuery(updateBill);
 
-                MessageBox.Show($"Lưu đơn hàng {txtOrderNo.Text} thành công!", "Thông báo");
-                ResetForm();
-
-                int nextId = BillDAL.Instance.GetMaxIDBill() + 1;
-                txtOrderNo.Text = FormatBillId(nextId);
+                txtOrderNo.Text = FormatBillId(billId);
+                MessageBox.Show($"Đã lưu order bàn {cbTable.Text}. Bàn vẫn mở để gọi thêm món cho đến khi thanh toán ở Order Management.", "Thông báo");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi lưu đơn: " + ex.Message);
             }
+        }
+
+        private void cbTable_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadOpenBillBySelectedTable();
+        }
+
+        private void LoadOpenBillBySelectedTable()
+        {
+            if (cbTable.SelectedValue == null) return;
+
+            int tableId;
+            if (!int.TryParse(cbTable.SelectedValue.ToString(), out tableId)) return;
+
+            string query = $@"SELECT TOP 1 id, customerName, caseName, payMethod
+                              FROM Bill
+                              WHERE idTable = {tableId} AND status = 0
+                              ORDER BY id DESC";
+            DataTable dt = Database.Instance.ExecuteQuery(query);
+
+            if (dt.Rows.Count == 0)
+            {
+                txtOrderNo.Text = "";
+                txtCustomerName.Text = "";
+                if (cbCase.Items.Count > 0) cbCase.SelectedIndex = 0;
+                if (cbPayMethod.Items.Count > 0) cbPayMethod.SelectedIndex = 0;
+                dgvCart.DataSource = null;
+                CalculateTotal();
+                return;
+            }
+
+            DataRow row = dt.Rows[0];
+            int billId = Convert.ToInt32(row["id"]);
+            txtOrderNo.Text = FormatBillId(billId);
+            txtCustomerName.Text = row["customerName"] == DBNull.Value ? "" : row["customerName"].ToString();
+
+            string caseName = row["caseName"] == DBNull.Value ? "" : row["caseName"].ToString();
+            if (!string.IsNullOrWhiteSpace(caseName) && cbCase.Items.Contains(caseName))
+                cbCase.SelectedItem = caseName;
+
+            string payMethod = row["payMethod"] == DBNull.Value ? "" : row["payMethod"].ToString();
+            if (!string.IsNullOrWhiteSpace(payMethod) && cbPayMethod.Items.Contains(payMethod))
+                cbPayMethod.SelectedItem = payMethod;
+
+            LoadBillDetails(billId);
+        }
+
+        private int GetOpenBillIdByTable(int tableId)
+        {
+            object result = Database.Instance.ExecuteScalar($@"SELECT TOP 1 id
+                                                               FROM Bill
+                                                               WHERE idTable = {tableId} AND status = 0
+                                                               ORDER BY id DESC");
+            return result == null || result == DBNull.Value ? 0 : Convert.ToInt32(result);
         }
 
         private string FormatBillId(int id)
@@ -397,6 +454,42 @@ namespace Restaurant_Management_App.FORM
         private static string EscapeSqlValue(string input)
         {
             return (input ?? string.Empty).Replace("'", "''");
+        }
+
+        private static string ResolveFoodImagePath(string imagePath)
+        {
+            if (string.IsNullOrWhiteSpace(imagePath))
+            {
+                return string.Empty;
+            }
+
+            if (Path.IsPathRooted(imagePath))
+            {
+                return imagePath;
+            }
+
+            string startupPath = Application.StartupPath;
+            string directPath = Path.Combine(startupPath, imagePath);
+            if (File.Exists(directPath))
+            {
+                return directPath;
+            }
+
+            string projectPath = startupPath;
+            for (int i = 0; i < 4; i++)
+            {
+                DirectoryInfo parent = Directory.GetParent(projectPath);
+                if (parent == null) break;
+                projectPath = parent.FullName;
+
+                string candidate = Path.Combine(projectPath, imagePath);
+                if (File.Exists(candidate))
+                {
+                    return candidate;
+                }
+            }
+
+            return directPath;
         }
 
         private sealed class FoodMenuItem
