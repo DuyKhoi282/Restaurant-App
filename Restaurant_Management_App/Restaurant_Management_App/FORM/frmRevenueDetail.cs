@@ -38,6 +38,7 @@ namespace Restaurant_Management_App.FORM
 
         private void frmRevenueDetail_Load(object sender, EventArgs e)
         {
+            
             panelChart.Visible = false;
             dtpFromDate.Value = DateTime.Now.AddDays(-7);
             dtpToDate.Value = DateTime.Now;
@@ -51,7 +52,7 @@ namespace Restaurant_Management_App.FORM
 
             //Add vào panel
             panelChart.Controls.Add(chartRevenue);
-
+            LoadRevenue();
             switch (reportType)
             {
                 case ReportType.Date:
@@ -186,26 +187,7 @@ namespace Restaurant_Management_App.FORM
 
         private void btnThongKe_Click(object sender, EventArgs e)
         {
-            chartRevenue.Visible = true;
-
-            switch (reportType)
-            {
-                case ReportType.Date:
-                    panelChart.Visible = false;
-                    LoadRevenueByDate();
-                    break;
-
-                case ReportType.Month:
-                    panelChart.Visible = true;
-                    LoadRevenueByMonth();
-                    break;
-
-                case ReportType.TopFood:
-                    panelChart.Visible = true;
-                    LoadTopFood();
-                    break;
-            }
-
+            LoadRevenue();
         }
         void StyleDataGridView()//định dạng lại datagridview cho đẹp hơn
         {
@@ -433,5 +415,29 @@ namespace Restaurant_Management_App.FORM
 
             chartRevenue.Series.Add(series);
         }
+        void LoadRevenue()
+        {
+            chartRevenue.Visible = true;
+
+            switch (reportType)
+            {
+                case ReportType.Date:
+                    panelChart.Visible = false;
+                    LoadRevenueByDate();
+                    break;
+
+                case ReportType.Month:
+                    panelChart.Visible = true;
+                    LoadRevenueByMonth();
+                    break;
+
+                case ReportType.TopFood:
+                    panelChart.Visible = true;
+                    LoadTopFood();
+                    break;
+
+            }
+        }
     }
 }
+    
