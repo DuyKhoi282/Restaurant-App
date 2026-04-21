@@ -142,12 +142,16 @@
     <Compile Include="FORM\frmChangePasswordHistory.Designer.cs">
       <DependentUpon>frmChangePasswordHistory.cs</DependentUpon>
     </Compile>
+    <Compile Include="FORM\frmCustomerCaring.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FORM\frmKitchen.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FORM\frmKitchen.Designer.cs">
       <DependentUpon>frmKitchen.cs</DependentUpon>
     </Compile>
+    <Compile Include="LoyaltyService.cs" />
     <Compile Include="OrderRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
