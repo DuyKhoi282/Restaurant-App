@@ -13,14 +13,9 @@ namespace Restaurant_Management_App.FORM
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.pnlMenu = new System.Windows.Forms.Panel();
-            this.dgvMenu = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFoodName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFoodPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.flpMenu = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlMenuSearch = new System.Windows.Forms.Panel();
             this.txtSearchFood = new System.Windows.Forms.TextBox();
             this.cbCategory = new System.Windows.Forms.ComboBox();
@@ -66,7 +61,6 @@ namespace Restaurant_Management_App.FORM
             this.splitContainerMain.Panel2.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
             this.pnlMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMenu)).BeginInit();
             this.pnlMenuSearch.SuspendLayout();
             this.pnlOrder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCart)).BeginInit();
@@ -95,7 +89,7 @@ namespace Restaurant_Management_App.FORM
             // 
             // pnlMenu
             // 
-            this.pnlMenu.Controls.Add(this.dgvMenu);
+            this.pnlMenu.Controls.Add(this.flpMenu);
             this.pnlMenu.Controls.Add(this.pnlMenuSearch);
             this.pnlMenu.Controls.Add(this.lblMenu);
             this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -105,62 +99,16 @@ namespace Restaurant_Management_App.FORM
             this.pnlMenu.Size = new System.Drawing.Size(431, 720);
             this.pnlMenu.TabIndex = 0;
             // 
-            // dgvMenu
+            // flpMenu
             // 
-            this.dgvMenu.AllowUserToAddRows = false;
-            this.dgvMenu.AllowUserToDeleteRows = false;
-            this.dgvMenu.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvMenu.BackgroundColor = System.Drawing.Color.White;
-            this.dgvMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMenu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.id,
-            this.colFoodName,
-            this.colCategory,
-            this.colFoodPrice});
-            this.dgvMenu.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvMenu.Location = new System.Drawing.Point(10, 60);
-            this.dgvMenu.MultiSelect = false;
-            this.dgvMenu.Name = "dgvMenu";
-            this.dgvMenu.ReadOnly = true;
-            this.dgvMenu.RowHeadersVisible = false;
-            this.dgvMenu.RowHeadersWidth = 51;
-            this.dgvMenu.RowTemplate.Height = 28;
-            this.dgvMenu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMenu.Size = new System.Drawing.Size(411, 650);
-            this.dgvMenu.TabIndex = 2;
-            this.dgvMenu.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.AddFootToBill);
-            // 
-            // id
-            // 
-            this.id.HeaderText = "MenuId";
-            this.id.MinimumWidth = 6;
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // colFoodName
-            // 
-            this.colFoodName.HeaderText = "Food";
-            this.colFoodName.MinimumWidth = 6;
-            this.colFoodName.Name = "colFoodName";
-            this.colFoodName.ReadOnly = true;
-            // 
-            // colCategory
-            // 
-            this.colCategory.HeaderText = "Category";
-            this.colCategory.MinimumWidth = 6;
-            this.colCategory.Name = "colCategory";
-            this.colCategory.ReadOnly = true;
-            // 
-            // colFoodPrice
-            // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle1.Format = "C2";
-            this.colFoodPrice.DefaultCellStyle = dataGridViewCellStyle1;
-            this.colFoodPrice.HeaderText = "Price";
-            this.colFoodPrice.MinimumWidth = 6;
-            this.colFoodPrice.Name = "colFoodPrice";
-            this.colFoodPrice.ReadOnly = true;
+            this.flpMenu.AutoScroll = true;
+            this.flpMenu.BackColor = System.Drawing.Color.White;
+            this.flpMenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpMenu.Location = new System.Drawing.Point(10, 60);
+            this.flpMenu.Name = "flpMenu";
+            this.flpMenu.Padding = new System.Windows.Forms.Padding(5);
+            this.flpMenu.Size = new System.Drawing.Size(411, 650);
+            this.flpMenu.TabIndex = 2;
             // 
             // pnlMenuSearch
             // 
@@ -610,7 +558,6 @@ namespace Restaurant_Management_App.FORM
             this.splitContainerMain.ResumeLayout(false);
             this.pnlMenu.ResumeLayout(false);
             this.pnlMenu.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMenu)).EndInit();
             this.pnlMenuSearch.ResumeLayout(false);
             this.pnlMenuSearch.PerformLayout();
             this.pnlOrder.ResumeLayout(false);
@@ -636,7 +583,7 @@ namespace Restaurant_Management_App.FORM
         private TextBox txtSearchFood;
         private ComboBox cbCategory;
         private Label lblMenu;
-        private DataGridView dgvMenu;
+        private FlowLayoutPanel flpMenu;
 
         // Right order controls
         private Panel pnlOrder;
@@ -672,10 +619,6 @@ namespace Restaurant_Management_App.FORM
         private Button btnClear;
         private Button btnCheckout;
         private TextBox txtNote;
-        private DataGridViewTextBoxColumn id;
-        private DataGridViewTextBoxColumn colFoodName;
-        private DataGridViewTextBoxColumn colCategory;
-        private DataGridViewTextBoxColumn colFoodPrice;
         private DataGridViewButtonColumn colDelete;
         private DataGridViewTextBoxColumn colPrice;
         private DataGridViewTextBoxColumn FoodID;
