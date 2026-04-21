@@ -130,6 +130,7 @@ namespace Restaurant_Management_App.FORM
             _dgvPromotions.DataSource = _loyaltyService.GetPromotions();
         }
 
+
         private void InitializeComponent()
         {
             this.SuspendLayout();
@@ -141,5 +142,6 @@ namespace Restaurant_Management_App.FORM
             this.ResumeLayout(false);
 
         }
+
     }
 }
