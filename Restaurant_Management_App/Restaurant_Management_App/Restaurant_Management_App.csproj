@@ -159,6 +159,9 @@
     <EmbeddedResource Include="FORM\frmBillToPrint.resx">
       <DependentUpon>frmBillToPrint.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FORM\frmCustomerCaring.resx">
+      <DependentUpon>frmCustomerCaring.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FORM\frmFoodDetail.resx">
       <DependentUpon>frmFoodDetail.cs</DependentUpon>
     </EmbeddedResource>

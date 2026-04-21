@@ -61,19 +61,19 @@
             this.tlpCUA = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tlpInformations_CUA = new System.Windows.Forms.TableLayoutPanel();
+            this.picAvaUser = new System.Windows.Forms.PictureBox();
             this.btnHistoryChangePass = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tlpAccounts_CUA = new System.Windows.Forms.TableLayoutPanel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.picAvaUser = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAccount)).BeginInit();
             this.tlpCUA.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tlpInformations_CUA.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvaUser)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.tlpAccounts_CUA.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picAvaUser)).BeginInit();
             this.SuspendLayout();
             // 
             // label6
@@ -534,6 +534,18 @@
             this.tlpInformations_CUA.Size = new System.Drawing.Size(907, 209);
             this.tlpInformations_CUA.TabIndex = 9;
             // 
+            // picAvaUser
+            // 
+            this.picAvaUser.Dock = System.Windows.Forms.DockStyle.Left;
+            this.picAvaUser.Image = global::Restaurant_Management_App.Properties.Resources.ava;
+            this.picAvaUser.Location = new System.Drawing.Point(3, 3);
+            this.picAvaUser.Name = "picAvaUser";
+            this.tlpInformations_CUA.SetRowSpan(this.picAvaUser, 2);
+            this.picAvaUser.Size = new System.Drawing.Size(136, 98);
+            this.picAvaUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picAvaUser.TabIndex = 0;
+            this.picAvaUser.TabStop = false;
+            // 
             // btnHistoryChangePass
             // 
             this.btnHistoryChangePass.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -606,18 +618,6 @@
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // picAvaUser
-            // 
-            this.picAvaUser.Dock = System.Windows.Forms.DockStyle.Left;
-            this.picAvaUser.Image = global::Restaurant_Management_App.Properties.Resources.ava;
-            this.picAvaUser.Location = new System.Drawing.Point(3, 3);
-            this.picAvaUser.Name = "picAvaUser";
-            this.tlpInformations_CUA.SetRowSpan(this.picAvaUser, 2);
-            this.picAvaUser.Size = new System.Drawing.Size(136, 98);
-            this.picAvaUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picAvaUser.TabIndex = 0;
-            this.picAvaUser.TabStop = false;
-            // 
             // frmCreateUser_Authority
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -633,10 +633,10 @@
             this.groupBox1.ResumeLayout(false);
             this.tlpInformations_CUA.ResumeLayout(false);
             this.tlpInformations_CUA.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvaUser)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.tlpAccounts_CUA.ResumeLayout(false);
             this.tlpAccounts_CUA.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picAvaUser)).EndInit();
             this.ResumeLayout(false);
 
         }

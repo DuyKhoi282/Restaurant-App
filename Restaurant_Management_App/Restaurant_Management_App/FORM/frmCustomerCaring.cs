@@ -129,5 +129,17 @@ namespace Restaurant_Management_App.FORM
             _dgvCustomers.DataSource = _loyaltyService.GetCustomerPoints();
             _dgvPromotions.DataSource = _loyaltyService.GetPromotions();
         }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // frmCustomerCaring
+            // 
+            this.ClientSize = new System.Drawing.Size(958, 611);
+            this.Name = "frmCustomerCaring";
+            this.ResumeLayout(false);
+
+        }
     }
 }
