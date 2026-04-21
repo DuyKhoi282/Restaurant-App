@@ -4,16 +4,25 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace Restaurant_Management_App
 {
     public partial class frmCreateUser_Authority : Form
     {
+        private string selectedImagePath = "";
+        private string oldImagePath = "";
+        string imageName = "";
+        string tempPath = "";
+        private int employeeId = 0; // ID nhân viên nếu là mode Edit
+
         AccountDAL AccountDAL = new AccountDAL();
         public frmCreateUser_Authority()
         {
@@ -121,18 +130,19 @@ namespace Restaurant_Management_App
                 cmd.ExecuteNonQuery();// Thực thi truy vấn để chèn dữ liệu vào cơ sở dữ liệu
 
                 MessageBox.Show("Tạo tài khoản thành công!");
+                LoadAccountList();
             }
         }
 
         // click vào 1 dòng sẽ hiện thị thông tin chi tiết của tài khoản đó lên các TextBox, ComboBox và DateTimePicker bên dưới 
         // để dễ dàng chỉnh sửa hoặc xem thông tin chi tiết
         private void dgvAccount_CellClick(object sender, DataGridViewCellEventArgs e) 
-        {           
+        {
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgvAccount.Rows[e.RowIndex];
 
-                // TEXTBOX
+                // --- 1. ĐỔ DỮ LIỆU VÀO TEXTBOX ---
                 txtUserId_CUA.Text = row.Cells["userId"].Value?.ToString();
                 txtPassword_CUA.Text = row.Cells["password"].Value?.ToString();
                 txtFullname_CUA.Text = row.Cells["fullname"].Value?.ToString();
@@ -141,12 +151,10 @@ namespace Restaurant_Management_App
                 txtAddress_CUA.Text = row.Cells["address"].Value?.ToString();
                 txtSalary_CUA.Text = row.Cells["salary"].Value?.ToString();
 
-                // COMBOBOX
-                
+                // --- 2. ĐỔ DỮ LIỆU VÀO COMBOBOX ĐỊA CHỈ ---
                 cbxCity_CUA.Text = row.Cells["city"].Value?.ToString();
-
-                cbxDistrict_CUA.Enabled = true; // Bật ComboBox quận/huyện
-                cbxWard_CUA.Enabled = true; // Bật ComboBox phường/xã
+                cbxDistrict_CUA.Enabled = true;
+                cbxWard_CUA.Enabled = true;
 
                 if (cbxCity_CUA.SelectedValue != null)
                 {
@@ -154,35 +162,73 @@ namespace Restaurant_Management_App
                     cbxDistrict_CUA.DataSource = AccountDAL.GetDistrictListByCity(cityId);
                     cbxDistrict_CUA.DisplayMember = "districtName";
                     cbxDistrict_CUA.ValueMember = "districtId";
-
-                    // Sau khi có danh sách Quận mới gán Text cho Quận
-                    cbxDistrict_CUA.Text = row.Cells["district"].Value.ToString().Trim();
+                    cbxDistrict_CUA.Text = row.Cells["district"].Value?.ToString().Trim();
                 }
-               
+
                 if (cbxDistrict_CUA.SelectedValue != null)
                 {
                     string districtId = cbxDistrict_CUA.SelectedValue.ToString();
                     cbxWard_CUA.DataSource = AccountDAL.GetWardListByDistrict(districtId);
                     cbxWard_CUA.DisplayMember = "wardName";
                     cbxWard_CUA.ValueMember = "wardId";
-
-                    // Cuối cùng mới gán Text cho Phường
-                    cbxWard_CUA.Text = row.Cells["ward"].Value.ToString().Trim();
+                    cbxWard_CUA.Text = row.Cells["ward"].Value?.ToString().Trim();
                 }
 
-                // 2. XỬ LÝ ROLE (Thay đổi ở đây)
-                // Thay vì: cbxRole_CUA.Text = row.Cells["RoleName"].Value?.ToString();
-                // Ta dùng SelectedValue để khớp theo ID
+                // --- 3. XỬ LÝ ROLE ---
                 if (row.Cells["RoleId"].Value != null)
                 {
                     cbxRole_CUA.SelectedValue = row.Cells["RoleId"].Value;
                 }
 
-                // DATETIMEPICKER
-                if (row.Cells["birthday"].Value != DBNull.Value)
+                // --- 4. XỬ LÝ DATETIMEPICKER ---
+                if (row.Cells["birthday"].Value != null && row.Cells["birthday"].Value != DBNull.Value)
                 {
                     dtpBirthday_CUA.Value = Convert.ToDateTime(row.Cells["birthday"].Value);
-                }                           
+                }
+
+                // --- 5. BỔ SUNG: XỬ LÝ HIỂN THỊ ẢNH (PICTUREBOX) ---
+                // --- TRONG HÀM dgvAccount_CellClick ---
+                picAvaUser_CUA.BackColor = Color.Red;
+                try
+                {
+                    // 1. Reset trạng thái
+                    picAvaUser_CUA.BackColor = Color.Red; // Giữ để biết code có chạy qua đây
+                    if (picAvaUser_CUA.Image != null)
+                    {
+                        picAvaUser_CUA.Image.Dispose();
+                        picAvaUser_CUA.Image = null;
+                    }
+
+                    // 2. Lấy tên file và xóa khoảng trắng (Trim)
+                    string imageName = row.Cells["imagePath"].Value?.ToString().Trim();
+                    if (!string.IsNullOrEmpty(imageName))
+                    {
+                        string fullPath = Path.Combine(GetAvaFolderPath(), imageName);
+
+                        if (File.Exists(fullPath))
+                        {
+                            // Xóa ảnh cũ
+                            if (picAvaUser_CUA.Image != null) picAvaUser_CUA.Image.Dispose();
+
+                            using (FileStream fs = new FileStream(fullPath, FileMode.Open, FileAccess.Read))
+                            {
+                                picAvaUser_CUA.Image = Image.FromStream(fs);
+                            }
+                            picAvaUser_CUA.SizeMode = PictureBoxSizeMode.Zoom;
+                            picAvaUser_CUA.BackColor = Color.Transparent;
+                            picAvaUser_CUA.Invalidate(); // Ép PictureBox vẽ lại
+                        }
+                        else
+                        {
+                            picAvaUser_CUA.BackColor = Color.Gray; // Đổi sang màu xám nếu không tìm thấy file
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Nếu nạp ảnh bị lỗi (định dạng sai, file hỏng), nó sẽ hiện thông báo ở đây
+                    MessageBox.Show("Lỗi tại PictureBox: " + ex.Message);
+                }
             }
         }
     
@@ -283,10 +329,7 @@ namespace Restaurant_Management_App
 
         private void btnUpdate_CUA_Click(object sender, EventArgs e)
         {
-            //string userId = txtUserId_CUA.Text.Trim();
-           // string password = txtPassword_CUA.Text.Trim();
-            // Kiểm tra dữ liệu đầu vào cơ bản
-            // 1. Kiểm tra các ô văn bản (TextBox)
+            // 1. Kiểm tra dữ liệu đầu vào (Validation)
             if (string.IsNullOrWhiteSpace(txtUserId_CUA.Text) ||
                 string.IsNullOrWhiteSpace(txtPassword_CUA.Text) ||
                 string.IsNullOrWhiteSpace(txtFullname_CUA.Text) ||
@@ -294,14 +337,12 @@ namespace Restaurant_Management_App
                 string.IsNullOrWhiteSpace(txtAddress_CUA.Text) ||
                 string.IsNullOrWhiteSpace(txtSalary_CUA.Text) ||
                 string.IsNullOrWhiteSpace(txtEmail_CUA.Text) ||
-                string.IsNullOrWhiteSpace(cbxRole_CUA.Text))
+                cbxRole_CUA.SelectedValue == null)
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ tất cả các thông tin cá nhân!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return; // Dừng lại không thực hiện Update nữa
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin cá nhân và chọn Quyền hạn!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
-            // 2. Kiểm tra các ô chọn địa chỉ (ComboBox)
-            // Vì bạn đã set DropDownStyle = DropDownList, nên kiểm tra SelectedIndex hoặc Text
             if (cbxCity_CUA.SelectedIndex == -1 ||
                 cbxDistrict_CUA.SelectedIndex == -1 ||
                 cbxWard_CUA.SelectedIndex == -1)
@@ -312,8 +353,7 @@ namespace Restaurant_Management_App
 
             try
             {
-                // Lấy thông tin từ giao diện
-               
+                // 2. Lấy thông tin văn bản từ giao diện
                 string userId = txtUserId_CUA.Text.Trim();
                 string password = txtPassword_CUA.Text.Trim();
                 string fullname = txtFullname_CUA.Text.Trim();
@@ -323,46 +363,62 @@ namespace Restaurant_Management_App
                 string ward = cbxWard_CUA.Text;
                 string district = cbxDistrict_CUA.Text;
                 string city = cbxCity_CUA.Text;
+                DateTime birthday = dtpBirthday_CUA.Value;
+                int roleId = Convert.ToInt32(cbxRole_CUA.SelectedValue);
+
                 if (!decimal.TryParse(txtSalary_CUA.Text.Trim(), out decimal salary))
                 {
                     MessageBox.Show("Lương phải là số hợp lệ!");
                     return;
                 }
-                DateTime birthday = dtpBirthday_CUA.Value;
 
-                // KIỂM TRA ROLEID TRƯỚC KHI UPDATE
-                if (cbxRole_CUA.SelectedValue == null)
+                // --- 3. XỬ LÝ ẢNH (VỊ TRÍ CHỈNH SỬA Ở ĐÂY) ---
+                string finalImageName = "";
+
+                if (!string.IsNullOrEmpty(selectedImagePath))
                 {
-                    MessageBox.Show("Vui lòng chọn Quyền hạn!");
-                    return;
+                    // Nếu người dùng vừa click vào PictureBox và chọn ảnh mới (biến này gán ở sự kiện Click PictureBox)
+                    finalImageName = selectedImagePath;
                 }
-                int roleId = Convert.ToInt32(cbxRole_CUA.SelectedValue);
+                else
+                {
+                    // Nếu không chọn ảnh mới, dùng lại tên ảnh cũ đã lấy từ CellClick (biến này gán ở dgvAccount_CellClick)
+                    finalImageName = oldImagePath;
+                }
 
-
-                // Lấy mật khẩu cũ đang có trong Database ra để so sánh
+                // 4. Xử lý lịch sử mật khẩu (Nếu đổi pass)
                 string currentPassInDb = AccountDAL.GetCurrentPassword(userId);
-
-                // Nếu mật khẩu trên TextBox khác với mật khẩu trong DB -> Admin đang đổi pass
                 if (password != currentPassInDb)
                 {
-                    // Ghi một dòng vào bảng PasswordHistory
-                    // changedBy sử dụng UserSession.UserId của Admin đang đăng nhập
-                    string queryHistory = "INSERT INTO PasswordHistory ( userId , oldPassword , newPassword , changedBy ) " +
-                                          "VALUES ( @id , @old , @new , @by )";
-
+                    string queryHistory = "INSERT INTO PasswordHistory (userId, oldPassword, newPassword, changedBy) " +
+                                          "VALUES (@id, @old, @new, @by)";
                     Database.Instance.ExecuteNonQuery(queryHistory, new object[] { userId, currentPassInDb, password, UserSession.UserId });
                 }
 
-                //// Gọi hàm Update từ DAL (Hàm cũ của bạn vẫn chạy để update mọi thông tin khác)
-                bool isUpdate = AccountDAL.UpdateAccount(password, userId, fullname, birthday, phone, address, ward, district, city, salary, email, roleId);
+                // 5. Gọi hàm Update từ DAL (Truyền finalImageName vào cuối cùng)
+                // Lưu ý: Đảm bảo hàm UpdateAccount trong lớp AccountDAL có nhận tham số cuối là string
+                bool isUpdate = AccountDAL.UpdateAccount(password, userId, fullname, birthday, phone, address, ward, district, city, salary, email, roleId, finalImageName);
 
                 if (isUpdate)
                 {
-                    MessageBox.Show("Cập nhật thông tin và Quyền hạn thành công!");
+                    MessageBox.Show("Cập nhật thông tin và Ảnh thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Tải lại danh sách để cập nhật dữ liệu mới lên Grid
                     LoadAccountList();
+
+                    // QUAN TRỌNG: Sau khi cập nhật xong, hãy gán ảnh hiện tại thành ảnh cũ
+                    oldImagePath = finalImageName;
+                    selectedImagePath = ""; // Reset biến chọn ảnh mới
+                }
+                else
+                {
+                    MessageBox.Show("Cập nhật thất bại, vui lòng kiểm tra lại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception ex) { /* ... */ }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Đã xảy ra lỗi: " + ex.Message, "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnHistoryChangePass_Click(object sender, EventArgs e)
@@ -460,6 +516,132 @@ namespace Restaurant_Management_App
                 {
                     MessageBox.Show("Có lỗi xảy ra khi thực hiện xóa.");
                 }
+            }
+        }
+
+
+        private void picAvaUser_CUA_Click(object sender, EventArgs e)
+        {
+            using(OpenFileDialog ofd = new OpenFileDialog())
+    {
+                // Chỉ cho phép chọn các định dạng ảnh phổ biến
+                ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+                ofd.Title = "Chọn ảnh đại diện nhân viên";
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        // 1. Tạo tên file duy nhất bằng GUID để tránh trùng lặp
+                        string extension = Path.GetExtension(ofd.FileName);
+                        string fileName = Guid.NewGuid().ToString() + extension;
+
+                        // 2. Lấy đường dẫn thư mục lưu trữ
+                        string folderPath = GetAvaFolderPath();
+                        string destPath = Path.Combine(folderPath, fileName);
+
+                        // 3. Sao chép file vào thư mục dự án
+                        File.Copy(ofd.FileName, destPath, true);
+
+                        // 4. Cập nhật các biến trạng thái để nút Update có thể sử dụng
+                        selectedImagePath = fileName; // Lưu tên file mới để tí nữa lưu vào DB
+
+                        // 5. Hiển thị ảnh lên PictureBox ngay lập tức
+                        // Dùng cách nạp từ Byte để không giữ bản quyền file (tránh lỗi khóa file)
+                        byte[] buffer = File.ReadAllBytes(destPath);
+                        using (MemoryStream ms = new MemoryStream(buffer))
+                        {
+                            if (picAvaUser_CUA.Image != null) picAvaUser_CUA.Image.Dispose();
+                            picAvaUser_CUA.Image = Image.FromStream(ms);
+                        }
+
+                        picAvaUser_CUA.SizeMode = PictureBoxSizeMode.Zoom;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Không thể nạp ảnh: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private string SaveUserImage(string userId, string path)
+        {
+            // Nếu không chọn ảnh mới (path trống), lấy lại tên ảnh cũ từ DB
+            if (string.IsNullOrEmpty(path))
+            {
+                return AccountDAL.GetCurrentImagePath(userId);
+            }
+
+            try
+            {
+                string folder = GetAvaFolderPath(); // Hàm lấy đường dẫn thư mục JPG/Ava
+                string extension = Path.GetExtension(path);
+                string fileName = userId + extension;
+                string fullSavePath = Path.Combine(folder, fileName);
+
+                // Giải phóng ảnh trong PictureBox nếu đang hiển thị để tránh lỗi "File in use"
+                if (picAvaUser_CUA.Image != null)
+                {
+                    picAvaUser_CUA.Image.Dispose();
+                    picAvaUser_CUA.Image = null;
+                }
+
+                File.Copy(path, fullSavePath, true);
+                return fileName;
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }           
+        }
+
+        private string GetAvaFolderPath()
+        {
+            // Lấy đường dẫn thư mục đang chạy file .exe (thường là bin/Debug)
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+            // Tìm ngược lên để thoát khỏi bin/Debug để vào thư mục Images của dự án
+            // Thử dùng đường dẫn tương đối để an toàn hơn
+            string projectFolder = Directory.GetParent(baseDirectory).Parent.Parent.FullName;
+
+            // Kết hợp với đường dẫn chính xác đến thư mục có chữ "s" (Employees)
+            string folderPath = Path.Combine(projectFolder, "Images", "Employees");
+
+            // Nếu vẫn không thấy, hãy thử kiểm tra thư mục không có chữ "s"
+            if (!Directory.Exists(folderPath))
+            {
+                folderPath = Path.Combine(projectFolder, "Images", "Employee");
+            }
+
+            return folderPath;
+        }
+
+        // Hàm lấy đường dẫn gốc của Project để lưu ảnh 
+        private string GetProjectPath(string relativePath)
+        {
+            // Lấy đường dẫn từ bin/Debug ngược lên thư mục gốc Project
+            string exePath = Application.StartupPath;
+            string projectPath = Directory.GetParent(exePath).Parent.FullName;
+            return Path.Combine(projectPath, relativePath);
+        }
+
+        private void SaveEmployee()
+        {
+            string query = employeeId == 0
+                ? "INSERT INTO Employee(Name, ImagePath) VALUES(@name, @image)"
+                : "UPDATE Employee SET Name=@name, ImagePath=@image WHERE Id=@id";
+
+            using (SqlConnection conn = new SqlConnection(Database.connStr))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@name", txtFullname_CUA.Text);
+                cmd.Parameters.AddWithValue("@image", selectedImagePath); // Lưu đường dẫn này
+                if (employeeId > 0) cmd.Parameters.AddWithValue("@id", employeeId);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Đã lưu nhân viên thành công!");
             }
         }
     }    

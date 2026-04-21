@@ -128,7 +128,6 @@
     <Compile Include="FORM\frmRevenue.Designer.cs">
       <DependentUpon>frmRevenue.cs</DependentUpon>
     </Compile>
-
     <Compile Include="FORM\frmOrderDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -275,6 +274,10 @@
     <None Include="Resources\ava.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\Employees\ADM01.jpg" />
+    <Content Include="Images\Employees\CHF01.jpg" />
+    <Content Include="Images\Employees\MNG01.jpg" />
+    <Content Include="Images\Employees\STF01.jpg" />
     <Content Include="Images\Icon\Screenshot_2026-04-01_152815-removebg-preview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

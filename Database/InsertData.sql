@@ -86,18 +86,20 @@ AND p.PermissionName = 'MANAGE_PRODUCTS';
 -- Account (Dữ liệu tài khoản)
 -- ========================
 	-- 
-INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary, isDeleted)
-VALUES ('ADM01', '123', 1, 'Nguyen Van A', '2005/04/19', 'avn1@gmail.com', '0901234567', '141 DPB', 'Phuong Ben Nghe', 'Quan 1', 'TP. Ho Chi Minh',25000,0);
+-- Xóa dữ liệu cũ nếu muốn làm sạch trước khi chèn (tùy chọn)
+-- DELETE FROM Account WHERE userId IN ('ADM01', 'MNG01', 'CHF01', 'STF01');
 
-INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary, isDeleted)
-VALUES ('MNG01', '123', 2, 'Le Hoang B', '2005/12/01', 'blh1@gmail.com', '0801674567', '141 DPB', 'Phuong Phuc Xa', 'Quan Ba Dinh', 'Ha Noi',25000,0);
+INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary, isDeleted, imagePath)
+VALUES ('ADM01', '123', 1, N'Nguyen Van A', '2005-04-19', 'avn1@gmail.com', '0901234567', N'141 DPB', N'Phường Bến Nghé', N'Quận 1', N'TP. Hồ Chí Minh', 25000, 0, 'ADM01.jpg');
 
-INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary, isDeleted)
-VALUES ('CHF01', '123', 3, 'Tran Thi C', '2005/03/25', 'ctt1@gmail.com', '0909804567', '141 DPB', 'Phuong Thach Thang', 'Quan Hai Chau', 'Da Nang',25000,0);
+INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary, isDeleted, imagePath)
+VALUES ('MNG01', '123', 2, N'Le Hoang B', '2005-12-01', 'blh1@gmail.com', '0801674567', N'141 DPB', N'Phường Phúc Xá', N'Quận Ba Đình', N'Hà Nội', 25000, 0, 'MNG01.jpg');
 
-INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary, isDeleted)
-VALUES ('STF01', '123', 4, 'Pham Thanh D', '2005/04/07', 'dpt1@gmail.com', '0907654567', '141 DPB', 'Phuong Ben Nghe', 'Quan 1', 'TP. Ho Chi Minh',25000,0);
+INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary, isDeleted, imagePath)
+VALUES ('CHF01', '123', 3, N'Tran Thi C', '2005-03-25', 'ctt1@gmail.com', '0909804567', N'141 DPB', N'Phường Thạch Thang', N'Quận Hải Châu', N'Đà Nẵng', 25000, 0, 'CHF01.jpg');
 
+INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary, isDeleted, imagePath)
+VALUES ('STF01', '123', 4, N'Pham Thanh D', '2005-04-07', 'dpt1@gmail.com', '0907654567', N'141 DPB', N'Phường Bến Nghé', N'Quận 1', N'TP. Hồ Chí Minh', 25000, 0, 'STF01.jpg');
 
 	-- INSERT Tỉnh/Thành phố
 INSERT INTO city (cityId, cityName) 

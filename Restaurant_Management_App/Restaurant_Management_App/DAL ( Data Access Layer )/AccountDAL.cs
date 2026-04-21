@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -93,6 +95,7 @@ namespace Restaurant_Management_App
         a.city,
         a.birthday,
         a.salary,
+        a.imagePath,
         r.RoleName
     FROM Account a
     JOIN Role r ON a.RoleId = r.Id
@@ -118,36 +121,42 @@ namespace Restaurant_Management_App
             return Database.Instance.ExecuteQuery(query, new object[] { districtId });
         }
 
-        public bool UpdateAccount(string password, string userId, string fullname, DateTime birthday, string phone, string address, string ward, string district, string city, decimal salary, string email, int roleId)
+        // Thêm string imageName vào cuối danh sách tham số
+        public bool UpdateAccount(string password, string userId, string fullname, DateTime birthday,
+                                  string phone, string address, string ward, string district,
+                                  string city, decimal salary, string email, int roleId, string imageName)
         {
-            string queryUpdate = "UPDATE Account SET password = @pass , fullname = @f , birthday = @b , phone = @ph , address = @a , ward = @w , district = @d , city = @c , salary = @s , email = @e , RoleId = @r WHERE userId = @id";
-
-            // Mảng tham số: Đếm đủ 12 và đúng thứ tự dấu @ từ trái qua phải
-            object[] tempParams = new object[] {
-        password,   // 1. @pass
-        fullname,   // 2. @f
-        birthday,   // 3. @b
-        phone,      // 4. @ph
-        address,    // 5. @a
-        ward,       // 6. @w
-        district,   // 7. @d
-        city,       // 8. @c
-        salary,     // 9. @s
-        email,      // 10. @e
-        roleId,     // 11. @r
-        userId      // 12. @id
-    };
-
             try
             {
-                return Database.Instance.ExecuteNonQuery(queryUpdate, tempParams) > 0;
+                using (SqlConnection conn = new SqlConnection(Database.connStr))
+                {
+                    conn.Open();
+                    // Bổ sung imagePath = @img vào câu lệnh SQL
+                    string query = @"UPDATE Account 
+                            SET password = @p, RoleId = @r, fullname = @f, phone = @ph, 
+                                email = @e, birthday = @b, address = @a, ward = @w, 
+                                district = @d, city = @c, salary = @s, imagePath = @img
+                            WHERE userId = @u";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@u", userId);
+                    cmd.Parameters.AddWithValue("@p", password);
+                    cmd.Parameters.AddWithValue("@r", roleId);
+                    cmd.Parameters.AddWithValue("@f", fullname);
+                    cmd.Parameters.AddWithValue("@ph", phone);
+                    cmd.Parameters.AddWithValue("@e", email);
+                    cmd.Parameters.AddWithValue("@b", birthday);
+                    cmd.Parameters.AddWithValue("@a", address);
+                    cmd.Parameters.AddWithValue("@w", ward);
+                    cmd.Parameters.AddWithValue("@d", district);
+                    cmd.Parameters.AddWithValue("@c", city);
+                    cmd.Parameters.AddWithValue("@s", salary);
+                    cmd.Parameters.AddWithValue("@img", (object)imageName ?? DBNull.Value);
+
+                    return cmd.ExecuteNonQuery() > 0;
+                }
             }
-            catch (Exception ex)
-            {
-                // Hiện lỗi này để biết chính xác SQL đang nhận được gì
-                MessageBox.Show("Lỗi thực thi SQL: " + ex.Message);
-                return false;
-            }
+            catch { return false; }
         }
 
         //==============================================
@@ -237,5 +246,21 @@ namespace Restaurant_Management_App
 
             return result > 0;
         }
+        public string GetCurrentImagePath(string userId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Database.connStr))
+                {
+                    conn.Open();
+                    string query = "SELECT imagePath FROM Account WHERE userId = @u";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@u", userId);
+                    object res = cmd.ExecuteScalar();
+                    return res != null ? res.ToString() : "";
+                }
+            }
+            catch { return ""; }
+        }       
     }
 }

@@ -66,6 +66,7 @@ CREATE TABLE Account
     city NVARCHAR(50) NOT NULL,-- Thành phố
 	salary decimal(18,2) default 0  NOT NULL, -- Lương của người dùng 
 	isDeleted BIT DEFAULT 0, -- 0: Đang hoạt động, 1: Đã ẩn
+    imagePath NVARCHAR(MAX), -- Đường dẫn hình ảnh đại diện của người dùng
     FOREIGN KEY (RoleId) REFERENCES Role(Id)
 );
 
