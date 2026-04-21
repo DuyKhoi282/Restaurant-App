@@ -5,6 +5,14 @@ namespace Restaurant_Management_App
 {
     public class LoyaltyService
     {
+        public sealed class PromotionMatch
+        {
+            public int PromotionId { get; set; }
+            public string PromotionName { get; set; }
+            public int MinPoints { get; set; }
+            public double DiscountPercent { get; set; }
+        }
+
         public LoyaltyService()
         {
             EnsureTables();
@@ -36,6 +44,8 @@ BEGIN
         billId INT NOT NULL,
         amount DECIMAL(18,2) NOT NULL,
         pointsEarned INT NOT NULL,
+        pointsUsed INT NOT NULL DEFAULT 0,
+        promotionId INT NULL,
         createdAt DATETIME NOT NULL DEFAULT GETDATE(),
         FOREIGN KEY (customerId) REFERENCES dbo.CustomerLoyalty(id),
         FOREIGN KEY (billId) REFERENCES dbo.Bill(id)
@@ -56,32 +66,95 @@ BEGIN
         isActive BIT NOT NULL DEFAULT 1,
         createdAt DATETIME NOT NULL DEFAULT GETDATE()
     );
-END";
+END
+
+IF COL_LENGTH('dbo.Bill', 'discountPercent') IS NULL
+    ALTER TABLE dbo.Bill ADD discountPercent FLOAT NULL;
+
+IF COL_LENGTH('dbo.Bill', 'discountAmount') IS NULL
+    ALTER TABLE dbo.Bill ADD discountAmount DECIMAL(18,2) NULL;
+
+IF COL_LENGTH('dbo.Bill', 'finalAmount') IS NULL
+    ALTER TABLE dbo.Bill ADD finalAmount DECIMAL(18,2) NULL;
+
+IF COL_LENGTH('dbo.Bill', 'idPromotion') IS NULL
+    ALTER TABLE dbo.Bill ADD idPromotion INT NULL;
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_Bill_PromotionProgram')
+BEGIN
+    ALTER TABLE dbo.Bill WITH NOCHECK
+    ADD CONSTRAINT FK_Bill_PromotionProgram FOREIGN KEY (idPromotion) REFERENCES dbo.PromotionProgram(id);
+END
+
+IF COL_LENGTH('dbo.LoyaltyPointHistory', 'pointsUsed') IS NULL
+    ALTER TABLE dbo.LoyaltyPointHistory ADD pointsUsed INT NOT NULL DEFAULT 0;
+
+IF COL_LENGTH('dbo.LoyaltyPointHistory', 'promotionId') IS NULL
+    ALTER TABLE dbo.LoyaltyPointHistory ADD promotionId INT NULL;";
 
             Database.Instance.ExecuteNonQuery(query);
         }
 
-        public void AwardPointsByBill(int billId, string customerName, string phone = null)
+        public decimal GetBillTotal(int billId)
+        {
+            object amountObj = Database.Instance.ExecuteScalar(@"SELECT ISNULL(SUM(f.price * bi.quantity),0)
+                                                                FROM BillInfo bi
+                                                                JOIN Food f ON bi.idFood = f.id
+                                                                WHERE bi.idBill = " + billId);
+            return Convert.ToDecimal(amountObj);
+        }
+
+        public PromotionMatch GetBestPromotionForCustomer(string customerName)
+        {
+            if (string.IsNullOrWhiteSpace(customerName))
+            {
+                return null;
+            }
+
+            int points = GetCustomerPoints(customerName);
+            string escapedName = Escape(customerName);
+
+            DataTable dt = Database.Instance.ExecuteQuery($@"SELECT TOP 1 id, promoName, minPoints, discountPercent
+                                                             FROM PromotionProgram
+                                                             WHERE isActive = 1
+                                                               AND GETDATE() BETWEEN startDate AND endDate
+                                                               AND minPoints <= {points}
+                                                             ORDER BY discountPercent DESC, minPoints DESC");
+            if (dt.Rows.Count == 0)
+            {
+                return null;
+            }
+
+            DataRow row = dt.Rows[0];
+            return new PromotionMatch
+            {
+                PromotionId = Convert.ToInt32(row["id"]),
+                PromotionName = row["promoName"].ToString(),
+                MinPoints = Convert.ToInt32(row["minPoints"]),
+                DiscountPercent = Convert.ToDouble(row["discountPercent"])
+            };
+        }
+
+        public DataTable GetEligiblePromotionsForCustomer(string customerName)
+        {
+            int points = GetCustomerPoints(customerName);
+            return Database.Instance.ExecuteQuery($@"SELECT id, promoName, minPoints, discountPercent
+                                                     FROM PromotionProgram
+                                                     WHERE isActive = 1
+                                                       AND GETDATE() BETWEEN startDate AND endDate
+                                                       AND minPoints <= {points}
+                                                     ORDER BY discountPercent DESC, minPoints DESC");
+        }
+
+        public void ApplyPaymentAndPoints(int billId, string customerName, decimal payableAmount, int pointsUsed, int? promotionId)
         {
             if (string.IsNullOrWhiteSpace(customerName))
             {
                 return;
             }
 
-            object amountObj = Database.Instance.ExecuteScalar(@"SELECT ISNULL(SUM(f.price * bi.quantity),0)
-                                                                FROM BillInfo bi
-                                                                JOIN Food f ON bi.idFood = f.id
-                                                                WHERE bi.idBill = " + billId);
-            decimal amount = Convert.ToDecimal(amountObj);
-            int pointsEarned = (int)(amount / 10000m); // 10.000đ = 1 điểm
-
-            if (pointsEarned <= 0)
-            {
-                return;
-            }
-
+            int pointsEarned = (int)(payableAmount / 10000m);
             string escapedName = Escape(customerName);
-            string escapedPhone = Escape(phone ?? string.Empty);
 
             int customerId;
             object customerIdObj = Database.Instance.ExecuteScalar($@"SELECT TOP 1 id FROM CustomerLoyalty
@@ -90,7 +163,7 @@ END";
             if (customerIdObj == null || customerIdObj == DBNull.Value)
             {
                 object insertedId = Database.Instance.ExecuteScalar($@"INSERT INTO CustomerLoyalty(customerName, phone, points, totalSpent, updatedAt)
-                                                                       VALUES (N'{escapedName}', N'{escapedPhone}', 0, 0, GETDATE());
+                                                                       VALUES (N'{escapedName}', N'', 0, 0, GETDATE());
                                                                        SELECT SCOPE_IDENTITY();");
                 customerId = Convert.ToInt32(insertedId);
             }
@@ -99,15 +172,36 @@ END";
                 customerId = Convert.ToInt32(customerIdObj);
             }
 
+            int netPointChange = pointsEarned - pointsUsed;
             Database.Instance.ExecuteNonQuery($@"UPDATE CustomerLoyalty
-                                                 SET points = points + {pointsEarned},
-                                                     totalSpent = totalSpent + {amount.ToString(System.Globalization.CultureInfo.InvariantCulture)},
-                                                     updatedAt = GETDATE(),
-                                                     phone = CASE WHEN LEN(N'{escapedPhone}') = 0 THEN phone ELSE N'{escapedPhone}' END
+                                                 SET points = CASE WHEN points + ({netPointChange}) < 0 THEN 0 ELSE points + ({netPointChange}) END,
+                                                     totalSpent = totalSpent + {payableAmount.ToString(System.Globalization.CultureInfo.InvariantCulture)},
+                                                     updatedAt = GETDATE()
                                                  WHERE id = {customerId}");
 
-            Database.Instance.ExecuteNonQuery($@"INSERT INTO LoyaltyPointHistory(customerId, billId, amount, pointsEarned)
-                                                 VALUES ({customerId}, {billId}, {amount.ToString(System.Globalization.CultureInfo.InvariantCulture)}, {pointsEarned})");
+            string promoValue = promotionId.HasValue ? promotionId.Value.ToString() : "NULL";
+            Database.Instance.ExecuteNonQuery($@"INSERT INTO LoyaltyPointHistory(customerId, billId, amount, pointsEarned, pointsUsed, promotionId)
+                                                 VALUES ({customerId}, {billId}, {payableAmount.ToString(System.Globalization.CultureInfo.InvariantCulture)}, {pointsEarned}, {pointsUsed}, {promoValue})");
+        }
+
+        public int GetCustomerPoints(string customerName)
+        {
+            if (string.IsNullOrWhiteSpace(customerName))
+            {
+                return 0;
+            }
+
+            string escapedName = Escape(customerName);
+            object pointsObj = Database.Instance.ExecuteScalar($@"SELECT TOP 1 points
+                                                                  FROM CustomerLoyalty
+                                                                  WHERE customerName = N'{escapedName}'
+                                                                  ORDER BY id DESC");
+            if (pointsObj == null || pointsObj == DBNull.Value)
+            {
+                return 0;
+            }
+
+            return Convert.ToInt32(pointsObj);
         }
 
         public DataTable GetCustomerPoints()
