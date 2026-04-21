@@ -207,8 +207,8 @@ namespace Restaurant_Management_App.FORM
 
                 if (billId == 0)
                 {
-                    string queryInsertBill = $@"INSERT INTO dbo.Bill (idTable, customerName, caseName, payMethod, status)
-                                               VALUES ({tableId}, N'{EscapeSqlValue(txtCustomerName.Text)}', N'{EscapeSqlValue(cbCase.Text)}', N'{EscapeSqlValue(cbPayMethod.Text)}', 0);
+                    string queryInsertBill = $@"INSERT INTO dbo.Bill (idTable, customerName, caseName, payMethod, status, kitchenStatus)
+                                               VALUES ({tableId}, N'{EscapeSqlValue(txtCustomerName.Text)}', N'{EscapeSqlValue(cbCase.Text)}', N'{EscapeSqlValue(cbPayMethod.Text)}', 0, N'Draft');
                                                SELECT SCOPE_IDENTITY();";
 
                     object result = Database.Instance.ExecuteScalar(queryInsertBill);
@@ -379,7 +379,11 @@ namespace Restaurant_Management_App.FORM
                 string updateBill = $@"UPDATE dbo.Bill
                                        SET customerName = N'{EscapeSqlValue(txtCustomerName.Text)}',
                                            caseName = N'{EscapeSqlValue(cbCase.Text)}',
-                                           payMethod = N'{EscapeSqlValue(cbPayMethod.Text)}'
+                                           payMethod = N'{EscapeSqlValue(cbPayMethod.Text)}',
+                                           kitchenStatus = CASE
+                                               WHEN kitchenStatus IS NULL OR kitchenStatus = N'Draft' THEN N'Pending'
+                                               ELSE kitchenStatus
+                                           END
                                        WHERE id = {billId}";
                 Database.Instance.ExecuteNonQuery(updateBill);
 
