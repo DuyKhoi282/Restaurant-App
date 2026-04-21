@@ -19,7 +19,6 @@ namespace Restaurant_Management_App.FORM
             InitializeComponent();
 
             Load += FrmOrder_Load;
-            btnCheckout.Click += BtnCheckout_Click;
             btnClear.Click += BtnClear_Click;
             numDiscount.ValueChanged += (s, e) => CalculateTotal();
         }
@@ -213,14 +212,11 @@ namespace Restaurant_Management_App.FORM
                 int exists = (int)Database.Instance.ExecuteScalar($"SELECT COUNT(*) FROM dbo.Bill WHERE id = {billId}");
                 if (exists == 0)
                 {
-                    string queryInsertBill = @"INSERT INTO dbo.Bill (idTable, customerName, caseName, payMethod, status)
-                                               VALUES (@idTable, @custName, @case, @pay, 0);
+                    string queryInsertBill = $@"INSERT INTO dbo.Bill (idTable, customerName, caseName, payMethod, status)
+                                               VALUES ({tableId}, N'{EscapeSqlValue(txtCustomerName.Text)}', N'{EscapeSqlValue(cbCase.Text)}', N'{EscapeSqlValue(cbPayMethod.Text)}', 0);
                                                SELECT SCOPE_IDENTITY();";
 
-                    object result = Database.Instance.ExecuteScalar(queryInsertBill, new object[]
-                    {
-                        tableId, txtCustomerName.Text, cbCase.Text, cbPayMethod.Text
-                    });
+                    object result = Database.Instance.ExecuteScalar(queryInsertBill);
 
                     billId = Convert.ToInt32(result);
                     txtOrderNo.Text = FormatBillId(billId);
@@ -238,7 +234,7 @@ namespace Restaurant_Management_App.FORM
 
         private void LoadBillDetails(int billId)
         {
-            string query = @"SELECT f.name AS [Item], bi.quantity AS [Qty], f.price AS [Unit price], (f.price * bi.quantity) AS [Total]
+            string query = @"SELECT bi.idFood AS foodId, f.name AS name, bi.quantity AS quantity, f.price AS price
                              FROM dbo.BillInfo bi
                              JOIN dbo.Food f ON bi.idFood = f.id
                              WHERE bi.idBill = " + billId;
@@ -252,8 +248,14 @@ namespace Restaurant_Management_App.FORM
             double subtotal = 0;
             foreach (DataGridViewRow row in dgvCart.Rows)
             {
-                if (row.Cells["Total"].Value != null)
-                    subtotal += Convert.ToDouble(row.Cells["Total"].Value);
+                if (row.IsNewRow) continue;
+
+                object priceObj = row.Cells["colPrice"].Value;
+                object qtyObj = row.Cells["colQty"].Value;
+
+                double price = priceObj == null || priceObj == DBNull.Value ? 0 : Convert.ToDouble(priceObj);
+                int qty = qtyObj == null || qtyObj == DBNull.Value ? 0 : Convert.ToInt32(qtyObj);
+                subtotal += price * qty;
             }
 
             double discountPercent = (double)numDiscount.Value;
@@ -263,32 +265,6 @@ namespace Restaurant_Management_App.FORM
             lblSubtotalValue.Text = subtotal.ToString("N0") + " VNĐ";
             lblTaxValue.Text = tax.ToString("N0") + " VNĐ";
             lblTotalValue.Text = total.ToString("N0") + " VNĐ";
-        }
-
-        private void BtnCheckout_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtOrderNo.Text))
-            {
-                MessageBox.Show("Không có hóa đơn nào để thanh toán!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            DialogResult result = MessageBox.Show("Tạo đơn thành công:>!", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result != DialogResult.Yes) return;
-
-            try
-            {
-                int billId = int.Parse(txtOrderNo.Text);
-                int tableId = (int)cbTable.SelectedValue;
-
-                BillDAL.Instance.CheckOut(billId);
-                Database.Instance.ExecuteNonQuery($"UPDATE tableFood SET status = N'Trống' WHERE id = {tableId}");
-                ResetForm();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Tạo đơn thất bại :< " + ex.Message);
-            }
         }
 
         private void ResetForm()
@@ -394,12 +370,12 @@ namespace Restaurant_Management_App.FORM
                 }
 
                 int billId = int.Parse(txtOrderNo.Text);
-                string updateBill = @"UPDATE dbo.Bill SET customerName = @name , caseName = @case , payMethod = @pay
-                                      WHERE id = @id";
-                Database.Instance.ExecuteNonQuery(updateBill, new object[]
-                {
-                    txtCustomerName.Text, cbCase.Text, cbPayMethod.Text, billId
-                });
+                string updateBill = $@"UPDATE dbo.Bill
+                                       SET customerName = N'{EscapeSqlValue(txtCustomerName.Text)}',
+                                           caseName = N'{EscapeSqlValue(cbCase.Text)}',
+                                           payMethod = N'{EscapeSqlValue(cbPayMethod.Text)}'
+                                       WHERE id = {billId}";
+                Database.Instance.ExecuteNonQuery(updateBill);
 
                 MessageBox.Show($"Lưu đơn hàng {txtOrderNo.Text} thành công!", "Thông báo");
                 ResetForm();
@@ -416,6 +392,11 @@ namespace Restaurant_Management_App.FORM
         private string FormatBillId(int id)
         {
             return id.ToString("D4");
+        }
+
+        private static string EscapeSqlValue(string input)
+        {
+            return (input ?? string.Empty).Replace("'", "''");
         }
 
         private sealed class FoodMenuItem
