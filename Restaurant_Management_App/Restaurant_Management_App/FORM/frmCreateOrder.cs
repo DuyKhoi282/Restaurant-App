@@ -235,7 +235,7 @@ namespace Restaurant_Management_App.FORM
 
         private void LoadBillDetails(int billId)
         {
-            string query = @"SELECT f.name AS [Item], bi.quantity AS [Qty], f.price AS [Unit price], (f.price * bi.quantity) AS [Total]
+            string query = @"SELECT bi.idFood AS foodId, f.name AS name, bi.quantity AS quantity, f.price AS price
                              FROM dbo.BillInfo bi
                              JOIN dbo.Food f ON bi.idFood = f.id
                              WHERE bi.idBill = " + billId;
@@ -249,8 +249,14 @@ namespace Restaurant_Management_App.FORM
             double subtotal = 0;
             foreach (DataGridViewRow row in dgvCart.Rows)
             {
-                if (row.Cells["Total"].Value != null)
-                    subtotal += Convert.ToDouble(row.Cells["Total"].Value);
+                if (row.IsNewRow) continue;
+
+                object priceObj = row.Cells["colPrice"].Value;
+                object qtyObj = row.Cells["colQty"].Value;
+
+                double price = priceObj == null || priceObj == DBNull.Value ? 0 : Convert.ToDouble(priceObj);
+                int qty = qtyObj == null || qtyObj == DBNull.Value ? 0 : Convert.ToInt32(qtyObj);
+                subtotal += price * qty;
             }
 
             double discountPercent = (double)numDiscount.Value;
