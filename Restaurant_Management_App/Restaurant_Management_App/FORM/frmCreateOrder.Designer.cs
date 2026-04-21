@@ -49,13 +49,12 @@ namespace Restaurant_Management_App.FORM
             this.btnCheckout = new System.Windows.Forms.Button();
             this.lblSubtotalCaption = new System.Windows.Forms.Label();
             this.lblSubtotalValue = new System.Windows.Forms.Label();
-            this.lblDiscountCaption = new System.Windows.Forms.Label();
-            this.numDiscount = new System.Windows.Forms.NumericUpDown();
             this.lblTaxCaption = new System.Windows.Forms.Label();
             this.lblTaxValue = new System.Windows.Forms.Label();
             this.lblTotalCaption = new System.Windows.Forms.Label();
             this.lblTotalValue = new System.Windows.Forms.Label();
-            this.btnDelete = new System.Windows.Forms.Button();
+            this.lblDiscountCaption = new System.Windows.Forms.Label();
+            this.numDiscount = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -84,7 +83,7 @@ namespace Restaurant_Management_App.FORM
             // 
             this.splitContainerMain.Panel2.Controls.Add(this.pnlOrder);
             this.splitContainerMain.Size = new System.Drawing.Size(1200, 720);
-            this.splitContainerMain.SplitterDistance = 431;
+            this.splitContainerMain.SplitterDistance = 551;
             this.splitContainerMain.TabIndex = 0;
             // 
             // pnlMenu
@@ -96,7 +95,7 @@ namespace Restaurant_Management_App.FORM
             this.pnlMenu.Location = new System.Drawing.Point(0, 0);
             this.pnlMenu.Name = "pnlMenu";
             this.pnlMenu.Padding = new System.Windows.Forms.Padding(10);
-            this.pnlMenu.Size = new System.Drawing.Size(431, 720);
+            this.pnlMenu.Size = new System.Drawing.Size(551, 720);
             this.pnlMenu.TabIndex = 0;
             // 
             // flpMenu
@@ -107,7 +106,7 @@ namespace Restaurant_Management_App.FORM
             this.flpMenu.Location = new System.Drawing.Point(10, 60);
             this.flpMenu.Name = "flpMenu";
             this.flpMenu.Padding = new System.Windows.Forms.Padding(5);
-            this.flpMenu.Size = new System.Drawing.Size(411, 650);
+            this.flpMenu.Size = new System.Drawing.Size(531, 650);
             this.flpMenu.TabIndex = 2;
             // 
             // pnlMenuSearch
@@ -118,7 +117,7 @@ namespace Restaurant_Management_App.FORM
             this.pnlMenuSearch.Location = new System.Drawing.Point(10, 10);
             this.pnlMenuSearch.Name = "pnlMenuSearch";
             this.pnlMenuSearch.Padding = new System.Windows.Forms.Padding(0, 0, 0, 8);
-            this.pnlMenuSearch.Size = new System.Drawing.Size(411, 50);
+            this.pnlMenuSearch.Size = new System.Drawing.Size(531, 50);
             this.pnlMenuSearch.TabIndex = 1;
             // 
             // txtSearchFood
@@ -128,7 +127,7 @@ namespace Restaurant_Management_App.FORM
             this.txtSearchFood.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.txtSearchFood.Location = new System.Drawing.Point(0, 12);
             this.txtSearchFood.Name = "txtSearchFood";
-            this.txtSearchFood.Size = new System.Drawing.Size(211, 28);
+            this.txtSearchFood.Size = new System.Drawing.Size(331, 28);
             this.txtSearchFood.TabIndex = 0;
             this.txtSearchFood.TextChanged += new System.EventHandler(this.txtSearchFood_TextChanged);
             // 
@@ -137,7 +136,7 @@ namespace Restaurant_Management_App.FORM
             this.cbCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCategory.FormattingEnabled = true;
-            this.cbCategory.Location = new System.Drawing.Point(228, 17);
+            this.cbCategory.Location = new System.Drawing.Point(348, 17);
             this.cbCategory.Name = "cbCategory";
             this.cbCategory.Size = new System.Drawing.Size(180, 24);
             this.cbCategory.TabIndex = 1;
@@ -163,7 +162,7 @@ namespace Restaurant_Management_App.FORM
             this.pnlOrder.Location = new System.Drawing.Point(0, 0);
             this.pnlOrder.Name = "pnlOrder";
             this.pnlOrder.Padding = new System.Windows.Forms.Padding(10);
-            this.pnlOrder.Size = new System.Drawing.Size(765, 720);
+            this.pnlOrder.Size = new System.Drawing.Size(645, 720);
             this.pnlOrder.TabIndex = 0;
             // 
             // dgvCart
@@ -187,7 +186,7 @@ namespace Restaurant_Management_App.FORM
             this.dgvCart.RowHeadersWidth = 51;
             this.dgvCart.RowTemplate.Height = 28;
             this.dgvCart.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCart.Size = new System.Drawing.Size(745, 360);
+            this.dgvCart.Size = new System.Drawing.Size(625, 360);
             this.dgvCart.TabIndex = 2;
             this.dgvCart.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCart_CellContentClick);
             // 
@@ -244,7 +243,7 @@ namespace Restaurant_Management_App.FORM
             this.pnlNote.Location = new System.Drawing.Point(10, 130);
             this.pnlNote.Name = "pnlNote";
             this.pnlNote.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.pnlNote.Size = new System.Drawing.Size(745, 70);
+            this.pnlNote.Size = new System.Drawing.Size(625, 70);
             this.pnlNote.TabIndex = 1;
             // 
             // txtNote
@@ -253,7 +252,7 @@ namespace Restaurant_Management_App.FORM
             this.txtNote.Location = new System.Drawing.Point(0, 5);
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
-            this.txtNote.Size = new System.Drawing.Size(745, 60);
+            this.txtNote.Size = new System.Drawing.Size(625, 60);
             this.txtNote.TabIndex = 1;
             // 
             // lblNote
@@ -283,7 +282,7 @@ namespace Restaurant_Management_App.FORM
             this.pnlOrderTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlOrderTop.Location = new System.Drawing.Point(10, 10);
             this.pnlOrderTop.Name = "pnlOrderTop";
-            this.pnlOrderTop.Size = new System.Drawing.Size(745, 120);
+            this.pnlOrderTop.Size = new System.Drawing.Size(625, 120);
             this.pnlOrderTop.TabIndex = 0;
             // 
             // lblTitle
@@ -407,7 +406,6 @@ namespace Restaurant_Management_App.FORM
             // 
             // pnlSummary
             // 
-            this.pnlSummary.Controls.Add(this.btnDelete);
             this.pnlSummary.Controls.Add(this.btnClear);
             this.pnlSummary.Controls.Add(this.btnCheckout);
             this.pnlSummary.Controls.Add(this.lblSubtotalCaption);
@@ -422,13 +420,13 @@ namespace Restaurant_Management_App.FORM
             this.pnlSummary.Location = new System.Drawing.Point(10, 560);
             this.pnlSummary.Name = "pnlSummary";
             this.pnlSummary.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.pnlSummary.Size = new System.Drawing.Size(745, 150);
+            this.pnlSummary.Size = new System.Drawing.Size(625, 150);
             this.pnlSummary.TabIndex = 3;
             // 
             // btnClear
             // 
             this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClear.Location = new System.Drawing.Point(463, 12);
+            this.btnClear.Location = new System.Drawing.Point(395, 12);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(80, 32);
             this.btnClear.TabIndex = 9;
@@ -442,7 +440,7 @@ namespace Restaurant_Management_App.FORM
             this.btnCheckout.FlatAppearance.BorderSize = 0;
             this.btnCheckout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCheckout.ForeColor = System.Drawing.Color.White;
-            this.btnCheckout.Location = new System.Drawing.Point(663, 12);
+            this.btnCheckout.Location = new System.Drawing.Point(515, 12);
             this.btnCheckout.Name = "btnCheckout";
             this.btnCheckout.Size = new System.Drawing.Size(67, 32);
             this.btnCheckout.TabIndex = 11;
@@ -462,36 +460,12 @@ namespace Restaurant_Management_App.FORM
             // lblSubtotalValue
             // 
             this.lblSubtotalValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSubtotalValue.Location = new System.Drawing.Point(287, 13);
+            this.lblSubtotalValue.Location = new System.Drawing.Point(167, 13);
             this.lblSubtotalValue.Name = "lblSubtotalValue";
             this.lblSubtotalValue.Size = new System.Drawing.Size(160, 23);
             this.lblSubtotalValue.TabIndex = 1;
             this.lblSubtotalValue.Text = "$0.00";
             this.lblSubtotalValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblDiscountCaption
-            // 
-            this.lblDiscountCaption.AutoSize = true;
-            this.lblDiscountCaption.Location = new System.Drawing.Point(14, 48);
-            this.lblDiscountCaption.Name = "lblDiscountCaption";
-            this.lblDiscountCaption.Size = new System.Drawing.Size(82, 16);
-            this.lblDiscountCaption.TabIndex = 2;
-            this.lblDiscountCaption.Text = "Discount (%)";
-            // 
-            // numDiscount
-            // 
-            this.numDiscount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numDiscount.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.numDiscount.Location = new System.Drawing.Point(515, 50);
-            this.numDiscount.Name = "numDiscount";
-            this.numDiscount.Size = new System.Drawing.Size(80, 22);
-            this.numDiscount.TabIndex = 3;
-            this.numDiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numDiscount.ValueChanged += new System.EventHandler(this.numDiscount_ValueChanged_1);
             // 
             // lblTaxCaption
             // 
@@ -505,7 +479,7 @@ namespace Restaurant_Management_App.FORM
             // lblTaxValue
             // 
             this.lblTaxValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTaxValue.Location = new System.Drawing.Point(419, 79);
+            this.lblTaxValue.Location = new System.Drawing.Point(299, 79);
             this.lblTaxValue.Name = "lblTaxValue";
             this.lblTaxValue.Size = new System.Drawing.Size(160, 23);
             this.lblTaxValue.TabIndex = 6;
@@ -527,22 +501,36 @@ namespace Restaurant_Management_App.FORM
             this.lblTotalValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTotalValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold);
             this.lblTotalValue.ForeColor = System.Drawing.Color.IndianRed;
-            this.lblTotalValue.Location = new System.Drawing.Point(419, 106);
+            this.lblTotalValue.Location = new System.Drawing.Point(299, 106);
             this.lblTotalValue.Name = "lblTotalValue";
             this.lblTotalValue.Size = new System.Drawing.Size(160, 29);
             this.lblTotalValue.TabIndex = 8;
             this.lblTotalValue.Text = "$0.00";
             this.lblTotalValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // btnDelete
+            // lblDiscountCaption
             // 
-            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(565, 13);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(80, 32);
-            this.btnDelete.TabIndex = 9;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
+            this.lblDiscountCaption.AutoSize = true;
+            this.lblDiscountCaption.Location = new System.Drawing.Point(14, 48);
+            this.lblDiscountCaption.Name = "lblDiscountCaption";
+            this.lblDiscountCaption.Size = new System.Drawing.Size(82, 16);
+            this.lblDiscountCaption.TabIndex = 2;
+            this.lblDiscountCaption.Text = "Discount (%)";
+            // 
+            // numDiscount
+            // 
+            this.numDiscount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numDiscount.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numDiscount.Location = new System.Drawing.Point(395, 50);
+            this.numDiscount.Name = "numDiscount";
+            this.numDiscount.Size = new System.Drawing.Size(80, 22);
+            this.numDiscount.TabIndex = 3;
+            this.numDiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numDiscount.ValueChanged += new System.EventHandler(this.numDiscount_ValueChanged_1);
             // 
             // frmCreateOrder
             // 
@@ -610,8 +598,6 @@ namespace Restaurant_Management_App.FORM
         private Panel pnlSummary;
         private Label lblSubtotalCaption;
         private Label lblSubtotalValue;
-        private Label lblDiscountCaption;
-        private NumericUpDown numDiscount;
         private Label lblTaxCaption;
         private Label lblTaxValue;
         private Label lblTotalCaption;
@@ -624,6 +610,7 @@ namespace Restaurant_Management_App.FORM
         private DataGridViewTextBoxColumn FoodID;
         private DataGridViewTextBoxColumn colName;
         private DataGridViewTextBoxColumn colQty;
-        private Button btnDelete;
+        private Label lblDiscountCaption;
+        private NumericUpDown numDiscount;
     }
 }

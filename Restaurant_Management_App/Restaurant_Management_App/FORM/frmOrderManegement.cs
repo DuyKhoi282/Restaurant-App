@@ -44,6 +44,7 @@ namespace Restaurant_Management_App
         FROM Bill b
         LEFT JOIN BillInfo bi ON b.id = bi.idBill
         LEFT JOIN Food f ON bi.idFood = f.id
+        WHERE b.status = 1 OR (b.status = 0 AND ISNULL(b.kitchenStatus, 'Pending') <> 'Draft')
         GROUP BY 
             b.id,
             b.dateCheckIn,

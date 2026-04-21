@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -102,11 +102,45 @@ GROUP BY f.name, f.price";
                 }
             }
 
-            txtTotalPrice.Text = total.ToString();
-            double discountAmount = total * (discountPercent / 100);
+
+            double discountAmount = 0;
+            double amountDue = total;
+
+            string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
+            string query = @"SELECT discountAmount, finalAmount
+                             FROM Bill
+                             WHERE id = @id";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", orderId);
+
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        if (reader["discountAmount"] != DBNull.Value)
+                        {
+                            discountAmount = Convert.ToDouble(reader["discountAmount"]);
+                        }
+
+                        if (reader["finalAmount"] != DBNull.Value)
+                        {
+                            amountDue = Convert.ToDouble(reader["finalAmount"]);
+                        }
+                        else
+                        {
+                            amountDue = total - discountAmount;
+                        }
+                    }
+                }
+            }
+
+            txtTotalPrice.Text = total.ToString("N0");
             txtDiscount.Text = discountAmount.ToString("N0");
 
-            double amountDue = total - discountAmount;
             txtAmountDue.Text = amountDue.ToString("N0");
         }
 
