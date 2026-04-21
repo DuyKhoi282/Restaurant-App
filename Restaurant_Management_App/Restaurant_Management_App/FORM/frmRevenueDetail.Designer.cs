@@ -180,6 +180,7 @@
             this.dgvRevenue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvRevenue.Size = new System.Drawing.Size(492, 666);
             this.dgvRevenue.TabIndex = 2;
+            this.dgvRevenue.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRevenue_CellDoubleClick);
             // 
             // panelDgv
             // 

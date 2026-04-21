@@ -438,6 +438,19 @@ namespace Restaurant_Management_App.FORM
 
             }
         }
+
+        private void dgvRevenue_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (reportType != ReportType.Date)
+                return;
+
+            if (e.RowIndex >= 0)
+            {
+                int billID = Convert.ToInt32(dgvRevenue.Rows[e.RowIndex].Cells[0].Value);
+
+                new frmBillToPrint(billID.ToString()).ShowDialog();
+            }
+        }
     }
 }
     
