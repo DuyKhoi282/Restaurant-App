@@ -37,10 +37,13 @@
             this.dtpFromDate = new System.Windows.Forms.DateTimePicker();
             this.pabelBottom = new System.Windows.Forms.Panel();
             this.lblTotalRevenue = new System.Windows.Forms.Label();
+            this.panelChart = new System.Windows.Forms.Panel();
             this.dgvRevenue = new System.Windows.Forms.DataGridView();
+            this.panelDgv = new System.Windows.Forms.Panel();
             this.panelTop.SuspendLayout();
             this.pabelBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRevenue)).BeginInit();
+            this.panelDgv.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelTop
@@ -99,6 +102,7 @@
             this.btnExport.TabIndex = 1;
             this.btnExport.Text = "Export";
             this.btnExport.UseVisualStyleBackColor = false;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // btnThongKe
             // 
@@ -151,21 +155,42 @@
             this.lblTotalRevenue.TabIndex = 0;
             this.lblTotalRevenue.Text = "Tổng doanh thu: 0 VND";
             // 
+            // panelChart
+            // 
+            this.panelChart.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelChart.Location = new System.Drawing.Point(0, 70);
+            this.panelChart.Name = "panelChart";
+            this.panelChart.Size = new System.Drawing.Size(805, 666);
+            this.panelChart.TabIndex = 3;
+            // 
             // dgvRevenue
             // 
             this.dgvRevenue.AllowUserToAddRows = false;
+            this.dgvRevenue.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvRevenue.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvRevenue.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvRevenue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRevenue.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvRevenue.Location = new System.Drawing.Point(0, 70);
+            this.dgvRevenue.Location = new System.Drawing.Point(0, 0);
             this.dgvRevenue.Name = "dgvRevenue";
             this.dgvRevenue.ReadOnly = true;
             this.dgvRevenue.RowHeadersWidth = 51;
             this.dgvRevenue.RowTemplate.Height = 24;
             this.dgvRevenue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRevenue.Size = new System.Drawing.Size(1300, 666);
+            this.dgvRevenue.Size = new System.Drawing.Size(492, 666);
             this.dgvRevenue.TabIndex = 2;
+            this.dgvRevenue.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRevenue_CellDoubleClick);
+            // 
+            // panelDgv
+            // 
+            this.panelDgv.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.panelDgv.Controls.Add(this.dgvRevenue);
+            this.panelDgv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelDgv.Location = new System.Drawing.Point(805, 70);
+            this.panelDgv.Name = "panelDgv";
+            this.panelDgv.Size = new System.Drawing.Size(495, 666);
+            this.panelDgv.TabIndex = 4;
             // 
             // frmRevenueDetail
             // 
@@ -173,7 +198,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1300, 800);
-            this.Controls.Add(this.dgvRevenue);
+            this.Controls.Add(this.panelDgv);
+            this.Controls.Add(this.panelChart);
             this.Controls.Add(this.pabelBottom);
             this.Controls.Add(this.panelTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -188,6 +214,7 @@
             this.pabelBottom.ResumeLayout(false);
             this.pabelBottom.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRevenue)).EndInit();
+            this.panelDgv.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -200,9 +227,11 @@
         private System.Windows.Forms.Button btnThongKe;
         private System.Windows.Forms.DateTimePicker dtpToDate;
         private System.Windows.Forms.DateTimePicker dtpFromDate;
-        private System.Windows.Forms.DataGridView dgvRevenue;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblTotalRevenue;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Panel panelChart;
+        private System.Windows.Forms.DataGridView dgvRevenue;
+        private System.Windows.Forms.Panel panelDgv;
     }
 }

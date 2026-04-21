@@ -14,6 +14,8 @@ namespace Restaurant_Management_App
     public partial class frmOrderDetails : Form
     {
         string _idOrder;
+        string currentRole;
+
         public frmOrderDetails(string idOrder)
         {
             InitializeComponent();
@@ -374,7 +376,11 @@ GROUP BY f.name, f.price";
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Form parent = this.ParentForm;
+            if (parent is frmMain main)
+            {
+                main.LoadForm(new frmOrderManegement(currentRole));
+            }
         }
 
 
