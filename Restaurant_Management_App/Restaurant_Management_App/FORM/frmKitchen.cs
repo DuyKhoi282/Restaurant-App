@@ -94,7 +94,7 @@ namespace Restaurant_Management_App.FORM
 
             // MÀU
             dgv.EnableHeadersVisualStyles = false;
-            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(192, 0, 0);
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(158, 27, 27);
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
 
             // ROW
@@ -115,7 +115,7 @@ namespace Restaurant_Management_App.FORM
 
             dgv.RowTemplate.Height = 50;
             dgv.EnableHeadersVisualStyles = false;
-            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(192, 0, 0);
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(158, 27, 27);
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
         }
 
