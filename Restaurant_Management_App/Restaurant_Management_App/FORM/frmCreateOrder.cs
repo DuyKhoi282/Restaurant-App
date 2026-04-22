@@ -358,7 +358,18 @@ namespace Restaurant_Management_App.FORM
                 if (MessageBox.Show("Bạn muốn xóa món này khỏi đơn hàng?", "Xác nhận",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    int result = Database.Instance.ExecuteNonQuery($"DELETE dbo.BillInfo WHERE idBill = {billId} AND idFood = {foodId}");
+                    DataTable billInfoRows = Database.Instance.ExecuteQuery(
+                        $"SELECT TOP 1 id, quantity FROM dbo.BillInfo WHERE idBill = {billId} AND idFood = {foodId} ORDER BY id");
+
+                    if (billInfoRows.Rows.Count == 0) return;
+
+                    int billInfoId = Convert.ToInt32(billInfoRows.Rows[0]["id"]);
+                    int currentQuantity = Convert.ToInt32(billInfoRows.Rows[0]["quantity"]);
+
+                    int result = currentQuantity > 1
+                        ? Database.Instance.ExecuteNonQuery($"UPDATE dbo.BillInfo SET quantity = quantity - 1 WHERE id = {billInfoId}")
+                        : Database.Instance.ExecuteNonQuery($"DELETE dbo.BillInfo WHERE id = {billInfoId}");
+
                     if (result > 0)
                     {
                         LoadBillDetails(billId);
