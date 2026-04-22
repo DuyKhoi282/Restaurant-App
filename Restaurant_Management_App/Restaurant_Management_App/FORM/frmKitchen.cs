@@ -52,6 +52,8 @@ namespace Restaurant_Management_App.FORM
         // ================= LOAD DANH SÁCH ĐƠN =================
         void LoadKitchen()
         {
+            int selectedId = GetSelectedBillId();
+
             string query = @"
                 SELECT id AS [Order ID], customerName AS [Customer], caseName AS [Type], kitchenStatus AS [Status]
                 FROM Bill
@@ -63,7 +65,18 @@ namespace Restaurant_Management_App.FORM
 
             PaintStatus();
 
-            
+            if (selectedId > 0)
+            {
+                foreach (DataGridViewRow row in dgvKitchen.Rows)
+                {
+                    if (Convert.ToInt32(row.Cells["Order ID"].Value) == selectedId)
+                    {
+                        row.Selected = true;
+                        dgvKitchen.CurrentCell = row.Cells[0];
+                        break;
+                    }
+                }
+            }
         }
 
         // ================= LOAD CHI TIẾT =================
