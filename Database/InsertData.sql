@@ -21,7 +21,7 @@ VALUES
 -- ========================
 -- Food
 -- ========================
-INSERT INTO Food(name, idCategory, price)
+INSERT INTO Food(name, idCategory, price, status, image)
 VALUES 
 (N'Trà đào', 1, 30000, 'Available', 'Images/Food/tra_dao.jpg'),
 (N'Cà phê sữa', 1, 25000, 'Available', 'Images/Food/ca_phe.jpg'),
