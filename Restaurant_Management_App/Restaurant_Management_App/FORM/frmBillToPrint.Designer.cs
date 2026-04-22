@@ -164,7 +164,6 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "frmBillToPrint";
-            this.Text = "frmBillToPrint";
             this.Load += new System.EventHandler(this.frmBillToPrint_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
