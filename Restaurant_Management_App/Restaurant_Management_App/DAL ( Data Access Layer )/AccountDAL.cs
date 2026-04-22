@@ -123,40 +123,56 @@ namespace Restaurant_Management_App
 
         // Thêm string imageName vào cuối danh sách tham số
         public bool UpdateAccount(string password, string userId, string fullname, DateTime birthday,
-                                  string phone, string address, string ward, string district,
-                                  string city, decimal salary, string email, int roleId, string imageName)
+                           string phone, string address, string ward, string district,
+                           string city, decimal salary, string email, int RoleId, string imageName)
         {
             try
             {
                 using (SqlConnection conn = new SqlConnection(Database.connStr))
                 {
                     conn.Open();
-                    // Bổ sung imagePath = @img vào câu lệnh SQL
+                    // CHÚ Ý: Tuyệt đối không có dấu ngoặc () sau SET
                     string query = @"UPDATE Account 
-                            SET password = @p, RoleId = @r, fullname = @f, phone = @ph, 
-                                email = @e, birthday = @b, address = @a, ward = @w, 
-                                district = @d, city = @c, salary = @s, imagePath = @img
-                            WHERE userId = @u";
+                             SET password = @password, 
+                                 RoleId = @RoleId, 
+                                 fullname = @fullname, 
+                                 phone = @phone, 
+                                 email = @email, 
+                                 birthday = @birthday, 
+                                 address = @address, 
+                                 ward = @ward, 
+                                 district = @district, 
+                                 city = @city, 
+                                 salary = @salary, 
+                                 imagePath = @imagePath
+                             WHERE userId = @userId";
 
                     SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@u", userId);
-                    cmd.Parameters.AddWithValue("@p", password);
-                    cmd.Parameters.AddWithValue("@r", roleId);
-                    cmd.Parameters.AddWithValue("@f", fullname);
-                    cmd.Parameters.AddWithValue("@ph", phone);
-                    cmd.Parameters.AddWithValue("@e", email);
-                    cmd.Parameters.AddWithValue("@b", birthday);
-                    cmd.Parameters.AddWithValue("@a", address);
-                    cmd.Parameters.AddWithValue("@w", ward);
-                    cmd.Parameters.AddWithValue("@d", district);
-                    cmd.Parameters.AddWithValue("@c", city);
-                    cmd.Parameters.AddWithValue("@s", salary);
-                    cmd.Parameters.AddWithValue("@img", (object)imageName ?? DBNull.Value);
+
+                    // Khai báo tường minh để tránh lỗi "Must declare variable"
+                    cmd.Parameters.AddWithValue("@password", password);
+                    cmd.Parameters.AddWithValue("@RoleId", RoleId);
+                    cmd.Parameters.AddWithValue("@fullname", fullname);
+                    cmd.Parameters.AddWithValue("@phone", phone);
+                    cmd.Parameters.AddWithValue("@email", email);
+                    cmd.Parameters.AddWithValue("@birthday", birthday);
+                    cmd.Parameters.AddWithValue("@address", address);
+                    cmd.Parameters.AddWithValue("@ward", ward);
+                    cmd.Parameters.AddWithValue("@district", district);
+                    cmd.Parameters.AddWithValue("@city", city);
+                    cmd.Parameters.AddWithValue("@salary", salary);
+                    cmd.Parameters.AddWithValue("@imagePath", (object)imageName ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@userId", userId);
 
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
-            catch { return false; }
+            catch (Exception ex)
+            {
+                // Tạm thời hiện lỗi để biết chính xác nó chết ở đâu
+                MessageBox.Show("Lỗi tại DAL: " + ex.Message);
+                return false;
+            }
         }
 
         //==============================================

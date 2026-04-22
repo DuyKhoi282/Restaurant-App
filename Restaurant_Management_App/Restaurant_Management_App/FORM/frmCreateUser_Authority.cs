@@ -22,6 +22,7 @@ namespace Restaurant_Management_App
         string imageName = "";
         string tempPath = "";
         private int employeeId = 0; // ID nhân viên nếu là mode Edit
+        private bool isBinding = false; // Biến cờ ngăn chặn sự kiện "đánh nhau"
 
         AccountDAL AccountDAL = new AccountDAL();
         public frmCreateUser_Authority()
@@ -45,6 +46,11 @@ namespace Restaurant_Management_App
                 cbxRole_CUA.DisplayMember = "RoleName";// Thiết lập DisplayMember để hiển thị tên quyền trong ComboBox
                 cbxRole_CUA.ValueMember = "Id";// Thiết lập ValueMember để lấy giá trị Id của quyền khi chọn trong ComboBox
             }
+
+            DataTable dtCity = AccountDAL.GetCityList();
+            cbxCity_CUA.DataSource = dtCity;
+            cbxCity_CUA.DisplayMember = "cityName";
+            cbxCity_CUA.ValueMember = "cityId";
 
             LoadAccountList(); //load ds tài khoản lên DataGridView
 
@@ -71,6 +77,9 @@ namespace Restaurant_Management_App
 
         private void btnCreate_CUA_Click(object sender, EventArgs e) 
         {
+
+            
+
             // Lấy thông tin từ các TextBox và ComboBox
             string userId = txtUserId_CUA.Text.Trim();// Lấy tên đăng nhập từ TextBox và loại bỏ khoảng trắng ở đầu và cuối
             string password = txtPassword_CUA.Text.Trim();
@@ -82,22 +91,51 @@ namespace Restaurant_Management_App
             string ward = cbxWard_CUA.Text.Trim();
             string city = cbxCity_CUA.Text.Trim();
             string district = cbxDistrict_CUA.Text.Trim();
-            decimal salary = txtSalary_CUA.Text.Trim() == "" ? 0 : Convert.ToDecimal(txtSalary_CUA.Text.Trim());
-            // Lấy RoleId từ ComboBox
-            int roleId = Convert.ToInt32(cbxRole_CUA.SelectedValue);
+            string salary = txtSalary_CUA.Text.Trim();            // Lấy RoleId từ ComboBox
+            int RoleId = Convert.ToInt32(cbxRole_CUA.SelectedValue);
+
+            if (string.IsNullOrWhiteSpace(userId) ||
+                   string.IsNullOrWhiteSpace(password) ||
+                   string.IsNullOrWhiteSpace(fullname) ||
+                   string.IsNullOrWhiteSpace(phone) ||
+                   string.IsNullOrWhiteSpace(email) ||
+                   string.IsNullOrWhiteSpace(address) ||
+                   string.IsNullOrWhiteSpace(ward) ||
+                   string.IsNullOrWhiteSpace(city) ||
+                   string.IsNullOrWhiteSpace(district) ||
+                   string.IsNullOrWhiteSpace(salary) ||
+                   cbxRole_CUA.SelectedValue == null || // Kiểm tra chưa chọn Quyền
+                   string.IsNullOrEmpty(selectedImagePath)) // Kiểm tra chưa chọn ảnh
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ tất cả thông tin và chọn ảnh đại diện!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             using (SqlConnection conn = new SqlConnection(Database.connStr))
             {
-                conn.Open();// Mở kết nối đến cơ sở dữ liệu
+                conn.Open();
+
+                // 3. Kiểm tra trùng UserID
+                string checkQuery = "SELECT COUNT(*) FROM Account WHERE UserId = @u";
+                SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
+                checkCmd.Parameters.AddWithValue("@u", userId);
+                if ((int)checkCmd.ExecuteScalar() > 0)
+                {
+                    MessageBox.Show("UserID đã tồn tại!");
+                    return;
+                }
+
+                // 4. Lưu ảnh thực tế vào thư mục dự án
+                string fileNameSaved = SaveUserImage(userId, selectedImagePath);
 
                 string query = @"INSERT INTO Account
-        (userId, password, RoleId, fullname, phone, email, birthday, address, ward, district, city, salary)
-        VALUES (@u, @p, @r, @f, @ph, @e, @b,@a,@w,@d,@c,@s)"; // Truy vấn SQL để chèn một tài khoản mới vào bảng Account
+        (userId, password, RoleId, fullname, phone, email, birthday, address, ward, district, city, salary, imagePath)
+        VALUES (@u, @p, @RoleId, @f, @ph, @e, @b,@a,@w,@d,@c,@s,@img)"; // Truy vấn SQL để chèn một tài khoản mới vào bảng Account
                 SqlCommand cmd = new SqlCommand(query, conn);// Tạo SqlCommand để thực thi truy vấn
 
                 cmd.Parameters.AddWithValue("@u", userId);// Thêm tham số @u với giá trị username vào SqlCommand
-                cmd.Parameters.AddWithValue("@p", password);          
-                cmd.Parameters.AddWithValue("@r", roleId);
+                cmd.Parameters.AddWithValue("@p", password);
+                cmd.Parameters.AddWithValue("@RoleId", RoleId);
                 cmd.Parameters.AddWithValue("@f", fullname);
                 cmd.Parameters.AddWithValue("@ph", phone);
                 cmd.Parameters.AddWithValue("@e", email);
@@ -105,31 +143,28 @@ namespace Restaurant_Management_App
                 cmd.Parameters.AddWithValue("@a", address);
                 cmd.Parameters.AddWithValue("@w", ward);
                 cmd.Parameters.AddWithValue("@d", district);
-                cmd.Parameters.AddWithValue("@c", city);          
+                cmd.Parameters.AddWithValue("@c", city);
                 cmd.Parameters.AddWithValue("@s", salary);
+                //cmd.Parameters.AddWithValue("@img", SaveUserImage(userId, selectedImagePath)); // Lưu ảnh và lấy tên file để lưu vào DB
+                // 1. Gọi lưu ảnh và hứng kết quả vào biến
+                string fileNameForDB = SaveUserImage(userId, selectedImagePath);
 
-                // check tài khoản đã tồn tại chưa 
-                string checkQuery = "SELECT COUNT(*) FROM Account WHERE UserId = @u";
-                SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
-                checkCmd.Parameters.AddWithValue("@u", userId);
-
-                int count = (int)checkCmd.ExecuteScalar();
-
-                if (count > 0)
+                // 2. Kiểm tra nếu lưu ảnh thất bại (trả về null) thì xử lý
+                if (fileNameForDB == null)
                 {
-                    MessageBox.Show("UserID đã tồn tại!");
-                    return;
+                    // Bạn có thể chọn báo lỗi hoặc gán giá trị mặc định
+                    // Ở đây ta dùng DBNull.Value để SQL hiểu đây là giá trị trống hợp lệ
+                    cmd.Parameters.AddWithValue("@img", DBNull.Value);
                 }
-
-                if (userId == "" || password == "" )
+                else
                 {
-                    MessageBox.Show("Nhập đầy đủ thông tin!");
-                    return;
+                    cmd.Parameters.AddWithValue("@img", fileNameForDB);
                 }
 
                 cmd.ExecuteNonQuery();// Thực thi truy vấn để chèn dữ liệu vào cơ sở dữ liệu
 
                 MessageBox.Show("Tạo tài khoản thành công!");
+                selectedImagePath = ""; // Reset biến tạm
                 LoadAccountList();
             }
         }
@@ -138,98 +173,98 @@ namespace Restaurant_Management_App
         // để dễ dàng chỉnh sửa hoặc xem thông tin chi tiết
         private void dgvAccount_CellClick(object sender, DataGridViewCellEventArgs e) 
         {
+            btnClear_CUA_Click(null, null);
+            cbxCity_CUA.Enabled = true;
+            cbxDistrict_CUA.Enabled = true;
+            cbxWard_CUA.Enabled = true;
             if (e.RowIndex >= 0)
-            {
-                DataGridViewRow row = dgvAccount.Rows[e.RowIndex];
+            {   
+                isBinding = true;
 
-                // --- 1. ĐỔ DỮ LIỆU VÀO TEXTBOX ---
-                txtUserId_CUA.Text = row.Cells["userId"].Value?.ToString();
-                txtPassword_CUA.Text = row.Cells["password"].Value?.ToString();
-                txtFullname_CUA.Text = row.Cells["fullname"].Value?.ToString();
-                txtPhone_CUA.Text = row.Cells["phone"].Value?.ToString();
-                txtEmail_CUA.Text = row.Cells["email"].Value?.ToString();
-                txtAddress_CUA.Text = row.Cells["address"].Value?.ToString();
-                txtSalary_CUA.Text = row.Cells["salary"].Value?.ToString();
-
-                // --- 2. ĐỔ DỮ LIỆU VÀO COMBOBOX ĐỊA CHỈ ---
-                cbxCity_CUA.Text = row.Cells["city"].Value?.ToString();
-                cbxDistrict_CUA.Enabled = true;
-                cbxWard_CUA.Enabled = true;
-
-                if (cbxCity_CUA.SelectedValue != null)
-                {
-                    string cityId = cbxCity_CUA.SelectedValue.ToString();
-                    cbxDistrict_CUA.DataSource = AccountDAL.GetDistrictListByCity(cityId);
-                    cbxDistrict_CUA.DisplayMember = "districtName";
-                    cbxDistrict_CUA.ValueMember = "districtId";
-                    cbxDistrict_CUA.Text = row.Cells["district"].Value?.ToString().Trim();
-                }
-
-                if (cbxDistrict_CUA.SelectedValue != null)
-                {
-                    string districtId = cbxDistrict_CUA.SelectedValue.ToString();
-                    cbxWard_CUA.DataSource = AccountDAL.GetWardListByDistrict(districtId);
-                    cbxWard_CUA.DisplayMember = "wardName";
-                    cbxWard_CUA.ValueMember = "wardId";
-                    cbxWard_CUA.Text = row.Cells["ward"].Value?.ToString().Trim();
-                }
-
-                // --- 3. XỬ LÝ ROLE ---
-                if (row.Cells["RoleId"].Value != null)
-                {
-                    cbxRole_CUA.SelectedValue = row.Cells["RoleId"].Value;
-                }
-
-                // --- 4. XỬ LÝ DATETIMEPICKER ---
-                if (row.Cells["birthday"].Value != null && row.Cells["birthday"].Value != DBNull.Value)
-                {
-                    dtpBirthday_CUA.Value = Convert.ToDateTime(row.Cells["birthday"].Value);
-                }
-
-                // --- 5. BỔ SUNG: XỬ LÝ HIỂN THỊ ẢNH (PICTUREBOX) ---
-                // --- TRONG HÀM dgvAccount_CellClick ---
-                picAvaUser_CUA.BackColor = Color.Red;
                 try
                 {
-                    // 1. Reset trạng thái
-                    picAvaUser_CUA.BackColor = Color.Red; // Giữ để biết code có chạy qua đây
-                    if (picAvaUser_CUA.Image != null)
+                    DataGridViewRow row = dgvAccount.Rows[e.RowIndex];
+
+                    // 1. ĐỔ TEXTBOX (Giữ nguyên)
+                    txtUserId_CUA.Text = row.Cells["userId"].Value?.ToString();
+                    txtPassword_CUA.Text = row.Cells["password"].Value?.ToString();
+                    txtFullname_CUA.Text = row.Cells["fullname"].Value?.ToString();
+                    txtPhone_CUA.Text = row.Cells["phone"].Value?.ToString();
+                    txtEmail_CUA.Text = row.Cells["email"].Value?.ToString();
+                    txtAddress_CUA.Text = row.Cells["address"].Value?.ToString();
+                    txtSalary_CUA.Text = row.Cells["salary"].Value?.ToString();
+
+                    // --- Lấy dữ liệu City từ Grid (Khử lỗi null và khoảng trắng) ---
+                    string cityName = row.Cells["city"].Value?.ToString().Trim();
+                    string distName = row.Cells["district"].Value?.ToString().Trim();
+                    string wardName = row.Cells["ward"].Value?.ToString().Trim();
+
+                    // 1. Gán City
+                    cbxCity_CUA.Text = cityName;
+
+                    // 2. Nạp và gán District dựa trên City vừa chọn
+                    if (cbxCity_CUA.SelectedValue != null)
                     {
-                        picAvaUser_CUA.Image.Dispose();
-                        picAvaUser_CUA.Image = null;
+                        cbxDistrict_CUA.DataSource = AccountDAL.GetDistrictListByCity(cbxCity_CUA.SelectedValue.ToString());
+                        cbxDistrict_CUA.DisplayMember = "districtName";
+                        cbxDistrict_CUA.ValueMember = "districtId";
+                        cbxDistrict_CUA.Text = distName; // Gán tên quận sau khi đã có DataSource
                     }
 
-                    // 2. Lấy tên file và xóa khoảng trắng (Trim)
-                    string imageName = row.Cells["imagePath"].Value?.ToString().Trim();
-                    if (!string.IsNullOrEmpty(imageName))
+                    // 3. Nạp và gán Ward dựa trên District vừa chọn
+                    if (cbxDistrict_CUA.SelectedValue != null)
                     {
-                        string fullPath = Path.Combine(GetAvaFolderPath(), imageName);
-
-                        if (File.Exists(fullPath))
-                        {
-                            // Xóa ảnh cũ
-                            if (picAvaUser_CUA.Image != null) picAvaUser_CUA.Image.Dispose();
-
-                            using (FileStream fs = new FileStream(fullPath, FileMode.Open, FileAccess.Read))
-                            {
-                                picAvaUser_CUA.Image = Image.FromStream(fs);
-                            }
-                            picAvaUser_CUA.SizeMode = PictureBoxSizeMode.Zoom;
-                            picAvaUser_CUA.BackColor = Color.Transparent;
-                            picAvaUser_CUA.Invalidate(); // Ép PictureBox vẽ lại
-                        }
-                        else
-                        {
-                            picAvaUser_CUA.BackColor = Color.Gray; // Đổi sang màu xám nếu không tìm thấy file
-                        }
+                        cbxWard_CUA.DataSource = AccountDAL.GetWardListByDistrict(cbxDistrict_CUA.SelectedValue.ToString());
+                        cbxWard_CUA.DisplayMember = "wardName";
+                        cbxWard_CUA.ValueMember = "wardId";
+                        cbxWard_CUA.Text = wardName; // Gán tên phường
                     }
+                        //  XỬ LÝ ROLE & BIRTHDAY (Giữ nguyên)
+                        if (row.Cells["RoleId"].Value != null) cbxRole_CUA.SelectedValue = row.Cells["RoleId"].Value;
+                        if (row.Cells["birthday"].Value != null && row.Cells["birthday"].Value != DBNull.Value)
+                        dtpBirthday_CUA.Value = Convert.ToDateTime(row.Cells["birthday"].Value);
+
+                    //  XỬ LÝ ẢNH (Giữ nguyên đoạn FileStream đã chạy được của bạn)
+                    HandleImageDisplay(row.Cells["imagePath"].Value?.ToString()?.Trim());
+                    
                 }
                 catch (Exception ex)
                 {
-                    // Nếu nạp ảnh bị lỗi (định dạng sai, file hỏng), nó sẽ hiện thông báo ở đây
-                    MessageBox.Show("Lỗi tại PictureBox: " + ex.Message);
+                    MessageBox.Show("Lỗi: " + ex.Message);
+                }
+                finally
+                {
+                    isBinding = false;
                 }
             }
+        }
+
+        // Hàm phụ để code CellClick nhìn gọn hơn
+        private void HandleImageDisplay(string imageName)
+        {
+            try
+            {
+                if (picAvaUser_CUA.Image != null) picAvaUser_CUA.Image.Dispose();
+                oldImagePath = imageName;
+                if (!string.IsNullOrEmpty(imageName))
+                {
+                    string fullPath = Path.Combine(GetAvaFolderPath(), imageName);
+                    if (File.Exists(fullPath))
+                    {
+                        using (FileStream fs = new FileStream(fullPath, FileMode.Open, FileAccess.Read))
+                        {
+                            picAvaUser_CUA.Image = Image.FromStream(fs);
+                        }
+                        picAvaUser_CUA.SizeMode = PictureBoxSizeMode.Zoom;
+                        picAvaUser_CUA.BackColor = Color.Transparent;
+                    }
+                    else
+                    {
+                        picAvaUser_CUA.BackColor = Color.Gray;
+                    }
+                }
+            }
+            catch { picAvaUser_CUA.BackColor = Color.Red; }
         }
     
 
@@ -261,30 +296,54 @@ namespace Restaurant_Management_App
 
         private void cbxCity_CUA_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbxCity_CUA.SelectedValue != null && cbxCity_CUA.Focused)
-            {
-                string cityId = cbxCity_CUA.SelectedValue.ToString();
-                cbxDistrict_CUA.DataSource = AccountDAL.GetDistrictListByCity(cityId);
-                cbxDistrict_CUA.DisplayMember = "districtName";
-                cbxDistrict_CUA.ValueMember = "districtId";
+            if (isBinding) return; // Quan trọng: Tránh xung đột khi click Grid
 
-                cbxWard_CUA.DataSource = null; // Reset phường khi đổi thành phố
-                cbxDistrict_CUA.Enabled = true; // Bật ComboBox quận/huyện
-                cbxWard_CUA.Enabled = false; // Tạm thời tắt ComboBox phường/xã cho đến khi chọn quận/huyện
+            if (cbxCity_CUA.SelectedValue != null && cbxCity_CUA.SelectedIndex != -1)
+            {
+                try
+                {
+                    // 1. Lấy ID của thành phố đang chọn
+                    string cityId = cbxCity_CUA.SelectedValue.ToString();
+
+                    // 2. Mở khóa và tải dữ liệu cho District
+                    cbxDistrict_CUA.Enabled = true;
+                    DataTable dt = AccountDAL.GetDistrictListByCity(cityId);
+
+                    cbxDistrict_CUA.DataSource = dt;
+                    cbxDistrict_CUA.DisplayMember = "districtName";
+                    cbxDistrict_CUA.ValueMember = "districtId";
+
+                    // 3. Reset District và Ward về trạng thái chưa chọn
+                    cbxDistrict_CUA.SelectedIndex = -1;
+                    cbxWard_CUA.DataSource = null;
+                    cbxWard_CUA.Enabled = false;
+                }
+                catch { }
             }
         }
 
         private void cbxDistrict_CUA_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbxDistrict_CUA.SelectedValue != null && cbxDistrict_CUA.Focused)
-            {
-                string districtId = cbxDistrict_CUA.SelectedValue.ToString();
-                cbxWard_CUA.DataSource = AccountDAL.GetWardListByDistrict(districtId);
-                cbxWard_CUA.DisplayMember = "wardName";
-                cbxWard_CUA.ValueMember = "wardId";
+            if (isBinding) return;
 
-                
-                cbxWard_CUA.Enabled = true; // Bật ComboBox phường/xã
+            if (cbxDistrict_CUA.SelectedValue != null && cbxDistrict_CUA.SelectedIndex != -1)
+            {
+                try
+                {
+                    // 1. Lấy ID của Quận đang chọn
+                    string districtId = cbxDistrict_CUA.SelectedValue.ToString();
+
+                    // 2. Mở khóa và tải dữ liệu cho Ward
+                    cbxWard_CUA.Enabled = true;
+                    DataTable dt = AccountDAL.GetWardListByDistrict(districtId);
+
+                    cbxWard_CUA.DataSource = dt;
+                    cbxWard_CUA.DisplayMember = "wardName";
+                    cbxWard_CUA.ValueMember = "wardId";
+
+                    cbxWard_CUA.SelectedIndex = -1;
+                }
+                catch { }
             }
         }
 
@@ -323,6 +382,18 @@ namespace Restaurant_Management_App
 
             // Cho phép nhập lại UserId (nếu trước đó bạn khóa để tránh sửa ID)
             txtUserId_CUA.ReadOnly = false;
+
+            if (picAvaUser_CUA.Image != null)
+            {
+                picAvaUser_CUA.Image.Dispose(); // Giải phóng bộ nhớ
+                picAvaUser_CUA.Image = null;    // Xóa hình
+            }
+
+            // Reset lại màu nền mặc định (nếu trước đó bạn để màu đỏ/xám để test)
+            picAvaUser_CUA.BackColor = Color.LightGray;
+
+            // Reset biến lưu đường dẫn ảnh cũ (nếu có dùng)
+            oldImagePath = "";
 
             txtFullname_CUA.Focus(); // Đưa con trỏ chuột về ô tên
         }
@@ -364,7 +435,7 @@ namespace Restaurant_Management_App
                 string district = cbxDistrict_CUA.Text;
                 string city = cbxCity_CUA.Text;
                 DateTime birthday = dtpBirthday_CUA.Value;
-                int roleId = Convert.ToInt32(cbxRole_CUA.SelectedValue);
+                int RoleId = Convert.ToInt32(cbxRole_CUA.SelectedValue);
 
                 if (!decimal.TryParse(txtSalary_CUA.Text.Trim(), out decimal salary))
                 {
@@ -387,17 +458,35 @@ namespace Restaurant_Management_App
                 }
 
                 // 4. Xử lý lịch sử mật khẩu (Nếu đổi pass)
-                string currentPassInDb = AccountDAL.GetCurrentPassword(userId);
-                if (password != currentPassInDb)
-                {
-                    string queryHistory = "INSERT INTO PasswordHistory (userId, oldPassword, newPassword, changedBy) " +
-                                          "VALUES (@id, @old, @new, @by)";
-                    Database.Instance.ExecuteNonQuery(queryHistory, new object[] { userId, currentPassInDb, password, UserSession.UserId });
-                }
+                // Kiểm tra mật khẩu (Sử dụng tên biến khác để tránh lỗi scope)
+string oldPassForHistory = AccountDAL.GetCurrentPassword(userId);
+
+if (password != oldPassForHistory)
+{
+    // 1. Dùng tên biến rõ ràng @u, @old...
+    string queryHistory = "INSERT INTO PasswordHistory (userId, oldPassword, newPassword, changedBy) " +
+                          "VALUES (@u, @old, @new, @by)";
+    
+    // 2. Tạo Command trực tiếp tại đây để tránh lỗi mapping của lớp Database
+    using (SqlConnection conn = new SqlConnection(Database.connStr))
+    {
+        conn.Open();
+        SqlCommand cmdH = new SqlCommand(queryHistory, conn);
+
+        string currentPwd = password.ToString(); 
+        string oldPwd = oldPassForHistory.ToString();
+
+        cmdH.Parameters.AddWithValue("@u", userId);
+        cmdH.Parameters.AddWithValue("@old", oldPwd);
+        cmdH.Parameters.AddWithValue("@new", currentPwd);
+        cmdH.Parameters.AddWithValue("@by", UserSession.UserId);
+        cmdH.ExecuteNonQuery();
+    }
+}
 
                 // 5. Gọi hàm Update từ DAL (Truyền finalImageName vào cuối cùng)
                 // Lưu ý: Đảm bảo hàm UpdateAccount trong lớp AccountDAL có nhận tham số cuối là string
-                bool isUpdate = AccountDAL.UpdateAccount(password, userId, fullname, birthday, phone, address, ward, district, city, salary, email, roleId, finalImageName);
+                bool isUpdate = AccountDAL.UpdateAccount(password, userId, fullname, birthday, phone, address, ward, district, city, salary, email, RoleId, finalImageName);
 
                 if (isUpdate)
                 {
@@ -565,35 +654,32 @@ namespace Restaurant_Management_App
             }
         }
 
-        private string SaveUserImage(string userId, string path)
+        private string SaveUserImage(string userId, string sourcePath)
         {
-            // Nếu không chọn ảnh mới (path trống), lấy lại tên ảnh cũ từ DB
-            if (string.IsNullOrEmpty(path))
-            {
-                return AccountDAL.GetCurrentImagePath(userId);
-            }
-
             try
             {
-                string folder = GetAvaFolderPath(); // Hàm lấy đường dẫn thư mục JPG/Ava
-                string extension = Path.GetExtension(path);
+                // Nếu người dùng không chọn ảnh, không làm gì cả và trả về null
+                if (string.IsNullOrEmpty(sourcePath) || !File.Exists(sourcePath))
+                    return null;
+
+                string folderPath = GetAvaFolderPath();
+                if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
+
+                string extension = Path.GetExtension(sourcePath);
                 string fileName = userId + extension;
-                string fullSavePath = Path.Combine(folder, fileName);
+                string destPath = Path.Combine(folderPath, fileName);
 
-                // Giải phóng ảnh trong PictureBox nếu đang hiển thị để tránh lỗi "File in use"
-                if (picAvaUser_CUA.Image != null)
-                {
-                    picAvaUser_CUA.Image.Dispose();
-                    picAvaUser_CUA.Image = null;
-                }
+                // Copy ghi đè nếu đã tồn tại
+                File.Copy(sourcePath, destPath, true);
 
-                File.Copy(path, fullSavePath, true);
                 return fileName;
             }
             catch (Exception ex)
             {
-                return "";
-            }           
+                // Tạm thời hiện lỗi để bạn debug xem đường dẫn có đúng không
+                Console.WriteLine("Lỗi lưu ảnh: " + ex.Message);
+                return null;
+            }
         }
 
         private string GetAvaFolderPath()
