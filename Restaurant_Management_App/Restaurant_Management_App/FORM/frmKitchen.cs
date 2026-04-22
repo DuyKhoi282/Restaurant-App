@@ -40,6 +40,25 @@ namespace Restaurant_Management_App.FORM
             dgvKitchen.RowHeadersVisible = false;
             dgvDetail.RowHeadersVisible = false;
 
+            this.Font = new Font("Segoe UI", 15F);
+
+            // TITLE
+            lblTitle.Font = new Font("Segoe UI", 26F, FontStyle.Bold);
+
+            // STATUS
+            lblPending.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            lblCooking.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            lblReady.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+
+            // GRID
+            StyleGrid(dgvKitchen);
+            StyleGrid(dgvDetail);
+
+            // BUTTON
+            StyleButton(btnCooking, Color.FromArgb(220, 53, 69));
+            StyleButton(btnReady, Color.FromArgb(200, 35, 51));
+            StyleButton(btnBack, Color.Gray);
+
             LoadKitchen();
             StartAutoRefresh();
 
@@ -47,6 +66,57 @@ namespace Restaurant_Management_App.FORM
             {
                 btnBack.Visible = false;
             }
+        }
+
+        private void StyleButton(Button btn, Color color)
+        {
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.BorderSize = 0;
+            btn.BackColor = color;
+            btn.ForeColor = Color.White;
+            btn.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            btn.Height = 60;
+            btn.Width = 180;
+        }
+
+        private void StyleGrid(DataGridView dgv)
+        {
+            dgv.BorderStyle = BorderStyle.None;
+            dgv.BackgroundColor = Color.White;
+
+            // 🔥 QUAN TRỌNG: Header không bị đè
+            dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dgv.ColumnHeadersHeight = 55; // >= row height
+
+            // FONT
+            dgv.DefaultCellStyle.Font = new Font("Segoe UI", 15F);
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+
+            // MÀU
+            dgv.EnableHeadersVisualStyles = false;
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(192, 0, 0);
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+
+            // ROW
+            dgv.RowTemplate.Height = 50;
+
+            // 🔥 FIX khoảng cách
+            dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            // tránh chữ bị dính
+            dgv.ColumnHeadersDefaultCellStyle.Padding = new Padding(5);
+
+            dgv.BorderStyle = BorderStyle.None;
+            dgv.BackgroundColor = Color.White;
+
+            dgv.DefaultCellStyle.Font = new Font("Segoe UI", 15F);
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+
+            dgv.RowTemplate.Height = 50;
+            dgv.EnableHeadersVisualStyles = false;
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(192, 0, 0);
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
         }
 
         // ================= LOAD DANH SÁCH ĐƠN =================

@@ -6,13 +6,24 @@ namespace Restaurant_Management_App.FORM
     {
         private System.ComponentModel.IContainer components = null;
 
+        private Label lblTitle;
+        private FlowLayoutPanel pnlStatus;
+        private Label lblPending;
+        private Label lblCooking;
+        private Label lblReady;
+
+        private Panel panelLeft;
+        private Panel panelRight;
+
         private DataGridView dgvKitchen;
         private DataGridView dgvDetail;
+
+        private TableLayoutPanel tableLayoutPanel1;
+        private FlowLayoutPanel panelButtons;
+
         private Button btnCooking;
         private Button btnReady;
-        private Label lblTitle;
-        private System.Windows.Forms.Panel panelLeft;
-        private System.Windows.Forms.Panel panelRight;
+        private Button btnBack;
 
         protected override void Dispose(bool disposing)
         {
@@ -23,148 +34,169 @@ namespace Restaurant_Management_App.FORM
 
         private void InitializeComponent()
         {
-            this.dgvKitchen = new System.Windows.Forms.DataGridView();
-            this.dgvDetail = new System.Windows.Forms.DataGridView();
-            this.btnCooking = new System.Windows.Forms.Button();
-            this.btnReady = new System.Windows.Forms.Button();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.panelLeft = new System.Windows.Forms.Panel();
-            this.panelRight = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnBack = new System.Windows.Forms.Button();
+            this.lblTitle = new Label();
+            this.pnlStatus = new FlowLayoutPanel();
+            this.lblPending = new Label();
+            this.lblCooking = new Label();
+            this.lblReady = new Label();
+
+            this.panelLeft = new Panel();
+            this.panelRight = new Panel();
+
+            this.dgvKitchen = new DataGridView();
+            this.dgvDetail = new DataGridView();
+
+            this.tableLayoutPanel1 = new TableLayoutPanel();
+            this.panelButtons = new FlowLayoutPanel();
+
+            this.btnCooking = new Button();
+            this.btnReady = new Button();
+            this.btnBack = new Button();
+
             ((System.ComponentModel.ISupportInitialize)(this.dgvKitchen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetail)).BeginInit();
+
+            this.pnlStatus.SuspendLayout();
             this.panelLeft.SuspendLayout();
             this.panelRight.SuspendLayout();
+            this.panelButtons.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // dgvKitchen
-            // 
-            this.dgvKitchen.ColumnHeadersHeight = 29;
-            this.dgvKitchen.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvKitchen.Location = new System.Drawing.Point(0, 0);
-            this.dgvKitchen.Name = "dgvKitchen";
-            this.dgvKitchen.ReadOnly = true;
-            this.dgvKitchen.RowHeadersWidth = 51;
-            this.dgvKitchen.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvKitchen.Size = new System.Drawing.Size(482, 303);
-            this.dgvKitchen.TabIndex = 0;
-            // 
-            // dgvDetail
-            // 
-            this.dgvDetail.ColumnHeadersHeight = 29;
-            this.dgvDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvDetail.Location = new System.Drawing.Point(0, 0);
-            this.dgvDetail.Name = "dgvDetail";
-            this.dgvDetail.ReadOnly = true;
-            this.dgvDetail.RowHeadersWidth = 51;
-            this.dgvDetail.Size = new System.Drawing.Size(484, 303);
-            this.dgvDetail.TabIndex = 0;
-            // 
-            // btnCooking
-            // 
-            this.btnCooking.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCooking.Location = new System.Drawing.Point(3, 385);
-            this.btnCooking.Name = "btnCooking";
-            this.btnCooking.Size = new System.Drawing.Size(147, 56);
-            this.btnCooking.TabIndex = 3;
-            this.btnCooking.Text = "Cooking";
-            // 
-            // btnReady
-            // 
-            this.btnReady.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReady.Location = new System.Drawing.Point(248, 385);
-            this.btnReady.Name = "btnReady";
-            this.btnReady.Size = new System.Drawing.Size(147, 56);
-            this.btnReady.TabIndex = 4;
-            this.btnReady.Text = "Ready";
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.lblTitle, 2);
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(3, 0);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(323, 51);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Kitchen Orders";
-            this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
-            // 
-            // panelLeft
-            // 
-            this.panelLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tableLayoutPanel1.SetColumnSpan(this.panelLeft, 2);
+
+            // ===== TITLE =====
+            this.lblTitle.Text = "🍽 KITCHEN ORDERS";
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.Dock = DockStyle.Fill;
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.BackColor = System.Drawing.Color.FromArgb(192, 0, 0); // đỏ đậm
+
+            // ===== STATUS =====
+            this.pnlStatus.Dock = DockStyle.Fill;
+            this.pnlStatus.FlowDirection = FlowDirection.LeftToRight;
+            this.pnlStatus.Padding = new Padding(10);
+            this.pnlStatus.BackColor = System.Drawing.Color.FromArgb(255, 230, 230);
+
+            this.pnlStatus.Controls.Add(this.lblPending);
+            this.pnlStatus.Controls.Add(this.lblCooking);
+            this.pnlStatus.Controls.Add(this.lblReady);
+
+            this.lblPending.Text = "🟡 Pending";
+            this.lblPending.AutoSize = true;
+            this.lblPending.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblPending.Margin = new Padding(20, 10, 20, 10);
+
+            this.lblCooking.Text = "🔵 Cooking";
+            this.lblCooking.AutoSize = true;
+            this.lblCooking.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblCooking.Margin = new Padding(20, 10, 20, 10);
+
+            this.lblReady.Text = "🟢 Ready";
+            this.lblReady.AutoSize = true;
+            this.lblReady.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblReady.Margin = new Padding(20, 10, 20, 10);
+
+            // ===== LEFT PANEL =====
+            this.panelLeft.Dock = DockStyle.Fill;
+            this.panelLeft.Padding = new Padding(10);
+            this.panelLeft.BackColor = System.Drawing.Color.White;
             this.panelLeft.Controls.Add(this.dgvKitchen);
-            this.panelLeft.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelLeft.Location = new System.Drawing.Point(3, 74);
-            this.panelLeft.Name = "panelLeft";
-            this.panelLeft.Size = new System.Drawing.Size(484, 305);
-            this.panelLeft.TabIndex = 1;
-            // 
-            // panelRight
-            // 
-            this.panelRight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tableLayoutPanel1.SetColumnSpan(this.panelRight, 2);
+
+            this.dgvKitchen.Dock = DockStyle.Fill;
+            this.dgvKitchen.ReadOnly = true;
+            this.dgvKitchen.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            // ===== RIGHT PANEL =====
+            this.panelRight.Dock = DockStyle.Fill;
+            this.panelRight.Padding = new Padding(10);
+            this.panelRight.BackColor = System.Drawing.Color.White;
             this.panelRight.Controls.Add(this.dgvDetail);
-            this.panelRight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelRight.Location = new System.Drawing.Point(493, 74);
-            this.panelRight.Name = "panelRight";
-            this.panelRight.Size = new System.Drawing.Size(486, 305);
-            this.panelRight.TabIndex = 2;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Controls.Add(this.btnReady, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.panelRight, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btnCooking, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.panelLeft, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lblTitle, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnBack, 2, 2);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.70958F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 68.81236F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.47806F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(982, 453);
-            this.tableLayoutPanel1.TabIndex = 5;
-            // 
-            // btnBack
-            // 
-            this.btnBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBack.Location = new System.Drawing.Point(493, 385);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(147, 56);
-            this.btnBack.TabIndex = 4;
-            this.btnBack.Text = "Back";
+
+            this.dgvDetail.Dock = DockStyle.Fill;
+            this.dgvDetail.ReadOnly = true;
+
+            // ===== BUTTON PANEL =====
+            this.panelButtons.Dock = DockStyle.Fill;
+            this.panelButtons.FlowDirection = FlowDirection.LeftToRight;
+            this.panelButtons.Padding = new Padding(10);
+            this.panelButtons.BackColor = System.Drawing.Color.FromArgb(255, 240, 240);
+
+            this.panelButtons.Controls.Add(this.btnCooking);
+            this.panelButtons.Controls.Add(this.btnReady);
+            this.panelButtons.Controls.Add(this.btnBack);
+
+            // Cooking button
+            this.btnCooking.Text = "🍳 Cooking";
+            this.btnCooking.Width = 150;
+            this.btnCooking.Height = 45;
+            this.btnCooking.BackColor = System.Drawing.Color.FromArgb(220, 53, 69);
+            this.btnCooking.ForeColor = System.Drawing.Color.White;
+            this.btnCooking.FlatStyle = FlatStyle.Flat;
+
+            // Ready button
+            this.btnReady.Text = "✅ Ready";
+            this.btnReady.Width = 150;
+            this.btnReady.Height = 45;
+            this.btnReady.BackColor = System.Drawing.Color.FromArgb(200, 35, 51);
+            this.btnReady.ForeColor = System.Drawing.Color.White;
+            this.btnReady.FlatStyle = FlatStyle.Flat;
+
+            // Back button
+            this.btnBack.Text = "⬅ Back";
+            this.btnBack.Width = 150;
+            this.btnBack.Height = 45;
+            this.btnBack.BackColor = System.Drawing.Color.Gray;
+            this.btnBack.ForeColor = System.Drawing.Color.White;
+            this.btnBack.FlatStyle = FlatStyle.Flat;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
-            // frmKitchen
-            // 
-            this.ClientSize = new System.Drawing.Size(982, 453);
+
+            // ===== TABLE =====
+            this.tableLayoutPanel1.Dock = DockStyle.Fill;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.RowCount = 4;
+
+            this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 15F));
+            this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 55F));
+            this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+
+            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+
+            this.tableLayoutPanel1.Controls.Add(this.lblTitle, 0, 0);
+            this.tableLayoutPanel1.SetColumnSpan(this.lblTitle, 2);
+
+            this.tableLayoutPanel1.Controls.Add(this.pnlStatus, 0, 1);
+            this.tableLayoutPanel1.SetColumnSpan(this.pnlStatus, 2);
+
+            this.tableLayoutPanel1.Controls.Add(this.panelLeft, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.panelRight, 1, 2);
+
+            this.tableLayoutPanel1.Controls.Add(this.panelButtons, 0, 3);
+            this.tableLayoutPanel1.SetColumnSpan(this.panelButtons, 2);
+
+            // ===== FORM =====
+            this.ClientSize = new System.Drawing.Size(1000, 600);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "frmKitchen";
             this.Text = "Kitchen";
+            this.BackColor = System.Drawing.Color.FromArgb(255, 245, 245);
+
             this.Load += new System.EventHandler(this.FrmKitchen_Load);
+
             ((System.ComponentModel.ISupportInitialize)(this.dgvKitchen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetail)).EndInit();
+
+            this.pnlStatus.ResumeLayout(false);
+            this.pnlStatus.PerformLayout();
+
             this.panelLeft.ResumeLayout(false);
             this.panelRight.ResumeLayout(false);
+
+            this.panelButtons.ResumeLayout(false);
+
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
-
         }
-
-        private TableLayoutPanel tableLayoutPanel1;
-        private Button btnBack;
     }
 }
+
