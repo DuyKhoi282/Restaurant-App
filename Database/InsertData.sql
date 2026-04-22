@@ -21,14 +21,14 @@ VALUES
 -- ========================
 -- Food
 -- ========================
-INSERT INTO Food(name, idCategory, price)
+INSERT INTO Food(name, idCategory, price, status, image)
 VALUES 
-(N'Trà đào', 1, 30000),
-(N'Cà phê sữa', 1, 25000),
-(N'Nước cam', 1, 20000),
-(N'Cơm gà', 2, 50000),
-(N'Bún bò', 2, 45000),
-(N'Bánh flan', 3, 15000)
+(N'Trà đào', 1, 30000, 'Available', 'Images/Food/tra_dao.jpg'),
+(N'Cà phê sữa', 1, 25000, 'Available', 'Images/Food/ca_phe.jpg'),
+(N'Nước cam', 1, 20000, 'Available', 'Images/Food/nuoc_cam.jpg'),
+(N'Cơm gà', 2, 50000, 'Available', 'Images/Food/com_ga.jpg'),
+(N'Bún bò', 2, 45000, 'Available', 'Images/Food/bun_bo.jpg'),
+(N'Bánh flan', 3, 15000, 'Available', 'Images/Food/flan.jpg')
 
 -- ========================
 -- Role 

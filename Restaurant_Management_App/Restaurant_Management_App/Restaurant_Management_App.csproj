@@ -281,10 +281,16 @@
     <None Include="Resources\ava.jpg" />
   </ItemGroup>
   <ItemGroup>
+
     <Content Include="Images\Employees\ADM01.jpg" />
     <Content Include="Images\Employees\CHF01.jpg" />
     <Content Include="Images\Employees\MNG01.jpg" />
     <Content Include="Images\Employees\STF01.jpg" />
+
+    <Content Include="Images\Food\nuoc_cam.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+
     <Content Include="Images\Icon\Screenshot_2026-04-01_152815-removebg-preview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -292,7 +298,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\Avatar\" />
-    <Folder Include="Images\Food\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
