@@ -101,7 +101,7 @@ namespace Restaurant_Management_App
     JOIN Role r ON a.RoleId = r.Id
     WHERE a.isDeleted = 0";
 
-            return Database.Instance.ExecuteQuery(query); //
+            return Database.Instance.ExecuteQuery(query); 
         }
 
         public DataTable GetCityList()

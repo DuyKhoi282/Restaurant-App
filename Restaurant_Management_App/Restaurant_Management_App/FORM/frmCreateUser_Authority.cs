@@ -77,9 +77,7 @@ namespace Restaurant_Management_App
 
         private void btnCreate_CUA_Click(object sender, EventArgs e) 
         {
-
             
-
             // Lấy thông tin từ các TextBox và ComboBox
             string userId = txtUserId_CUA.Text.Trim();// Lấy tên đăng nhập từ TextBox và loại bỏ khoảng trắng ở đầu và cuối
             string password = txtPassword_CUA.Text.Trim();
@@ -111,29 +109,36 @@ namespace Restaurant_Management_App
                 return;
             }
 
+            // --- TRONG btnCreate_CUA_Click ---
+
+            // 2. Mở kết nối và gán tham số (Bắt chước cách UpdateAccount gán tham số)
             using (SqlConnection conn = new SqlConnection(Database.connStr))
             {
-                conn.Open();
-
-                // 3. Kiểm tra trùng UserID
+                conn.Open();               
                 string checkQuery = "SELECT COUNT(*) FROM Account WHERE UserId = @u";
-                SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
+                SqlCommand checkCmd = new SqlCommand(checkQuery, conn);               
                 checkCmd.Parameters.AddWithValue("@u", userId);
                 if ((int)checkCmd.ExecuteScalar() > 0)
                 {
-                    MessageBox.Show("UserID đã tồn tại!");
+                    MessageBox.Show("UserID này đã tồn tại, vui lòng chọn ID khác!");
                     return;
                 }
 
-                // 4. Lưu ảnh thực tế vào thư mục dự án
-                string fileNameSaved = SaveUserImage(userId, selectedImagePath);
+                // 4. BÂY GIỜ MỚI GIẢI PHÓNG VÀ LƯU ẢNH
+                if (picAvaUser_CUA.Image != null)
+                {
+                    picAvaUser_CUA.Image.Dispose();
+                    picAvaUser_CUA.Image = null;
+                }
 
-                string query = @"INSERT INTO Account
-        (userId, password, RoleId, fullname, phone, email, birthday, address, ward, district, city, salary, imagePath)
-        VALUES (@u, @p, @RoleId, @f, @ph, @e, @b,@a,@w,@d,@c,@s,@img)"; // Truy vấn SQL để chèn một tài khoản mới vào bảng Account
-                SqlCommand cmd = new SqlCommand(query, conn);// Tạo SqlCommand để thực thi truy vấn
+                string fileNameForDB = SaveUserImage(userId, selectedImagePath);
 
-                cmd.Parameters.AddWithValue("@u", userId);// Thêm tham số @u với giá trị username vào SqlCommand
+                string query = @"INSERT INTO Account 
+    (userId, password, RoleId, fullname, phone, email, birthday, address, ward, district, city, salary, imagePath) 
+    VALUES (@u, @p, @RoleId, @f, @ph, @e, @b, @a, @w, @d, @c, @s, @img)";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                // Gán các tham số thông thường
+                cmd.Parameters.AddWithValue("@u", userId);
                 cmd.Parameters.AddWithValue("@p", password);
                 cmd.Parameters.AddWithValue("@RoleId", RoleId);
                 cmd.Parameters.AddWithValue("@f", fullname);
@@ -145,26 +150,13 @@ namespace Restaurant_Management_App
                 cmd.Parameters.AddWithValue("@d", district);
                 cmd.Parameters.AddWithValue("@c", city);
                 cmd.Parameters.AddWithValue("@s", salary);
-                //cmd.Parameters.AddWithValue("@img", SaveUserImage(userId, selectedImagePath)); // Lưu ảnh và lấy tên file để lưu vào DB
-                // 1. Gọi lưu ảnh và hứng kết quả vào biến
-                string fileNameForDB = SaveUserImage(userId, selectedImagePath);
 
-                // 2. Kiểm tra nếu lưu ảnh thất bại (trả về null) thì xử lý
-                if (fileNameForDB == null)
-                {
-                    // Bạn có thể chọn báo lỗi hoặc gán giá trị mặc định
-                    // Ở đây ta dùng DBNull.Value để SQL hiểu đây là giá trị trống hợp lệ
-                    cmd.Parameters.AddWithValue("@img", DBNull.Value);
-                }
-                else
-                {
-                    cmd.Parameters.AddWithValue("@img", fileNameForDB);
-                }
-
-                cmd.ExecuteNonQuery();// Thực thi truy vấn để chèn dữ liệu vào cơ sở dữ liệu
-
+                cmd.Parameters.AddWithValue("@img", (object)fileNameForDB ?? DBNull.Value);
+                cmd.ExecuteNonQuery();
                 MessageBox.Show("Tạo tài khoản thành công!");
-                selectedImagePath = ""; // Reset biến tạm
+
+                // Reset biến sau khi thành công
+                selectedImagePath = "";
                 LoadAccountList();
             }
         }
@@ -173,6 +165,7 @@ namespace Restaurant_Management_App
         // để dễ dàng chỉnh sửa hoặc xem thông tin chi tiết
         private void dgvAccount_CellClick(object sender, DataGridViewCellEventArgs e) 
         {
+
             btnClear_CUA_Click(null, null);
             cbxCity_CUA.Enabled = true;
             cbxDistrict_CUA.Enabled = true;
@@ -184,7 +177,8 @@ namespace Restaurant_Management_App
                 try
                 {
                     DataGridViewRow row = dgvAccount.Rows[e.RowIndex];
-
+                    object rawValue = row.Cells["imagePath"].Value;
+                    MessageBox.Show("Dữ liệu ảnh trong Grid là: '" + (rawValue ?? "NULL") + "'");
                     // 1. ĐỔ TEXTBOX (Giữ nguyên)
                     txtUserId_CUA.Text = row.Cells["userId"].Value?.ToString();
                     txtPassword_CUA.Text = row.Cells["password"].Value?.ToString();
@@ -254,6 +248,7 @@ namespace Restaurant_Management_App
                         using (FileStream fs = new FileStream(fullPath, FileMode.Open, FileAccess.Read))
                         {
                             picAvaUser_CUA.Image = Image.FromStream(fs);
+                            Console.WriteLine(imageName);
                         }
                         picAvaUser_CUA.SizeMode = PictureBoxSizeMode.Zoom;
                         picAvaUser_CUA.BackColor = Color.Transparent;
@@ -459,30 +454,30 @@ namespace Restaurant_Management_App
 
                 // 4. Xử lý lịch sử mật khẩu (Nếu đổi pass)
                 // Kiểm tra mật khẩu (Sử dụng tên biến khác để tránh lỗi scope)
-string oldPassForHistory = AccountDAL.GetCurrentPassword(userId);
+                string oldPassForHistory = AccountDAL.GetCurrentPassword(userId);
 
-if (password != oldPassForHistory)
-{
-    // 1. Dùng tên biến rõ ràng @u, @old...
-    string queryHistory = "INSERT INTO PasswordHistory (userId, oldPassword, newPassword, changedBy) " +
-                          "VALUES (@u, @old, @new, @by)";
+                if (password != oldPassForHistory)
+                {
+                    // 1. Dùng tên biến rõ ràng @u, @old...
+                    string queryHistory = "INSERT INTO PasswordHistory (userId, oldPassword, newPassword, changedBy) " +
+                                          "VALUES (@u, @old, @new, @by)";
     
-    // 2. Tạo Command trực tiếp tại đây để tránh lỗi mapping của lớp Database
-    using (SqlConnection conn = new SqlConnection(Database.connStr))
-    {
-        conn.Open();
-        SqlCommand cmdH = new SqlCommand(queryHistory, conn);
+                    // 2. Tạo Command trực tiếp tại đây để tránh lỗi mapping của lớp Database
+                    using (SqlConnection conn = new SqlConnection(Database.connStr))
+                    {
+                        conn.Open();
+                        SqlCommand cmdH = new SqlCommand(queryHistory, conn);
 
-        string currentPwd = password.ToString(); 
-        string oldPwd = oldPassForHistory.ToString();
+                        string currentPwd = password.ToString(); 
+                        string oldPwd = oldPassForHistory.ToString();
 
-        cmdH.Parameters.AddWithValue("@u", userId);
-        cmdH.Parameters.AddWithValue("@old", oldPwd);
-        cmdH.Parameters.AddWithValue("@new", currentPwd);
-        cmdH.Parameters.AddWithValue("@by", UserSession.UserId);
-        cmdH.ExecuteNonQuery();
-    }
-}
+                        cmdH.Parameters.AddWithValue("@u", userId);
+                        cmdH.Parameters.AddWithValue("@old", oldPwd);
+                        cmdH.Parameters.AddWithValue("@new", currentPwd);
+                        cmdH.Parameters.AddWithValue("@by", UserSession.UserId);
+                        cmdH.ExecuteNonQuery();
+                    }
+                }
 
                 // 5. Gọi hàm Update từ DAL (Truyền finalImageName vào cuối cùng)
                 // Lưu ý: Đảm bảo hàm UpdateAccount trong lớp AccountDAL có nhận tham số cuối là string
@@ -611,46 +606,16 @@ if (password != oldPassForHistory)
 
         private void picAvaUser_CUA_Click(object sender, EventArgs e)
         {
-            using(OpenFileDialog ofd = new OpenFileDialog())
-    {
-                // Chỉ cho phép chọn các định dạng ảnh phổ biến
-                ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
-                ofd.Title = "Chọn ảnh đại diện nhân viên";
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image Files(*.jpg; *.jpeg; *.png)|*.jpg; *.jpeg; *.png";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                // QUAN TRỌNG: Phải gán đường dẫn vào biến này
+                selectedImagePath = ofd.FileName;
 
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        // 1. Tạo tên file duy nhất bằng GUID để tránh trùng lặp
-                        string extension = Path.GetExtension(ofd.FileName);
-                        string fileName = Guid.NewGuid().ToString() + extension;
-
-                        // 2. Lấy đường dẫn thư mục lưu trữ
-                        string folderPath = GetAvaFolderPath();
-                        string destPath = Path.Combine(folderPath, fileName);
-
-                        // 3. Sao chép file vào thư mục dự án
-                        File.Copy(ofd.FileName, destPath, true);
-
-                        // 4. Cập nhật các biến trạng thái để nút Update có thể sử dụng
-                        selectedImagePath = fileName; // Lưu tên file mới để tí nữa lưu vào DB
-
-                        // 5. Hiển thị ảnh lên PictureBox ngay lập tức
-                        // Dùng cách nạp từ Byte để không giữ bản quyền file (tránh lỗi khóa file)
-                        byte[] buffer = File.ReadAllBytes(destPath);
-                        using (MemoryStream ms = new MemoryStream(buffer))
-                        {
-                            if (picAvaUser_CUA.Image != null) picAvaUser_CUA.Image.Dispose();
-                            picAvaUser_CUA.Image = Image.FromStream(ms);
-                        }
-
-                        picAvaUser_CUA.SizeMode = PictureBoxSizeMode.Zoom;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Không thể nạp ảnh: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
+                // Hiển thị tạm lên PictureBox để người dùng xem
+                picAvaUser_CUA.Image = Image.FromFile(ofd.FileName);
+                picAvaUser_CUA.SizeMode = PictureBoxSizeMode.Zoom;
             }
         }
 
@@ -658,46 +623,81 @@ if (password != oldPassForHistory)
         {
             try
             {
-                // Nếu người dùng không chọn ảnh, không làm gì cả và trả về null
+                // 1. Kiểm tra nếu không có đường dẫn ảnh nguồn hoặc file không tồn tại
                 if (string.IsNullOrEmpty(sourcePath) || !File.Exists(sourcePath))
+                {
                     return null;
+                }
 
+                // 2. Lấy đường dẫn thư mục lưu trữ (Images/Employees)
                 string folderPath = GetAvaFolderPath();
-                if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
 
+                // 3. Tạo thư mục nếu chưa tồn tại
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                // 4. Xây dựng tên file mới: [UserId].[Phần_mở_rộng] (Ví dụ: NV01.jpg)
                 string extension = Path.GetExtension(sourcePath);
                 string fileName = userId + extension;
                 string destPath = Path.Combine(folderPath, fileName);
 
-                // Copy ghi đè nếu đã tồn tại
+                // 5. XỬ LÝ QUAN TRỌNG: Nếu file đích đã tồn tại, phải giải phóng PictureBox trước khi ghi đè
+                if (File.Exists(destPath))
+                {
+                    // Giải phóng ảnh đang hiển thị để tránh lỗi "The process cannot access the file..."
+                    if (picAvaUser_CUA.Image != null)
+                    {
+                        picAvaUser_CUA.Image.Dispose();
+                        picAvaUser_CUA.Image = null;
+                    }
+
+                    // Ép hệ thống dọn dẹp bộ nhớ đệm để nhả file ngay lập tức
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                }
+
+                // 6. Thực hiện Copy file từ máy tính vào thư mục dự án (true = cho phép ghi đè)
                 File.Copy(sourcePath, destPath, true);
 
+                // 7. TRẢ VỀ TÊN FILE (Chỉ trả về tên file, không trả về toàn bộ đường dẫn để lưu vào DB cho nhẹ)
                 return fileName;
             }
             catch (Exception ex)
             {
-                // Tạm thời hiện lỗi để bạn debug xem đường dẫn có đúng không
-                Console.WriteLine("Lỗi lưu ảnh: " + ex.Message);
+                // Hiện thông báo lỗi chi tiết để debug
+                MessageBox.Show("Lỗi khi lưu file vật lý: " + ex.Message, "Lỗi Lưu Ảnh", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
         }
 
         private string GetAvaFolderPath()
         {
-            // Lấy đường dẫn thư mục đang chạy file .exe (thường là bin/Debug)
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            // 1. Lấy thư mục gốc của file .exe
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
 
-            // Tìm ngược lên để thoát khỏi bin/Debug để vào thư mục Images của dự án
-            // Thử dùng đường dẫn tương đối để an toàn hơn
-            string projectFolder = Directory.GetParent(baseDirectory).Parent.Parent.FullName;
+            // 2. Thư mục đích mong muốn
+            string folderPath = Path.Combine(baseDir, "Images", "Employees");
 
-            // Kết hợp với đường dẫn chính xác đến thư mục có chữ "s" (Employees)
-            string folderPath = Path.Combine(projectFolder, "Images", "Employees");
-
-            // Nếu vẫn không thấy, hãy thử kiểm tra thư mục không có chữ "s"
+            // 3. Nếu chạy trong Visual Studio (Debug), baseDir sẽ nằm sâu trong bin/Debug
+            // Ta kiểm tra nếu không thấy thư mục Images ở đó, ta mới tìm ngược lên
             if (!Directory.Exists(folderPath))
             {
-                folderPath = Path.Combine(projectFolder, "Images", "Employee");
+                // Thử tìm ngược lên 3 cấp (bin -> Debug -> net...)
+                DirectoryInfo parent = Directory.GetParent(baseDir);
+                if (parent?.Parent?.Parent != null)
+                {
+                    string projectFolder = parent.Parent.Parent.FullName;
+                    string devPath = Path.Combine(projectFolder, "Images", "Employees");
+                    if (Directory.Exists(devPath)) return devPath;
+                }
+            }
+
+            // 4. Nếu không thấy nữa, tự động tạo thư mục ngay tại nơi chạy file .exe
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
             }
 
             return folderPath;
