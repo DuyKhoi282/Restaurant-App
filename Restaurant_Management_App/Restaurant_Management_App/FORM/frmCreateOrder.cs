@@ -254,8 +254,8 @@ namespace Restaurant_Management_App.FORM
             {
                 if (row.IsNewRow) continue;
 
-                object priceObj = row.Cells["colPrice"].Value;
-                object qtyObj = row.Cells["colQty"].Value;
+                object priceObj = GetCellValue(row, "colPrice", "price");
+                object qtyObj = GetCellValue(row, "colQty", "quantity");
 
                 double price = priceObj == null || priceObj == DBNull.Value ? 0 : Convert.ToDouble(priceObj);
                 int qty = qtyObj == null || qtyObj == DBNull.Value ? 0 : Convert.ToInt32(qtyObj);
@@ -269,6 +269,20 @@ namespace Restaurant_Management_App.FORM
             lblSubtotalValue.Text = subtotal.ToString("N0") + " VNĐ";
             lblTaxValue.Text = tax.ToString("N0") + " VNĐ";
             lblTotalValue.Text = total.ToString("N0") + " VNĐ";
+        }
+
+        private object GetCellValue(DataGridViewRow row, params string[] preferredColumnNames)
+        {
+            foreach (string columnName in preferredColumnNames)
+            {
+                if (string.IsNullOrWhiteSpace(columnName)) continue;
+                if (dgvCart.Columns.Contains(columnName))
+                {
+                    return row.Cells[columnName].Value;
+                }
+            }
+
+            return null;
         }
 
         private void ResetForm()
