@@ -34,6 +34,7 @@ namespace Restaurant_Management_App
             currentRole = role;
 
             PhanQuyen(); // gọi hàm phân quyền
+            btnCustomerCaring.Click += btnCustomerCaring_Click;
 
             // load form homepage mặc định lên panel con sau mỗi lần đăng nhập thành công
             LoadForm(new frmHomepage());
@@ -180,6 +181,11 @@ namespace Restaurant_Management_App
         private void btnStaffMNG_Click(object sender, EventArgs e)
         {
             LoadForm(new frmCreateUser_Authority());
+        }
+
+        private void btnCustomerCaring_Click(object sender, EventArgs e)
+        {
+            LoadForm(new frmCustomerCaring());
         }
     }
 }

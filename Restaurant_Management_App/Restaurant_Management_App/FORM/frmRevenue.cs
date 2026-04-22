@@ -13,6 +13,7 @@ namespace Restaurant_Management_App.FORM
 {
     public partial class frmRevenue : Form
     {
+        static frmRevenueDetail currentForm;
         public frmRevenue()
         {
             InitializeComponent();
@@ -20,16 +21,28 @@ namespace Restaurant_Management_App.FORM
 
         private void btnRevenueByDate_Click(object sender, EventArgs e)
         {
-            new frmRevenueDetail(ReportType.Date).Show();
+            if (currentForm != null && !currentForm.IsDisposed)
+                currentForm.Close();
+
+            currentForm = new frmRevenueDetail(frmRevenueDetail.ReportType.Date);
+            currentForm.Show();
         }
 
         private void btnRevenueByMonth_Click(object sender, EventArgs e)
         {
-            new frmRevenueDetail(ReportType.Month).Show();
+            if (currentForm != null && !currentForm.IsDisposed)
+                currentForm.Close();
+
+            currentForm = new frmRevenueDetail(frmRevenueDetail.ReportType.Month);
+            currentForm.Show();
         }
         private void btnTopFood_Click(object sender, EventArgs e)
         {
-            new frmRevenueDetail(ReportType.TopFood).Show();
+            if (currentForm != null && !currentForm.IsDisposed)
+                currentForm.Close();
+
+            currentForm = new frmRevenueDetail(frmRevenueDetail.ReportType.TopFood);
+            currentForm.Show();
         }
     }
 }

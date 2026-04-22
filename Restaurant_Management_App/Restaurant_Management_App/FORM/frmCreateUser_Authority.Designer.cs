@@ -60,6 +60,7 @@
             this.tlpCUA = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tlpInformations_CUA = new System.Windows.Forms.TableLayoutPanel();
+
             this.picAvaUser_CUA = new System.Windows.Forms.PictureBox();
             this.btnHistoryChangePass = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -67,11 +68,14 @@
             this.btnDelete_CUA = new System.Windows.Forms.Button();
             this.txtSearchId_CUA = new System.Windows.Forms.TextBox();
             this.btnSearch_CUA = new System.Windows.Forms.Button();
+
             ((System.ComponentModel.ISupportInitialize)(this.dgvAccount)).BeginInit();
             this.tlpCUA.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tlpInformations_CUA.SuspendLayout();
+
             ((System.ComponentModel.ISupportInitialize)(this.picAvaUser_CUA)).BeginInit();
+
             this.groupBox2.SuspendLayout();
             this.tlpAccounts_CUA.SuspendLayout();
             this.SuspendLayout();
@@ -528,6 +532,7 @@
             this.tlpInformations_CUA.Size = new System.Drawing.Size(907, 209);
             this.tlpInformations_CUA.TabIndex = 9;
             // 
+
             // picAvaUser_CUA
             // 
             this.picAvaUser_CUA.BackColor = System.Drawing.Color.White;
@@ -541,6 +546,7 @@
             this.picAvaUser_CUA.TabIndex = 0;
             this.picAvaUser_CUA.TabStop = false;
             this.picAvaUser_CUA.Click += new System.EventHandler(this.picAvaUser_CUA_Click);
+
             // 
             // btnHistoryChangePass
             // 
@@ -632,6 +638,7 @@
             this.txtSearchId_CUA.Size = new System.Drawing.Size(913, 30);
             this.txtSearchId_CUA.TabIndex = 11;
             // 
+
             // btnSearch_CUA
             // 
             this.btnSearch_CUA.Font = new System.Drawing.Font("Times New Roman", 12F);
@@ -643,6 +650,7 @@
             this.btnSearch_CUA.UseVisualStyleBackColor = true;
             this.btnSearch_CUA.Click += new System.EventHandler(this.btnSearchId_CUA_Click);
             // 
+
             // frmCreateUser_Authority
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -658,7 +666,9 @@
             this.groupBox1.ResumeLayout(false);
             this.tlpInformations_CUA.ResumeLayout(false);
             this.tlpInformations_CUA.PerformLayout();
+
             ((System.ComponentModel.ISupportInitialize)(this.picAvaUser_CUA)).EndInit();
+
             this.groupBox2.ResumeLayout(false);
             this.tlpAccounts_CUA.ResumeLayout(false);
             this.tlpAccounts_CUA.PerformLayout();
