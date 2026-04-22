@@ -160,3 +160,5 @@ INSERT INTO BillInfo (idBill, idFood, quantity)
 VALUES
 (@BillId, 1, 2),
 (@BillId, 2, 1);
+
+
