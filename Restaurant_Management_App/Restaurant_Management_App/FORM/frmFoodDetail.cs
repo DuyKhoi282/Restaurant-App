@@ -272,7 +272,7 @@ namespace Restaurant_Management_App.FORM
                     string sourcePath = ofd.FileName;
 
                     //tránh trùng tên file
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(sourcePath);
+                    string fileName = Path.GetFileName(sourcePath);
 
                     string destFolder = GetProjectImagePath("Images/Food");
                     string destPath = Path.Combine(destFolder, fileName);
