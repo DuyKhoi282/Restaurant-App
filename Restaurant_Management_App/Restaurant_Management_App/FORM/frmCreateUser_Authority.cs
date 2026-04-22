@@ -177,8 +177,7 @@ namespace Restaurant_Management_App
                 try
                 {
                     DataGridViewRow row = dgvAccount.Rows[e.RowIndex];
-                    object rawValue = row.Cells["imagePath"].Value;
-                    MessageBox.Show("Dữ liệu ảnh trong Grid là: '" + (rawValue ?? "NULL") + "'");
+                    
                     // 1. ĐỔ TEXTBOX (Giữ nguyên)
                     txtUserId_CUA.Text = row.Cells["userId"].Value?.ToString();
                     txtPassword_CUA.Text = row.Cells["password"].Value?.ToString();
