@@ -86,6 +86,7 @@ namespace Restaurant_Management_App
                 UserSession.UserId = user.UserId;
                 UserSession.FullName = user.FullName; 
                 UserSession.RoleName = user.RoleName;
+                UserSession.ImagePath = user.ImagePath;
 
                 frmMain main = new frmMain(user.RoleName);
                 main.Show();
