@@ -276,5 +276,10 @@ namespace Restaurant_Management_App
         {
             DisplayUserAvatar();           
         }
+
+        private void btnRatingService_Click(object sender, EventArgs e)
+        {
+            LoadForm(new frmRatingService());
+        }
     }
 }
