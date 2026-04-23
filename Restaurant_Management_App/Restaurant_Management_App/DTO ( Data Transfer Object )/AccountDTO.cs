@@ -20,5 +20,7 @@ namespace Restaurant_Management_App
         public string Ward { get; set; }
         public string Birthday { get; set; }
         public decimal  Salary { get; set; }
+
+        public string ImagePath { get; set; }
     }
 }

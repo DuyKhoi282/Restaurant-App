@@ -38,22 +38,23 @@
             this.btnStaffMNG = new System.Windows.Forms.Button();
             this.btnCustomerCaring = new System.Windows.Forms.Button();
             this.panelInfoBar = new System.Windows.Forms.Panel();
+            this.btnChangePassword = new System.Windows.Forms.Button();
+            this.btnInfoUser = new System.Windows.Forms.Button();
+            this.picUserAvatar_Main = new System.Windows.Forms.PictureBox();
             this.panelLogo = new System.Windows.Forms.Panel();
+            this.picLogo = new System.Windows.Forms.PictureBox();
             this.PanelNameRes = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panelContent = new System.Windows.Forms.Panel();
             this.panelSidebar = new System.Windows.Forms.Panel();
-            this.btnChangePassword = new System.Windows.Forms.Button();
-            this.btnInfoUser = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.picLogo = new System.Windows.Forms.PictureBox();
+            this.btnRatingService = new System.Windows.Forms.Button();
             this.tlpSidebar.SuspendLayout();
             this.panelInfoBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picUserAvatar_Main)).BeginInit();
             this.panelLogo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.PanelNameRes.SuspendLayout();
             this.panelSidebar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // panelInterface
@@ -70,30 +71,32 @@
             this.tlpSidebar.BackColor = System.Drawing.Color.Brown;
             this.tlpSidebar.ColumnCount = 1;
             this.tlpSidebar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpSidebar.Controls.Add(this.btnSignout, 0, 8);
             this.tlpSidebar.Controls.Add(this.btnItemMNG, 0, 6);
             this.tlpSidebar.Controls.Add(this.btnCreateOrder, 0, 2);
             this.tlpSidebar.Controls.Add(this.btnOrderMNG, 0, 3);
             this.tlpSidebar.Controls.Add(this.btnRevenueMNG, 0, 5);
             this.tlpSidebar.Controls.Add(this.btnStaffMNG, 0, 7);
             this.tlpSidebar.Controls.Add(this.btnCustomerCaring, 0, 4);
-            this.tlpSidebar.Controls.Add(this.panelInfoBar, 0, 9);
             this.tlpSidebar.Controls.Add(this.panelLogo, 0, 0);
             this.tlpSidebar.Controls.Add(this.PanelNameRes, 0, 1);
+            this.tlpSidebar.Controls.Add(this.panelInfoBar, 0, 10);
+            this.tlpSidebar.Controls.Add(this.btnSignout, 0, 9);
+            this.tlpSidebar.Controls.Add(this.btnRatingService, 0, 8);
             this.tlpSidebar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpSidebar.Location = new System.Drawing.Point(0, 0);
             this.tlpSidebar.Name = "tlpSidebar";
-            this.tlpSidebar.RowCount = 10;
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.39344F));
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.289618F));
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.289618F));
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.289618F));
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.289618F));
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.289618F));
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.289618F));
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.289618F));
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.289618F));
-            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.289618F));
+            this.tlpSidebar.RowCount = 11;
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.5F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.5F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.5F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.5F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.5F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.5F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.5F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.5F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.5F));
+            this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.5F));
             this.tlpSidebar.Size = new System.Drawing.Size(289, 664);
             this.tlpSidebar.TabIndex = 0;
             // 
@@ -104,11 +107,11 @@
             this.btnSignout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSignout.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSignout.ForeColor = System.Drawing.Color.White;
-            this.btnSignout.Location = new System.Drawing.Point(3, 538);
+            this.btnSignout.Location = new System.Drawing.Point(3, 550);
             this.btnSignout.Name = "btnSignout";
-            this.btnSignout.Size = new System.Drawing.Size(283, 55);
+            this.btnSignout.Size = new System.Drawing.Size(283, 50);
             this.btnSignout.TabIndex = 3;
-            this.btnSignout.Text = "Sign out";
+            this.btnSignout.Text = "Đăng xuất";
             this.btnSignout.UseVisualStyleBackColor = true;
             this.btnSignout.Click += new System.EventHandler(this.btnSignout_Click);
             // 
@@ -119,11 +122,11 @@
             this.btnItemMNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnItemMNG.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnItemMNG.ForeColor = System.Drawing.Color.White;
-            this.btnItemMNG.Location = new System.Drawing.Point(3, 416);
+            this.btnItemMNG.Location = new System.Drawing.Point(3, 382);
             this.btnItemMNG.Name = "btnItemMNG";
-            this.btnItemMNG.Size = new System.Drawing.Size(283, 55);
+            this.btnItemMNG.Size = new System.Drawing.Size(283, 50);
             this.btnItemMNG.TabIndex = 2;
-            this.btnItemMNG.Text = "Item Management";
+            this.btnItemMNG.Text = "Quản lí món ăn";
             this.btnItemMNG.UseVisualStyleBackColor = true;
             this.btnItemMNG.Click += new System.EventHandler(this.btnItemMNG_Click);
             // 
@@ -135,11 +138,11 @@
             this.btnCreateOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCreateOrder.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCreateOrder.ForeColor = System.Drawing.Color.White;
-            this.btnCreateOrder.Location = new System.Drawing.Point(3, 172);
+            this.btnCreateOrder.Location = new System.Drawing.Point(3, 158);
             this.btnCreateOrder.Name = "btnCreateOrder";
-            this.btnCreateOrder.Size = new System.Drawing.Size(283, 55);
+            this.btnCreateOrder.Size = new System.Drawing.Size(283, 50);
             this.btnCreateOrder.TabIndex = 2;
-            this.btnCreateOrder.Text = "Create Order";
+            this.btnCreateOrder.Text = "Tạo đơn";
             this.btnCreateOrder.UseVisualStyleBackColor = false;
             this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateOrder_Click);
             // 
@@ -150,11 +153,11 @@
             this.btnOrderMNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOrderMNG.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOrderMNG.ForeColor = System.Drawing.Color.White;
-            this.btnOrderMNG.Location = new System.Drawing.Point(3, 233);
+            this.btnOrderMNG.Location = new System.Drawing.Point(3, 214);
             this.btnOrderMNG.Name = "btnOrderMNG";
-            this.btnOrderMNG.Size = new System.Drawing.Size(283, 55);
+            this.btnOrderMNG.Size = new System.Drawing.Size(283, 50);
             this.btnOrderMNG.TabIndex = 2;
-            this.btnOrderMNG.Text = "Order Management";
+            this.btnOrderMNG.Text = "Quản lí đơn";
             this.btnOrderMNG.UseVisualStyleBackColor = true;
             this.btnOrderMNG.Click += new System.EventHandler(this.btnOrderMNG_Click);
             // 
@@ -165,11 +168,11 @@
             this.btnRevenueMNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRevenueMNG.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRevenueMNG.ForeColor = System.Drawing.Color.White;
-            this.btnRevenueMNG.Location = new System.Drawing.Point(3, 355);
+            this.btnRevenueMNG.Location = new System.Drawing.Point(3, 326);
             this.btnRevenueMNG.Name = "btnRevenueMNG";
-            this.btnRevenueMNG.Size = new System.Drawing.Size(283, 55);
+            this.btnRevenueMNG.Size = new System.Drawing.Size(283, 50);
             this.btnRevenueMNG.TabIndex = 2;
-            this.btnRevenueMNG.Text = "Revenue Management";
+            this.btnRevenueMNG.Text = "Quản lí doanh thu";
             this.btnRevenueMNG.UseVisualStyleBackColor = true;
             this.btnRevenueMNG.Click += new System.EventHandler(this.btnRevenueMNG_Click);
             // 
@@ -180,11 +183,11 @@
             this.btnStaffMNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStaffMNG.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStaffMNG.ForeColor = System.Drawing.Color.White;
-            this.btnStaffMNG.Location = new System.Drawing.Point(3, 477);
+            this.btnStaffMNG.Location = new System.Drawing.Point(3, 438);
             this.btnStaffMNG.Name = "btnStaffMNG";
-            this.btnStaffMNG.Size = new System.Drawing.Size(283, 55);
+            this.btnStaffMNG.Size = new System.Drawing.Size(283, 50);
             this.btnStaffMNG.TabIndex = 2;
-            this.btnStaffMNG.Text = "Staff Management";
+            this.btnStaffMNG.Text = "Quản lí nhân viên";
             this.btnStaffMNG.UseVisualStyleBackColor = true;
             this.btnStaffMNG.Click += new System.EventHandler(this.btnStaffMNG_Click);
             // 
@@ -195,11 +198,11 @@
             this.btnCustomerCaring.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCustomerCaring.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCustomerCaring.ForeColor = System.Drawing.Color.White;
-            this.btnCustomerCaring.Location = new System.Drawing.Point(3, 294);
+            this.btnCustomerCaring.Location = new System.Drawing.Point(3, 270);
             this.btnCustomerCaring.Name = "btnCustomerCaring";
-            this.btnCustomerCaring.Size = new System.Drawing.Size(283, 55);
+            this.btnCustomerCaring.Size = new System.Drawing.Size(283, 50);
             this.btnCustomerCaring.TabIndex = 2;
-            this.btnCustomerCaring.Text = "Customer Caring";
+            this.btnCustomerCaring.Text = "Dịch vụ khách hàng";
             this.btnCustomerCaring.UseVisualStyleBackColor = true;
             // 
             // panelInfoBar
@@ -207,12 +210,46 @@
             this.panelInfoBar.BackColor = System.Drawing.Color.Chocolate;
             this.panelInfoBar.Controls.Add(this.btnChangePassword);
             this.panelInfoBar.Controls.Add(this.btnInfoUser);
-            this.panelInfoBar.Controls.Add(this.pictureBox2);
+            this.panelInfoBar.Controls.Add(this.picUserAvatar_Main);
             this.panelInfoBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelInfoBar.Location = new System.Drawing.Point(3, 599);
+            this.panelInfoBar.Location = new System.Drawing.Point(3, 606);
             this.panelInfoBar.Name = "panelInfoBar";
-            this.panelInfoBar.Size = new System.Drawing.Size(283, 62);
+            this.panelInfoBar.Size = new System.Drawing.Size(283, 55);
             this.panelInfoBar.TabIndex = 4;
+            // 
+            // btnChangePassword
+            // 
+            this.btnChangePassword.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnChangePassword.BackgroundImage = global::Restaurant_Management_App.Properties.Resources.ResetPassword;
+            this.btnChangePassword.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnChangePassword.Location = new System.Drawing.Point(142, -1);
+            this.btnChangePassword.Name = "btnChangePassword";
+            this.btnChangePassword.Size = new System.Drawing.Size(61, 56);
+            this.btnChangePassword.TabIndex = 1;
+            this.btnChangePassword.UseVisualStyleBackColor = true;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnResetPassword_Click);
+            // 
+            // btnInfoUser
+            // 
+            this.btnInfoUser.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnInfoUser.BackgroundImage = global::Restaurant_Management_App.Properties.Resources.InfoUsers;
+            this.btnInfoUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnInfoUser.Location = new System.Drawing.Point(75, -1);
+            this.btnInfoUser.Name = "btnInfoUser";
+            this.btnInfoUser.Size = new System.Drawing.Size(61, 56);
+            this.btnInfoUser.TabIndex = 1;
+            this.btnInfoUser.UseVisualStyleBackColor = true;
+            this.btnInfoUser.Click += new System.EventHandler(this.btnInfoUser_Click);
+            // 
+            // picUserAvatar_Main
+            // 
+            this.picUserAvatar_Main.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.picUserAvatar_Main.Location = new System.Drawing.Point(9, -1);
+            this.picUserAvatar_Main.Name = "picUserAvatar_Main";
+            this.picUserAvatar_Main.Size = new System.Drawing.Size(57, 59);
+            this.picUserAvatar_Main.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picUserAvatar_Main.TabIndex = 0;
+            this.picUserAvatar_Main.TabStop = false;
             // 
             // panelLogo
             // 
@@ -221,29 +258,43 @@
             this.panelLogo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelLogo.Location = new System.Drawing.Point(3, 3);
             this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(283, 102);
+            this.panelLogo.Size = new System.Drawing.Size(283, 93);
             this.panelLogo.TabIndex = 5;
+            // 
+            // picLogo
+            // 
+            this.picLogo.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.picLogo.Image = global::Restaurant_Management_App.Properties.Resources.logoChillRes_fix;
+            this.picLogo.Location = new System.Drawing.Point(79, -5);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(124, 100);
+            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picLogo.TabIndex = 0;
+            this.picLogo.TabStop = false;
+            this.picLogo.Click += new System.EventHandler(this.picLogo_Click);
             // 
             // PanelNameRes
             // 
             this.PanelNameRes.Controls.Add(this.label1);
             this.PanelNameRes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PanelNameRes.Location = new System.Drawing.Point(3, 111);
+            this.PanelNameRes.Location = new System.Drawing.Point(3, 102);
             this.PanelNameRes.Name = "PanelNameRes";
-            this.PanelNameRes.Size = new System.Drawing.Size(283, 55);
+            this.PanelNameRes.Size = new System.Drawing.Size(283, 50);
             this.PanelNameRes.TabIndex = 6;
             // 
             // label1
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(23, 11);
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.Window;
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(230, 32);
+            this.label1.Size = new System.Drawing.Size(274, 35);
             this.label1.TabIndex = 0;
-            this.label1.Text = "THE CHILL RES";
+            this.label1.Text = "THE CHILL REST.";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelContent
             // 
@@ -263,51 +314,20 @@
             this.panelSidebar.Size = new System.Drawing.Size(289, 664);
             this.panelSidebar.TabIndex = 2;
             // 
-            // btnChangePassword
+            // btnRatingService
             // 
-            this.btnChangePassword.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnChangePassword.BackgroundImage = global::Restaurant_Management_App.Properties.Resources.ResetPassword;
-            this.btnChangePassword.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnChangePassword.Location = new System.Drawing.Point(142, 3);
-            this.btnChangePassword.Name = "btnChangePassword";
-            this.btnChangePassword.Size = new System.Drawing.Size(61, 56);
-            this.btnChangePassword.TabIndex = 1;
-            this.btnChangePassword.UseVisualStyleBackColor = true;
-            this.btnChangePassword.Click += new System.EventHandler(this.btnResetPassword_Click);
-            // 
-            // btnInfoUser
-            // 
-            this.btnInfoUser.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnInfoUser.BackgroundImage = global::Restaurant_Management_App.Properties.Resources.InfoUsers;
-            this.btnInfoUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnInfoUser.Location = new System.Drawing.Point(75, 3);
-            this.btnInfoUser.Name = "btnInfoUser";
-            this.btnInfoUser.Size = new System.Drawing.Size(61, 56);
-            this.btnInfoUser.TabIndex = 1;
-            this.btnInfoUser.UseVisualStyleBackColor = true;
-            this.btnInfoUser.Click += new System.EventHandler(this.btnInfoUser_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox2.Location = new System.Drawing.Point(9, 3);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(57, 59);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
-            // 
-            // picLogo
-            // 
-            this.picLogo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.picLogo.Image = global::Restaurant_Management_App.Properties.Resources.logoChillRes_fix;
-            this.picLogo.Location = new System.Drawing.Point(79, 0);
-            this.picLogo.Name = "picLogo";
-            this.picLogo.Size = new System.Drawing.Size(124, 100);
-            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picLogo.TabIndex = 0;
-            this.picLogo.TabStop = false;
-            this.picLogo.Click += new System.EventHandler(this.picLogo_Click);
+            this.btnRatingService.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRatingService.FlatAppearance.BorderColor = System.Drawing.Color.Brown;
+            this.btnRatingService.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRatingService.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRatingService.ForeColor = System.Drawing.Color.White;
+            this.btnRatingService.Location = new System.Drawing.Point(3, 494);
+            this.btnRatingService.Name = "btnRatingService";
+            this.btnRatingService.Size = new System.Drawing.Size(283, 50);
+            this.btnRatingService.TabIndex = 3;
+            this.btnRatingService.Text = "Đánh giá dịch vụ";
+            this.btnRatingService.UseVisualStyleBackColor = true;
+            this.btnRatingService.Click += new System.EventHandler(this.btnSignout_Click);
             // 
             // frmMain
             // 
@@ -319,15 +339,16 @@
             this.Name = "frmMain";
             this.Text = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.tlpSidebar.ResumeLayout(false);
             this.panelInfoBar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picUserAvatar_Main)).EndInit();
             this.panelLogo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.PanelNameRes.ResumeLayout(false);
             this.PanelNameRes.PerformLayout();
             this.panelSidebar.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -343,7 +364,7 @@
         private System.Windows.Forms.Button btnStaffMNG;
         private System.Windows.Forms.Button btnCustomerCaring;
         private System.Windows.Forms.Panel panelInfoBar;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox picUserAvatar_Main;
         private System.Windows.Forms.Panel panelContent;
         private System.Windows.Forms.Panel panelSidebar;
         private System.Windows.Forms.Panel panelLogo;
@@ -352,5 +373,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnInfoUser;
         private System.Windows.Forms.Button btnChangePassword;
+        private System.Windows.Forms.Button btnRatingService;
     }
 }

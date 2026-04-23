@@ -11,5 +11,6 @@ namespace Restaurant_Management_App
         public static string UserId { get; set; }
         public static string FullName { get; set; }
         public static string RoleName { get; set; } // Để phân quyền ẩn/hiện nút
+        public static string ImagePath { get; set; }
     }
 }
