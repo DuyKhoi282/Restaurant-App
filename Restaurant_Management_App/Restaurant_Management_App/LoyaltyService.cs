@@ -105,7 +105,7 @@ IF COL_LENGTH('dbo.LoyaltyPointHistory', 'promotionId') IS NULL
         {
             object amountObj = Database.Instance.ExecuteScalar(@"SELECT CASE 
                                                                     WHEN ISNULL(b.isBuffet, 0) = 1 THEN 299000 * ISNULL(b.buffetGuestCount, 1)
-                                                                    ELSE ISNULL(SUM(f.price * bi.quantity),0)
+                                                                    ELSE ISNULL(SUM(f.price * bi.quantity),0) * 1.07
                                                                  END
                                                                  FROM Bill b
                                                                  LEFT JOIN BillInfo bi ON b.id = bi.idBill
