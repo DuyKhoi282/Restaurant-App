@@ -461,7 +461,7 @@ namespace Restaurant_Management_App.FORM
             this.btnBuffetLogin.TabIndex = 17;
             this.btnBuffetLogin.Text = "Đăng nhập Buffet";
             this.btnBuffetLogin.UseVisualStyleBackColor = false;
-            this.btnBuffetLogin.Click += new System.EventHandler(this.btnBuffetLogin_Click);
+            this.btnBuffetLogin.Click += new System.EventHandler(this.BtnBuffetLogin_Click);
             // 
             // cbPayMethod
             // 
@@ -614,7 +614,7 @@ namespace Restaurant_Management_App.FORM
             this.btnSendPaymentRequest.TabIndex = 12;
             this.btnSendPaymentRequest.Text = "Yêu cầu thanh toán";
             this.btnSendPaymentRequest.UseVisualStyleBackColor = false;
-            this.btnSendPaymentRequest.Click += new System.EventHandler(this.btnSendPaymentRequest_Click);
+            this.btnSendPaymentRequest.Click += new System.EventHandler(this.BtnSendPaymentRequest_Click);
             // 
             // frmCreateOrder
             // 
