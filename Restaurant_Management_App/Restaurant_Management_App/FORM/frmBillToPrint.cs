@@ -106,9 +106,10 @@ GROUP BY f.name, f.price, b.isBuffet";
             double discountAmount = 0;
             double amountDue = total;
             bool isBuffetBill = false;
+            int buffetGuestCount = 1;
 
             string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
-            string query = @"SELECT discountAmount, finalAmount, ISNULL(isBuffet, 0) AS isBuffet
+            string query = @"SELECT discountAmount, finalAmount, ISNULL(isBuffet, 0) AS isBuffet, ISNULL(buffetGuestCount, 1) AS buffetGuestCount
                              FROM Bill
                              WHERE id = @id";
 
@@ -137,13 +138,14 @@ GROUP BY f.name, f.price, b.isBuffet";
                         }
 
                         isBuffetBill = Convert.ToInt32(reader["isBuffet"]) == 1;
+                        buffetGuestCount = Convert.ToInt32(reader["buffetGuestCount"]);
                     }
                 }
             }
 
             if (isBuffetBill)
             {
-                amountDue = 299000;
+                amountDue = 299000 * Math.Max(1, buffetGuestCount);
             }
 
             txtTotalPrice.Text = total.ToString("N0");

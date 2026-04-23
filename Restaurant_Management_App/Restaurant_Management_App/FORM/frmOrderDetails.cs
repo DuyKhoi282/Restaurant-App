@@ -250,7 +250,7 @@ namespace Restaurant_Management_App
             END AS status,
             CASE 
                 WHEN b.finalAmount IS NULL THEN 
-                    CASE WHEN ISNULL(b.isBuffet,0) = 1 THEN 299000
+                    CASE WHEN ISNULL(b.isBuffet,0) = 1 THEN 299000 * ISNULL(b.buffetGuestCount, 1)
                          ELSE ISNULL(SUM(f.price * bi.quantity),0)
                     END
                 ELSE b.finalAmount
@@ -262,7 +262,7 @@ namespace Restaurant_Management_App
         WHERE b.id = @id
         GROUP BY 
             b.id, b.idTable, b.dateCheckIn,
-            b.customerName, b.payMethod, b.status, b.kitchenStatus, b.finalAmount, b.isBuffet";
+            b.customerName, b.payMethod, b.status, b.kitchenStatus, b.finalAmount, b.isBuffet, b.buffetGuestCount";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", _idOrder);
