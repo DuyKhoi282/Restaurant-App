@@ -364,9 +364,7 @@ namespace Restaurant_Management_App.FORM
             this.cbOrderType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOrderType.FormattingEnabled = true;
             this.cbOrderType.Items.AddRange(new object[] {
-            "Tại quán",
-            "Mang đi",
-            "Giao hàng",
+            "Không buffet",
             "Buffet"});
             this.cbOrderType.Location = new System.Drawing.Point(515, 36);
             this.cbOrderType.Name = "cbOrderType";

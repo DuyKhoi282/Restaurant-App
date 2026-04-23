@@ -14,6 +14,8 @@ namespace Restaurant_Management_App.FORM
         private const double BuffetFixedPrice = 299000;
         private readonly OrderRepository _repo = new OrderRepository();
         private readonly List<FoodMenuItem> _foods = new List<FoodMenuItem>();
+        private bool _isBuffetLocked;
+        private string _lastOrderType = "Không buffet";
 
         public frmCreateOrder()
         {
@@ -24,13 +26,14 @@ namespace Restaurant_Management_App.FORM
             numDiscount.ValueChanged += (s, e) => CalculateTotal();
             cbTable.SelectedIndexChanged += cbTable_SelectedIndexChanged;
             cbOrderType.SelectedIndexChanged += CbOrderType_SelectedIndexChangedForBuffet;
+            cbCase.SelectedIndexChanged += CbCase_SelectedIndexChanged;
 
             // Hide discount controls on Create Order screen as requested.
             lblDiscountCaption.Visible = false;
             numDiscount.Visible = false;
             numDiscount.Value = 0;
             ApplyCreateOrderTheme();
-            SetBuffetControlsVisible(false);
+            HideBuffetAccountInputs();
         }
 
         private void FrmOrder_Load(object sender, EventArgs e)
@@ -39,12 +42,13 @@ namespace Restaurant_Management_App.FORM
             LoadCategoryList();
             LoadFoodList();
 
-            if (cbCase.Items.Count == 0) cbCase.Items.AddRange(new[] { "Tại quán", "Mang đi", "Giao hàng", "Buffet" });
+            if (cbCase.Items.Count == 0) cbCase.Items.AddRange(new[] { "Tại quán", "Mang đi" });
             if (cbPayMethod.Items.Count == 0) cbPayMethod.Items.AddRange(new[] { "Tiền mặt", "Thẻ", "Ví điện tử" });
+            if (cbOrderType.Items.Count == 0) cbOrderType.Items.AddRange(new[] { "Không buffet", "Buffet" });
 
             cbCase.SelectedIndex = 0;
             cbPayMethod.SelectedIndex = 0;
-            if (cbOrderType.Items.Count > 0) cbOrderType.SelectedIndex = 0;
+            cbOrderType.SelectedItem = "Không buffet";
             LoadOpenBillBySelectedTable();
         }
 
@@ -259,8 +263,7 @@ namespace Restaurant_Management_App.FORM
 
         private void CalculateTotal()
         {
-            bool isBuffet = cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase)
-                            || cbCase.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase);
+            bool isBuffet = cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase);
 
             double subtotal = 0;
             if (isBuffet)
@@ -504,22 +507,53 @@ namespace Restaurant_Management_App.FORM
         private void CbOrderType_SelectedIndexChangedForBuffet(object sender, EventArgs e)
         {
             bool isBuffet = cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase);
-            SetBuffetControlsVisible(isBuffet);
-            if (isBuffet)
+
+            if (_isBuffetLocked && !isBuffet)
             {
-                cbCase.SelectedItem = "Buffet";
+                cbOrderType.SelectedItem = "Buffet";
+                MessageBox.Show("Đơn Buffet đã được khóa, không thể chuyển sang Không buffet.", "Thông báo");
+                return;
             }
+
+            if (isBuffet && cbCase.Text.Equals("Mang đi", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Hình thức Mang đi không áp dụng loại đơn Buffet.", "Thông báo");
+                cbOrderType.SelectedItem = _lastOrderType;
+                return;
+            }
+
+            if (isBuffet)
+                _isBuffetLocked = true;
+
+            _lastOrderType = cbOrderType.Text;
             CalculateTotal();
         }
 
-        private void SetBuffetControlsVisible(bool visible)
+        private void CbCase_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lblBuffetAccount.Visible = visible;
-            txtBuffetAccount.Visible = visible;
-            lblBuffetPassword.Visible = visible;
-            txtBuffetPassword.Visible = visible;
-            btnBuffetLogin.Visible = visible;
-            txtCustomerName.ReadOnly = visible;
+            if (cbCase.Text.Equals("Mang đi", StringComparison.OrdinalIgnoreCase) && _isBuffetLocked)
+            {
+                MessageBox.Show("Đơn Buffet chỉ áp dụng cho hình thức Tại quán.", "Thông báo");
+                cbCase.SelectedItem = "Tại quán";
+                return;
+            }
+
+            if (cbCase.Text.Equals("Mang đi", StringComparison.OrdinalIgnoreCase) &&
+                cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Mang đi không thể chọn Buffet. Hệ thống sẽ chuyển về Không buffet.", "Thông báo");
+                cbOrderType.SelectedItem = "Không buffet";
+            }
+        }
+
+        private void HideBuffetAccountInputs()
+        {
+            lblBuffetAccount.Visible = false;
+            txtBuffetAccount.Visible = false;
+            lblBuffetPassword.Visible = false;
+            txtBuffetPassword.Visible = false;
+            btnBuffetLogin.Visible = false;
+            txtCustomerName.ReadOnly = false;
         }
 
         private void ApplyCreateOrderTheme()
@@ -567,6 +601,9 @@ namespace Restaurant_Management_App.FORM
                 txtCustomerName.Text = "";
                 if (cbCase.Items.Count > 0) cbCase.SelectedIndex = 0;
                 if (cbPayMethod.Items.Count > 0) cbPayMethod.SelectedIndex = 0;
+                cbOrderType.SelectedItem = "Không buffet";
+                _isBuffetLocked = false;
+                _lastOrderType = "Không buffet";
                 dgvCart.DataSource = null;
                 CalculateTotal();
                 return;
@@ -585,6 +622,7 @@ namespace Restaurant_Management_App.FORM
             if (!string.IsNullOrWhiteSpace(payMethod) && cbPayMethod.Items.Contains(payMethod))
                 cbPayMethod.SelectedItem = payMethod;
 
+            _lastOrderType = cbOrderType.Text;
             LoadBillDetails(billId);
         }
 
