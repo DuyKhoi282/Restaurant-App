@@ -37,7 +37,13 @@ namespace Restaurant_Management_App.FORM
             dgvFood.RowHeadersVisible = false;
             // Header style
             dgvFood.EnableHeadersVisualStyles = false;
-            dgvFood.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(44, 62, 80);
+            dgvFood.EnableHeadersVisualStyles = false;
+
+            dgvFood.ColumnHeadersDefaultCellStyle.BackColor = Color.Firebrick; // đỏ
+            dgvFood.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+
+            dgvFood.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11, FontStyle.Bold);
+            dgvFood.ColumnHeadersHeight = 40;
             dgvFood.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgvFood.ColumnHeadersHeight = 40;
             // Row style
@@ -89,6 +95,13 @@ JOIN FoodCategory c ON f.idCategory = c.id";
             adapter.Fill(table);
 
             dgvFood.DataSource = table;
+            dgvFood.Columns["id"].HeaderText = "Mã";
+            dgvFood.Columns["name"].HeaderText = "Tên món";
+            dgvFood.Columns["category"].HeaderText = "Danh mục";
+            dgvFood.Columns["price"].HeaderText = "Giá";
+            dgvFood.Columns["status"].HeaderText = "Trạng thái";
+            dgvFood.Columns["price"].DefaultCellStyle.Format = "#,##0 'VNĐ'";
+            dgvFood.Columns["price"].DefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
 
             AddButtonColumns();
             FormatGridColumns();
@@ -186,7 +199,7 @@ WHERE f.name COLLATE Latin1_General_CI_AI LIKE @key"; ;//Hàm giúp không phân
             SELECT COUNT(*) 
             FROM BillInfo bi
             JOIN Bill b ON bi.idBill = b.id
-            WHERE bi.idFood = @id AND b.status = 0";
+            WHERE bi.idFood = @id";
 
                 SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
                 checkCmd.Parameters.AddWithValue("@id", id);
@@ -195,7 +208,7 @@ WHERE f.name COLLATE Latin1_General_CI_AI LIKE @key"; ;//Hàm giúp không phân
 
                 if (count > 0)//nếu có món này trong hóa đơn chưa thanh toán
                 {
-                    MessageBox.Show("Món này đang nằm trong hóa đơn chưa thanh toán, không thể xóa!");
+                    MessageBox.Show("Món này đã tồn tại trong hóa đơn, không thể xóa!");
                     return;
                 }
 

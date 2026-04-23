@@ -104,7 +104,9 @@ namespace Restaurant_Management_App.FORM
             DataTable dt = DataProvider.Instance.ExecuteQuery(query, param);
 
             dgvRevenue.DataSource = dt;
-
+            dgvRevenue.Columns["BillID"].HeaderText = "ID";
+            dgvRevenue.Columns["DateCheckOut"].HeaderText = "Ngày thanh toán";
+            dgvRevenue.Columns["TotalAmount"].HeaderText = "Tổng tiền";
             // ===== FORMAT =====
             dgvRevenue.Columns["TotalAmount"].DefaultCellStyle.Format = "N0";
             dgvRevenue.Columns["TotalAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -118,6 +120,7 @@ namespace Restaurant_Management_App.FORM
 
             lblTotalRevenue.Text = "Tổng doanh thu: " + total.ToString("N0") + " VND";
             dgvRevenue.DataSource = dt;
+            LoadChart(dt);
             StyleDataGridView();
         }
         void LoadRevenueByMonth()
@@ -140,7 +143,9 @@ namespace Restaurant_Management_App.FORM
             DataTable dt = DataProvider.Instance.ExecuteQuery(query);
 
             dgvRevenue.DataSource = dt;
-
+            dgvRevenue.Columns["Year"].HeaderText = "Năm";
+            dgvRevenue.Columns["Month"].HeaderText = "Tháng";
+            dgvRevenue.Columns["TotalAmount"].HeaderText = "Doanh thu";
             // ===== FORMAT =====
             dgvRevenue.Columns["TotalAmount"].DefaultCellStyle.Format = "N0";
             dgvRevenue.Columns["TotalAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -173,7 +178,8 @@ namespace Restaurant_Management_App.FORM
             DataTable dt = DataProvider.Instance.ExecuteQuery(query);
 
             dgvRevenue.DataSource = dt;
-
+            dgvRevenue.Columns["FoodName"].HeaderText = "Tên món";
+            dgvRevenue.Columns["TotalSold"].HeaderText = "Số lượng bán";
             // ===== FORMAT =====
             dgvRevenue.Columns["TotalSold"].DefaultCellStyle.Format = "N0";
             dgvRevenue.Columns["TotalSold"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -381,7 +387,25 @@ namespace Restaurant_Management_App.FORM
 
             Series series = new Series();
 
-            if (reportType == ReportType.Month)
+            if (reportType == ReportType.Date)
+            {
+                series.ChartType = SeriesChartType.Line;
+                series.Name = "Doanh thu theo ngày";
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    DateTime date = Convert.ToDateTime(row["DateCheckOut"]);
+                    decimal total = Convert.ToDecimal(row["TotalAmount"]);
+
+                    series.Points.AddXY(date.ToString("dd/MM"), total);
+                }
+
+                series.BorderWidth = 3;
+                series.Color = Color.DarkOrange;
+                series.IsValueShownAsLabel = true;
+
+                chartRevenue.Titles.Add("DOANH THU THEO NGÀY");
+            } else if (reportType == ReportType.Month)
             {
                 series.ChartType = SeriesChartType.Column;
                 series.Name = "Doanh thu";
@@ -447,7 +471,7 @@ namespace Restaurant_Management_App.FORM
             switch (reportType)
             {
                 case ReportType.Date:
-                    panelChart.Visible = false;
+                    panelChart.Visible = true;
                     LoadRevenueByDate();
                     break;
 
