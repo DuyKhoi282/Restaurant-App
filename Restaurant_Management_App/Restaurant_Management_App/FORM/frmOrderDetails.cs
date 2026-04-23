@@ -262,7 +262,7 @@ namespace Restaurant_Management_App
         WHERE b.id = @id
         GROUP BY 
             b.id, b.idTable, b.dateCheckIn,
-            b.customerName, b.payMethod, b.status, b.kitchenStatus, b.finalAmount";
+            b.customerName, b.payMethod, b.status, b.kitchenStatus, b.finalAmount, b.isBuffet";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", _idOrder);
