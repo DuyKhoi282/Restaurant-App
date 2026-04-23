@@ -15,7 +15,7 @@ namespace Restaurant_Management_App
         public AccountDTO Login(string userId, string password) // hàm login được gọi ở frmLogin
         {
             string query = @"
-        SELECT a.UserId, a.fullName, r.RoleName, a.imagePath
+        SELECT a.UserId, a.fullName, r.RoleName, a.imagePath, a.isDeleted   
         FROM Account a
         JOIN Role r ON a.RoleId = r.Id
         WHERE a.UserId = @userId AND a.Password = @password";
@@ -33,7 +33,8 @@ namespace Restaurant_Management_App
                 UserId = row["userId"].ToString(),
                 FullName = row["fullName"].ToString(),
                 RoleName = row["RoleName"].ToString(),
-                ImagePath = row["imagePath"] != DBNull.Value ? row["imagePath"].ToString() : null
+                ImagePath = row["imagePath"] != DBNull.Value ? row["imagePath"].ToString() : null,
+                IsDeleted = row["isDeleted"] != DBNull.Value ? Convert.ToInt32(row["isDeleted"]) : 0
             };
         }
 

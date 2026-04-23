@@ -78,19 +78,30 @@ namespace Restaurant_Management_App
             AccountDAL dao = new AccountDAL(); // dao giúp tách biệt logic winform và logic truy cập dữ liệu, giúp code dễ bảo trì hơn
             var user = dao.Login(userId, password); // var giúp tự động suy luận kiểu dữ liệu trả về từ hàm Login
 
+            MessageBox.Show($"Debug: ID={user.UserId}, IsDeleted={user.IsDeleted}");
             if (user != null)
             {
-                MessageBox.Show("Đăng nhập thành công!");
+                UserSession.IsDeleted = user.IsDeleted;
+                if (user.IsDeleted == 1)
+                {
+                    MessageBox.Show("Tài khoản đã bị xóa. Vui lòng liên hệ quản trị viên để biết thêm chi tiết.");
+                    return;
 
-                // lưu trạng thái đăng nhập của người dùng vào UserSession để sử dụng trong các form khác
-                UserSession.UserId = user.UserId;
-                UserSession.FullName = user.FullName; 
-                UserSession.RoleName = user.RoleName;
-                UserSession.ImagePath = user.ImagePath;
+                }
+                
+                    MessageBox.Show("Đăng nhập thành công!");
 
-                frmMain main = new frmMain(user.RoleName);
-                main.Show();
-                this.Hide();
+                    // lưu trạng thái đăng nhập của người dùng vào UserSession để sử dụng trong các form khác
+                    UserSession.UserId = user.UserId;
+                    UserSession.FullName = user.FullName;
+                    UserSession.RoleName = user.RoleName;
+                    UserSession.ImagePath = user.ImagePath;
+                    
+
+                    frmMain main = new frmMain(user.RoleName);
+                    main.Show();
+                    this.Hide();
+                
             }
             else if ( userId == "" || password == "")
             {
