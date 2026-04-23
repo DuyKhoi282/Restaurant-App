@@ -19,6 +19,7 @@ namespace Restaurant_Management_App.FORM
         private string _lastOrderType = "Không buffet";
         private Label lblBuffetGuestCount;
         private NumericUpDown numBuffetGuestCount;
+        private Button btnIncreaseBuffetGuestCount;
 
         public frmCreateOrder()
         {
@@ -65,10 +66,22 @@ namespace Restaurant_Management_App.FORM
                 Enabled = false
             };
 
+            btnIncreaseBuffetGuestCount = new Button
+            {
+                Name = "btnIncreaseBuffetGuestCount",
+                Text = "+1 khách",
+                Size = new Size(80, 24),
+                Location = new Point(525, 136),
+                Visible = false,
+                Enabled = false
+            };
+
             numBuffetGuestCount.ValueChanged += NumBuffetGuestCount_ValueChanged;
+            btnIncreaseBuffetGuestCount.Click += BtnIncreaseBuffetGuestCount_Click;
 
             pnlOrderTop.Controls.Add(lblBuffetGuestCount);
             pnlOrderTop.Controls.Add(numBuffetGuestCount);
+            pnlOrderTop.Controls.Add(btnIncreaseBuffetGuestCount);
         }
 
         private void FrmOrder_Load(object sender, EventArgs e)
@@ -365,6 +378,8 @@ namespace Restaurant_Management_App.FORM
             numBuffetGuestCount.Enabled = false;
             numBuffetGuestCount.Visible = false;
             lblBuffetGuestCount.Visible = false;
+            btnIncreaseBuffetGuestCount.Visible = false;
+            btnIncreaseBuffetGuestCount.Enabled = false;
             _isBuffetGuestCountLocked = false;
             lblTotalValue.Text = "0 VNĐ";
             txtCustomerName.Focus();
@@ -575,12 +590,16 @@ namespace Restaurant_Management_App.FORM
                 lblBuffetGuestCount.Visible = true;
                 numBuffetGuestCount.Visible = true;
                 numBuffetGuestCount.Enabled = !_isBuffetGuestCountLocked;
+                btnIncreaseBuffetGuestCount.Visible = _isBuffetGuestCountLocked;
+                btnIncreaseBuffetGuestCount.Enabled = _isBuffetGuestCountLocked;
             }
             else
             {
                 lblBuffetGuestCount.Visible = false;
                 numBuffetGuestCount.Visible = false;
                 numBuffetGuestCount.Enabled = false;
+                btnIncreaseBuffetGuestCount.Visible = false;
+                btnIncreaseBuffetGuestCount.Enabled = false;
                 if (!_isBuffetLocked)
                 {
                     _isBuffetGuestCountLocked = false;
@@ -656,6 +675,32 @@ namespace Restaurant_Management_App.FORM
 
             _isBuffetGuestCountLocked = true;
             numBuffetGuestCount.Enabled = false;
+            btnIncreaseBuffetGuestCount.Visible = true;
+            btnIncreaseBuffetGuestCount.Enabled = true;
+        }
+
+        private void BtnIncreaseBuffetGuestCount_Click(object sender, EventArgs e)
+        {
+            if (!cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            if (numBuffetGuestCount.Value >= numBuffetGuestCount.Maximum)
+            {
+                MessageBox.Show("Đã đạt số khách buffet tối đa.", "Thông báo");
+                return;
+            }
+
+            numBuffetGuestCount.Value += 1;
+
+            if (!string.IsNullOrWhiteSpace(txtOrderNo.Text) && int.TryParse(txtOrderNo.Text, out int billId))
+            {
+                UpdateBillMetadata(billId);
+            }
+
+            CalculateTotal();
+            MessageBox.Show("Đã thêm 1 khách buffet và cập nhật tổng tiền.", "Thông báo");
         }
 
         private void ApplyCreateOrderThemeStyling()
@@ -714,6 +759,8 @@ namespace Restaurant_Management_App.FORM
                 numBuffetGuestCount.Enabled = false;
                 numBuffetGuestCount.Visible = false;
                 lblBuffetGuestCount.Visible = false;
+                btnIncreaseBuffetGuestCount.Visible = false;
+                btnIncreaseBuffetGuestCount.Enabled = false;
                 dgvCart.DataSource = null;
                 CalculateTotal();
                 return;
@@ -746,6 +793,8 @@ namespace Restaurant_Management_App.FORM
                 numBuffetGuestCount.Visible = true;
                 lblBuffetGuestCount.Visible = true;
                 numBuffetGuestCount.Enabled = false;
+                btnIncreaseBuffetGuestCount.Visible = true;
+                btnIncreaseBuffetGuestCount.Enabled = true;
             }
             else
             {
@@ -757,6 +806,8 @@ namespace Restaurant_Management_App.FORM
                 numBuffetGuestCount.Visible = false;
                 lblBuffetGuestCount.Visible = false;
                 numBuffetGuestCount.Enabled = false;
+                btnIncreaseBuffetGuestCount.Visible = false;
+                btnIncreaseBuffetGuestCount.Enabled = false;
             }
 
             LoadBillDetails(billId);
