@@ -542,6 +542,99 @@ namespace Restaurant_Management_App.FORM
             dgvCart.DefaultCellStyle.SelectionForeColor = Color.Black;
         }
 
+        private void btnBuffetLogin_Click(object sender, EventArgs e)
+        {
+            if (!cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Vui lòng chọn loại đơn Buffet trước.", "Thông báo");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtBuffetAccount.Text) || string.IsNullOrWhiteSpace(txtBuffetPassword.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tài khoản và mật khẩu Buffet.", "Thông báo");
+                return;
+            }
+
+            string query = $@"SELECT TOP 1 userId, fullname
+                              FROM Account
+                              WHERE userId = N'{EscapeSqlValue(txtBuffetAccount.Text.Trim())}'
+                                AND password = N'{EscapeSqlValue(txtBuffetPassword.Text)}'
+                                AND isDeleted = 0";
+            DataTable dt = Database.Instance.ExecuteQuery(query);
+            if (dt.Rows.Count == 0)
+            {
+                MessageBox.Show("Đăng nhập Buffet không thành công. Vui lòng kiểm tra lại tài khoản trong cơ sở dữ liệu.", "Thông báo");
+                return;
+            }
+
+            txtCustomerName.Text = dt.Rows[0]["fullname"].ToString();
+            cbCase.SelectedItem = "Buffet";
+            MessageBox.Show("Đăng nhập Buffet thành công. Bạn có thể chọn món và gửi từng đợt.", "Thông báo");
+        }
+
+        private void btnSendPaymentRequest_Click(object sender, EventArgs e)
+        {
+            if (cbTable.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn bàn.", "Thông báo");
+                return;
+            }
+
+            int tableId = (int)cbTable.SelectedValue;
+            int billId = GetOpenBillIdByTable(tableId);
+            if (billId == 0)
+            {
+                MessageBox.Show("Không có đơn mở để yêu cầu thanh toán.", "Thông báo");
+                return;
+            }
+
+            string query = $"UPDATE dbo.Bill SET kitchenStatus = N'ReadyToPay' WHERE id = {billId}";
+            Database.Instance.ExecuteNonQuery(query);
+            MessageBox.Show("Đã gửi yêu cầu thanh toán sang Order Management.", "Thông báo");
+            LoadBillDetails(billId);
+        }
+
+        private void cbOrderType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool isBuffet = cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase);
+            ToggleBuffetLogin(isBuffet);
+            if (isBuffet)
+            {
+                cbCase.SelectedItem = "Buffet";
+            }
+        }
+
+        private void ToggleBuffetLogin(bool visible)
+        {
+            lblBuffetAccount.Visible = visible;
+            txtBuffetAccount.Visible = visible;
+            lblBuffetPassword.Visible = visible;
+            txtBuffetPassword.Visible = visible;
+            btnBuffetLogin.Visible = visible;
+            txtCustomerName.ReadOnly = visible;
+        }
+
+        private void ApplyRedTheme()
+        {
+            Color primary = Color.FromArgb(158, 27, 27);
+            pnlMenu.BackColor = Color.FromArgb(255, 245, 245);
+            pnlOrder.BackColor = Color.FromArgb(255, 245, 245);
+            lblTitle.ForeColor = primary;
+            lblMenu.ForeColor = primary;
+            btnCheckout.BackColor = primary;
+            btnClear.BackColor = Color.FromArgb(233, 236, 239);
+            btnClear.FlatStyle = FlatStyle.Flat;
+            btnClear.FlatAppearance.BorderColor = primary;
+            btnClear.FlatAppearance.BorderSize = 1;
+            dgvCart.EnableHeadersVisualStyles = false;
+            dgvCart.ColumnHeadersDefaultCellStyle.BackColor = primary;
+            dgvCart.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvCart.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            dgvCart.DefaultCellStyle.SelectionBackColor = Color.FromArgb(248, 215, 218);
+            dgvCart.DefaultCellStyle.SelectionForeColor = Color.Black;
+        }
+
         private void cbTable_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadOpenBillBySelectedTable();
