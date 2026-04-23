@@ -250,7 +250,8 @@ namespace Restaurant_Management_App.FORM
 
         private void LoadBillDetails(int billId)
         {
-            string query = @"SELECT bi.idFood AS foodId, f.name AS name, bi.quantity AS quantity, f.price AS price,
+            string query = @"SELECT bi.idFood AS foodId, f.name AS name, bi.quantity AS quantity,
+                                    CASE WHEN ISNULL(b.isBuffet, 0) = 1 THEN 0 ELSE f.price END AS price,
                                     CASE WHEN ISNULL(b.kitchenStatus, N'Pending') = N'Ready'
                                          THEN N'Đã lên món'
                                          ELSE N'Đang chờ'

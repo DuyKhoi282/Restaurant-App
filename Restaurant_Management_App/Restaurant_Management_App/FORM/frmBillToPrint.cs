@@ -41,14 +41,14 @@ namespace Restaurant_Management_App
     ROW_NUMBER() OVER (ORDER BY f.name) AS STT,
     f.name AS FoodName,
     SUM(bi.quantity) AS quantity,
-    f.price,
-    SUM(f.price * bi.quantity) AS TotalPrice,
+    CASE WHEN ISNULL(b.isBuffet, 0) = 1 THEN 0 ELSE f.price END AS price,
+    SUM(CASE WHEN ISNULL(b.isBuffet, 0) = 1 THEN 0 ELSE f.price * bi.quantity END) AS TotalPrice,
     MAX(ISNULL(b.discountPercent, 0)) AS discountPercent
 FROM Bill b
 JOIN BillInfo bi ON b.id = bi.idBill
 JOIN Food f ON bi.idFood = f.id
 WHERE b.id = @id
-GROUP BY f.name, f.price";
+GROUP BY f.name, f.price, b.isBuffet";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -105,9 +105,10 @@ GROUP BY f.name, f.price";
 
             double discountAmount = 0;
             double amountDue = total;
+            bool isBuffetBill = false;
 
             string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
-            string query = @"SELECT discountAmount, finalAmount
+            string query = @"SELECT discountAmount, finalAmount, ISNULL(isBuffet, 0) AS isBuffet
                              FROM Bill
                              WHERE id = @id";
 
@@ -134,8 +135,15 @@ GROUP BY f.name, f.price";
                         {
                             amountDue = total - discountAmount;
                         }
+
+                        isBuffetBill = Convert.ToInt32(reader["isBuffet"]) == 1;
                     }
                 }
+            }
+
+            if (isBuffetBill)
+            {
+                amountDue = 299000;
             }
 
             txtTotalPrice.Text = total.ToString("N0");
