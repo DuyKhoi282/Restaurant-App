@@ -12,7 +12,19 @@ namespace Restaurant_Management_App.FORM
     public partial class frmCreateOrder : Form
     {
         private readonly OrderRepository _repo = new OrderRepository();
+        private readonly BuffetService _buffetService = new BuffetService();
         private readonly List<FoodMenuItem> _foods = new List<FoodMenuItem>();
+        private readonly Dictionary<int, int> _draftBuffetItems = new Dictionary<int, int>();
+        private readonly Dictionary<int, int> _submittedBuffetItems = new Dictionary<int, int>();
+
+        private ComboBox _cbServiceMode;
+        private ComboBox _cbBuffetPackage;
+        private NumericUpDown _numBuffetGuests;
+        private Button _btnBuffetPay;
+        private Label _lblBuffetPackage;
+        private Label _lblBuffetGuests;
+
+        private bool IsBuffetMode => _cbServiceMode != null && _cbServiceMode.SelectedItem != null && _cbServiceMode.SelectedItem.ToString() == "Buffet";
 
         public frmCreateOrder()
         {
@@ -27,10 +39,13 @@ namespace Restaurant_Management_App.FORM
             lblDiscountCaption.Visible = false;
             numDiscount.Visible = false;
             numDiscount.Value = 0;
+
+            SetupBuffetControls();
         }
 
         private void FrmOrder_Load(object sender, EventArgs e)
         {
+            _buffetService.EnsureSchema();
             LoadTables();
             LoadCategoryList();
             LoadFoodList();
@@ -40,7 +55,75 @@ namespace Restaurant_Management_App.FORM
 
             cbCase.SelectedIndex = 0;
             cbPayMethod.SelectedIndex = 0;
+            cbOrderType.SelectedIndex = 0;
             LoadOpenBillBySelectedTable();
+        }
+
+        private void SetupBuffetControls()
+        {
+            pnlOrderTop.Height = 150;
+
+            _cbServiceMode = new ComboBox
+            {
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                Location = new Point(515, 96),
+                Size = new Size(130, 24)
+            };
+            _cbServiceMode.Items.AddRange(new object[] { "Normal", "Buffet" });
+            _cbServiceMode.SelectedIndex = 0;
+            _cbServiceMode.SelectedIndexChanged += ServiceModeChanged;
+            pnlOrderTop.Controls.Add(_cbServiceMode);
+
+            Label lblMode = new Label
+            {
+                Text = "Service",
+                Location = new Point(430, 100),
+                AutoSize = true
+            };
+            pnlOrderTop.Controls.Add(lblMode);
+
+            _lblBuffetPackage = new Label { Text = "Buffet gói", Location = new Point(10, 100), AutoSize = true, Visible = false };
+            pnlOrderTop.Controls.Add(_lblBuffetPackage);
+
+            _cbBuffetPackage = new ComboBox
+            {
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                Location = new Point(90, 96),
+                Size = new Size(90, 24),
+                Visible = false
+            };
+            _cbBuffetPackage.Items.AddRange(new object[] { "299K", "599K" });
+            _cbBuffetPackage.SelectedIndex = 0;
+            _cbBuffetPackage.SelectedIndexChanged += (s, e) => ApplyMenuFilter();
+            pnlOrderTop.Controls.Add(_cbBuffetPackage);
+
+            _lblBuffetGuests = new Label { Text = "Số khách", Location = new Point(190, 100), AutoSize = true, Visible = false };
+            pnlOrderTop.Controls.Add(_lblBuffetGuests);
+
+            _numBuffetGuests = new NumericUpDown
+            {
+                Location = new Point(252, 96),
+                Size = new Size(70, 24),
+                Minimum = 1,
+                Maximum = 100,
+                Value = 1,
+                Visible = false
+            };
+            pnlOrderTop.Controls.Add(_numBuffetGuests);
+
+            _btnBuffetPay = new Button
+            {
+                Text = "Thanh toán Buffet",
+                BackColor = Color.Firebrick,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Location = new Point(470, 106),
+                Size = new Size(140, 32),
+                Visible = false
+            };
+            _btnBuffetPay.FlatAppearance.BorderSize = 0;
+            _btnBuffetPay.Click += BtnBuffetPay_Click;
+            pnlSummary.Controls.Add(_btnBuffetPay);
         }
 
         private void LoadTables()
@@ -108,10 +191,13 @@ namespace Restaurant_Management_App.FORM
             string searchText = txtSearchFood.Text.Trim().ToLowerInvariant();
             string selectedCategory = (cbCategory.SelectedItem as DataRowView)?["name"]?.ToString() ?? "All category";
             bool allCategory = selectedCategory.Equals("All category", StringComparison.OrdinalIgnoreCase);
+            bool isBuffet299 = IsBuffetMode && _cbBuffetPackage.SelectedItem != null && _cbBuffetPackage.SelectedItem.ToString() == "299K";
+            bool isBuffet599 = IsBuffetMode && _cbBuffetPackage.SelectedItem != null && _cbBuffetPackage.SelectedItem.ToString() == "599K";
 
             var filtered = _foods.Where(f =>
                 (allCategory || f.Category.Equals(selectedCategory, StringComparison.OrdinalIgnoreCase)) &&
-                (string.IsNullOrEmpty(searchText) || f.Name.ToLowerInvariant().Contains(searchText)));
+                (string.IsNullOrEmpty(searchText) || f.Name.ToLowerInvariant().Contains(searchText)) &&
+                (!IsBuffetMode || (isBuffet299 && f.Price <= 299000) || (isBuffet599 && f.Price <= 599000)));
 
             RenderFoodCards(filtered);
         }
@@ -204,6 +290,11 @@ namespace Restaurant_Management_App.FORM
         private void AddFoodToBill(int foodId)
         {
             if (foodId <= 0) return;
+            if (IsBuffetMode)
+            {
+                AddFoodToBuffetDraft(foodId);
+                return;
+            }
 
             try
             {
@@ -236,6 +327,47 @@ namespace Restaurant_Management_App.FORM
             }
         }
 
+        private void AddFoodToBuffetDraft(int foodId)
+        {
+            if (_draftBuffetItems.ContainsKey(foodId))
+            {
+                _draftBuffetItems[foodId] += 1;
+            }
+            else
+            {
+                _draftBuffetItems[foodId] = 1;
+            }
+
+            BindBuffetCartView();
+            CalculateTotal();
+        }
+
+        private void BindBuffetCartView()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("foodId", typeof(int));
+            dt.Columns.Add("name", typeof(string));
+            dt.Columns.Add("quantity", typeof(int));
+            dt.Columns.Add("price", typeof(double));
+            dt.Columns.Add("source", typeof(string));
+
+            foreach (KeyValuePair<int, int> item in _submittedBuffetItems)
+            {
+                FoodMenuItem food = _foods.FirstOrDefault(f => f.Id == item.Key);
+                if (food == null) continue;
+                dt.Rows.Add(food.Id, food.Name, item.Value, food.Price, "Đã submit");
+            }
+
+            foreach (KeyValuePair<int, int> item in _draftBuffetItems)
+            {
+                FoodMenuItem food = _foods.FirstOrDefault(f => f.Id == item.Key);
+                if (food == null) continue;
+                dt.Rows.Add(food.Id, food.Name, item.Value, food.Price, "Chờ submit");
+            }
+
+            dgvCart.DataSource = dt;
+        }
+
         private void LoadBillDetails(int billId)
         {
             string query = @"SELECT bi.idFood AS foodId, f.name AS name, bi.quantity AS quantity, f.price AS price
@@ -264,10 +396,12 @@ namespace Restaurant_Management_App.FORM
 
             double discountPercent = (double)numDiscount.Value;
             double tax = subtotal * 0.07;
-            double total = (subtotal + tax) * (1 - discountPercent / 100);
+            double total = IsBuffetMode
+                ? ((_cbBuffetPackage.SelectedItem?.ToString() == "599K" ? 599000 : 299000) * (double)_numBuffetGuests.Value)
+                : (subtotal + tax) * (1 - discountPercent / 100);
 
             lblSubtotalValue.Text = subtotal.ToString("N0") + " VNĐ";
-            lblTaxValue.Text = tax.ToString("N0") + " VNĐ";
+            lblTaxValue.Text = IsBuffetMode ? "0 VNĐ" : tax.ToString("N0") + " VNĐ";
             lblTotalValue.Text = total.ToString("N0") + " VNĐ";
         }
 
@@ -347,6 +481,12 @@ namespace Restaurant_Management_App.FORM
             if (e.RowIndex < 0) return;
             if (dgvCart.Columns[e.ColumnIndex].Name != "colDelete") return;
 
+            if (IsBuffetMode)
+            {
+                RemoveOneBuffetItem(e.RowIndex);
+                return;
+            }
+
             try
             {
                 object foodIdObj = dgvCart.Rows[e.RowIndex].Cells["FoodID"].Value;
@@ -383,6 +523,35 @@ namespace Restaurant_Management_App.FORM
             }
         }
 
+        private void RemoveOneBuffetItem(int rowIndex)
+        {
+            try
+            {
+                object foodIdObj = dgvCart.Rows[rowIndex].Cells["FoodID"].Value;
+                if (foodIdObj == null) return;
+
+                int foodId = Convert.ToInt32(foodIdObj);
+
+                if (_draftBuffetItems.ContainsKey(foodId) && _draftBuffetItems[foodId] > 0)
+                {
+                    _draftBuffetItems[foodId] -= 1;
+                    if (_draftBuffetItems[foodId] <= 0) _draftBuffetItems.Remove(foodId);
+                }
+                else if (_submittedBuffetItems.ContainsKey(foodId) && _submittedBuffetItems[foodId] > 0)
+                {
+                    _submittedBuffetItems[foodId] -= 1;
+                    if (_submittedBuffetItems[foodId] <= 0) _submittedBuffetItems.Remove(foodId);
+                }
+
+                BindBuffetCartView();
+                CalculateTotal();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi xóa món buffet: " + ex.Message);
+            }
+        }
+
         private void numDiscount_ValueChanged_1(object sender, EventArgs e)
         {
             CalculateTotal();
@@ -390,6 +559,12 @@ namespace Restaurant_Management_App.FORM
 
         private void btnCheckout_Click_1(object sender, EventArgs e)
         {
+            if (IsBuffetMode)
+            {
+                SubmitBuffetBatch(false);
+                return;
+            }
+
             try
             {
                 if (cbTable.SelectedValue == null)
@@ -426,8 +601,60 @@ namespace Restaurant_Management_App.FORM
             }
         }
 
+        private void SubmitBuffetBatch(bool silentWhenEmpty = false)
+        {
+            if (_draftBuffetItems.Count == 0)
+            {
+                if (!silentWhenEmpty)
+                {
+                    MessageBox.Show("Chưa có món buffet nào để submit.");
+                }
+                return;
+            }
+
+            foreach (KeyValuePair<int, int> item in _draftBuffetItems)
+            {
+                if (_submittedBuffetItems.ContainsKey(item.Key))
+                {
+                    _submittedBuffetItems[item.Key] += item.Value;
+                }
+                else
+                {
+                    _submittedBuffetItems[item.Key] = item.Value;
+                }
+            }
+
+            _draftBuffetItems.Clear();
+            BindBuffetCartView();
+            CalculateTotal();
+            if (!silentWhenEmpty)
+            {
+                MessageBox.Show("Đã submit đợt gọi món buffet.");
+            }
+        }
+
         private void cbTable_SelectedIndexChanged(object sender, EventArgs e)
         {
+            LoadOpenBillBySelectedTable();
+        }
+
+        private void ServiceModeChanged(object sender, EventArgs e)
+        {
+            bool buffet = IsBuffetMode;
+            _lblBuffetPackage.Visible = buffet;
+            _cbBuffetPackage.Visible = buffet;
+            _lblBuffetGuests.Visible = buffet;
+            _numBuffetGuests.Visible = buffet;
+            _btnBuffetPay.Visible = buffet;
+
+            cbCase.Enabled = !buffet;
+            cbPayMethod.Enabled = !buffet;
+            txtNote.Enabled = !buffet;
+            btnCheckout.Text = buffet ? "Submit Buffet" : "Submit";
+
+            _draftBuffetItems.Clear();
+            _submittedBuffetItems.Clear();
+            ApplyMenuFilter();
             LoadOpenBillBySelectedTable();
         }
 
@@ -437,6 +664,11 @@ namespace Restaurant_Management_App.FORM
 
             int tableId;
             if (!int.TryParse(cbTable.SelectedValue.ToString(), out tableId)) return;
+
+            if (IsBuffetMode)
+            {
+                EnsureBuffetTableAccount(tableId);
+            }
 
             string query = $@"SELECT TOP 1 id, customerName, caseName, payMethod
                               FROM Bill
@@ -448,7 +680,7 @@ namespace Restaurant_Management_App.FORM
             if (dt.Rows.Count == 0)
             {
                 txtOrderNo.Text = "";
-                txtCustomerName.Text = "";
+                txtCustomerName.Text = IsBuffetMode ? $"Table {tableId}" : "";
                 if (cbCase.Items.Count > 0) cbCase.SelectedIndex = 0;
                 if (cbPayMethod.Items.Count > 0) cbPayMethod.SelectedIndex = 0;
                 dgvCart.DataSource = null;
@@ -469,7 +701,110 @@ namespace Restaurant_Management_App.FORM
             if (!string.IsNullOrWhiteSpace(payMethod) && cbPayMethod.Items.Contains(payMethod))
                 cbPayMethod.SelectedItem = payMethod;
 
-            LoadBillDetails(billId);
+            if (IsBuffetMode)
+            {
+                _submittedBuffetItems.Clear();
+                _draftBuffetItems.Clear();
+                LoadBuffetSubmittedFromBill(billId);
+                BindBuffetCartView();
+            }
+            else
+            {
+                LoadBillDetails(billId);
+            }
+        }
+
+        private void LoadBuffetSubmittedFromBill(int billId)
+        {
+            DataTable dt = Database.Instance.ExecuteQuery($@"SELECT idFood, SUM(quantity) quantity
+                                                             FROM BillInfo
+                                                             WHERE idBill = {billId}
+                                                             GROUP BY idFood");
+            foreach (DataRow row in dt.Rows)
+            {
+                int foodId = Convert.ToInt32(row["idFood"]);
+                int qty = Convert.ToInt32(row["quantity"]);
+                _submittedBuffetItems[foodId] = qty;
+            }
+        }
+
+        private void BtnBuffetPay_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!IsBuffetMode) return;
+                if (cbTable.SelectedValue == null)
+                {
+                    MessageBox.Show("Vui lòng chọn bàn.");
+                    return;
+                }
+
+                SubmitBuffetBatch(true);
+
+                if (_submittedBuffetItems.Count == 0)
+                {
+                    MessageBox.Show("Không có món buffet để thanh toán.");
+                    return;
+                }
+
+                int tableId = (int)cbTable.SelectedValue;
+                int billId = GetOpenBillIdByTable(tableId);
+                if (billId == 0)
+                {
+                    object result = Database.Instance.ExecuteScalar($@"INSERT INTO dbo.Bill (idTable, customerName, caseName, payMethod, status, kitchenStatus)
+                                                                       VALUES ({tableId}, N'{EscapeSqlValue(txtCustomerName.Text)}', N'Buffet {_cbBuffetPackage.Text}', N'Cash', 0, N'Ready');
+                                                                       SELECT SCOPE_IDENTITY();");
+                    billId = Convert.ToInt32(result);
+                }
+                else
+                {
+                    Database.Instance.ExecuteNonQuery($@"UPDATE dbo.Bill
+                                                         SET customerName = N'{EscapeSqlValue(txtCustomerName.Text)}',
+                                                             caseName = N'Buffet {_cbBuffetPackage.Text}',
+                                                             payMethod = N'Cash',
+                                                             kitchenStatus = N'Ready'
+                                                         WHERE id = {billId}");
+                    Database.Instance.ExecuteNonQuery($"DELETE dbo.BillInfo WHERE idBill = {billId}");
+                }
+
+                foreach (KeyValuePair<int, int> item in _submittedBuffetItems)
+                {
+                    Database.Instance.ExecuteNonQuery($@"INSERT INTO dbo.BillInfo (idBill, idFood, quantity)
+                                                         VALUES ({billId}, {item.Key}, {item.Value})");
+                }
+
+                EnsureBuffetTableAccount(tableId);
+
+                txtOrderNo.Text = FormatBillId(billId);
+                _submittedBuffetItems.Clear();
+                _draftBuffetItems.Clear();
+                BindBuffetCartView();
+                CalculateTotal();
+
+                MessageBox.Show("Đã thanh toán buffet, món đã chuyển sang Order Management và trạng thái Ready.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi thanh toán buffet: " + ex.Message);
+            }
+        }
+
+        private string EnsureBuffetTableAccount(int tableId)
+        {
+            string userName = tableId.ToString();
+            Database.Instance.ExecuteNonQuery($@"
+IF NOT EXISTS (SELECT 1 FROM dbo.BuffetCustomerAccount WHERE userName = N'{userName}')
+BEGIN
+    INSERT INTO dbo.BuffetCustomerAccount(userName, [password], fullName)
+    VALUES (N'{userName}', N'123', N'Table {tableId}')
+END
+ELSE
+BEGIN
+    UPDATE dbo.BuffetCustomerAccount
+    SET [password] = N'123', fullName = N'Table {tableId}'
+    WHERE userName = N'{userName}'
+END");
+            return userName;
         }
 
         private int GetOpenBillIdByTable(int tableId)

@@ -83,20 +83,8 @@ namespace Restaurant_Management_App.FORM
 
             TabPage tabCustomer = new TabPage("Tích điểm khách hàng");
             TabPage tabPromotion = new TabPage("Chương trình khuyến mãi");
-            TabPage tabBuffet = new TabPage("Buffet tự order");
             tabCustomer.BackColor = Color.White;
             tabPromotion.BackColor = Color.White;
-            tabBuffet.BackColor = Color.White;
-
-            BuildCustomerTab(tabCustomer, baseFont, titleFont, primaryRed);
-            BuildPromotionTab(tabPromotion, baseFont, titleFont, primaryRed, lightRedBackground);
-            BuildBuffetTab(tabBuffet, baseFont, titleFont, primaryRed, lightRedBackground);
-
-            _tabControl.TabPages.Add(tabCustomer);
-            _tabControl.TabPages.Add(tabPromotion);
-            _tabControl.TabPages.Add(tabBuffet);
-            Controls.Add(_tabControl);
-        }
 
         private void BuildCustomerTab(TabPage tabCustomer, Font baseFont, Font titleFont, Color primaryRed)
         {
@@ -113,8 +101,6 @@ namespace Restaurant_Management_App.FORM
             tabCustomer.Controls.Add(_dgvCustomers);
         }
 
-        private void BuildPromotionTab(TabPage tabPromotion, Font baseFont, Font titleFont, Color primaryRed, Color lightRedBackground)
-        {
             Panel pnlPromoTop = new Panel { Dock = DockStyle.Top, Height = 130, BackColor = lightRedBackground };
             _dgvPromotions.Dock = DockStyle.Fill;
             _dgvPromotions.ReadOnly = true;
