@@ -31,7 +31,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.gbxListDetails = new System.Windows.Forms.GroupBox();
             this.dgvFoodDetails = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbIdOrder = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
@@ -93,14 +93,14 @@
             this.dgvFoodDetails.Size = new System.Drawing.Size(1656, 540);
             this.dgvFoodDetails.TabIndex = 0;
             // 
-            // label1
+            // lbIdOrder
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 579);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(114, 29);
-            this.label1.TabIndex = 2;
-            this.label1.Text = " Id Order:";
+            this.lbIdOrder.AutoSize = true;
+            this.lbIdOrder.Location = new System.Drawing.Point(3, 579);
+            this.lbIdOrder.Name = "lbIdOrder";
+            this.lbIdOrder.Size = new System.Drawing.Size(114, 29);
+            this.lbIdOrder.TabIndex = 2;
+            this.lbIdOrder.Text = " Id Order:";
             // 
             // label2
             // 
@@ -128,7 +128,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(557, 579);
+            this.label4.Location = new System.Drawing.Point(556, 579);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(108, 29);
             this.label4.TabIndex = 2;
@@ -137,7 +137,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(557, 698);
+            this.label5.Location = new System.Drawing.Point(556, 698);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(136, 29);
             this.label5.TabIndex = 2;
@@ -146,7 +146,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(557, 804);
+            this.label6.Location = new System.Drawing.Point(556, 804);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(194, 29);
             this.label6.TabIndex = 2;
@@ -155,7 +155,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(1113, 579);
+            this.label7.Location = new System.Drawing.Point(1112, 579);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(184, 29);
             this.label7.TabIndex = 2;
@@ -165,7 +165,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(1113, 698);
+            this.label8.Location = new System.Drawing.Point(1112, 698);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(146, 29);
             this.label8.TabIndex = 2;
@@ -198,7 +198,7 @@
             // 
             // txtIdTable
             // 
-            this.txtIdTable.Location = new System.Drawing.Point(771, 582);
+            this.txtIdTable.Location = new System.Drawing.Point(770, 582);
             this.txtIdTable.Name = "txtIdTable";
             this.txtIdTable.ReadOnly = true;
             this.txtIdTable.Size = new System.Drawing.Size(211, 34);
@@ -206,7 +206,7 @@
             // 
             // txtTotalPrice
             // 
-            this.txtTotalPrice.Location = new System.Drawing.Point(771, 701);
+            this.txtTotalPrice.Location = new System.Drawing.Point(770, 701);
             this.txtTotalPrice.Name = "txtTotalPrice";
             this.txtTotalPrice.ReadOnly = true;
             this.txtTotalPrice.Size = new System.Drawing.Size(211, 34);
@@ -214,7 +214,7 @@
             // 
             // txtCustomerName
             // 
-            this.txtCustomerName.Location = new System.Drawing.Point(771, 807);
+            this.txtCustomerName.Location = new System.Drawing.Point(770, 807);
             this.txtCustomerName.Name = "txtCustomerName";
             this.txtCustomerName.ReadOnly = true;
             this.txtCustomerName.Size = new System.Drawing.Size(211, 34);
@@ -222,7 +222,7 @@
             // 
             // txtStatus
             // 
-            this.txtStatus.Location = new System.Drawing.Point(1309, 582);
+            this.txtStatus.Location = new System.Drawing.Point(1308, 582);
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.ReadOnly = true;
             this.txtStatus.Size = new System.Drawing.Size(211, 34);
@@ -230,7 +230,7 @@
             // 
             // txtPayMethod
             // 
-            this.txtPayMethod.Location = new System.Drawing.Point(1309, 701);
+            this.txtPayMethod.Location = new System.Drawing.Point(1308, 701);
             this.txtPayMethod.Name = "txtPayMethod";
             this.txtPayMethod.ReadOnly = true;
             this.txtPayMethod.Size = new System.Drawing.Size(211, 34);
@@ -239,7 +239,7 @@
             // btnBack
             // 
             this.btnBack.AutoSize = true;
-            this.btnBack.Location = new System.Drawing.Point(1309, 941);
+            this.btnBack.Location = new System.Drawing.Point(1308, 941);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(102, 39);
             this.btnBack.TabIndex = 4;
@@ -250,7 +250,7 @@
             // btnPay
             // 
             this.btnPay.AutoSize = true;
-            this.btnPay.Location = new System.Drawing.Point(1113, 941);
+            this.btnPay.Location = new System.Drawing.Point(1112, 941);
             this.btnPay.Name = "btnPay";
             this.btnPay.Size = new System.Drawing.Size(102, 39);
             this.btnPay.TabIndex = 4;
@@ -261,7 +261,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(1113, 804);
+            this.label9.Location = new System.Drawing.Point(1112, 804);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(154, 29);
             this.label9.TabIndex = 2;
@@ -269,7 +269,7 @@
             // 
             // txtStatusOrders
             // 
-            this.txtStatusOrders.Location = new System.Drawing.Point(1309, 807);
+            this.txtStatusOrders.Location = new System.Drawing.Point(1308, 807);
             this.txtStatusOrders.Name = "txtStatusOrders";
             this.txtStatusOrders.ReadOnly = true;
             this.txtStatusOrders.Size = new System.Drawing.Size(211, 34);
@@ -287,7 +287,7 @@
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnBack, 5, 4);
             this.tableLayoutPanel1.Controls.Add(this.btnPay, 4, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lbIdOrder, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtIdOrder, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtStatusOrders, 5, 3);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
@@ -341,7 +341,7 @@
 
         #endregion
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbIdOrder;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.IO.FileSystemWatcher fileSystemWatcher1;

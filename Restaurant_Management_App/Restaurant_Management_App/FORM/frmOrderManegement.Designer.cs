@@ -23,8 +23,8 @@ namespace Restaurant_Management_App
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblTitle = new System.Windows.Forms.Label();
             this.topPanel = new System.Windows.Forms.Panel();
             this.panelButtons = new System.Windows.Forms.FlowLayoutPanel();
@@ -46,7 +46,7 @@ namespace Restaurant_Management_App
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(1280, 70);
             this.lblTitle.TabIndex = 1;
-            this.lblTitle.Text = "📋 ORDER MANAGEMENT";
+            this.lblTitle.Text = "📋 QUẢN LÝ ĐƠN HÀNG";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // topPanel
@@ -86,7 +86,7 @@ namespace Restaurant_Management_App
             this.btnReload.Name = "btnReload";
             this.btnReload.Size = new System.Drawing.Size(180, 60);
             this.btnReload.TabIndex = 0;
-            this.btnReload.Text = "🔄 Reload";
+            this.btnReload.Text = "🔄 Tải lại";
             this.btnReload.UseVisualStyleBackColor = false;
             this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
             // 
@@ -102,7 +102,7 @@ namespace Restaurant_Management_App
             this.btnStatusOrder.Name = "btnStatusOrder";
             this.btnStatusOrder.Size = new System.Drawing.Size(180, 60);
             this.btnStatusOrder.TabIndex = 1;
-            this.btnStatusOrder.Text = "📊 Status";
+            this.btnStatusOrder.Text = "📊 Trạng thái";
             this.btnStatusOrder.UseVisualStyleBackColor = false;
             this.btnStatusOrder.Click += new System.EventHandler(this.btnStatusOrder_Click);
             // 
@@ -111,23 +111,23 @@ namespace Restaurant_Management_App
             this.dtgvOrderMagagement.AllowUserToAddRows = false;
             this.dtgvOrderMagagement.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dtgvOrderMagagement.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(47)))), ((int)(((byte)(47)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvOrderMagagement.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(47)))), ((int)(((byte)(47)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 15F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvOrderMagagement.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dtgvOrderMagagement.ColumnHeadersHeight = 55;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 15F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dtgvOrderMagagement.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 15F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dtgvOrderMagagement.DefaultCellStyle = dataGridViewCellStyle2;
             this.dtgvOrderMagagement.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtgvOrderMagagement.EnableHeadersVisualStyles = false;
             this.dtgvOrderMagagement.Location = new System.Drawing.Point(0, 140);
