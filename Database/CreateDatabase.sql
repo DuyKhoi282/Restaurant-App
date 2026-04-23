@@ -209,5 +209,16 @@ ALTER TABLE Bill
 ADD CONSTRAINT FK_Bill_PromotionProgram FOREIGN KEY (idPromotion) REFERENCES PromotionProgram(id)
 GO
 
+CREATE TABLE Review
+(
+    id INT IDENTITY PRIMARY KEY,
+    billId INT NOT NULL,
+    rating INT NOT NULL, -- 1-5 sao
+    comment NVARCHAR(500),
+    createdAt DATETIME DEFAULT GETDATE(),
+
+    FOREIGN KEY (billId) REFERENCES Bill(id)
+)
+
 
 
