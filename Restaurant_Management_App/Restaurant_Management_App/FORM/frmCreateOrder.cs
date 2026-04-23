@@ -94,8 +94,8 @@ namespace Restaurant_Management_App.FORM
             {
                 Name = "btnRequestEditOrderInfo",
                 Text = "Yêu cầu chỉnh sửa",
-                Size = new Size(130, 32),
-                Location = new Point(250, 12),
+                Size = new Size(130, 30),
+                Location = new Point(452, 50),
                 Visible = false
             };
 
@@ -103,8 +103,8 @@ namespace Restaurant_Management_App.FORM
             {
                 Name = "btnSaveOrderInfo",
                 Text = "Lưu",
-                Size = new Size(60, 32),
-                Location = new Point(250, 12),
+                Size = new Size(130, 30),
+                Location = new Point(452, 50),
                 Visible = false
             };
 
@@ -729,7 +729,7 @@ namespace Restaurant_Management_App.FORM
 
             if (cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase))
             {
-                numBuffetGuestCount.Enabled = !isLocked && !_isBuffetGuestCountLocked;
+                numBuffetGuestCount.Enabled = !isLocked;
                 btnIncreaseBuffetGuestCount.Enabled = !isLocked && btnIncreaseBuffetGuestCount.Visible;
             }
             else
