@@ -12,7 +12,6 @@ namespace Restaurant_Management_App.FORM
     public partial class frmCreateOrder : Form
     {
         private const double BuffetFixedPrice = 299000;
-        private const string BuffetFlag = "[BUFFET]";
         private readonly OrderRepository _repo = new OrderRepository();
         private readonly List<FoodMenuItem> _foods = new List<FoodMenuItem>();
         private bool _isBuffetLocked;
@@ -35,6 +34,7 @@ namespace Restaurant_Management_App.FORM
             numDiscount.Value = 0;
             ApplyCreateOrderTheme();
             HideBuffetAccountInputs();
+            EnsureBuffetSchema();
         }
 
         private void FrmOrder_Load(object sender, EventArgs e)
@@ -553,6 +553,64 @@ namespace Restaurant_Management_App.FORM
                 MessageBox.Show("Mang đi không thể chọn Buffet. Hệ thống sẽ chuyển về Không buffet.", "Thông báo");
                 cbOrderType.SelectedItem = "Không buffet";
             }
+
+            if (isBuffet)
+                _isBuffetLocked = true;
+
+            _lastOrderType = cbOrderType.Text;
+
+            if (!string.IsNullOrWhiteSpace(txtOrderNo.Text) && int.TryParse(txtOrderNo.Text, out int billId))
+            {
+                UpdateBillMetadata(billId);
+            }
+            CalculateTotal();
+        }
+
+        private void CbCase_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbCase.Text.Equals("Mang đi", StringComparison.OrdinalIgnoreCase) && _isBuffetLocked)
+            {
+                MessageBox.Show("Đơn Buffet chỉ áp dụng cho hình thức Tại quán.", "Thông báo");
+                cbCase.SelectedItem = "Tại quán";
+                return;
+            }
+
+            if (cbCase.Text.Equals("Mang đi", StringComparison.OrdinalIgnoreCase) &&
+                cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Mang đi không thể chọn Buffet. Hệ thống sẽ chuyển về Không buffet.", "Thông báo");
+                cbOrderType.SelectedItem = "Không buffet";
+            }
+        }
+
+        private void HideBuffetAccountInputs()
+        {
+            lblBuffetAccount.Visible = false;
+            txtBuffetAccount.Visible = false;
+            lblBuffetPassword.Visible = false;
+            txtBuffetPassword.Visible = false;
+            btnBuffetLogin.Visible = false;
+            txtCustomerName.ReadOnly = false;
+        }
+
+        private void ApplyCreateOrderTheme()
+        {
+            Color primary = Color.FromArgb(158, 27, 27);
+            pnlMenu.BackColor = Color.FromArgb(255, 245, 245);
+            pnlOrder.BackColor = Color.FromArgb(255, 245, 245);
+            lblTitle.ForeColor = primary;
+            lblMenu.ForeColor = primary;
+            btnCheckout.BackColor = primary;
+            btnClear.BackColor = Color.FromArgb(233, 236, 239);
+            btnClear.FlatStyle = FlatStyle.Flat;
+            btnClear.FlatAppearance.BorderColor = primary;
+            btnClear.FlatAppearance.BorderSize = 1;
+            dgvCart.EnableHeadersVisualStyles = false;
+            dgvCart.ColumnHeadersDefaultCellStyle.BackColor = primary;
+            dgvCart.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvCart.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            dgvCart.DefaultCellStyle.SelectionBackColor = Color.FromArgb(248, 215, 218);
+            dgvCart.DefaultCellStyle.SelectionForeColor = Color.Black;
         }
 
         private void HideBuffetAccountInputs()
@@ -597,8 +655,8 @@ namespace Restaurant_Management_App.FORM
             int tableId;
             if (!int.TryParse(cbTable.SelectedValue.ToString(), out tableId)) return;
 
-            string query = $@"SELECT TOP 1 id, customerName, caseName, payMethod
-                              , note
+            string query = $@"SELECT TOP 1 id, customerName, caseName, payMethod, note,
+                                     ISNULL(isBuffet, 0) AS isBuffet
                               FROM Bill
                               WHERE idTable = {tableId}
                                 AND status = 0
@@ -634,9 +692,8 @@ namespace Restaurant_Management_App.FORM
                 cbPayMethod.SelectedItem = payMethod;
 
             string billNote = row["note"] == DBNull.Value ? "" : row["note"].ToString();
-            txtNote.Text = GetUserNoteFromBillNote(billNote);
-
-            bool isBuffetBill = IsBuffetOrder(billNote);
+            txtNote.Text = billNote;
+            bool isBuffetBill = Convert.ToInt32(row["isBuffet"]) == 1;
             if (isBuffetBill)
             {
                 cbOrderType.SelectedItem = "Buffet";
@@ -661,27 +718,24 @@ namespace Restaurant_Management_App.FORM
                               SET customerName = N'{EscapeSqlValue(txtCustomerName.Text)}',
                                   caseName = N'{EscapeSqlValue(cbCase.Text)}',
                                   payMethod = N'{EscapeSqlValue(cbPayMethod.Text)}',
-                                  note = N'{EscapeSqlValue(BuildBillNote())}'
+                                  note = N'{EscapeSqlValue(BuildBillNote())}',
+                                  isBuffet = {(cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase) ? 1 : 0)}
                               WHERE id = {billId}";
             Database.Instance.ExecuteNonQuery(query);
         }
 
-        private bool IsBuffetOrder(string billNote)
-        {
-            return !string.IsNullOrWhiteSpace(billNote)
-                   && billNote.IndexOf(BuffetFlag, StringComparison.OrdinalIgnoreCase) >= 0;
-        }
-
         private string BuildBillNote()
         {
-            string userNote = GetUserNoteFromBillNote(txtNote.Text);
-            bool isBuffet = cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase);
-            return isBuffet ? $"{userNote} {BuffetFlag}".Trim() : userNote;
+            return (txtNote.Text ?? string.Empty).Trim();
         }
 
-        private string GetUserNoteFromBillNote(string billNote)
+        private void EnsureBuffetSchema()
         {
-            return (billNote ?? string.Empty).Replace(BuffetFlag, string.Empty).Trim();
+            Database.Instance.ExecuteNonQuery(@"
+IF COL_LENGTH('dbo.Bill', 'isBuffet') IS NULL
+BEGIN
+    ALTER TABLE dbo.Bill ADD isBuffet BIT NOT NULL CONSTRAINT DF_Bill_isBuffet DEFAULT(0);
+END");
         }
 
         private int GetOpenBillIdByTable(int tableId)
