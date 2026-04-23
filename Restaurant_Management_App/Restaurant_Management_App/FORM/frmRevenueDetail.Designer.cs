@@ -58,17 +58,17 @@
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(1300, 70);
+            this.panelTop.Size = new System.Drawing.Size(1500, 70);
             this.panelTop.TabIndex = 0;
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.BackColor = System.Drawing.Color.IndianRed;
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new System.Drawing.Point(12, 18);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(116, 32);
+            this.lblTitle.Size = new System.Drawing.Size(121, 36);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Tiêu đề";
             // 
@@ -81,7 +81,7 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.Color.OrangeRed;
-            this.btnClose.Location = new System.Drawing.Point(1248, 19);
+            this.btnClose.Location = new System.Drawing.Point(1448, 18);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(40, 35);
             this.btnClose.TabIndex = 1;
@@ -96,7 +96,7 @@
             this.btnExport.FlatAppearance.BorderSize = 0;
             this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExport.Location = new System.Drawing.Point(1138, 19);
+            this.btnExport.Location = new System.Drawing.Point(1341, 18);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(87, 35);
             this.btnExport.TabIndex = 1;
@@ -111,7 +111,7 @@
             this.btnThongKe.FlatAppearance.BorderSize = 0;
             this.btnThongKe.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThongKe.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThongKe.Location = new System.Drawing.Point(997, 19);
+            this.btnThongKe.Location = new System.Drawing.Point(1213, 18);
             this.btnThongKe.Name = "btnThongKe";
             this.btnThongKe.Size = new System.Drawing.Size(105, 35);
             this.btnThongKe.TabIndex = 1;
@@ -121,18 +121,18 @@
             // 
             // dtpToDate
             // 
-            this.dtpToDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpToDate.Location = new System.Drawing.Point(755, 20);
+            this.dtpToDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpToDate.Location = new System.Drawing.Point(932, 18);
             this.dtpToDate.Name = "dtpToDate";
-            this.dtpToDate.Size = new System.Drawing.Size(183, 30);
+            this.dtpToDate.Size = new System.Drawing.Size(239, 34);
             this.dtpToDate.TabIndex = 0;
             // 
             // dtpFromDate
             // 
-            this.dtpFromDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpFromDate.Location = new System.Drawing.Point(540, 20);
+            this.dtpFromDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFromDate.Location = new System.Drawing.Point(593, 19);
             this.dtpFromDate.Name = "dtpFromDate";
-            this.dtpFromDate.Size = new System.Drawing.Size(178, 30);
+            this.dtpFromDate.Size = new System.Drawing.Size(238, 34);
             this.dtpFromDate.TabIndex = 0;
             // 
             // pabelBottom
@@ -142,7 +142,7 @@
             this.pabelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pabelBottom.Location = new System.Drawing.Point(0, 736);
             this.pabelBottom.Name = "pabelBottom";
-            this.pabelBottom.Size = new System.Drawing.Size(1300, 64);
+            this.pabelBottom.Size = new System.Drawing.Size(1500, 64);
             this.pabelBottom.TabIndex = 1;
             // 
             // lblTotalRevenue
@@ -160,7 +160,7 @@
             this.panelChart.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelChart.Location = new System.Drawing.Point(0, 70);
             this.panelChart.Name = "panelChart";
-            this.panelChart.Size = new System.Drawing.Size(805, 666);
+            this.panelChart.Size = new System.Drawing.Size(922, 666);
             this.panelChart.TabIndex = 3;
             // 
             // dgvRevenue
@@ -178,7 +178,7 @@
             this.dgvRevenue.RowHeadersWidth = 51;
             this.dgvRevenue.RowTemplate.Height = 24;
             this.dgvRevenue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRevenue.Size = new System.Drawing.Size(492, 666);
+            this.dgvRevenue.Size = new System.Drawing.Size(575, 666);
             this.dgvRevenue.TabIndex = 2;
             this.dgvRevenue.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRevenue_CellDoubleClick);
             // 
@@ -187,9 +187,9 @@
             this.panelDgv.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.panelDgv.Controls.Add(this.dgvRevenue);
             this.panelDgv.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelDgv.Location = new System.Drawing.Point(805, 70);
+            this.panelDgv.Location = new System.Drawing.Point(922, 70);
             this.panelDgv.Name = "panelDgv";
-            this.panelDgv.Size = new System.Drawing.Size(495, 666);
+            this.panelDgv.Size = new System.Drawing.Size(578, 666);
             this.panelDgv.TabIndex = 4;
             // 
             // frmRevenueDetail
@@ -197,14 +197,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1300, 800);
+            this.ClientSize = new System.Drawing.Size(1500, 800);
             this.Controls.Add(this.panelDgv);
             this.Controls.Add(this.panelChart);
             this.Controls.Add(this.pabelBottom);
             this.Controls.Add(this.panelTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximumSize = new System.Drawing.Size(1500, 800);
-            this.MinimumSize = new System.Drawing.Size(1300, 800);
+            this.MinimumSize = new System.Drawing.Size(1500, 800);
             this.Name = "frmRevenueDetail";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmRevenueByDate";
