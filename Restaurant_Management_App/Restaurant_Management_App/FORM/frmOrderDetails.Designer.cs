@@ -28,38 +28,48 @@ namespace Restaurant_Management_App
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
 
+        private System.Windows.Forms.TextBox txtIdOrder;
+        private System.Windows.Forms.TextBox txtDate;
+        private System.Windows.Forms.TextBox txtTime;
+        private System.Windows.Forms.TextBox txtIdTable;
+        private System.Windows.Forms.TextBox txtTotalPrice;
+        private System.Windows.Forms.TextBox txtCustomerName;
+        private System.Windows.Forms.TextBox txtStatus;
+        private System.Windows.Forms.TextBox txtPayMethod;
+        private System.Windows.Forms.TextBox txtStatusOrders;
+
         private System.Windows.Forms.Button btnPay;
         private System.Windows.Forms.Button btnBack;
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.gbxListDetails = new System.Windows.Forms.GroupBox();
             this.dgvFoodDetails = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lbIdOrder = new System.Windows.Forms.Label();
+            this.txtIdOrder = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.txtIdTable = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.txtDate = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.txtTotalPrice = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.txtPayMethod = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.txtTime = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.txtCustomerName = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.txtStatusOrders = new System.Windows.Forms.TextBox();
+            this.btnPay = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.btnPay = new System.Windows.Forms.Button();
+            this.txtStatus = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.lblIdOrder = new System.Windows.Forms.Label();
-            this.lblDate = new System.Windows.Forms.Label();
-            this.lblTime = new System.Windows.Forms.Label();
-            this.lblIdTable = new System.Windows.Forms.Label();
-            this.lblTotalPrice = new System.Windows.Forms.Label();
-            this.lblCustomerName = new System.Windows.Forms.Label();
-            this.lblStatus = new System.Windows.Forms.Label();
-            this.lblPayMethod = new System.Windows.Forms.Label();
-            this.lblStatusOrders = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.gbxListDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFoodDetails)).BeginInit();
@@ -95,23 +105,23 @@ namespace Restaurant_Management_App
             this.dgvFoodDetails.BackgroundColor = System.Drawing.Color.White;
             this.dgvFoodDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvFoodDetails.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvFoodDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvFoodDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dgvFoodDetails.ColumnHeadersHeight = 29;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvFoodDetails.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvFoodDetails.DefaultCellStyle = dataGridViewCellStyle12;
             this.dgvFoodDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvFoodDetails.EnableHeadersVisualStyles = false;
             this.dgvFoodDetails.Location = new System.Drawing.Point(3, 26);
@@ -133,26 +143,26 @@ namespace Restaurant_Management_App
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21F));
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.lbIdOrder, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.txtIdOrder, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label4, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.txtIdTable, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtDate, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label5, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtTotalPrice, 3, 2);
             this.tableLayoutPanel1.Controls.Add(this.label8, 4, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtPayMethod, 5, 2);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.txtTime, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label6, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.txtCustomerName, 3, 3);
             this.tableLayoutPanel1.Controls.Add(this.label9, 4, 3);
+            this.tableLayoutPanel1.Controls.Add(this.txtStatusOrders, 5, 3);
             this.tableLayoutPanel1.Controls.Add(this.btnBack, 5, 4);
             this.tableLayoutPanel1.Controls.Add(this.label7, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.txtStatus, 5, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnPay, 4, 4);
             this.tableLayoutPanel1.Controls.Add(this.button1, 3, 4);
-            this.tableLayoutPanel1.Controls.Add(this.lblIdOrder, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lblDate, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lblTime, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.lblIdTable, 3, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lblTotalPrice, 3, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lblCustomerName, 3, 3);
-            this.tableLayoutPanel1.Controls.Add(this.lblStatus, 5, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lblPayMethod, 5, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lblStatusOrders, 5, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -177,6 +187,16 @@ namespace Restaurant_Management_App
             this.lbIdOrder.TabIndex = 1;
             this.lbIdOrder.Text = "Mã đơn:";
             // 
+            // txtIdOrder
+            // 
+            this.txtIdOrder.BackColor = System.Drawing.Color.White;
+            this.txtIdOrder.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIdOrder.Location = new System.Drawing.Point(143, 538);
+            this.txtIdOrder.Name = "txtIdOrder";
+            this.txtIdOrder.ReadOnly = true;
+            this.txtIdOrder.Size = new System.Drawing.Size(156, 38);
+            this.txtIdOrder.TabIndex = 2;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -188,6 +208,16 @@ namespace Restaurant_Management_App
             this.label4.Size = new System.Drawing.Size(174, 31);
             this.label4.TabIndex = 3;
             this.label4.Text = "Mã bàn:";
+            // 
+            // txtIdTable
+            // 
+            this.txtIdTable.BackColor = System.Drawing.Color.White;
+            this.txtIdTable.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIdTable.Location = new System.Drawing.Point(643, 538);
+            this.txtIdTable.Name = "txtIdTable";
+            this.txtIdTable.ReadOnly = true;
+            this.txtIdTable.Size = new System.Drawing.Size(277, 38);
+            this.txtIdTable.TabIndex = 4;
             // 
             // label2
             // 
@@ -201,6 +231,16 @@ namespace Restaurant_Management_App
             this.label2.TabIndex = 7;
             this.label2.Text = "Ngày:";
             // 
+            // txtDate
+            // 
+            this.txtDate.BackColor = System.Drawing.Color.White;
+            this.txtDate.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDate.Location = new System.Drawing.Point(143, 633);
+            this.txtDate.Name = "txtDate";
+            this.txtDate.ReadOnly = true;
+            this.txtDate.Size = new System.Drawing.Size(156, 38);
+            this.txtDate.TabIndex = 8;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -212,6 +252,16 @@ namespace Restaurant_Management_App
             this.label5.Size = new System.Drawing.Size(174, 31);
             this.label5.TabIndex = 9;
             this.label5.Text = "Tổng tiền:";
+            // 
+            // txtTotalPrice
+            // 
+            this.txtTotalPrice.BackColor = System.Drawing.Color.White;
+            this.txtTotalPrice.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalPrice.Location = new System.Drawing.Point(643, 633);
+            this.txtTotalPrice.Name = "txtTotalPrice";
+            this.txtTotalPrice.ReadOnly = true;
+            this.txtTotalPrice.Size = new System.Drawing.Size(156, 38);
+            this.txtTotalPrice.TabIndex = 10;
             // 
             // label8
             // 
@@ -225,6 +275,16 @@ namespace Restaurant_Management_App
             this.label8.TabIndex = 11;
             this.label8.Text = "Phương thức:";
             // 
+            // txtPayMethod
+            // 
+            this.txtPayMethod.BackColor = System.Drawing.Color.White;
+            this.txtPayMethod.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPayMethod.Location = new System.Drawing.Point(1108, 633);
+            this.txtPayMethod.Name = "txtPayMethod";
+            this.txtPayMethod.ReadOnly = true;
+            this.txtPayMethod.Size = new System.Drawing.Size(156, 38);
+            this.txtPayMethod.TabIndex = 12;
+            // 
             // label3
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -236,6 +296,16 @@ namespace Restaurant_Management_App
             this.label3.Size = new System.Drawing.Size(55, 31);
             this.label3.TabIndex = 13;
             this.label3.Text = "Giờ:";
+            // 
+            // txtTime
+            // 
+            this.txtTime.BackColor = System.Drawing.Color.White;
+            this.txtTime.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTime.Location = new System.Drawing.Point(143, 723);
+            this.txtTime.Name = "txtTime";
+            this.txtTime.ReadOnly = true;
+            this.txtTime.Size = new System.Drawing.Size(156, 38);
+            this.txtTime.TabIndex = 14;
             // 
             // label6
             // 
@@ -249,6 +319,16 @@ namespace Restaurant_Management_App
             this.label6.TabIndex = 15;
             this.label6.Text = "Tên khách:";
             // 
+            // txtCustomerName
+            // 
+            this.txtCustomerName.BackColor = System.Drawing.Color.White;
+            this.txtCustomerName.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCustomerName.Location = new System.Drawing.Point(643, 723);
+            this.txtCustomerName.Name = "txtCustomerName";
+            this.txtCustomerName.ReadOnly = true;
+            this.txtCustomerName.Size = new System.Drawing.Size(156, 38);
+            this.txtCustomerName.TabIndex = 16;
+            // 
             // label9
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -260,6 +340,33 @@ namespace Restaurant_Management_App
             this.label9.Size = new System.Drawing.Size(173, 31);
             this.label9.TabIndex = 17;
             this.label9.Text = "Trạng thái món:";
+            // 
+            // txtStatusOrders
+            // 
+            this.txtStatusOrders.BackColor = System.Drawing.Color.White;
+            this.txtStatusOrders.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtStatusOrders.Location = new System.Drawing.Point(1108, 723);
+            this.txtStatusOrders.Name = "txtStatusOrders";
+            this.txtStatusOrders.ReadOnly = true;
+            this.txtStatusOrders.Size = new System.Drawing.Size(156, 38);
+            this.txtStatusOrders.TabIndex = 18;
+            // 
+            // btnPay
+            // 
+            this.btnPay.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnPay.AutoSize = true;
+            this.btnPay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
+            this.btnPay.FlatAppearance.BorderSize = 0;
+            this.btnPay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPay.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPay.ForeColor = System.Drawing.Color.White;
+            this.btnPay.Location = new System.Drawing.Point(926, 805);
+            this.btnPay.Name = "btnPay";
+            this.btnPay.Size = new System.Drawing.Size(139, 48);
+            this.btnPay.TabIndex = 19;
+            this.btnPay.Text = "Thanh toán";
+            this.btnPay.UseVisualStyleBackColor = false;
+            this.btnPay.Click += new System.EventHandler(this.btnPay_Click);
             // 
             // btnBack
             // 
@@ -290,22 +397,15 @@ namespace Restaurant_Management_App
             this.label7.TabIndex = 5;
             this.label7.Text = "Thanh toán:";
             // 
-            // btnPay
+            // txtStatus
             // 
-            this.btnPay.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnPay.AutoSize = true;
-            this.btnPay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
-            this.btnPay.FlatAppearance.BorderSize = 0;
-            this.btnPay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPay.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPay.ForeColor = System.Drawing.Color.White;
-            this.btnPay.Location = new System.Drawing.Point(926, 805);
-            this.btnPay.Name = "btnPay";
-            this.btnPay.Size = new System.Drawing.Size(139, 48);
-            this.btnPay.TabIndex = 19;
-            this.btnPay.Text = "Thanh toán";
-            this.btnPay.UseVisualStyleBackColor = false;
-            this.btnPay.Click += new System.EventHandler(this.btnPay_Click);
+            this.txtStatus.BackColor = System.Drawing.Color.White;
+            this.txtStatus.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtStatus.Location = new System.Drawing.Point(1108, 538);
+            this.txtStatus.Name = "txtStatus";
+            this.txtStatus.ReadOnly = true;
+            this.txtStatus.Size = new System.Drawing.Size(186, 38);
+            this.txtStatus.TabIndex = 6;
             // 
             // button1
             // 
@@ -323,105 +423,6 @@ namespace Restaurant_Management_App
             this.button1.Text = "Đánh giá";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.btnReview);
-            // 
-            // lblIdOrder
-            // 
-            this.lblIdOrder.AutoSize = true;
-            this.lblIdOrder.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIdOrder.Location = new System.Drawing.Point(143, 535);
-            this.lblIdOrder.Name = "lblIdOrder";
-            this.lblIdOrder.Size = new System.Drawing.Size(36, 31);
-            this.lblIdOrder.TabIndex = 21;
-            this.lblIdOrder.Text = "ID";
-            this.lblIdOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblDate
-            // 
-            this.lblDate.AutoSize = true;
-            this.lblDate.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDate.Location = new System.Drawing.Point(143, 630);
-            this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(66, 31);
-            this.lblDate.TabIndex = 21;
-            this.lblDate.Text = "DATE";
-            this.lblDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblTime
-            // 
-            this.lblTime.AutoSize = true;
-            this.lblTime.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTime.Location = new System.Drawing.Point(143, 720);
-            this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(65, 31);
-            this.lblTime.TabIndex = 21;
-            this.lblTime.Text = "TIME";
-            this.lblTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblIdTable
-            // 
-            this.lblIdTable.AutoSize = true;
-            this.lblIdTable.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIdTable.Location = new System.Drawing.Point(643, 535);
-            this.lblIdTable.Name = "lblIdTable";
-            this.lblIdTable.Size = new System.Drawing.Size(96, 31);
-            this.lblIdTable.TabIndex = 21;
-            this.lblIdTable.Text = "IDTABLE";
-            this.lblIdTable.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblTotalPrice
-            // 
-            this.lblTotalPrice.AutoSize = true;
-            this.lblTotalPrice.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalPrice.Location = new System.Drawing.Point(643, 630);
-            this.lblTotalPrice.Name = "lblTotalPrice";
-            this.lblTotalPrice.Size = new System.Drawing.Size(77, 31);
-            this.lblTotalPrice.TabIndex = 21;
-            this.lblTotalPrice.Text = "TOTAL";
-            this.lblTotalPrice.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblCustomerName
-            // 
-            this.lblCustomerName.AutoSize = true;
-            this.lblCustomerName.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCustomerName.Location = new System.Drawing.Point(643, 720);
-            this.lblCustomerName.Name = "lblCustomerName";
-            this.lblCustomerName.Size = new System.Drawing.Size(131, 31);
-            this.lblCustomerName.TabIndex = 21;
-            this.lblCustomerName.Text = "CUSTOMER";
-            this.lblCustomerName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.Location = new System.Drawing.Point(1108, 535);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(89, 31);
-            this.lblStatus.TabIndex = 21;
-            this.lblStatus.Text = "STATUS";
-            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblPayMethod
-            // 
-            this.lblPayMethod.AutoSize = true;
-            this.lblPayMethod.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPayMethod.Location = new System.Drawing.Point(1108, 630);
-            this.lblPayMethod.Name = "lblPayMethod";
-            this.lblPayMethod.Size = new System.Drawing.Size(108, 31);
-            this.lblPayMethod.TabIndex = 21;
-            this.lblPayMethod.Text = "METHOD";
-            this.lblPayMethod.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblStatusOrders
-            // 
-            this.lblStatusOrders.AutoSize = true;
-            this.lblStatusOrders.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatusOrders.Location = new System.Drawing.Point(1108, 720);
-            this.lblStatusOrders.Name = "lblStatusOrders";
-            this.lblStatusOrders.Size = new System.Drawing.Size(162, 31);
-            this.lblStatusOrders.TabIndex = 21;
-            this.lblStatusOrders.Text = "STATUSORDER";
-            this.lblStatusOrders.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // frmOrderDetails
             // 
@@ -441,14 +442,5 @@ namespace Restaurant_Management_App
         }
 
         private Button button1;
-        private Label lblIdOrder;
-        private Label lblDate;
-        private Label lblTime;
-        private Label lblIdTable;
-        private Label lblTotalPrice;
-        private Label lblCustomerName;
-        private Label lblStatus;
-        private Label lblPayMethod;
-        private Label lblStatusOrders;
     }
 }
