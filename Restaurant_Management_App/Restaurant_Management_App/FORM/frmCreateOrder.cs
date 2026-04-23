@@ -20,6 +20,9 @@ namespace Restaurant_Management_App.FORM
         private Label lblBuffetGuestCount;
         private NumericUpDown numBuffetGuestCount;
         private Button btnIncreaseBuffetGuestCount;
+        private Button btnRequestEditOrderInfo;
+        private Button btnSaveOrderInfo;
+        private bool _isOrderInfoLocked;
 
         public frmCreateOrder()
         {
@@ -39,6 +42,7 @@ namespace Restaurant_Management_App.FORM
             ApplyCreateOrderThemeStyling();
             ApplyHiddenBuffetInputsState();
             InitializeBuffetGuestCountInput();
+            InitializeOrderInfoWorkflowButtons();
             EnsureBuffetSchema();
         }
 
@@ -82,6 +86,33 @@ namespace Restaurant_Management_App.FORM
             pnlOrderTop.Controls.Add(lblBuffetGuestCount);
             pnlOrderTop.Controls.Add(numBuffetGuestCount);
             pnlOrderTop.Controls.Add(btnIncreaseBuffetGuestCount);
+        }
+
+        private void InitializeOrderInfoWorkflowButtons()
+        {
+            btnRequestEditOrderInfo = new Button
+            {
+                Name = "btnRequestEditOrderInfo",
+                Text = "Yêu cầu chỉnh sửa",
+                Size = new Size(130, 32),
+                Location = new Point(250, 12),
+                Visible = false
+            };
+
+            btnSaveOrderInfo = new Button
+            {
+                Name = "btnSaveOrderInfo",
+                Text = "Lưu",
+                Size = new Size(60, 32),
+                Location = new Point(250, 12),
+                Visible = false
+            };
+
+            btnRequestEditOrderInfo.Click += BtnRequestEditOrderInfo_Click;
+            btnSaveOrderInfo.Click += BtnSaveOrderInfo_Click;
+
+            pnlSummary.Controls.Add(btnRequestEditOrderInfo);
+            pnlSummary.Controls.Add(btnSaveOrderInfo);
         }
 
         private void FrmOrder_Load(object sender, EventArgs e)
@@ -381,6 +412,7 @@ namespace Restaurant_Management_App.FORM
             btnIncreaseBuffetGuestCount.Visible = false;
             btnIncreaseBuffetGuestCount.Enabled = false;
             _isBuffetGuestCountLocked = false;
+            ApplyOrderInfoLockState(false);
             lblTotalValue.Text = "0 VNĐ";
             txtCustomerName.Focus();
         }
@@ -497,20 +529,62 @@ namespace Restaurant_Management_App.FORM
                                            caseName = N'{EscapeSqlValue(cbCase.Text)}',
                                            payMethod = N'{EscapeSqlValue(cbPayMethod.Text)}',
                                            note = N'{EscapeSqlValue(BuildBillNote())}',
+                                           diningStatus = N'Đang dùng bữa',
+                                           orderInfoLocked = 1,
                                            kitchenStatus = CASE
                                                WHEN kitchenStatus IS NULL OR kitchenStatus = N'Draft' THEN N'Pending'
                                                ELSE kitchenStatus
                                            END
                                        WHERE id = {billId}";
                 Database.Instance.ExecuteNonQuery(updateBill);
+                ApplyOrderInfoLockState(true);
 
                 txtOrderNo.Text = FormatBillId(billId);
-                MessageBox.Show($"Đã gửi món cho bàn {cbTable.Text}. Bạn có thể tiếp tục chọn món và gửi theo từng đợt.", "Thông báo");
+                MessageBox.Show($"Đã xác nhận đơn và chuyển trạng thái 'Đang dùng bữa' cho bàn {cbTable.Text}.", "Thông báo");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi gửi món: " + ex.Message);
             }
+        }
+
+        private void BtnRequestEditOrderInfo_Click(object sender, EventArgs e)
+        {
+            if (!_isOrderInfoLocked) return;
+
+            string pin = PromptForInput("Nhập mật khẩu/Mã PIN nhân viên để mở khóa:", "Xác thực chỉnh sửa");
+            if (string.IsNullOrWhiteSpace(pin))
+            {
+                return;
+            }
+
+            string query = $@"SELECT TOP 1 userId
+                              FROM Account
+                              WHERE password = N'{EscapeSqlValue(pin)}'
+                                AND isDeleted = 0";
+            DataTable dt = Database.Instance.ExecuteQuery(query);
+            if (dt.Rows.Count == 0)
+            {
+                MessageBox.Show("Mật khẩu/PIN không đúng.", "Thông báo");
+                return;
+            }
+
+            Database.Instance.ExecuteNonQuery($"UPDATE dbo.Bill SET orderInfoLocked = 0 WHERE id = {GetOpenBillIdByTable((int)cbTable.SelectedValue)}");
+            ApplyOrderInfoLockState(false);
+            MessageBox.Show("Đã mở khóa thông tin đơn. Vui lòng chỉnh sửa và bấm Lưu.", "Thông báo");
+        }
+
+        private void BtnSaveOrderInfo_Click(object sender, EventArgs e)
+        {
+            if (_isOrderInfoLocked || cbTable.SelectedValue == null) return;
+
+            int billId = GetOpenBillIdByTable((int)cbTable.SelectedValue);
+            if (billId == 0) return;
+
+            UpdateBillMetadata(billId);
+            Database.Instance.ExecuteNonQuery($"UPDATE dbo.Bill SET orderInfoLocked = 1 WHERE id = {billId}");
+            ApplyOrderInfoLockState(true);
+            MessageBox.Show("Đã lưu thay đổi và khóa lại thông tin đơn hàng.", "Thông báo");
         }
 
         private void BtnBuffetLogin_Click(object sender, EventArgs e)
@@ -590,8 +664,8 @@ namespace Restaurant_Management_App.FORM
                 lblBuffetGuestCount.Visible = true;
                 numBuffetGuestCount.Visible = true;
                 numBuffetGuestCount.Enabled = !_isBuffetGuestCountLocked;
-                btnIncreaseBuffetGuestCount.Visible = _isBuffetGuestCountLocked;
-                btnIncreaseBuffetGuestCount.Enabled = _isBuffetGuestCountLocked;
+                btnIncreaseBuffetGuestCount.Visible = false;
+                btnIncreaseBuffetGuestCount.Enabled = false;
             }
             else
             {
@@ -643,6 +717,51 @@ namespace Restaurant_Management_App.FORM
             txtCustomerName.ReadOnly = false;
         }
 
+        private void ApplyOrderInfoLockState(bool isLocked)
+        {
+            _isOrderInfoLocked = isLocked;
+
+            txtCustomerName.ReadOnly = isLocked;
+            cbTable.Enabled = !isLocked;
+            cbOrderType.Enabled = !isLocked;
+            cbCase.Enabled = !isLocked;
+            cbPayMethod.Enabled = !isLocked;
+
+            if (cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase))
+            {
+                numBuffetGuestCount.Enabled = !isLocked && !_isBuffetGuestCountLocked;
+                btnIncreaseBuffetGuestCount.Enabled = !isLocked && btnIncreaseBuffetGuestCount.Visible;
+            }
+            else
+            {
+                numBuffetGuestCount.Enabled = false;
+                btnIncreaseBuffetGuestCount.Enabled = false;
+            }
+
+            btnCheckout.Text = isLocked ? "Đã xác nhận" : "Xác nhận";
+            btnRequestEditOrderInfo.Visible = isLocked;
+            btnSaveOrderInfo.Visible = !isLocked;
+        }
+
+        private string PromptForInput(string message, string title)
+        {
+            using (Form prompt = new Form())
+            {
+                prompt.Width = 380;
+                prompt.Height = 170;
+                prompt.Text = title;
+                Label textLabel = new Label { Left = 12, Top = 14, Text = message, Width = 340 };
+                TextBox inputBox = new TextBox { Left = 12, Top = 44, Width = 340, PasswordChar = '*' };
+                Button confirmation = new Button { Text = "OK", Left = 272, Width = 80, Top = 78, DialogResult = DialogResult.OK };
+                prompt.Controls.Add(textLabel);
+                prompt.Controls.Add(inputBox);
+                prompt.Controls.Add(confirmation);
+                prompt.AcceptButton = confirmation;
+
+                return prompt.ShowDialog() == DialogResult.OK ? inputBox.Text : string.Empty;
+            }
+        }
+
         private void NumBuffetGuestCount_ValueChanged(object sender, EventArgs e)
         {
             if (!cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase))
@@ -675,8 +794,8 @@ namespace Restaurant_Management_App.FORM
 
             _isBuffetGuestCountLocked = true;
             numBuffetGuestCount.Enabled = false;
-            btnIncreaseBuffetGuestCount.Visible = true;
-            btnIncreaseBuffetGuestCount.Enabled = true;
+            btnIncreaseBuffetGuestCount.Visible = false;
+            btnIncreaseBuffetGuestCount.Enabled = false;
         }
 
         private void BtnIncreaseBuffetGuestCount_Click(object sender, EventArgs e)
@@ -737,7 +856,8 @@ namespace Restaurant_Management_App.FORM
 
             string query = $@"SELECT TOP 1 id, customerName, caseName, payMethod, note,
                                      ISNULL(isBuffet, 0) AS isBuffet,
-                                     ISNULL(buffetGuestCount, 1) AS buffetGuestCount
+                                     ISNULL(buffetGuestCount, 1) AS buffetGuestCount,
+                                     ISNULL(orderInfoLocked, 0) AS orderInfoLocked
                               FROM Bill
                               WHERE idTable = {tableId}
                                 AND status = 0
@@ -762,6 +882,7 @@ namespace Restaurant_Management_App.FORM
                 btnIncreaseBuffetGuestCount.Visible = false;
                 btnIncreaseBuffetGuestCount.Enabled = false;
                 dgvCart.DataSource = null;
+                ApplyOrderInfoLockState(false);
                 CalculateTotal();
                 return;
             }
@@ -793,8 +914,8 @@ namespace Restaurant_Management_App.FORM
                 numBuffetGuestCount.Visible = true;
                 lblBuffetGuestCount.Visible = true;
                 numBuffetGuestCount.Enabled = false;
-                btnIncreaseBuffetGuestCount.Visible = true;
-                btnIncreaseBuffetGuestCount.Enabled = true;
+                btnIncreaseBuffetGuestCount.Visible = false;
+                btnIncreaseBuffetGuestCount.Enabled = false;
             }
             else
             {
@@ -809,6 +930,9 @@ namespace Restaurant_Management_App.FORM
                 btnIncreaseBuffetGuestCount.Visible = false;
                 btnIncreaseBuffetGuestCount.Enabled = false;
             }
+
+            bool isInfoLocked = Convert.ToInt32(row["orderInfoLocked"]) == 1;
+            ApplyOrderInfoLockState(isInfoLocked);
 
             LoadBillDetails(billId);
         }
@@ -844,6 +968,16 @@ END");
 IF COL_LENGTH('dbo.Bill', 'buffetGuestCount') IS NULL
 BEGIN
     ALTER TABLE dbo.Bill ADD buffetGuestCount INT NOT NULL CONSTRAINT DF_Bill_buffetGuestCount DEFAULT(1);
+END");
+            Database.Instance.ExecuteNonQuery(@"
+IF COL_LENGTH('dbo.Bill', 'orderInfoLocked') IS NULL
+BEGIN
+    ALTER TABLE dbo.Bill ADD orderInfoLocked BIT NOT NULL CONSTRAINT DF_Bill_orderInfoLocked DEFAULT(0);
+END");
+            Database.Instance.ExecuteNonQuery(@"
+IF COL_LENGTH('dbo.Bill', 'diningStatus') IS NULL
+BEGIN
+    ALTER TABLE dbo.Bill ADD diningStatus NVARCHAR(50) NOT NULL CONSTRAINT DF_Bill_diningStatus DEFAULT(N'Chuẩn bị');
 END");
         }
 
