@@ -553,6 +553,64 @@ namespace Restaurant_Management_App.FORM
                 MessageBox.Show("Mang đi không thể chọn Buffet. Hệ thống sẽ chuyển về Không buffet.", "Thông báo");
                 cbOrderType.SelectedItem = "Không buffet";
             }
+
+            if (isBuffet)
+                _isBuffetLocked = true;
+
+            _lastOrderType = cbOrderType.Text;
+
+            if (!string.IsNullOrWhiteSpace(txtOrderNo.Text) && int.TryParse(txtOrderNo.Text, out int billId))
+            {
+                UpdateBillMetadata(billId);
+            }
+            CalculateTotal();
+        }
+
+        private void CbCase_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbCase.Text.Equals("Mang đi", StringComparison.OrdinalIgnoreCase) && _isBuffetLocked)
+            {
+                MessageBox.Show("Đơn Buffet chỉ áp dụng cho hình thức Tại quán.", "Thông báo");
+                cbCase.SelectedItem = "Tại quán";
+                return;
+            }
+
+            if (cbCase.Text.Equals("Mang đi", StringComparison.OrdinalIgnoreCase) &&
+                cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Mang đi không thể chọn Buffet. Hệ thống sẽ chuyển về Không buffet.", "Thông báo");
+                cbOrderType.SelectedItem = "Không buffet";
+            }
+        }
+
+        private void HideBuffetAccountInputs()
+        {
+            lblBuffetAccount.Visible = false;
+            txtBuffetAccount.Visible = false;
+            lblBuffetPassword.Visible = false;
+            txtBuffetPassword.Visible = false;
+            btnBuffetLogin.Visible = false;
+            txtCustomerName.ReadOnly = false;
+        }
+
+        private void ApplyCreateOrderTheme()
+        {
+            Color primary = Color.FromArgb(158, 27, 27);
+            pnlMenu.BackColor = Color.FromArgb(255, 245, 245);
+            pnlOrder.BackColor = Color.FromArgb(255, 245, 245);
+            lblTitle.ForeColor = primary;
+            lblMenu.ForeColor = primary;
+            btnCheckout.BackColor = primary;
+            btnClear.BackColor = Color.FromArgb(233, 236, 239);
+            btnClear.FlatStyle = FlatStyle.Flat;
+            btnClear.FlatAppearance.BorderColor = primary;
+            btnClear.FlatAppearance.BorderSize = 1;
+            dgvCart.EnableHeadersVisualStyles = false;
+            dgvCart.ColumnHeadersDefaultCellStyle.BackColor = primary;
+            dgvCart.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvCart.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            dgvCart.DefaultCellStyle.SelectionBackColor = Color.FromArgb(248, 215, 218);
+            dgvCart.DefaultCellStyle.SelectionForeColor = Color.Black;
         }
 
         private void HideBuffetAccountInputs()
