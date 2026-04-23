@@ -205,9 +205,10 @@ ALTER TABLE Bill ADD finalAmount DECIMAL(18,2) NULL
 GO
 ALTER TABLE Bill ADD idPromotion INT NULL
 GO
+ALTER TABLE Bill ADD isBuffet BIT NOT NULL CONSTRAINT DF_Bill_isBuffet DEFAULT(0)
+GO
 ALTER TABLE Bill
 ADD CONSTRAINT FK_Bill_PromotionProgram FOREIGN KEY (idPromotion) REFERENCES PromotionProgram(id)
 GO
-
 
 
