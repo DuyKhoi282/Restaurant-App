@@ -25,7 +25,7 @@ namespace Restaurant_Management_App.FORM
             btnClear.Click += BtnClear_Click;
             numDiscount.ValueChanged += (s, e) => CalculateTotal();
             cbTable.SelectedIndexChanged += cbTable_SelectedIndexChanged;
-            cbOrderType.SelectedIndexChanged += CbOrderType_SelectedIndexChangedForBuffet;
+            cbOrderType.SelectedIndexChanged += HandleOrderTypeChangedBuffetRule2026;
             cbCase.SelectedIndexChanged += HandleCaseSelectionChangedBuffetRule;
 
             // Hide discount controls on Create Order screen as requested.
@@ -486,7 +486,7 @@ namespace Restaurant_Management_App.FORM
             MessageBox.Show("Đăng nhập Buffet thành công. Bạn có thể chọn món và gửi từng đợt.", "Thông báo");
         }
 
-        private void BtnSendPaymentRequest_Click(object sender, EventArgs e)
+        private void HandleSendPaymentRequestClick2026(object sender, EventArgs e)
         {
             if (cbTable.SelectedValue == null)
             {
@@ -508,7 +508,7 @@ namespace Restaurant_Management_App.FORM
             LoadBillDetails(billId);
         }
 
-        private void CbOrderType_SelectedIndexChangedForBuffet(object sender, EventArgs e)
+        private void HandleOrderTypeChangedBuffetRule2026(object sender, EventArgs e)
         {
             bool isBuffet = cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase);
 
@@ -553,179 +553,6 @@ namespace Restaurant_Management_App.FORM
                 MessageBox.Show("Mang đi không thể chọn Buffet. Hệ thống sẽ chuyển về Không buffet.", "Thông báo");
                 cbOrderType.SelectedItem = "Không buffet";
             }
-
-            string query = $@"SELECT TOP 1 userId, fullname
-                              FROM Account
-                              WHERE userId = N'{EscapeSqlValue(txtBuffetAccount.Text.Trim())}'
-                                AND password = N'{EscapeSqlValue(txtBuffetPassword.Text)}'
-                                AND isDeleted = 0";
-            DataTable dt = Database.Instance.ExecuteQuery(query);
-            if (dt.Rows.Count == 0)
-            {
-                MessageBox.Show("Đăng nhập Buffet không thành công. Vui lòng kiểm tra lại tài khoản trong cơ sở dữ liệu.", "Thông báo");
-                return;
-            }
-
-            txtCustomerName.Text = dt.Rows[0]["fullname"].ToString();
-            cbCase.SelectedItem = "Buffet";
-            MessageBox.Show("Đăng nhập Buffet thành công. Bạn có thể chọn món và gửi từng đợt.", "Thông báo");
-        }
-
-        private void BtnSendPaymentRequest_Click(object sender, EventArgs e)
-        {
-            if (cbTable.SelectedValue == null)
-            {
-                MessageBox.Show("Vui lòng chọn bàn.", "Thông báo");
-                return;
-            }
-
-            int tableId = (int)cbTable.SelectedValue;
-            int billId = GetOpenBillIdByTable(tableId);
-            if (billId == 0)
-            {
-                MessageBox.Show("Không có đơn mở để yêu cầu thanh toán.", "Thông báo");
-                return;
-            }
-
-            string query = $"UPDATE dbo.Bill SET kitchenStatus = N'ReadyToPay' WHERE id = {billId}";
-            Database.Instance.ExecuteNonQuery(query);
-            MessageBox.Show("Đã gửi yêu cầu thanh toán sang Order Management.", "Thông báo");
-            LoadBillDetails(billId);
-        }
-
-        private void CbOrderType_SelectedIndexChangedForBuffet(object sender, EventArgs e)
-        {
-            bool isBuffet = cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase);
-
-            if (_isBuffetLocked && !isBuffet)
-            {
-                cbOrderType.SelectedItem = "Buffet";
-                MessageBox.Show("Đơn Buffet đã được khóa, không thể chuyển sang Không buffet.", "Thông báo");
-                return;
-            }
-
-            if (isBuffet && cbCase.Text.Equals("Mang đi", StringComparison.OrdinalIgnoreCase))
-            {
-                MessageBox.Show("Hình thức Mang đi không áp dụng loại đơn Buffet.", "Thông báo");
-                cbOrderType.SelectedItem = _lastOrderType;
-                return;
-            }
-
-            if (isBuffet)
-                _isBuffetLocked = true;
-
-            _lastOrderType = cbOrderType.Text;
-
-            if (!string.IsNullOrWhiteSpace(txtOrderNo.Text) && int.TryParse(txtOrderNo.Text, out int billId))
-            {
-                UpdateBillMetadata(billId);
-            }
-            CalculateTotal();
-        }
-
-        private void CbCase_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbCase.Text.Equals("Mang đi", StringComparison.OrdinalIgnoreCase) && _isBuffetLocked)
-            {
-                MessageBox.Show("Đơn Buffet chỉ áp dụng cho hình thức Tại quán.", "Thông báo");
-                cbCase.SelectedItem = "Tại quán";
-                return;
-            }
-
-            if (cbCase.Text.Equals("Mang đi", StringComparison.OrdinalIgnoreCase) &&
-                cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase))
-            {
-                MessageBox.Show("Mang đi không thể chọn Buffet. Hệ thống sẽ chuyển về Không buffet.", "Thông báo");
-                cbOrderType.SelectedItem = "Không buffet";
-            }
-
-            if (isBuffet)
-                _isBuffetLocked = true;
-
-            _lastOrderType = cbOrderType.Text;
-
-            if (!string.IsNullOrWhiteSpace(txtOrderNo.Text) && int.TryParse(txtOrderNo.Text, out int billId))
-            {
-                UpdateBillMetadata(billId);
-            }
-            CalculateTotal();
-        }
-
-        private void CbCase_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbCase.Text.Equals("Mang đi", StringComparison.OrdinalIgnoreCase) && _isBuffetLocked)
-            {
-                MessageBox.Show("Đơn Buffet chỉ áp dụng cho hình thức Tại quán.", "Thông báo");
-                cbCase.SelectedItem = "Tại quán";
-                return;
-            }
-
-            if (cbCase.Text.Equals("Mang đi", StringComparison.OrdinalIgnoreCase) &&
-                cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase))
-            {
-                MessageBox.Show("Mang đi không thể chọn Buffet. Hệ thống sẽ chuyển về Không buffet.", "Thông báo");
-                cbOrderType.SelectedItem = "Không buffet";
-            }
-        }
-
-        private void HideBuffetAccountInputs()
-        {
-            lblBuffetAccount.Visible = false;
-            txtBuffetAccount.Visible = false;
-            lblBuffetPassword.Visible = false;
-            txtBuffetPassword.Visible = false;
-            btnBuffetLogin.Visible = false;
-            txtCustomerName.ReadOnly = false;
-        }
-
-        private void ApplyCreateOrderTheme()
-        {
-            Color primary = Color.FromArgb(158, 27, 27);
-            pnlMenu.BackColor = Color.FromArgb(255, 245, 245);
-            pnlOrder.BackColor = Color.FromArgb(255, 245, 245);
-            lblTitle.ForeColor = primary;
-            lblMenu.ForeColor = primary;
-            btnCheckout.BackColor = primary;
-            btnClear.BackColor = Color.FromArgb(233, 236, 239);
-            btnClear.FlatStyle = FlatStyle.Flat;
-            btnClear.FlatAppearance.BorderColor = primary;
-            btnClear.FlatAppearance.BorderSize = 1;
-            dgvCart.EnableHeadersVisualStyles = false;
-            dgvCart.ColumnHeadersDefaultCellStyle.BackColor = primary;
-            dgvCart.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvCart.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            dgvCart.DefaultCellStyle.SelectionBackColor = Color.FromArgb(248, 215, 218);
-            dgvCart.DefaultCellStyle.SelectionForeColor = Color.Black;
-        }
-
-        private void HideBuffetAccountInputs()
-        {
-            lblBuffetAccount.Visible = false;
-            txtBuffetAccount.Visible = false;
-            lblBuffetPassword.Visible = false;
-            txtBuffetPassword.Visible = false;
-            btnBuffetLogin.Visible = false;
-            txtCustomerName.ReadOnly = false;
-        }
-
-        private void ApplyCreateOrderTheme()
-        {
-            Color primary = Color.FromArgb(158, 27, 27);
-            pnlMenu.BackColor = Color.FromArgb(255, 245, 245);
-            pnlOrder.BackColor = Color.FromArgb(255, 245, 245);
-            lblTitle.ForeColor = primary;
-            lblMenu.ForeColor = primary;
-            btnCheckout.BackColor = primary;
-            btnClear.BackColor = Color.FromArgb(233, 236, 239);
-            btnClear.FlatStyle = FlatStyle.Flat;
-            btnClear.FlatAppearance.BorderColor = primary;
-            btnClear.FlatAppearance.BorderSize = 1;
-            dgvCart.EnableHeadersVisualStyles = false;
-            dgvCart.ColumnHeadersDefaultCellStyle.BackColor = primary;
-            dgvCart.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvCart.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            dgvCart.DefaultCellStyle.SelectionBackColor = Color.FromArgb(248, 215, 218);
-            dgvCart.DefaultCellStyle.SelectionForeColor = Color.Black;
         }
 
         private void ApplyHiddenBuffetInputsState()

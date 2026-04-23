@@ -612,7 +612,7 @@ namespace Restaurant_Management_App.FORM
             this.btnSendPaymentRequest.TabIndex = 12;
             this.btnSendPaymentRequest.Text = "Yêu cầu thanh toán";
             this.btnSendPaymentRequest.UseVisualStyleBackColor = false;
-            this.btnSendPaymentRequest.Click += new System.EventHandler(this.BtnSendPaymentRequest_Click);
+            this.btnSendPaymentRequest.Click += new System.EventHandler(this.HandleSendPaymentRequestClick2026);
             // 
             // frmCreateOrder
             // 
