@@ -302,7 +302,7 @@ namespace Restaurant_Management_App.FORM
             this.pnlOrderTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlOrderTop.Location = new System.Drawing.Point(10, 10);
             this.pnlOrderTop.Name = "pnlOrderTop";
-            this.pnlOrderTop.Size = new System.Drawing.Size(625, 120);
+            this.pnlOrderTop.Size = new System.Drawing.Size(625, 165);
             this.pnlOrderTop.TabIndex = 0;
             // 
             // lblTitle
