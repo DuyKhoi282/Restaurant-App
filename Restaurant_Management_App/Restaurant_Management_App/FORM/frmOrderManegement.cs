@@ -99,6 +99,14 @@ namespace Restaurant_Management_App
                 dtgvOrderMagagement.DataSource = dt;
 
                 PaintKitchenStatus(); // chỉ tô ô status
+
+                dtgvOrderMagagement.Columns["id"].HeaderText = "Mã đơn";
+                dtgvOrderMagagement.Columns["date"].HeaderText = "Ngày";
+                dtgvOrderMagagement.Columns["time"].HeaderText = "Giờ";
+                dtgvOrderMagagement.Columns["idTable"].HeaderText = "Số bàn";
+                dtgvOrderMagagement.Columns["CustomerName"].HeaderText = "Tên Khách Hàng";
+                dtgvOrderMagagement.Columns["status"].HeaderText = "Trạng thái thanh toán";
+                dtgvOrderMagagement.Columns["Kitchen Status"].HeaderText = "Trang thái món";
             }
         }
 
