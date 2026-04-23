@@ -15,7 +15,10 @@ namespace Restaurant_Management_App.FORM
         private readonly OrderRepository _repo = new OrderRepository();
         private readonly List<FoodMenuItem> _foods = new List<FoodMenuItem>();
         private bool _isBuffetLocked;
+        private bool _isBuffetGuestCountLocked;
         private string _lastOrderType = "Không buffet";
+        private Label lblBuffetGuestCount;
+        private NumericUpDown numBuffetGuestCount;
 
         public frmCreateOrder()
         {
@@ -34,7 +37,38 @@ namespace Restaurant_Management_App.FORM
             numDiscount.Value = 0;
             ApplyCreateOrderThemeStyling();
             ApplyHiddenBuffetInputsState();
+            InitializeBuffetGuestCountInput();
             EnsureBuffetSchema();
+        }
+
+        private void InitializeBuffetGuestCountInput()
+        {
+            lblBuffetGuestCount = new Label
+            {
+                AutoSize = true,
+                Name = "lblBuffetGuestCount",
+                Text = "Số người buffet",
+                Location = new Point(410, 112),
+                Visible = false
+            };
+
+            numBuffetGuestCount = new NumericUpDown
+            {
+                Name = "numBuffetGuestCount",
+                Minimum = 1,
+                Maximum = 100,
+                Value = 1,
+                Size = new Size(90, 22),
+                Location = new Point(525, 108),
+                TextAlign = HorizontalAlignment.Right,
+                Visible = false,
+                Enabled = false
+            };
+
+            numBuffetGuestCount.ValueChanged += NumBuffetGuestCount_ValueChanged;
+
+            pnlOrderTop.Controls.Add(lblBuffetGuestCount);
+            pnlOrderTop.Controls.Add(numBuffetGuestCount);
         }
 
         private void FrmOrder_Load(object sender, EventArgs e)
@@ -238,6 +272,8 @@ namespace Restaurant_Management_App.FORM
                     txtOrderNo.Text = FormatBillId(billId);
                 }
 
+                LockBuffetGuestCountIfNeeded();
+
                 Database.Instance.ExecuteNonQuery($"INSERT INTO dbo.BillInfo (idBill, idFood, quantity) VALUES ({billId}, {foodId}, 1)");
                 LoadBillDetails(billId);
                 CalculateTotal();
@@ -250,7 +286,8 @@ namespace Restaurant_Management_App.FORM
 
         private void LoadBillDetails(int billId)
         {
-            string query = @"SELECT bi.idFood AS foodId, f.name AS name, bi.quantity AS quantity, f.price AS price,
+            string query = @"SELECT bi.idFood AS foodId, f.name AS name, bi.quantity AS quantity,
+                                    CASE WHEN ISNULL(b.isBuffet, 0) = 1 THEN 0 ELSE f.price END AS price,
                                     CASE WHEN ISNULL(b.kitchenStatus, N'Pending') = N'Ready'
                                          THEN N'Đã lên món'
                                          ELSE N'Đang chờ'
@@ -271,7 +308,8 @@ namespace Restaurant_Management_App.FORM
             double subtotal = 0;
             if (isBuffet)
             {
-                subtotal = BuffetFixedPrice;
+                int guestCount = (int)numBuffetGuestCount.Value;
+                subtotal = BuffetFixedPrice * guestCount;
             }
             else
             {
@@ -323,6 +361,11 @@ namespace Restaurant_Management_App.FORM
             if (cbPayMethod.Items.Count > 0) cbPayMethod.SelectedIndex = 0;
 
             dgvCart.DataSource = null;
+            numBuffetGuestCount.Value = 1;
+            numBuffetGuestCount.Enabled = false;
+            numBuffetGuestCount.Visible = false;
+            lblBuffetGuestCount.Visible = false;
+            _isBuffetGuestCountLocked = false;
             lblTotalValue.Text = "0 VNĐ";
             txtCustomerName.Focus();
         }
@@ -527,7 +570,23 @@ namespace Restaurant_Management_App.FORM
             }
 
             if (isBuffet)
+            {
                 _isBuffetLocked = true;
+                lblBuffetGuestCount.Visible = true;
+                numBuffetGuestCount.Visible = true;
+                numBuffetGuestCount.Enabled = !_isBuffetGuestCountLocked;
+            }
+            else
+            {
+                lblBuffetGuestCount.Visible = false;
+                numBuffetGuestCount.Visible = false;
+                numBuffetGuestCount.Enabled = false;
+                if (!_isBuffetLocked)
+                {
+                    _isBuffetGuestCountLocked = false;
+                    numBuffetGuestCount.Value = 1;
+                }
+            }
 
             _lastOrderType = cbOrderType.Text;
 
@@ -565,6 +624,40 @@ namespace Restaurant_Management_App.FORM
             txtCustomerName.ReadOnly = false;
         }
 
+        private void NumBuffetGuestCount_ValueChanged(object sender, EventArgs e)
+        {
+            if (!cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            if (!_isBuffetGuestCountLocked)
+            {
+                if (!string.IsNullOrWhiteSpace(txtOrderNo.Text) && int.TryParse(txtOrderNo.Text, out int billId))
+                {
+                    UpdateBillMetadata(billId);
+                }
+            }
+            else if (!string.IsNullOrWhiteSpace(txtOrderNo.Text) && int.TryParse(txtOrderNo.Text, out int lockedBillId))
+            {
+                // Đồng bộ lại dữ liệu với bill đã khóa để tránh chỉnh sửa trái luồng.
+                UpdateBillMetadata(lockedBillId);
+            }
+
+            CalculateTotal();
+        }
+
+        private void LockBuffetGuestCountIfNeeded()
+        {
+            if (!cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase) || _isBuffetGuestCountLocked)
+            {
+                return;
+            }
+
+            _isBuffetGuestCountLocked = true;
+            numBuffetGuestCount.Enabled = false;
+        }
+
         private void ApplyCreateOrderThemeStyling()
         {
             Color primary = Color.FromArgb(158, 27, 27);
@@ -598,7 +691,8 @@ namespace Restaurant_Management_App.FORM
             if (!int.TryParse(cbTable.SelectedValue.ToString(), out tableId)) return;
 
             string query = $@"SELECT TOP 1 id, customerName, caseName, payMethod, note,
-                                     ISNULL(isBuffet, 0) AS isBuffet
+                                     ISNULL(isBuffet, 0) AS isBuffet,
+                                     ISNULL(buffetGuestCount, 1) AS buffetGuestCount
                               FROM Bill
                               WHERE idTable = {tableId}
                                 AND status = 0
@@ -614,7 +708,12 @@ namespace Restaurant_Management_App.FORM
                 if (cbPayMethod.Items.Count > 0) cbPayMethod.SelectedIndex = 0;
                 cbOrderType.SelectedItem = "Không buffet";
                 _isBuffetLocked = false;
+                _isBuffetGuestCountLocked = false;
                 _lastOrderType = "Không buffet";
+                numBuffetGuestCount.Value = 1;
+                numBuffetGuestCount.Enabled = false;
+                numBuffetGuestCount.Visible = false;
+                lblBuffetGuestCount.Visible = false;
                 dgvCart.DataSource = null;
                 CalculateTotal();
                 return;
@@ -636,17 +735,28 @@ namespace Restaurant_Management_App.FORM
             string billNote = row["note"] == DBNull.Value ? "" : row["note"].ToString();
             txtNote.Text = billNote;
             bool isBuffetBill = Convert.ToInt32(row["isBuffet"]) == 1;
+            int buffetGuestCount = Convert.ToInt32(row["buffetGuestCount"]);
             if (isBuffetBill)
             {
                 cbOrderType.SelectedItem = "Buffet";
                 _isBuffetLocked = true;
+                _isBuffetGuestCountLocked = true;
                 _lastOrderType = "Buffet";
+                numBuffetGuestCount.Value = buffetGuestCount <= 0 ? 1 : buffetGuestCount;
+                numBuffetGuestCount.Visible = true;
+                lblBuffetGuestCount.Visible = true;
+                numBuffetGuestCount.Enabled = false;
             }
             else
             {
                 cbOrderType.SelectedItem = "Không buffet";
                 _isBuffetLocked = false;
+                _isBuffetGuestCountLocked = false;
                 _lastOrderType = "Không buffet";
+                numBuffetGuestCount.Value = 1;
+                numBuffetGuestCount.Visible = false;
+                lblBuffetGuestCount.Visible = false;
+                numBuffetGuestCount.Enabled = false;
             }
 
             LoadBillDetails(billId);
@@ -661,7 +771,8 @@ namespace Restaurant_Management_App.FORM
                                   caseName = N'{EscapeSqlValue(cbCase.Text)}',
                                   payMethod = N'{EscapeSqlValue(cbPayMethod.Text)}',
                                   note = N'{EscapeSqlValue(BuildBillNote())}',
-                                  isBuffet = {(cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase) ? 1 : 0)}
+                                  isBuffet = {(cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase) ? 1 : 0)},
+                                  buffetGuestCount = {(cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase) ? (int)numBuffetGuestCount.Value : 0)}
                               WHERE id = {billId}";
             Database.Instance.ExecuteNonQuery(query);
         }
@@ -677,6 +788,11 @@ namespace Restaurant_Management_App.FORM
 IF COL_LENGTH('dbo.Bill', 'isBuffet') IS NULL
 BEGIN
     ALTER TABLE dbo.Bill ADD isBuffet BIT NOT NULL CONSTRAINT DF_Bill_isBuffet DEFAULT(0);
+END");
+            Database.Instance.ExecuteNonQuery(@"
+IF COL_LENGTH('dbo.Bill', 'buffetGuestCount') IS NULL
+BEGIN
+    ALTER TABLE dbo.Bill ADD buffetGuestCount INT NOT NULL CONSTRAINT DF_Bill_buffetGuestCount DEFAULT(1);
 END");
         }
 
