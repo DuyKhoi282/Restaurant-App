@@ -107,9 +107,12 @@ GROUP BY f.name, f.price, b.isBuffet";
             double amountDue = total;
             bool isBuffetBill = false;
             int buffetGuestCount = 1;
+            double discountPercent = 0;
+            bool hasFinalAmount = false;
 
             string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
-            string query = @"SELECT discountAmount, finalAmount, ISNULL(isBuffet, 0) AS isBuffet, ISNULL(buffetGuestCount, 1) AS buffetGuestCount
+            string query = @"SELECT discountAmount, finalAmount, ISNULL(discountPercent, 0) AS discountPercent,
+                                    ISNULL(isBuffet, 0) AS isBuffet, ISNULL(buffetGuestCount, 1) AS buffetGuestCount
                              FROM Bill
                              WHERE id = @id";
 
@@ -131,12 +134,14 @@ GROUP BY f.name, f.price, b.isBuffet";
                         if (reader["finalAmount"] != DBNull.Value)
                         {
                             amountDue = Convert.ToDouble(reader["finalAmount"]);
+                            hasFinalAmount = true;
                         }
                         else
                         {
                             amountDue = total - discountAmount;
                         }
 
+                        discountPercent = Convert.ToDouble(reader["discountPercent"]);
                         isBuffetBill = Convert.ToInt32(reader["isBuffet"]) == 1;
                         buffetGuestCount = Convert.ToInt32(reader["buffetGuestCount"]);
                     }
@@ -145,8 +150,28 @@ GROUP BY f.name, f.price, b.isBuffet";
 
             if (isBuffetBill)
             {
-                amountDue = 299000 * Math.Max(1, buffetGuestCount);
+                total = 299000 * Math.Max(1, buffetGuestCount);
+
+                if (!hasFinalAmount)
+                {
+                    if (discountAmount > 0)
+                    {
+                        amountDue = total - discountAmount;
+                    }
+                    else if (discountPercent > 0)
+                    {
+                        amountDue = total * (1 - discountPercent / 100d);
+                    }
+                    else
+                    {
+                        amountDue = total;
+                    }
+                }
+
+                discountAmount = Math.Max(0, total - amountDue);
             }
+
+            amountDue = Math.Max(0, amountDue);
 
             txtTotalPrice.Text = total.ToString("N0");
             txtDiscount.Text = discountAmount.ToString("N0");
