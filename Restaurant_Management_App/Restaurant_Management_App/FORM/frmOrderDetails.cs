@@ -16,10 +16,6 @@ namespace Restaurant_Management_App
         string _idOrder;
         string currentRole;
 
-        Color primaryColor = Color.FromArgb(158, 27, 27);
-        Color textOnPrimary = Color.White;
-        Color lightBg = Color.FromArgb(245, 245, 245);
-
         public frmOrderDetails(string idOrder)
         {
             InitializeComponent();
@@ -36,82 +32,6 @@ namespace Restaurant_Management_App
         private void label7_Click(object sender, EventArgs e)
         {
 
-        }
-
-        void ApplyTheme()
-        {
-            // ===== FORM =====
-            this.BackColor = lightBg;
-
-            // ===== GROUPBOX =====
-            gbxListDetails.ForeColor = primaryColor;
-            gbxListDetails.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            gbxListDetails.BackColor = Color.White;
-
-            // ===== BUTTON PAY =====
-            btnPay.BackColor = primaryColor;
-            btnPay.ForeColor = textOnPrimary;
-            btnPay.FlatStyle = FlatStyle.Flat;
-            btnPay.FlatAppearance.BorderSize = 0;
-
-            btnPay.MouseEnter += (s, e) => btnPay.BackColor = Color.FromArgb(200, 40, 40);
-            btnPay.MouseLeave += (s, e) => btnPay.BackColor = primaryColor;
-
-            // ===== BUTTON BACK =====
-            btnBack.BackColor = Color.Gray;
-            btnBack.ForeColor = Color.White;
-            btnBack.FlatStyle = FlatStyle.Flat;
-            btnBack.FlatAppearance.BorderSize = 0;
-
-            // ===== DATAGRIDVIEW =====
-            dgvFoodDetails.EnableHeadersVisualStyles = false;
-            dgvFoodDetails.BackgroundColor = Color.White;
-            dgvFoodDetails.BorderStyle = BorderStyle.None;
-            dgvFoodDetails.RowHeadersVisible = false;
-            dgvFoodDetails.CellBorderStyle = DataGridViewCellBorderStyle.None;
-            dgvFoodDetails.GridColor = Color.White;
-
-            dgvFoodDetails.ColumnHeadersDefaultCellStyle.BackColor = primaryColor;
-            dgvFoodDetails.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvFoodDetails.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            dgvFoodDetails.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            dgvFoodDetails.DefaultCellStyle.Font = new Font("Segoe UI", 10);
-            dgvFoodDetails.DefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 80, 80);
-            dgvFoodDetails.DefaultCellStyle.SelectionForeColor = Color.White;
-
-            dgvFoodDetails.RowTemplate.Height = 30;
-
-            // ===== TEXTBOX =====
-            foreach (Control ctrl in tableLayoutPanel1.Controls)
-            {
-                if (ctrl is TextBox txt)
-                {
-                    txt.ReadOnly = true;
-                    txt.BackColor = Color.White;
-                    txt.ForeColor = Color.Black;
-                }
-            }
-
-            // ===== LABEL =====
-            foreach (Control ctrl in tableLayoutPanel1.Controls)
-            {
-                if (ctrl is Label lbl)
-                {
-                    lbl.ForeColor = primaryColor;
-                }
-            }
-
-            // ===== ĐỔI TEXT LABEL =====
-            lbIdOrder.Text = "Mã đơn:";
-            label4.Text = "Mã bàn:";
-            label7.Text = "Trạng thái thanh toán:";
-            label2.Text = "Thời gian:";
-            label3.Text = "Giờ:";
-            label5.Text = "Tổng hóa đơn:";
-            label8.Text = "Phương thức thanh toán:";
-            label6.Text = "Tên khách:";
-            label9.Text = "Trạng thái đơn hàng:";
         }
 
         private void btnPay_Click(object sender, EventArgs e)
@@ -319,7 +239,6 @@ namespace Restaurant_Management_App
         SELECT 
             b.id ,
             b.idTable,
-            
             CONVERT(DATE, b.dateCheckIn) AS [date],
             CONVERT(TIME, b.dateCheckIn) AS [time],
             b.customerName,
@@ -365,11 +284,11 @@ namespace Restaurant_Management_App
 
                     if (txtStatus.Text == "Paid")
                     {
-                        btnPay.Text = "View Bill";
+                        btnPay.Text = "Xem Hóa Đơn";
                     }
                     else
                     {
-                        btnPay.Text = "Pay";
+                        btnPay.Text = "Thanh toán";
                     }
                 }
 
@@ -445,15 +364,16 @@ GROUP BY f.name, f.price";
             
             }
 
-        
-
-        private void frmOrderDetails_Load(object sender, EventArgs e)
+        private void frmOrderDetails_Load(object sender, EventArgs e)   
         {
             LoadOrderDetails();
-            ApplyTheme();
-
             btnPay.Text= "Thanh toán";
             btnBack.Text= "Trở về";
+
+            if(txtStatus.Text == "Paid")
+            {
+                btnPay.Text = "Xem hóa đơn";
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -465,6 +385,9 @@ GROUP BY f.name, f.price";
             }
         }
 
+        private void btnReview(object sender, EventArgs e)
+        {
 
+        }
     }
 }
