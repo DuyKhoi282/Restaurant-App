@@ -27,6 +27,7 @@ namespace Restaurant_Management_App.FORM
             this.FoodID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFoodStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlNote = new System.Windows.Forms.Panel();
             this.txtNote = new System.Windows.Forms.TextBox();
             this.lblNote = new System.Windows.Forms.Label();
@@ -55,6 +56,12 @@ namespace Restaurant_Management_App.FORM
             this.lblTotalValue = new System.Windows.Forms.Label();
             this.lblDiscountCaption = new System.Windows.Forms.Label();
             this.numDiscount = new System.Windows.Forms.NumericUpDown();
+            this.lblBuffetAccount = new System.Windows.Forms.Label();
+            this.txtBuffetAccount = new System.Windows.Forms.TextBox();
+            this.lblBuffetPassword = new System.Windows.Forms.Label();
+            this.txtBuffetPassword = new System.Windows.Forms.TextBox();
+            this.btnBuffetLogin = new System.Windows.Forms.Button();
+            this.btnSendPaymentRequest = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -150,7 +157,7 @@ namespace Restaurant_Management_App.FORM
             this.lblMenu.Name = "lblMenu";
             this.lblMenu.Size = new System.Drawing.Size(66, 25);
             this.lblMenu.TabIndex = 0;
-            this.lblMenu.Text = "Menu";
+            this.lblMenu.Text = "Thực đơn";
             // 
             // pnlOrder
             // 
@@ -177,7 +184,8 @@ namespace Restaurant_Management_App.FORM
             this.colPrice,
             this.FoodID,
             this.colName,
-            this.colQty});
+            this.colQty,
+            this.colFoodStatus});
             this.dgvCart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCart.Location = new System.Drawing.Point(10, 200);
             this.dgvCart.MultiSelect = false;
@@ -194,7 +202,7 @@ namespace Restaurant_Management_App.FORM
             // 
             this.colDelete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.colDelete.Frozen = true;
-            this.colDelete.HeaderText = "Action";
+            this.colDelete.HeaderText = "Xóa";
             this.colDelete.MinimumWidth = 6;
             this.colDelete.Name = "colDelete";
             this.colDelete.Text = "X";
@@ -206,7 +214,7 @@ namespace Restaurant_Management_App.FORM
             this.colPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.colPrice.DataPropertyName = "price";
             this.colPrice.Frozen = true;
-            this.colPrice.HeaderText = "Unit price";
+            this.colPrice.HeaderText = "Đơn giá";
             this.colPrice.MinimumWidth = 6;
             this.colPrice.Name = "colPrice";
             this.colPrice.Width = 149;
@@ -224,16 +232,23 @@ namespace Restaurant_Management_App.FORM
             // colName
             // 
             this.colName.DataPropertyName = "name";
-            this.colName.HeaderText = "Item";
+            this.colName.HeaderText = "Món ăn";
             this.colName.MinimumWidth = 6;
             this.colName.Name = "colName";
             // 
             // colQty
             // 
             this.colQty.DataPropertyName = "quantity";
-            this.colQty.HeaderText = "Qty";
+            this.colQty.HeaderText = "SL";
             this.colQty.MinimumWidth = 6;
             this.colQty.Name = "colQty";
+            // 
+            // colFoodStatus
+            // 
+            this.colFoodStatus.DataPropertyName = "foodStatus";
+            this.colFoodStatus.HeaderText = "Trạng thái món";
+            this.colFoodStatus.MinimumWidth = 6;
+            this.colFoodStatus.Name = "colFoodStatus";
             // 
             // pnlNote
             // 
@@ -262,7 +277,7 @@ namespace Restaurant_Management_App.FORM
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(36, 16);
             this.lblNote.TabIndex = 0;
-            this.lblNote.Text = "Note";
+            this.lblNote.Text = "Ghi chú";
             // 
             // pnlOrderTop
             // 
@@ -279,10 +294,15 @@ namespace Restaurant_Management_App.FORM
             this.pnlOrderTop.Controls.Add(this.cbCase);
             this.pnlOrderTop.Controls.Add(this.lblPayMethod);
             this.pnlOrderTop.Controls.Add(this.cbPayMethod);
+            this.pnlOrderTop.Controls.Add(this.lblBuffetAccount);
+            this.pnlOrderTop.Controls.Add(this.txtBuffetAccount);
+            this.pnlOrderTop.Controls.Add(this.lblBuffetPassword);
+            this.pnlOrderTop.Controls.Add(this.txtBuffetPassword);
+            this.pnlOrderTop.Controls.Add(this.btnBuffetLogin);
             this.pnlOrderTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlOrderTop.Location = new System.Drawing.Point(10, 10);
             this.pnlOrderTop.Name = "pnlOrderTop";
-            this.pnlOrderTop.Size = new System.Drawing.Size(625, 120);
+            this.pnlOrderTop.Size = new System.Drawing.Size(625, 165);
             this.pnlOrderTop.TabIndex = 0;
             // 
             // lblTitle
@@ -293,7 +313,7 @@ namespace Restaurant_Management_App.FORM
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(110, 25);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "New order";
+            this.lblTitle.Text = "Tạo đơn hàng";
             // 
             // lblOrderNo
             // 
@@ -302,7 +322,7 @@ namespace Restaurant_Management_App.FORM
             this.lblOrderNo.Name = "lblOrderNo";
             this.lblOrderNo.Size = new System.Drawing.Size(62, 16);
             this.lblOrderNo.TabIndex = 1;
-            this.lblOrderNo.Text = "Order no.";
+            this.lblOrderNo.Text = "Mã đơn";
             // 
             // txtOrderNo
             // 
@@ -319,7 +339,7 @@ namespace Restaurant_Management_App.FORM
             this.lblTable.Name = "lblTable";
             this.lblTable.Size = new System.Drawing.Size(43, 16);
             this.lblTable.TabIndex = 3;
-            this.lblTable.Text = "Table";
+            this.lblTable.Text = "Bàn";
             // 
             // cbTable
             // 
@@ -337,16 +357,17 @@ namespace Restaurant_Management_App.FORM
             this.lblOrderType.Name = "lblOrderType";
             this.lblOrderType.Size = new System.Drawing.Size(70, 16);
             this.lblOrderType.TabIndex = 5;
-            this.lblOrderType.Text = "Order type";
+            this.lblOrderType.Text = "Loại đơn";
             // 
             // cbOrderType
             // 
             this.cbOrderType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOrderType.FormattingEnabled = true;
             this.cbOrderType.Items.AddRange(new object[] {
-            "Dine-in",
-            "Take away",
-            "Delivery"});
+            "Tại quán",
+            "Mang đi",
+            "Giao hàng",
+            "Buffet"});
             this.cbOrderType.Location = new System.Drawing.Point(515, 36);
             this.cbOrderType.Name = "cbOrderType";
             this.cbOrderType.Size = new System.Drawing.Size(130, 24);
@@ -359,7 +380,7 @@ namespace Restaurant_Management_App.FORM
             this.lblCustomer.Name = "lblCustomer";
             this.lblCustomer.Size = new System.Drawing.Size(101, 16);
             this.lblCustomer.TabIndex = 7;
-            this.lblCustomer.Text = "Customer name";
+            this.lblCustomer.Text = "Tên khách hàng";
             // 
             // txtCustomerName
             // 
@@ -375,7 +396,7 @@ namespace Restaurant_Management_App.FORM
             this.lblCase.Name = "lblCase";
             this.lblCase.Size = new System.Drawing.Size(39, 16);
             this.lblCase.TabIndex = 9;
-            this.lblCase.Text = "Case";
+            this.lblCase.Text = "Hình thức";
             // 
             // cbCase
             // 
@@ -393,7 +414,54 @@ namespace Restaurant_Management_App.FORM
             this.lblPayMethod.Name = "lblPayMethod";
             this.lblPayMethod.Size = new System.Drawing.Size(79, 16);
             this.lblPayMethod.TabIndex = 11;
-            this.lblPayMethod.Text = "Pay method";
+            this.lblPayMethod.Text = "Thanh toán";
+            // 
+            // lblBuffetAccount
+            // 
+            this.lblBuffetAccount.AutoSize = true;
+            this.lblBuffetAccount.Location = new System.Drawing.Point(12, 112);
+            this.lblBuffetAccount.Name = "lblBuffetAccount";
+            this.lblBuffetAccount.Size = new System.Drawing.Size(104, 16);
+            this.lblBuffetAccount.TabIndex = 13;
+            this.lblBuffetAccount.Text = "TK khách Buffet";
+            // 
+            // txtBuffetAccount
+            // 
+            this.txtBuffetAccount.Location = new System.Drawing.Point(119, 108);
+            this.txtBuffetAccount.Name = "txtBuffetAccount";
+            this.txtBuffetAccount.Size = new System.Drawing.Size(145, 22);
+            this.txtBuffetAccount.TabIndex = 14;
+            // 
+            // lblBuffetPassword
+            // 
+            this.lblBuffetPassword.AutoSize = true;
+            this.lblBuffetPassword.Location = new System.Drawing.Point(281, 112);
+            this.lblBuffetPassword.Name = "lblBuffetPassword";
+            this.lblBuffetPassword.Size = new System.Drawing.Size(63, 16);
+            this.lblBuffetPassword.TabIndex = 15;
+            this.lblBuffetPassword.Text = "Mật khẩu";
+            // 
+            // txtBuffetPassword
+            // 
+            this.txtBuffetPassword.Location = new System.Drawing.Point(350, 108);
+            this.txtBuffetPassword.Name = "txtBuffetPassword";
+            this.txtBuffetPassword.PasswordChar = '*';
+            this.txtBuffetPassword.Size = new System.Drawing.Size(121, 22);
+            this.txtBuffetPassword.TabIndex = 16;
+            // 
+            // btnBuffetLogin
+            // 
+            this.btnBuffetLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
+            this.btnBuffetLogin.FlatAppearance.BorderSize = 0;
+            this.btnBuffetLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuffetLogin.ForeColor = System.Drawing.Color.White;
+            this.btnBuffetLogin.Location = new System.Drawing.Point(489, 104);
+            this.btnBuffetLogin.Name = "btnBuffetLogin";
+            this.btnBuffetLogin.Size = new System.Drawing.Size(134, 30);
+            this.btnBuffetLogin.TabIndex = 17;
+            this.btnBuffetLogin.Text = "Đăng nhập Buffet";
+            this.btnBuffetLogin.UseVisualStyleBackColor = false;
+            this.btnBuffetLogin.Click += new System.EventHandler(this.btnBuffetLogin_Click);
             // 
             // cbPayMethod
             // 
@@ -416,6 +484,7 @@ namespace Restaurant_Management_App.FORM
             this.pnlSummary.Controls.Add(this.lblTaxValue);
             this.pnlSummary.Controls.Add(this.lblTotalCaption);
             this.pnlSummary.Controls.Add(this.lblTotalValue);
+            this.pnlSummary.Controls.Add(this.btnSendPaymentRequest);
             this.pnlSummary.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlSummary.Location = new System.Drawing.Point(10, 560);
             this.pnlSummary.Name = "pnlSummary";
@@ -430,7 +499,7 @@ namespace Restaurant_Management_App.FORM
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(80, 32);
             this.btnClear.TabIndex = 9;
-            this.btnClear.Text = "Clear";
+            this.btnClear.Text = "Xóa món";
             this.btnClear.UseVisualStyleBackColor = true;
             // 
             // btnCheckout
@@ -444,7 +513,7 @@ namespace Restaurant_Management_App.FORM
             this.btnCheckout.Name = "btnCheckout";
             this.btnCheckout.Size = new System.Drawing.Size(67, 32);
             this.btnCheckout.TabIndex = 11;
-            this.btnCheckout.Text = "Submit";
+            this.btnCheckout.Text = "Gửi bếp";
             this.btnCheckout.UseVisualStyleBackColor = false;
             this.btnCheckout.Click += new System.EventHandler(this.btnCheckout_Click_1);
             // 
@@ -455,7 +524,7 @@ namespace Restaurant_Management_App.FORM
             this.lblSubtotalCaption.Name = "lblSubtotalCaption";
             this.lblSubtotalCaption.Size = new System.Drawing.Size(56, 16);
             this.lblSubtotalCaption.TabIndex = 0;
-            this.lblSubtotalCaption.Text = "Subtotal";
+            this.lblSubtotalCaption.Text = "Tạm tính";
             // 
             // lblSubtotalValue
             // 
@@ -464,7 +533,7 @@ namespace Restaurant_Management_App.FORM
             this.lblSubtotalValue.Name = "lblSubtotalValue";
             this.lblSubtotalValue.Size = new System.Drawing.Size(160, 23);
             this.lblSubtotalValue.TabIndex = 1;
-            this.lblSubtotalValue.Text = "$0.00";
+            this.lblSubtotalValue.Text = "0 VNĐ";
             this.lblSubtotalValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblTaxCaption
@@ -474,7 +543,7 @@ namespace Restaurant_Management_App.FORM
             this.lblTaxCaption.Name = "lblTaxCaption";
             this.lblTaxCaption.Size = new System.Drawing.Size(64, 16);
             this.lblTaxCaption.TabIndex = 5;
-            this.lblTaxCaption.Text = "VAT (7%)";
+            this.lblTaxCaption.Text = "Thuế VAT (7%)";
             // 
             // lblTaxValue
             // 
@@ -483,7 +552,7 @@ namespace Restaurant_Management_App.FORM
             this.lblTaxValue.Name = "lblTaxValue";
             this.lblTaxValue.Size = new System.Drawing.Size(160, 23);
             this.lblTaxValue.TabIndex = 6;
-            this.lblTaxValue.Text = "$0.00";
+            this.lblTaxValue.Text = "0 VNĐ";
             this.lblTaxValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblTotalCaption
@@ -494,7 +563,7 @@ namespace Restaurant_Management_App.FORM
             this.lblTotalCaption.Name = "lblTotalCaption";
             this.lblTotalCaption.Size = new System.Drawing.Size(61, 25);
             this.lblTotalCaption.TabIndex = 7;
-            this.lblTotalCaption.Text = "Total";
+            this.lblTotalCaption.Text = "Tổng cộng";
             // 
             // lblTotalValue
             // 
@@ -505,7 +574,7 @@ namespace Restaurant_Management_App.FORM
             this.lblTotalValue.Name = "lblTotalValue";
             this.lblTotalValue.Size = new System.Drawing.Size(160, 29);
             this.lblTotalValue.TabIndex = 8;
-            this.lblTotalValue.Text = "$0.00";
+            this.lblTotalValue.Text = "0 VNĐ";
             this.lblTotalValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblDiscountCaption
@@ -515,7 +584,7 @@ namespace Restaurant_Management_App.FORM
             this.lblDiscountCaption.Name = "lblDiscountCaption";
             this.lblDiscountCaption.Size = new System.Drawing.Size(82, 16);
             this.lblDiscountCaption.TabIndex = 2;
-            this.lblDiscountCaption.Text = "Discount (%)";
+            this.lblDiscountCaption.Text = "Giảm giá (%)";
             // 
             // numDiscount
             // 
@@ -531,6 +600,21 @@ namespace Restaurant_Management_App.FORM
             this.numDiscount.TabIndex = 3;
             this.numDiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numDiscount.ValueChanged += new System.EventHandler(this.numDiscount_ValueChanged_1);
+            // 
+            // btnSendPaymentRequest
+            // 
+            this.btnSendPaymentRequest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSendPaymentRequest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.btnSendPaymentRequest.FlatAppearance.BorderSize = 0;
+            this.btnSendPaymentRequest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSendPaymentRequest.ForeColor = System.Drawing.Color.White;
+            this.btnSendPaymentRequest.Location = new System.Drawing.Point(481, 51);
+            this.btnSendPaymentRequest.Name = "btnSendPaymentRequest";
+            this.btnSendPaymentRequest.Size = new System.Drawing.Size(140, 32);
+            this.btnSendPaymentRequest.TabIndex = 12;
+            this.btnSendPaymentRequest.Text = "Yêu cầu thanh toán";
+            this.btnSendPaymentRequest.UseVisualStyleBackColor = false;
+            this.btnSendPaymentRequest.Click += new System.EventHandler(this.btnSendPaymentRequest_Click);
             // 
             // frmCreateOrder
             // 
@@ -610,7 +694,14 @@ namespace Restaurant_Management_App.FORM
         private DataGridViewTextBoxColumn FoodID;
         private DataGridViewTextBoxColumn colName;
         private DataGridViewTextBoxColumn colQty;
+        private DataGridViewTextBoxColumn colFoodStatus;
         private Label lblDiscountCaption;
         private NumericUpDown numDiscount;
+        private Label lblBuffetAccount;
+        private TextBox txtBuffetAccount;
+        private Label lblBuffetPassword;
+        private TextBox txtBuffetPassword;
+        private Button btnBuffetLogin;
+        private Button btnSendPaymentRequest;
     }
 }
