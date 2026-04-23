@@ -12,6 +12,7 @@ namespace Restaurant_Management_App.FORM
     public partial class frmCreateOrder : Form
     {
         private const double BuffetFixedPrice = 299000;
+        private const string BuffetFlag = "[BUFFET]";
         private readonly OrderRepository _repo = new OrderRepository();
         private readonly List<FoodMenuItem> _foods = new List<FoodMenuItem>();
         private bool _isBuffetLocked;
@@ -228,10 +229,12 @@ namespace Restaurant_Management_App.FORM
                     object result = Database.Instance.ExecuteScalar(queryInsertBill);
 
                     billId = Convert.ToInt32(result);
+                    UpdateBillMetadata(billId);
                     txtOrderNo.Text = FormatBillId(billId);
                 }
                 else
                 {
+                    UpdateBillMetadata(billId);
                     txtOrderNo.Text = FormatBillId(billId);
                 }
 
@@ -435,6 +438,7 @@ namespace Restaurant_Management_App.FORM
                                        SET customerName = N'{EscapeSqlValue(txtCustomerName.Text)}',
                                            caseName = N'{EscapeSqlValue(cbCase.Text)}',
                                            payMethod = N'{EscapeSqlValue(cbPayMethod.Text)}',
+                                           note = N'{EscapeSqlValue(BuildBillNote())}',
                                            kitchenStatus = CASE
                                                WHEN kitchenStatus IS NULL OR kitchenStatus = N'Draft' THEN N'Pending'
                                                ELSE kitchenStatus
@@ -526,6 +530,11 @@ namespace Restaurant_Management_App.FORM
                 _isBuffetLocked = true;
 
             _lastOrderType = cbOrderType.Text;
+
+            if (!string.IsNullOrWhiteSpace(txtOrderNo.Text) && int.TryParse(txtOrderNo.Text, out int billId))
+            {
+                UpdateBillMetadata(billId);
+            }
             CalculateTotal();
         }
 
@@ -589,6 +598,7 @@ namespace Restaurant_Management_App.FORM
             if (!int.TryParse(cbTable.SelectedValue.ToString(), out tableId)) return;
 
             string query = $@"SELECT TOP 1 id, customerName, caseName, payMethod
+                              , note
                               FROM Bill
                               WHERE idTable = {tableId}
                                 AND status = 0
@@ -599,6 +609,7 @@ namespace Restaurant_Management_App.FORM
             {
                 txtOrderNo.Text = "";
                 txtCustomerName.Text = "";
+                txtNote.Text = "";
                 if (cbCase.Items.Count > 0) cbCase.SelectedIndex = 0;
                 if (cbPayMethod.Items.Count > 0) cbPayMethod.SelectedIndex = 0;
                 cbOrderType.SelectedItem = "Không buffet";
@@ -622,8 +633,55 @@ namespace Restaurant_Management_App.FORM
             if (!string.IsNullOrWhiteSpace(payMethod) && cbPayMethod.Items.Contains(payMethod))
                 cbPayMethod.SelectedItem = payMethod;
 
-            _lastOrderType = cbOrderType.Text;
+            string billNote = row["note"] == DBNull.Value ? "" : row["note"].ToString();
+            txtNote.Text = GetUserNoteFromBillNote(billNote);
+
+            bool isBuffetBill = IsBuffetOrder(billNote);
+            if (isBuffetBill)
+            {
+                cbOrderType.SelectedItem = "Buffet";
+                _isBuffetLocked = true;
+                _lastOrderType = "Buffet";
+            }
+            else
+            {
+                cbOrderType.SelectedItem = "Không buffet";
+                _isBuffetLocked = false;
+                _lastOrderType = "Không buffet";
+            }
+
             LoadBillDetails(billId);
+        }
+
+        private void UpdateBillMetadata(int billId)
+        {
+            if (billId <= 0) return;
+
+            string query = $@"UPDATE dbo.Bill
+                              SET customerName = N'{EscapeSqlValue(txtCustomerName.Text)}',
+                                  caseName = N'{EscapeSqlValue(cbCase.Text)}',
+                                  payMethod = N'{EscapeSqlValue(cbPayMethod.Text)}',
+                                  note = N'{EscapeSqlValue(BuildBillNote())}'
+                              WHERE id = {billId}";
+            Database.Instance.ExecuteNonQuery(query);
+        }
+
+        private bool IsBuffetOrder(string billNote)
+        {
+            return !string.IsNullOrWhiteSpace(billNote)
+                   && billNote.IndexOf(BuffetFlag, StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        private string BuildBillNote()
+        {
+            string userNote = GetUserNoteFromBillNote(txtNote.Text);
+            bool isBuffet = cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase);
+            return isBuffet ? $"{userNote} {BuffetFlag}".Trim() : userNote;
+        }
+
+        private string GetUserNoteFromBillNote(string billNote)
+        {
+            return (billNote ?? string.Empty).Replace(BuffetFlag, string.Empty).Trim();
         }
 
         private int GetOpenBillIdByTable(int tableId)
