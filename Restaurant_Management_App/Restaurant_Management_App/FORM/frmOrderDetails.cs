@@ -262,7 +262,7 @@ namespace Restaurant_Management_App
         WHERE b.id = @id
         GROUP BY 
             b.id, b.idTable, b.dateCheckIn,
-            b.customerName, b.payMethod, b.status, b.kitchenStatus, b.finalAmount";
+            b.customerName, b.payMethod, b.status, b.kitchenStatus, b.finalAmount, b.isBuffet";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", _idOrder);
@@ -320,13 +320,13 @@ namespace Restaurant_Management_App
     ROW_NUMBER() OVER (ORDER BY f.name) AS STT,
     f.name AS FoodName,
     SUM(bi.quantity) AS quantity,
-    f.price,
-    SUM(f.price * bi.quantity) AS TotalPrice
+    CASE WHEN ISNULL(b.isBuffet, 0) = 1 THEN 0 ELSE f.price END AS price,
+    SUM(CASE WHEN ISNULL(b.isBuffet, 0) = 1 THEN 0 ELSE f.price * bi.quantity END) AS TotalPrice
 FROM Bill b
 JOIN BillInfo bi ON b.id = bi.idBill
 JOIN Food f ON bi.idFood = f.id
 WHERE b.id = @id
-GROUP BY f.name, f.price";
+GROUP BY f.name, f.price, b.isBuffet";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
