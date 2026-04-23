@@ -83,6 +83,9 @@ IF COL_LENGTH('dbo.Bill', 'idPromotion') IS NULL
 IF COL_LENGTH('dbo.Bill', 'isBuffet') IS NULL
     ALTER TABLE dbo.Bill ADD isBuffet BIT NOT NULL CONSTRAINT DF_Bill_isBuffet DEFAULT(0);
 
+IF COL_LENGTH('dbo.Bill', 'buffetGuestCount') IS NULL
+    ALTER TABLE dbo.Bill ADD buffetGuestCount INT NOT NULL CONSTRAINT DF_Bill_buffetGuestCount DEFAULT(1);
+
 IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_Bill_PromotionProgram')
 BEGIN
     ALTER TABLE dbo.Bill WITH NOCHECK
@@ -101,14 +104,14 @@ IF COL_LENGTH('dbo.LoyaltyPointHistory', 'promotionId') IS NULL
         public decimal GetBillTotal(int billId)
         {
             object amountObj = Database.Instance.ExecuteScalar(@"SELECT CASE 
-                                                                    WHEN ISNULL(b.isBuffet, 0) = 1 THEN 299000
+                                                                    WHEN ISNULL(b.isBuffet, 0) = 1 THEN 299000 * ISNULL(b.buffetGuestCount, 1)
                                                                     ELSE ISNULL(SUM(f.price * bi.quantity),0)
                                                                  END
                                                                  FROM Bill b
                                                                  LEFT JOIN BillInfo bi ON b.id = bi.idBill
                                                                  LEFT JOIN Food f ON bi.idFood = f.id
                                                                  WHERE b.id = " + billId + @"
-                                                                 GROUP BY b.isBuffet");
+                                                                 GROUP BY b.isBuffet, b.buffetGuestCount");
             return Convert.ToDecimal(amountObj);
         }
 
