@@ -28,6 +28,8 @@ namespace Restaurant_Management_App
             if (dgvHistoryChangePass.Columns.Count > 0)
             {
                 if (dgvHistoryChangePass.Columns["Id"] != null) dgvHistoryChangePass.Columns["Id"].Visible = false;
+                dgvHistoryChangePass.Columns["fullname"].HeaderText = "Họ tên";
+                dgvHistoryChangePass.Columns["userId"].HeaderText = "Mã Nhân Viên";
                 dgvHistoryChangePass.Columns["oldPassword"].HeaderText = "Mật Khẩu Cũ";
                 dgvHistoryChangePass.Columns["newPassword"].HeaderText = "Mật Khẩu Mới";
                 dgvHistoryChangePass.Columns["changeDate"].HeaderText = "Ngày Thay Đổi";

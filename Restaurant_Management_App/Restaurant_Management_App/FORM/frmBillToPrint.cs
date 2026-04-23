@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +16,13 @@ namespace Restaurant_Management_App
     {
         string orderId;
         double discountPercent = 0;
+        PrintDocument printDoc = new PrintDocument();
         public frmBillToPrint(string id)
         {
             InitializeComponent();
             orderId = id;
+
+            printDoc.PrintPage += PrintDoc_PrintPage;
 
             dgvBill.ReadOnly = true;
             txtTotalPrice.ReadOnly = true;
@@ -29,6 +33,85 @@ namespace Restaurant_Management_App
             txtAmountDue.BorderStyle = BorderStyle.None;
             dgvBill.MultiSelect = false;
             dgvBill.RowHeadersVisible = false;
+        }
+
+        private void PrintDoc_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            float y = 10;
+            int left = 10;
+
+            Font titleFont = new Font("Segoe UI", 14, FontStyle.Bold);
+            Font headerFont = new Font("Segoe UI", 10, FontStyle.Bold);
+            Font normalFont = new Font("Segoe UI", 10);
+            Font totalFont = new Font("Segoe UI", 11, FontStyle.Bold);
+
+            // ===== HEADER =====
+            e.Graphics.DrawString("THE CHILLS RESTAURANT", titleFont, Brushes.Black, 60, y);
+            y += 30;
+
+            e.Graphics.DrawString("Bill ID: " + orderId, normalFont, Brushes.Black, left, y);
+            y += 20;
+
+            e.Graphics.DrawString(DateTime.Now.ToString("dd/MM/yyyy HH:mm"), normalFont, Brushes.Black, left, y);
+            y += 20;
+
+            e.Graphics.DrawString("------------------------------------------", normalFont, Brushes.Black, left, y);
+            y += 20;
+
+            // ===== TABLE HEADER =====
+            e.Graphics.DrawString("Tên món", headerFont, Brushes.Black, left, y);
+            e.Graphics.DrawString("SL", headerFont, Brushes.Black, 180, y);
+            e.Graphics.DrawString("Tiền", headerFont, Brushes.Black, 230, y);
+            y += 20;
+
+            e.Graphics.DrawString("------------------------------------------", normalFont, Brushes.Black, left, y);
+            y += 20;
+
+            // ===== DATA =====
+            foreach (DataGridViewRow row in dgvBill.Rows)
+            {
+                if (row.Cells["FoodName"].Value != null)
+                {
+                    string name = row.Cells["FoodName"].Value.ToString();
+                    string qty = row.Cells["quantity"].Value.ToString();
+                    string price = Convert.ToDouble(row.Cells["totalprice"].Value).ToString("N0");
+
+                    // Nếu tên dài → xuống dòng
+                    if (name.Length > 20)
+                    {
+                        name = name.Substring(0, 20) + "...";
+                    }
+
+                    e.Graphics.DrawString(name, normalFont, Brushes.Black, left, y);
+                    e.Graphics.DrawString(qty, normalFont, Brushes.Black, 180, y);
+                    e.Graphics.DrawString(price, normalFont, Brushes.Black, 230, y);
+
+                    y += 20;
+                }
+            }
+
+            y += 10;
+            e.Graphics.DrawString("------------------------------------------", normalFont, Brushes.Black, left, y);
+            y += 25;
+
+            // ===== TOTAL =====
+            e.Graphics.DrawString("Tổng:", normalFont, Brushes.Black, left, y);
+            e.Graphics.DrawString(txtTotalPrice.Text, normalFont, Brushes.Black, 230, y);
+            y += 20;
+
+            e.Graphics.DrawString("Giảm:", normalFont, Brushes.Black, left, y);
+            e.Graphics.DrawString(txtDiscount.Text, normalFont, Brushes.Black, 230, y);
+            y += 25;
+
+            e.Graphics.DrawString("Thanh toán:", totalFont, Brushes.Black, left, y);
+            e.Graphics.DrawString(txtAmountDue.Text, totalFont, Brushes.Black, 230, y);
+            y += 30;
+
+            e.Graphics.DrawString("------------------------------------------", normalFont, Brushes.Black, left, y);
+            y += 25;
+
+            // ===== FOOTER =====
+            e.Graphics.DrawString("Cảm ơn quý khách!", normalFont, Brushes.Black, 80, y);
         }
 
         void LoadBill()
@@ -193,6 +276,19 @@ GROUP BY f.name, f.price, b.isBuffet";
         {
             LoadBill();
             CalculateTotal();
+        }
+
+        private void btnPrintBill_Click(object sender, EventArgs e)
+        {
+            PrintPreviewDialog preview = new PrintPreviewDialog();
+            preview.Document = printDoc;
+            preview.Width = 500;
+            preview.Height = 600;
+            preview.PrintPreviewControl.Zoom = 1.5;
+            preview.ShowDialog();
+
+            // Nếu muốn in luôn:
+            //printDoc.Print();
         }
     }
 }

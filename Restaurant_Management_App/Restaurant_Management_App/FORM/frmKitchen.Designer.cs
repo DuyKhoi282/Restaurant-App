@@ -8,9 +8,6 @@ namespace Restaurant_Management_App.FORM
 
         private Label lblTitle;
         private FlowLayoutPanel pnlStatus;
-        private Label lblPending;
-        private Label lblCooking;
-        private Label lblReady;
 
         private Panel panelLeft;
         private Panel panelRight;
@@ -36,9 +33,6 @@ namespace Restaurant_Management_App.FORM
         {
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlStatus = new System.Windows.Forms.FlowLayoutPanel();
-            this.lblPending = new System.Windows.Forms.Label();
-            this.lblCooking = new System.Windows.Forms.Label();
-            this.lblReady = new System.Windows.Forms.Label();
             this.panelLeft = new System.Windows.Forms.Panel();
             this.dgvKitchen = new System.Windows.Forms.DataGridView();
             this.panelRight = new System.Windows.Forms.Panel();
@@ -48,7 +42,6 @@ namespace Restaurant_Management_App.FORM
             this.btnCooking = new System.Windows.Forms.Button();
             this.btnReady = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
-            this.pnlStatus.SuspendLayout();
             this.panelLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKitchen)).BeginInit();
             this.panelRight.SuspendLayout();
@@ -68,55 +61,19 @@ namespace Restaurant_Management_App.FORM
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(994, 90);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "🍽 KITCHEN ORDERS";
+            this.lblTitle.Text = "🍽 QUẢN LÝ ĐƠN TRONG BẾP";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pnlStatus
             // 
             this.pnlStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.tableLayoutPanel1.SetColumnSpan(this.pnlStatus, 2);
-            this.pnlStatus.Controls.Add(this.lblPending);
-            this.pnlStatus.Controls.Add(this.lblCooking);
-            this.pnlStatus.Controls.Add(this.lblReady);
             this.pnlStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlStatus.Location = new System.Drawing.Point(3, 93);
             this.pnlStatus.Name = "pnlStatus";
             this.pnlStatus.Padding = new System.Windows.Forms.Padding(10);
             this.pnlStatus.Size = new System.Drawing.Size(994, 54);
             this.pnlStatus.TabIndex = 1;
-            // 
-            // lblPending
-            // 
-            this.lblPending.AutoSize = true;
-            this.lblPending.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblPending.Location = new System.Drawing.Point(30, 20);
-            this.lblPending.Margin = new System.Windows.Forms.Padding(20, 10, 20, 10);
-            this.lblPending.Name = "lblPending";
-            this.lblPending.Size = new System.Drawing.Size(104, 23);
-            this.lblPending.TabIndex = 0;
-            this.lblPending.Text = "🟡 Pending";
-            // 
-            // lblCooking
-            // 
-            this.lblCooking.AutoSize = true;
-            this.lblCooking.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblCooking.Location = new System.Drawing.Point(174, 20);
-            this.lblCooking.Margin = new System.Windows.Forms.Padding(20, 10, 20, 10);
-            this.lblCooking.Name = "lblCooking";
-            this.lblCooking.Size = new System.Drawing.Size(106, 23);
-            this.lblCooking.TabIndex = 1;
-            this.lblCooking.Text = "🔵 Cooking";
-            // 
-            // lblReady
-            // 
-            this.lblReady.AutoSize = true;
-            this.lblReady.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblReady.Location = new System.Drawing.Point(320, 20);
-            this.lblReady.Margin = new System.Windows.Forms.Padding(20, 10, 20, 10);
-            this.lblReady.Name = "lblReady";
-            this.lblReady.Size = new System.Drawing.Size(88, 23);
-            this.lblReady.TabIndex = 2;
-            this.lblReady.Text = "🟢 Ready";
             // 
             // panelLeft
             // 
@@ -207,7 +164,7 @@ namespace Restaurant_Management_App.FORM
             this.btnCooking.Name = "btnCooking";
             this.btnCooking.Size = new System.Drawing.Size(150, 45);
             this.btnCooking.TabIndex = 0;
-            this.btnCooking.Text = "🍳 Cooking";
+            this.btnCooking.Text = "🍳 Đang nấu";
             this.btnCooking.UseVisualStyleBackColor = false;
             // 
             // btnReady
@@ -219,7 +176,7 @@ namespace Restaurant_Management_App.FORM
             this.btnReady.Name = "btnReady";
             this.btnReady.Size = new System.Drawing.Size(150, 45);
             this.btnReady.TabIndex = 1;
-            this.btnReady.Text = "✅ Ready";
+            this.btnReady.Text = "✅ Đẫ sẵn sàng";
             this.btnReady.UseVisualStyleBackColor = false;
             // 
             // btnBack
@@ -231,7 +188,7 @@ namespace Restaurant_Management_App.FORM
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(150, 45);
             this.btnBack.TabIndex = 2;
-            this.btnBack.Text = "⬅ Back";
+            this.btnBack.Text = "⬅ Trở về";
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
@@ -243,8 +200,6 @@ namespace Restaurant_Management_App.FORM
             this.Name = "frmKitchen";
             this.Text = "Kitchen";
             this.Load += new System.EventHandler(this.FrmKitchen_Load);
-            this.pnlStatus.ResumeLayout(false);
-            this.pnlStatus.PerformLayout();
             this.panelLeft.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvKitchen)).EndInit();
             this.panelRight.ResumeLayout(false);

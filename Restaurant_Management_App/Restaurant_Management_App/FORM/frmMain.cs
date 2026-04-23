@@ -274,11 +274,7 @@ namespace Restaurant_Management_App
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            DisplayUserAvatar();
-            if (string.IsNullOrEmpty(UserSession.ImagePath))
-            {
-                MessageBox.Show("Cảnh báo: ImagePath trong Session đang bị trống!");
-            }
+            DisplayUserAvatar();           
         }
     }
 }

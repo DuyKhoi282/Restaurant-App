@@ -30,30 +30,30 @@
         {
             this.panelInterface = new System.Windows.Forms.Panel();
             this.tlpSidebar = new System.Windows.Forms.TableLayoutPanel();
-            this.btnSignout = new System.Windows.Forms.Button();
             this.btnItemMNG = new System.Windows.Forms.Button();
             this.btnCreateOrder = new System.Windows.Forms.Button();
             this.btnOrderMNG = new System.Windows.Forms.Button();
             this.btnRevenueMNG = new System.Windows.Forms.Button();
             this.btnStaffMNG = new System.Windows.Forms.Button();
             this.btnCustomerCaring = new System.Windows.Forms.Button();
-            this.panelInfoBar = new System.Windows.Forms.Panel();
-            this.btnChangePassword = new System.Windows.Forms.Button();
-            this.btnInfoUser = new System.Windows.Forms.Button();
-            this.picUserAvatar_Main = new System.Windows.Forms.PictureBox();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.PanelNameRes = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.panelInfoBar = new System.Windows.Forms.Panel();
+            this.btnChangePassword = new System.Windows.Forms.Button();
+            this.btnInfoUser = new System.Windows.Forms.Button();
+            this.picUserAvatar_Main = new System.Windows.Forms.PictureBox();
+            this.btnSignout = new System.Windows.Forms.Button();
+            this.btnRatingService = new System.Windows.Forms.Button();
             this.panelContent = new System.Windows.Forms.Panel();
             this.panelSidebar = new System.Windows.Forms.Panel();
-            this.btnRatingService = new System.Windows.Forms.Button();
             this.tlpSidebar.SuspendLayout();
-            this.panelInfoBar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picUserAvatar_Main)).BeginInit();
             this.panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.PanelNameRes.SuspendLayout();
+            this.panelInfoBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picUserAvatar_Main)).BeginInit();
             this.panelSidebar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -99,21 +99,6 @@
             this.tlpSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.5F));
             this.tlpSidebar.Size = new System.Drawing.Size(289, 664);
             this.tlpSidebar.TabIndex = 0;
-            // 
-            // btnSignout
-            // 
-            this.btnSignout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSignout.FlatAppearance.BorderColor = System.Drawing.Color.Brown;
-            this.btnSignout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSignout.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSignout.ForeColor = System.Drawing.Color.White;
-            this.btnSignout.Location = new System.Drawing.Point(3, 550);
-            this.btnSignout.Name = "btnSignout";
-            this.btnSignout.Size = new System.Drawing.Size(283, 50);
-            this.btnSignout.TabIndex = 3;
-            this.btnSignout.Text = "Đăng xuất";
-            this.btnSignout.UseVisualStyleBackColor = true;
-            this.btnSignout.Click += new System.EventHandler(this.btnSignout_Click);
             // 
             // btnItemMNG
             // 
@@ -205,6 +190,51 @@
             this.btnCustomerCaring.Text = "Dịch vụ khách hàng";
             this.btnCustomerCaring.UseVisualStyleBackColor = true;
             // 
+            // panelLogo
+            // 
+            this.panelLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panelLogo.Controls.Add(this.picLogo);
+            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelLogo.Location = new System.Drawing.Point(3, 3);
+            this.panelLogo.Name = "panelLogo";
+            this.panelLogo.Size = new System.Drawing.Size(283, 93);
+            this.panelLogo.TabIndex = 5;
+            // 
+            // picLogo
+            // 
+            this.picLogo.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.picLogo.Image = global::Restaurant_Management_App.Properties.Resources.logoChillRes_fix;
+            this.picLogo.Location = new System.Drawing.Point(79, -5);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(124, 100);
+            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picLogo.TabIndex = 0;
+            this.picLogo.TabStop = false;
+            this.picLogo.Click += new System.EventHandler(this.picLogo_Click);
+            // 
+            // PanelNameRes
+            // 
+            this.PanelNameRes.Controls.Add(this.label1);
+            this.PanelNameRes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PanelNameRes.Location = new System.Drawing.Point(3, 102);
+            this.PanelNameRes.Name = "PanelNameRes";
+            this.PanelNameRes.Size = new System.Drawing.Size(283, 50);
+            this.PanelNameRes.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.Window;
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(274, 35);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "THE CHILL REST.";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // panelInfoBar
             // 
             this.panelInfoBar.BackColor = System.Drawing.Color.Chocolate;
@@ -251,50 +281,35 @@
             this.picUserAvatar_Main.TabIndex = 0;
             this.picUserAvatar_Main.TabStop = false;
             // 
-            // panelLogo
+            // btnSignout
             // 
-            this.panelLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panelLogo.Controls.Add(this.picLogo);
-            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelLogo.Location = new System.Drawing.Point(3, 3);
-            this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(283, 93);
-            this.panelLogo.TabIndex = 5;
+            this.btnSignout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSignout.FlatAppearance.BorderColor = System.Drawing.Color.Brown;
+            this.btnSignout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSignout.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSignout.ForeColor = System.Drawing.Color.White;
+            this.btnSignout.Location = new System.Drawing.Point(3, 550);
+            this.btnSignout.Name = "btnSignout";
+            this.btnSignout.Size = new System.Drawing.Size(283, 50);
+            this.btnSignout.TabIndex = 3;
+            this.btnSignout.Text = "Đăng xuất";
+            this.btnSignout.UseVisualStyleBackColor = true;
+            this.btnSignout.Click += new System.EventHandler(this.btnSignout_Click);
             // 
-            // picLogo
+            // btnRatingService
             // 
-            this.picLogo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.picLogo.Image = global::Restaurant_Management_App.Properties.Resources.logoChillRes_fix;
-            this.picLogo.Location = new System.Drawing.Point(79, -5);
-            this.picLogo.Name = "picLogo";
-            this.picLogo.Size = new System.Drawing.Size(124, 100);
-            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picLogo.TabIndex = 0;
-            this.picLogo.TabStop = false;
-            this.picLogo.Click += new System.EventHandler(this.picLogo_Click);
-            // 
-            // PanelNameRes
-            // 
-            this.PanelNameRes.Controls.Add(this.label1);
-            this.PanelNameRes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PanelNameRes.Location = new System.Drawing.Point(3, 102);
-            this.PanelNameRes.Name = "PanelNameRes";
-            this.PanelNameRes.Size = new System.Drawing.Size(283, 50);
-            this.PanelNameRes.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.Window;
-            this.label1.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(274, 35);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "THE CHILL REST.";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnRatingService.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRatingService.FlatAppearance.BorderColor = System.Drawing.Color.Brown;
+            this.btnRatingService.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRatingService.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRatingService.ForeColor = System.Drawing.Color.White;
+            this.btnRatingService.Location = new System.Drawing.Point(3, 494);
+            this.btnRatingService.Name = "btnRatingService";
+            this.btnRatingService.Size = new System.Drawing.Size(283, 50);
+            this.btnRatingService.TabIndex = 3;
+            this.btnRatingService.Text = "Đánh giá dịch vụ";
+            this.btnRatingService.UseVisualStyleBackColor = true;
+            this.btnRatingService.Click += new System.EventHandler(this.btnSignout_Click);
             // 
             // panelContent
             // 
@@ -314,21 +329,6 @@
             this.panelSidebar.Size = new System.Drawing.Size(289, 664);
             this.panelSidebar.TabIndex = 2;
             // 
-            // btnRatingService
-            // 
-            this.btnRatingService.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnRatingService.FlatAppearance.BorderColor = System.Drawing.Color.Brown;
-            this.btnRatingService.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRatingService.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRatingService.ForeColor = System.Drawing.Color.White;
-            this.btnRatingService.Location = new System.Drawing.Point(3, 494);
-            this.btnRatingService.Name = "btnRatingService";
-            this.btnRatingService.Size = new System.Drawing.Size(283, 50);
-            this.btnRatingService.TabIndex = 3;
-            this.btnRatingService.Text = "Đánh giá dịch vụ";
-            this.btnRatingService.UseVisualStyleBackColor = true;
-            this.btnRatingService.Click += new System.EventHandler(this.btnSignout_Click);
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -342,12 +342,12 @@
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.tlpSidebar.ResumeLayout(false);
-            this.panelInfoBar.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picUserAvatar_Main)).EndInit();
             this.panelLogo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.PanelNameRes.ResumeLayout(false);
             this.PanelNameRes.PerformLayout();
+            this.panelInfoBar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picUserAvatar_Main)).EndInit();
             this.panelSidebar.ResumeLayout(false);
             this.ResumeLayout(false);
 
