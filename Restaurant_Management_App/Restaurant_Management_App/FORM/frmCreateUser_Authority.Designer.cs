@@ -60,7 +60,6 @@
             this.tlpCUA = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tlpInformations_CUA = new System.Windows.Forms.TableLayoutPanel();
-
             this.picAvaUser_CUA = new System.Windows.Forms.PictureBox();
             this.btnHistoryChangePass = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -68,14 +67,11 @@
             this.btnDelete_CUA = new System.Windows.Forms.Button();
             this.txtSearchId_CUA = new System.Windows.Forms.TextBox();
             this.btnSearch_CUA = new System.Windows.Forms.Button();
-
             ((System.ComponentModel.ISupportInitialize)(this.dgvAccount)).BeginInit();
             this.tlpCUA.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tlpInformations_CUA.SuspendLayout();
-
             ((System.ComponentModel.ISupportInitialize)(this.picAvaUser_CUA)).BeginInit();
-
             this.groupBox2.SuspendLayout();
             this.tlpAccounts_CUA.SuspendLayout();
             this.SuspendLayout();
@@ -103,7 +99,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(64, 52);
             this.label7.TabIndex = 1;
-            this.label7.Text = "Phone :";
+            this.label7.Text = "SDT :";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtFullname_CUA
@@ -149,7 +145,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 52);
             this.label3.TabIndex = 1;
-            this.label3.Text = "Address :";
+            this.label3.Text = "Địa chỉ :";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
@@ -162,7 +158,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 53);
             this.label2.TabIndex = 1;
-            this.label2.Text = "District :";
+            this.label2.Text = "Quận :";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label8
@@ -175,7 +171,7 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(64, 52);
             this.label8.TabIndex = 1;
-            this.label8.Text = "City :";
+            this.label8.Text = "Thành phố :";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
@@ -188,7 +184,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 53);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Ward :";
+            this.label1.Text = "Phường :";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
@@ -201,7 +197,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(72, 52);
             this.label4.TabIndex = 1;
-            this.label4.Text = "Fullname :";
+            this.label4.Text = "Họ tên :";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtPhone_CUA
@@ -223,7 +219,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(72, 52);
             this.label5.TabIndex = 1;
-            this.label5.Text = "Birthday :";
+            this.label5.Text = "Ngày sinh:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dtpBirthday_CUA
@@ -305,7 +301,7 @@
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(137, 34);
             this.label9.TabIndex = 0;
-            this.label9.Text = "UserID  :";
+            this.label9.Text = "Mã nhân viên :";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label10
@@ -319,7 +315,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(137, 34);
             this.label10.TabIndex = 0;
-            this.label10.Text = "Password :";
+            this.label10.Text = "Mật khẩu:";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label11
@@ -333,7 +329,7 @@
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(137, 34);
             this.label11.TabIndex = 1;
-            this.label11.Text = "Role :";
+            this.label11.Text = "Vai trò :";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label12
@@ -347,7 +343,7 @@
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(137, 34);
             this.label12.TabIndex = 1;
-            this.label12.Text = "Salary ( /h ) :";
+            this.label12.Text = "Lương( / giờ ) :";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // cbxRole_CUA
@@ -371,7 +367,7 @@
             this.btnCreate_CUA.Name = "btnCreate_CUA";
             this.btnCreate_CUA.Size = new System.Drawing.Size(137, 28);
             this.btnCreate_CUA.TabIndex = 6;
-            this.btnCreate_CUA.Text = "Create";
+            this.btnCreate_CUA.Text = "Tạo tài khoản";
             this.btnCreate_CUA.UseVisualStyleBackColor = true;
             this.btnCreate_CUA.Click += new System.EventHandler(this.btnCreate_CUA_Click);
             // 
@@ -384,7 +380,7 @@
             this.btnUpdate_CUA.Name = "btnUpdate_CUA";
             this.btnUpdate_CUA.Size = new System.Drawing.Size(136, 28);
             this.btnUpdate_CUA.TabIndex = 6;
-            this.btnUpdate_CUA.Text = "Update";
+            this.btnUpdate_CUA.Text = "Cập nhật";
             this.btnUpdate_CUA.UseVisualStyleBackColor = true;
             this.btnUpdate_CUA.Click += new System.EventHandler(this.btnUpdate_CUA_Click);
             // 
@@ -407,7 +403,7 @@
             this.btnBack_CUA.Name = "btnBack_CUA";
             this.btnBack_CUA.Size = new System.Drawing.Size(136, 33);
             this.btnBack_CUA.TabIndex = 7;
-            this.btnBack_CUA.Text = "Back";
+            this.btnBack_CUA.Text = "Trở về";
             this.btnBack_CUA.UseVisualStyleBackColor = true;
             this.btnBack_CUA.Click += new System.EventHandler(this.btnBack_CUA_Click);
             // 
@@ -430,7 +426,7 @@
             this.btnClear_CUA.Name = "btnClear_CUA";
             this.btnClear_CUA.Size = new System.Drawing.Size(137, 33);
             this.btnClear_CUA.TabIndex = 7;
-            this.btnClear_CUA.Text = "Clear";
+            this.btnClear_CUA.Text = "Xóa nội dung";
             this.btnClear_CUA.UseVisualStyleBackColor = true;
             this.btnClear_CUA.Click += new System.EventHandler(this.btnClear_CUA_Click);
             // 
@@ -474,7 +470,6 @@
             this.groupBox1.Size = new System.Drawing.Size(913, 230);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Informations";
             // 
             // tlpInformations_CUA
             // 
@@ -532,7 +527,6 @@
             this.tlpInformations_CUA.Size = new System.Drawing.Size(907, 209);
             this.tlpInformations_CUA.TabIndex = 9;
             // 
-
             // picAvaUser_CUA
             // 
             this.picAvaUser_CUA.BackColor = System.Drawing.Color.White;
@@ -546,7 +540,6 @@
             this.picAvaUser_CUA.TabIndex = 0;
             this.picAvaUser_CUA.TabStop = false;
             this.picAvaUser_CUA.Click += new System.EventHandler(this.picAvaUser_CUA_Click);
-
             // 
             // btnHistoryChangePass
             // 
@@ -556,7 +549,7 @@
             this.btnHistoryChangePass.Name = "btnHistoryChangePass";
             this.btnHistoryChangePass.Size = new System.Drawing.Size(136, 47);
             this.btnHistoryChangePass.TabIndex = 6;
-            this.btnHistoryChangePass.Text = "Change Password History";
+            this.btnHistoryChangePass.Text = "LỊCH SỬ";
             this.btnHistoryChangePass.UseVisualStyleBackColor = true;
             this.btnHistoryChangePass.Click += new System.EventHandler(this.btnHistoryChangePass_Click);
             // 
@@ -569,7 +562,6 @@
             this.groupBox2.Size = new System.Drawing.Size(389, 230);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Accounts";
             // 
             // tlpAccounts_CUA
             // 
@@ -625,7 +617,7 @@
             this.btnDelete_CUA.Name = "btnDelete_CUA";
             this.btnDelete_CUA.Size = new System.Drawing.Size(92, 28);
             this.btnDelete_CUA.TabIndex = 8;
-            this.btnDelete_CUA.Text = "Delete";
+            this.btnDelete_CUA.Text = "Xóa TK";
             this.btnDelete_CUA.UseVisualStyleBackColor = true;
             this.btnDelete_CUA.Click += new System.EventHandler(this.btnDelete_CUA_Click);
             // 
@@ -638,7 +630,6 @@
             this.txtSearchId_CUA.Size = new System.Drawing.Size(913, 30);
             this.txtSearchId_CUA.TabIndex = 11;
             // 
-
             // btnSearch_CUA
             // 
             this.btnSearch_CUA.Font = new System.Drawing.Font("Times New Roman", 12F);
@@ -646,11 +637,10 @@
             this.btnSearch_CUA.Name = "btnSearch_CUA";
             this.btnSearch_CUA.Size = new System.Drawing.Size(114, 33);
             this.btnSearch_CUA.TabIndex = 12;
-            this.btnSearch_CUA.Text = "SEARCH";
+            this.btnSearch_CUA.Text = "TÌM KIẾM";
             this.btnSearch_CUA.UseVisualStyleBackColor = true;
             this.btnSearch_CUA.Click += new System.EventHandler(this.btnSearchId_CUA_Click);
             // 
-
             // frmCreateUser_Authority
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -666,9 +656,7 @@
             this.groupBox1.ResumeLayout(false);
             this.tlpInformations_CUA.ResumeLayout(false);
             this.tlpInformations_CUA.PerformLayout();
-
             ((System.ComponentModel.ISupportInitialize)(this.picAvaUser_CUA)).EndInit();
-
             this.groupBox2.ResumeLayout(false);
             this.tlpAccounts_CUA.ResumeLayout(false);
             this.tlpAccounts_CUA.PerformLayout();

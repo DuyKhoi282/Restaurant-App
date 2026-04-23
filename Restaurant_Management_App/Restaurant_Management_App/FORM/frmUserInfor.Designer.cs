@@ -40,14 +40,13 @@
             this.lblPhone_Detail = new System.Windows.Forms.Label();
             this.lblBirthday_Detail = new System.Windows.Forms.Label();
             this.lblRole_Detail = new System.Windows.Forms.Label();
-            this.btnEdit_InfoUser = new System.Windows.Forms.Button();
-            this.picAvaUser_Detail = new System.Windows.Forms.PictureBox();
             this.btnBack_InfoUser = new System.Windows.Forms.Button();
             this.gbxInformations_UserInfor = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.lblUserId_Detail = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.picAvaUser_Detail)).BeginInit();
+            this.picAvaUser_Detail = new System.Windows.Forms.PictureBox();
             this.gbxInformations_UserInfor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvaUser_Detail)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -57,9 +56,9 @@
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(189, 61);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 26);
+            this.label1.Size = new System.Drawing.Size(79, 26);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Fullname :";
+            this.label1.Text = "Họ tên:";
             // 
             // label2
             // 
@@ -79,9 +78,9 @@
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(652, 112);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(83, 26);
+            this.label3.Size = new System.Drawing.Size(67, 26);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Phone :";
+            this.label3.Text = "SDT :";
             // 
             // label4
             // 
@@ -90,9 +89,9 @@
             this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(189, 163);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(104, 26);
+            this.label4.Size = new System.Drawing.Size(118, 26);
             this.label4.TabIndex = 5;
-            this.label4.Text = "Birthday :";
+            this.label4.Text = "Ngày sinh :";
             // 
             // label5
             // 
@@ -101,9 +100,9 @@
             this.label5.ForeColor = System.Drawing.Color.Black;
             this.label5.Location = new System.Drawing.Point(652, 163);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(67, 26);
+            this.label5.Size = new System.Drawing.Size(85, 26);
             this.label5.TabIndex = 6;
-            this.label5.Text = "Role :";
+            this.label5.Text = "Vai trò :";
             // 
             // label6
             // 
@@ -112,16 +111,16 @@
             this.label6.ForeColor = System.Drawing.Color.Black;
             this.label6.Location = new System.Drawing.Point(187, 214);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(100, 26);
+            this.label6.Size = new System.Drawing.Size(91, 26);
             this.label6.TabIndex = 2;
-            this.label6.Text = "Address :";
+            this.label6.Text = "Địa chỉ :";
             // 
             // lblFullname_Detail
             // 
             this.lblFullname_Detail.AutoSize = true;
             this.lblFullname_Detail.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFullname_Detail.ForeColor = System.Drawing.Color.Black;
-            this.lblFullname_Detail.Location = new System.Drawing.Point(306, 61);
+            this.lblFullname_Detail.Location = new System.Drawing.Point(344, 61);
             this.lblFullname_Detail.Name = "lblFullname_Detail";
             this.lblFullname_Detail.Size = new System.Drawing.Size(165, 26);
             this.lblFullname_Detail.TabIndex = 2;
@@ -132,7 +131,7 @@
             this.lblAddress_Detail.AutoSize = true;
             this.lblAddress_Detail.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAddress_Detail.ForeColor = System.Drawing.Color.Black;
-            this.lblAddress_Detail.Location = new System.Drawing.Point(304, 214);
+            this.lblAddress_Detail.Location = new System.Drawing.Point(342, 214);
             this.lblAddress_Detail.Name = "lblAddress_Detail";
             this.lblAddress_Detail.Size = new System.Drawing.Size(154, 26);
             this.lblAddress_Detail.TabIndex = 2;
@@ -165,7 +164,7 @@
             this.lblBirthday_Detail.AutoSize = true;
             this.lblBirthday_Detail.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBirthday_Detail.ForeColor = System.Drawing.Color.Black;
-            this.lblBirthday_Detail.Location = new System.Drawing.Point(306, 163);
+            this.lblBirthday_Detail.Location = new System.Drawing.Point(344, 163);
             this.lblBirthday_Detail.Name = "lblBirthday_Detail";
             this.lblBirthday_Detail.Size = new System.Drawing.Size(158, 26);
             this.lblBirthday_Detail.TabIndex = 5;
@@ -181,25 +180,6 @@
             this.lblRole_Detail.Size = new System.Drawing.Size(121, 26);
             this.lblRole_Detail.TabIndex = 6;
             this.lblRole_Detail.Text = "Role_Detail";
-            // 
-            // btnEdit_InfoUser
-            // 
-            this.btnEdit_InfoUser.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEdit_InfoUser.Location = new System.Drawing.Point(1058, 163);
-            this.btnEdit_InfoUser.Name = "btnEdit_InfoUser";
-            this.btnEdit_InfoUser.Size = new System.Drawing.Size(88, 35);
-            this.btnEdit_InfoUser.TabIndex = 7;
-            this.btnEdit_InfoUser.Text = "Edit";
-            this.btnEdit_InfoUser.UseVisualStyleBackColor = true;
-            // 
-            // picAvaUser_Detail
-            // 
-            this.picAvaUser_Detail.Location = new System.Drawing.Point(16, 30);
-            this.picAvaUser_Detail.Name = "picAvaUser_Detail";
-            this.picAvaUser_Detail.Size = new System.Drawing.Size(150, 200);
-            this.picAvaUser_Detail.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picAvaUser_Detail.TabIndex = 0;
-            this.picAvaUser_Detail.TabStop = false;
             // 
             // btnBack_InfoUser
             // 
@@ -220,7 +200,6 @@
             this.gbxInformations_UserInfor.Controls.Add(this.label6);
             this.gbxInformations_UserInfor.Controls.Add(this.label5);
             this.gbxInformations_UserInfor.Controls.Add(this.lblRole_Detail);
-            this.gbxInformations_UserInfor.Controls.Add(this.btnEdit_InfoUser);
             this.gbxInformations_UserInfor.Controls.Add(this.label3);
             this.gbxInformations_UserInfor.Controls.Add(this.label2);
             this.gbxInformations_UserInfor.Controls.Add(this.btnBack_InfoUser);
@@ -238,7 +217,7 @@
             this.gbxInformations_UserInfor.Size = new System.Drawing.Size(1198, 261);
             this.gbxInformations_UserInfor.TabIndex = 8;
             this.gbxInformations_UserInfor.TabStop = false;
-            this.gbxInformations_UserInfor.Text = "Informations";
+            this.gbxInformations_UserInfor.Text = "Thông tin người dùng";
             // 
             // label7
             // 
@@ -247,20 +226,29 @@
             this.label7.ForeColor = System.Drawing.Color.Black;
             this.label7.Location = new System.Drawing.Point(187, 112);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 26);
+            this.label7.Size = new System.Drawing.Size(151, 26);
             this.label7.TabIndex = 2;
-            this.label7.Text = "ID :";
+            this.label7.Text = "Mã nhân viên :";
             // 
             // lblUserId_Detail
             // 
             this.lblUserId_Detail.AutoSize = true;
             this.lblUserId_Detail.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUserId_Detail.ForeColor = System.Drawing.Color.Black;
-            this.lblUserId_Detail.Location = new System.Drawing.Point(306, 112);
+            this.lblUserId_Detail.Location = new System.Drawing.Point(344, 112);
             this.lblUserId_Detail.Name = "lblUserId_Detail";
             this.lblUserId_Detail.Size = new System.Drawing.Size(140, 26);
             this.lblUserId_Detail.TabIndex = 2;
             this.lblUserId_Detail.Text = "IdUser_Detail";
+            // 
+            // picAvaUser_Detail
+            // 
+            this.picAvaUser_Detail.Location = new System.Drawing.Point(16, 30);
+            this.picAvaUser_Detail.Name = "picAvaUser_Detail";
+            this.picAvaUser_Detail.Size = new System.Drawing.Size(150, 200);
+            this.picAvaUser_Detail.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picAvaUser_Detail.TabIndex = 0;
+            this.picAvaUser_Detail.TabStop = false;
             // 
             // frmUserInfor
             // 
@@ -271,9 +259,9 @@
             this.Name = "frmUserInfor";
             this.Text = "frmUserInfor";
             this.Load += new System.EventHandler(this.frmUserInfor_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.picAvaUser_Detail)).EndInit();
             this.gbxInformations_UserInfor.ResumeLayout(false);
             this.gbxInformations_UserInfor.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvaUser_Detail)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -293,7 +281,6 @@
         private System.Windows.Forms.Label lblPhone_Detail;
         private System.Windows.Forms.Label lblBirthday_Detail;
         private System.Windows.Forms.Label lblRole_Detail;
-        private System.Windows.Forms.Button btnEdit_InfoUser;
         private System.Windows.Forms.Button btnBack_InfoUser;
         private System.Windows.Forms.GroupBox gbxInformations_UserInfor;
         private System.Windows.Forms.Label label7;
