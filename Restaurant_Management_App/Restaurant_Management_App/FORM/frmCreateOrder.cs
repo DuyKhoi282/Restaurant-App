@@ -48,7 +48,7 @@ namespace Restaurant_Management_App.FORM
                 AutoSize = true,
                 Name = "lblBuffetGuestCount",
                 Text = "Số người buffet",
-                Location = new Point(660, 40),
+                Location = new Point(410, 112),
                 Visible = false
             };
 
@@ -59,7 +59,7 @@ namespace Restaurant_Management_App.FORM
                 Maximum = 100,
                 Value = 1,
                 Size = new Size(90, 22),
-                Location = new Point(770, 36),
+                Location = new Point(525, 108),
                 TextAlign = HorizontalAlignment.Right,
                 Visible = false,
                 Enabled = false
@@ -272,11 +272,7 @@ namespace Restaurant_Management_App.FORM
                     txtOrderNo.Text = FormatBillId(billId);
                 }
 
-                if (cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase) && !_isBuffetGuestCountLocked)
-                {
-                    _isBuffetGuestCountLocked = true;
-                    numBuffetGuestCount.Enabled = false;
-                }
+                LockBuffetGuestCountIfNeeded();
 
                 Database.Instance.ExecuteNonQuery($"INSERT INTO dbo.BillInfo (idBill, idFood, quantity) VALUES ({billId}, {foodId}, 1)");
                 LoadBillDetails(billId);
@@ -637,16 +633,29 @@ namespace Restaurant_Management_App.FORM
 
             if (!_isBuffetGuestCountLocked)
             {
-                _isBuffetGuestCountLocked = true;
-                numBuffetGuestCount.Enabled = false;
+                if (!string.IsNullOrWhiteSpace(txtOrderNo.Text) && int.TryParse(txtOrderNo.Text, out int billId))
+                {
+                    UpdateBillMetadata(billId);
+                }
             }
-
-            if (!string.IsNullOrWhiteSpace(txtOrderNo.Text) && int.TryParse(txtOrderNo.Text, out int billId))
+            else if (!string.IsNullOrWhiteSpace(txtOrderNo.Text) && int.TryParse(txtOrderNo.Text, out int lockedBillId))
             {
-                UpdateBillMetadata(billId);
+                // Đồng bộ lại dữ liệu với bill đã khóa để tránh chỉnh sửa trái luồng.
+                UpdateBillMetadata(lockedBillId);
             }
 
             CalculateTotal();
+        }
+
+        private void LockBuffetGuestCountIfNeeded()
+        {
+            if (!cbOrderType.Text.Equals("Buffet", StringComparison.OrdinalIgnoreCase) || _isBuffetGuestCountLocked)
+            {
+                return;
+            }
+
+            _isBuffetGuestCountLocked = true;
+            numBuffetGuestCount.Enabled = false;
         }
 
         private void ApplyCreateOrderThemeStyling()
