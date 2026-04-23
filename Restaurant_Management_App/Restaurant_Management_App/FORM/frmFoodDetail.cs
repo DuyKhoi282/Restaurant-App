@@ -272,7 +272,7 @@ namespace Restaurant_Management_App.FORM
                     string sourcePath = ofd.FileName;
 
                     //tránh trùng tên file
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(sourcePath);
+                    string fileName = Path.GetFileName(sourcePath);
 
                     string destFolder = GetProjectImagePath("Images/Food");
                     string destPath = Path.Combine(destFolder, fileName);
@@ -305,9 +305,14 @@ namespace Restaurant_Management_App.FORM
         {
             string exePath = Application.StartupPath;
 
-            string projectPath = Directory.GetParent(exePath).Parent.FullName;
+            DirectoryInfo dir = Directory.GetParent(exePath);
 
-            return Path.Combine(projectPath, relativePath);
+            while (dir != null && !dir.GetFiles("*.csproj").Any())
+            {
+                dir = dir.Parent;
+            }
+
+            return Path.Combine(dir.FullName, relativePath);
         }
     }
     

@@ -22,6 +22,11 @@ namespace Restaurant_Management_App.FORM
             btnClear.Click += BtnClear_Click;
             numDiscount.ValueChanged += (s, e) => CalculateTotal();
             cbTable.SelectedIndexChanged += cbTable_SelectedIndexChanged;
+
+            // Hide discount controls on Create Order screen as requested.
+            lblDiscountCaption.Visible = false;
+            numDiscount.Visible = false;
+            numDiscount.Value = 0;
         }
 
         private void FrmOrder_Load(object sender, EventArgs e)
@@ -249,8 +254,8 @@ namespace Restaurant_Management_App.FORM
             {
                 if (row.IsNewRow) continue;
 
-                object priceObj = row.Cells["colPrice"].Value;
-                object qtyObj = row.Cells["colQty"].Value;
+                object priceObj = GetCellValue(row, "colPrice", "price");
+                object qtyObj = GetCellValue(row, "colQty", "quantity");
 
                 double price = priceObj == null || priceObj == DBNull.Value ? 0 : Convert.ToDouble(priceObj);
                 int qty = qtyObj == null || qtyObj == DBNull.Value ? 0 : Convert.ToInt32(qtyObj);
@@ -264,6 +269,20 @@ namespace Restaurant_Management_App.FORM
             lblSubtotalValue.Text = subtotal.ToString("N0") + " VNĐ";
             lblTaxValue.Text = tax.ToString("N0") + " VNĐ";
             lblTotalValue.Text = total.ToString("N0") + " VNĐ";
+        }
+
+        private object GetCellValue(DataGridViewRow row, params string[] preferredColumnNames)
+        {
+            foreach (string columnName in preferredColumnNames)
+            {
+                if (string.IsNullOrWhiteSpace(columnName)) continue;
+                if (dgvCart.Columns.Contains(columnName))
+                {
+                    return row.Cells[columnName].Value;
+                }
+            }
+
+            return null;
         }
 
         private void ResetForm()
@@ -339,7 +358,18 @@ namespace Restaurant_Management_App.FORM
                 if (MessageBox.Show("Bạn muốn xóa món này khỏi đơn hàng?", "Xác nhận",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    int result = Database.Instance.ExecuteNonQuery($"DELETE dbo.BillInfo WHERE idBill = {billId} AND idFood = {foodId}");
+                    DataTable billInfoRows = Database.Instance.ExecuteQuery(
+                        $"SELECT TOP 1 id, quantity FROM dbo.BillInfo WHERE idBill = {billId} AND idFood = {foodId} ORDER BY id");
+
+                    if (billInfoRows.Rows.Count == 0) return;
+
+                    int billInfoId = Convert.ToInt32(billInfoRows.Rows[0]["id"]);
+                    int currentQuantity = Convert.ToInt32(billInfoRows.Rows[0]["quantity"]);
+
+                    int result = currentQuantity > 1
+                        ? Database.Instance.ExecuteNonQuery($"UPDATE dbo.BillInfo SET quantity = quantity - 1 WHERE id = {billInfoId}")
+                        : Database.Instance.ExecuteNonQuery($"DELETE dbo.BillInfo WHERE id = {billInfoId}");
+
                     if (result > 0)
                     {
                         LoadBillDetails(billId);
@@ -412,7 +442,6 @@ namespace Restaurant_Management_App.FORM
                               FROM Bill
                               WHERE idTable = {tableId}
                                 AND status = 0
-                                AND ISNULL(kitchenStatus, N'Pending') = N'Draft'
                               ORDER BY id DESC";
             DataTable dt = Database.Instance.ExecuteQuery(query);
 
@@ -449,7 +478,6 @@ namespace Restaurant_Management_App.FORM
                                                                FROM Bill
                                                                WHERE idTable = {tableId}
                                                                  AND status = 0
-                                                                 AND ISNULL(kitchenStatus, N'Pending') = N'Draft'
                                                                ORDER BY id DESC");
             return result == null || result == DBNull.Value ? 0 : Convert.ToInt32(result);
         }
