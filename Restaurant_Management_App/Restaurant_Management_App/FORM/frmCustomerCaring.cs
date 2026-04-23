@@ -167,7 +167,11 @@ namespace Restaurant_Management_App.FORM
         {
             if (_dgvCustomers.Columns.Contains("id")) _dgvCustomers.Columns["id"].HeaderText = "Mã KH";
             if (_dgvCustomers.Columns.Contains("customerName")) _dgvCustomers.Columns["customerName"].HeaderText = "Tên khách hàng";
-            if (_dgvCustomers.Columns.Contains("phone")) _dgvCustomers.Columns["phone"].HeaderText = "Số điện thoại";
+            if (_dgvCustomers.Columns.Contains("phone"))
+            {
+                _dgvCustomers.Columns["phone"].HeaderText = "Số điện thoại";
+                _dgvCustomers.Columns["phone"].Visible = false;
+            }
             if (_dgvCustomers.Columns.Contains("points")) _dgvCustomers.Columns["points"].HeaderText = "Điểm tích lũy";
             if (_dgvCustomers.Columns.Contains("totalSpent")) _dgvCustomers.Columns["totalSpent"].HeaderText = "Tổng chi tiêu";
             if (_dgvCustomers.Columns.Contains("updatedAt")) _dgvCustomers.Columns["updatedAt"].HeaderText = "Cập nhật lần cuối";
