@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Restaurant_Management_App.FORM
 {
-    public class frmCustomerCaring : Form
+    public partial class frmCustomerCaring : Form
     {
         private readonly LoyaltyService _loyaltyService = new LoyaltyService();
 
@@ -22,6 +22,7 @@ namespace Restaurant_Management_App.FORM
 
         public frmCustomerCaring()
         {
+            InitializeComponent();
             Text = "Customer Caring";
             Dock = DockStyle.Fill;
             FormBorderStyle = FormBorderStyle.None;
@@ -37,45 +38,77 @@ namespace Restaurant_Management_App.FORM
 
         private void BuildUi()
         {
+            Font baseFont = new Font("Segoe UI", 10F, FontStyle.Regular);
+            Font titleFont = new Font("Segoe UI", 10.5F, FontStyle.Bold);
+            Color primaryRed = Color.FromArgb(200, 35, 51);
+            Color lightRedBackground = Color.FromArgb(255, 244, 245);
+
+            BackColor = lightRedBackground;
+            _tabControl.Font = baseFont;
             _tabControl.Dock = DockStyle.Fill;
 
             TabPage tabCustomer = new TabPage("Tích điểm khách hàng");
             TabPage tabPromotion = new TabPage("Chương trình khuyến mãi");
+            tabCustomer.BackColor = Color.White;
+            tabPromotion.BackColor = Color.White;
 
             _dgvCustomers.Dock = DockStyle.Fill;
             _dgvCustomers.ReadOnly = true;
             _dgvCustomers.AllowUserToAddRows = false;
             _dgvCustomers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            _dgvCustomers.BackgroundColor = Color.White;
+            _dgvCustomers.DefaultCellStyle.Font = baseFont;
+            _dgvCustomers.ColumnHeadersDefaultCellStyle.Font = titleFont;
+            _dgvCustomers.ColumnHeadersDefaultCellStyle.BackColor = primaryRed;
+            _dgvCustomers.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            _dgvCustomers.EnableHeadersVisualStyles = false;
             tabCustomer.Controls.Add(_dgvCustomers);
 
-            Panel pnlPromoTop = new Panel { Dock = DockStyle.Top, Height = 120 };
+            Panel pnlPromoTop = new Panel { Dock = DockStyle.Top, Height = 130, BackColor = lightRedBackground };
             _dgvPromotions.Dock = DockStyle.Fill;
             _dgvPromotions.ReadOnly = true;
             _dgvPromotions.AllowUserToAddRows = false;
             _dgvPromotions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            _dgvPromotions.BackgroundColor = Color.White;
+            _dgvPromotions.DefaultCellStyle.Font = baseFont;
+            _dgvPromotions.ColumnHeadersDefaultCellStyle.Font = titleFont;
+            _dgvPromotions.ColumnHeadersDefaultCellStyle.BackColor = primaryRed;
+            _dgvPromotions.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            _dgvPromotions.EnableHeadersVisualStyles = false;
 
-            Label lblName = new Label { Text = "Tên CTKM", Left = 10, Top = 12, Width = 80 };
-            _txtPromoName.SetBounds(95, 8, 180, 24);
+            Label lblName = new Label { Text = "Tên CTKM", Left = 10, Top = 12, Width = 90, Font = titleFont, ForeColor = primaryRed };
+            _txtPromoName.SetBounds(105, 8, 180, 28);
+            _txtPromoName.Font = baseFont;
 
-            Label lblDesc = new Label { Text = "Mô tả", Left = 290, Top = 12, Width = 40 };
-            _txtPromoDesc.SetBounds(335, 8, 250, 24);
+            Label lblDesc = new Label { Text = "Mô tả", Left = 295, Top = 12, Width = 50, Font = titleFont, ForeColor = primaryRed };
+            _txtPromoDesc.SetBounds(350, 8, 250, 28);
+            _txtPromoDesc.Font = baseFont;
 
-            Label lblStart = new Label { Text = "Bắt đầu", Left = 10, Top = 48, Width = 80 };
-            _dtStart.SetBounds(95, 44, 180, 24);
+            Label lblStart = new Label { Text = "Bắt đầu", Left = 10, Top = 52, Width = 90, Font = titleFont, ForeColor = primaryRed };
+            _dtStart.SetBounds(105, 48, 180, 28);
+            _dtStart.Font = baseFont;
 
-            Label lblEnd = new Label { Text = "Kết thúc", Left = 290, Top = 48, Width = 60 };
-            _dtEnd.SetBounds(355, 44, 180, 24);
+            Label lblEnd = new Label { Text = "Kết thúc", Left = 295, Top = 52, Width = 70, Font = titleFont, ForeColor = primaryRed };
+            _dtEnd.SetBounds(370, 48, 180, 28);
+            _dtEnd.Font = baseFont;
 
-            Label lblMinPoints = new Label { Text = "Điểm tối thiểu", Left = 10, Top = 84, Width = 80 };
-            _numMinPoints.SetBounds(95, 80, 100, 24);
+            Label lblMinPoints = new Label { Text = "Điểm tối thiểu", Left = 10, Top = 92, Width = 100, Font = titleFont, ForeColor = primaryRed };
+            _numMinPoints.SetBounds(115, 88, 100, 28);
             _numMinPoints.Maximum = 100000;
+            _numMinPoints.Font = baseFont;
 
-            Label lblDiscount = new Label { Text = "Giảm (%)", Left = 220, Top = 84, Width = 60 };
-            _numDiscount.SetBounds(285, 80, 100, 24);
+            Label lblDiscount = new Label { Text = "Giảm (%)", Left = 235, Top = 92, Width = 70, Font = titleFont, ForeColor = primaryRed };
+            _numDiscount.SetBounds(310, 88, 100, 28);
             _numDiscount.Maximum = 100;
+            _numDiscount.Font = baseFont;
 
             _btnCreatePromo.Text = "Tạo CTKM";
-            _btnCreatePromo.SetBounds(420, 78, 115, 28);
+            _btnCreatePromo.SetBounds(430, 86, 130, 32);
+            _btnCreatePromo.Font = titleFont;
+            _btnCreatePromo.BackColor = primaryRed;
+            _btnCreatePromo.ForeColor = Color.White;
+            _btnCreatePromo.FlatStyle = FlatStyle.Flat;
+            _btnCreatePromo.FlatAppearance.BorderSize = 0;
             _btnCreatePromo.Click += BtnCreatePromo_Click;
 
             pnlPromoTop.Controls.AddRange(new Control[]
