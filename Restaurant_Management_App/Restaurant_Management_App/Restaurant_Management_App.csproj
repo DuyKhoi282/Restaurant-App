@@ -185,6 +185,7 @@
     <Compile Include="FORM\frmKitchen.Designer.cs">
       <DependentUpon>frmKitchen.cs</DependentUpon>
     </Compile>
+    <Compile Include="BuffetService.cs" />
     <Compile Include="LoyaltyService.cs" />
     <Compile Include="OrderRepository.cs" />
     <Compile Include="Program.cs" />
