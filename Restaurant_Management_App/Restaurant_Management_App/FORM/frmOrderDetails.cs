@@ -249,7 +249,10 @@ namespace Restaurant_Management_App
                 ELSE 'Paid'
             END AS status,
             CASE 
-                WHEN b.finalAmount IS NULL THEN ISNULL(SUM(f.price * bi.quantity),0)
+                WHEN b.finalAmount IS NULL THEN 
+                    CASE WHEN ISNULL(b.isBuffet,0) = 1 THEN 299000
+                         ELSE ISNULL(SUM(f.price * bi.quantity),0)
+                    END
                 ELSE b.finalAmount
             END AS totalPrice,
             ISNULL(b.kitchenStatus, 'Pending') AS kitchenStatus
