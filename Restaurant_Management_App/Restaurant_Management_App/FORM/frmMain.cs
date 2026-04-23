@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,6 +49,7 @@ namespace Restaurant_Management_App
             tlpSidebar.Controls.Remove(btnRevenueMNG);
             tlpSidebar.Controls.Remove(btnCustomerCaring);
             tlpSidebar.Controls.Remove(btnStaffMNG);
+            tlpSidebar.Controls.Remove(btnRatingService);
         }
         void PhanQuyen()
         {
@@ -57,12 +59,13 @@ namespace Restaurant_Management_App
             {
                 int row = 2; // dong dau tien
                 RemoveButtons(); // Xóa tất cả button trước khi thêm lại theo quyền
-                tlpSidebar.Controls.Add(btnCreateOrder,0,row++);               
+                tlpSidebar.Controls.Add(btnCreateOrder, 0, row++);
                 tlpSidebar.Controls.Add(btnOrderMNG, 0, row++);
                 tlpSidebar.Controls.Add(btnItemMNG, 0, row++);
-                tlpSidebar.Controls.Add(btnRevenueMNG, 0, row++);            
+                tlpSidebar.Controls.Add(btnRevenueMNG, 0, row++);
                 tlpSidebar.Controls.Add(btnCustomerCaring, 0, row++);
-                tlpSidebar.Controls.Add(btnStaffMNG, 0, row++);                        
+                tlpSidebar.Controls.Add(btnStaffMNG, 0, row++);
+                tlpSidebar.Controls.Add(btnRatingService, 0, row++);
             }
             else if (currentRole == "Manager")
             {
@@ -73,8 +76,8 @@ namespace Restaurant_Management_App
                 tlpSidebar.Controls.Add(btnItemMNG, 0, row++);
                 tlpSidebar.Controls.Add(btnRevenueMNG, 0, row++);
                 tlpSidebar.Controls.Add(btnCustomerCaring, 0, row++);
-               // tlpSidebar.Controls.Add(btnStaffMNG, 0, row++);
-                
+                tlpSidebar.Controls.Add(btnRatingService, 0, row++);
+
             }
             else if (currentRole == "Chef")
             {
@@ -88,10 +91,19 @@ namespace Restaurant_Management_App
             {
                 int row = 2;
                 RemoveButtons(); // Xóa tất cả button trước khi thêm lại theo quyền
-                tlpSidebar.Controls.Add(btnCreateOrder, 0, row++);                
-                tlpSidebar.Controls.Add(btnOrderMNG, 0, row++);                
-                tlpSidebar.Controls.Add(btnCustomerCaring, 0, row++);                
-                
+                tlpSidebar.Controls.Add(btnCreateOrder, 0, row++);
+                tlpSidebar.Controls.Add(btnOrderMNG, 0, row++);
+                tlpSidebar.Controls.Add(btnCustomerCaring, 0, row++);
+
+            }
+            else if (currentRole == "Customer")
+            {
+                int row = 2;
+                RemoveButtons(); // Xóa tất cả button trước khi thêm lại theo quyền
+                tlpSidebar.Controls.Add(btnCreateOrder, 0, row++);
+                tlpSidebar.Controls.Add(btnRatingService, 0, row++);
+                btnInfoUser.Visible=false;
+                btnChangePassword.Visible=false;
             }
         }
 
@@ -138,7 +150,7 @@ namespace Restaurant_Management_App
 
         private void btnOrderMNG_Click(object sender, EventArgs e)
         {
-            if(currentRole == "Chef")
+            if (currentRole == "Chef")
             {
                 LoadForm(new frmKitchen(currentRole));
             }
@@ -167,7 +179,7 @@ namespace Restaurant_Management_App
             f.Show();
         }
 
-   
+
         private void btnAdmin_Paint(object sender, PaintEventArgs e)
         {
 
@@ -186,6 +198,87 @@ namespace Restaurant_Management_App
         private void btnCustomerCaring_Click(object sender, EventArgs e)
         {
             LoadForm(new frmCustomerCaring());
+        }
+
+        // 3. Hàm hiển thị ảnh đại diện lên PictureBox
+        private void DisplayUserAvatar()
+        {
+            try
+            {
+                string imageName = UserSession.ImagePath;
+
+                if (!string.IsNullOrEmpty(imageName))
+                {
+                    string folderPath = GetAvaFolderPath();
+                    string fullPath = Path.Combine(folderPath, imageName);
+
+                    if (File.Exists(fullPath))
+                    {
+                        using (FileStream fs = new FileStream(fullPath, FileMode.Open, FileAccess.Read))
+                        {
+                            if (picUserAvatar_Main.Image != null) picUserAvatar_Main.Image.Dispose();
+                            picUserAvatar_Main.Image = Image.FromStream(fs);
+                        }
+                        picUserAvatar_Main.SizeMode = PictureBoxSizeMode.Zoom;
+                    }
+                    else
+                    {
+                        // LỖI: Có tên file nhưng không tìm thấy file vật lý trong folder
+                        MessageBox.Show("Không tìm thấy file ảnh tại: " + fullPath);
+                        picUserAvatar_Main.BackColor = Color.Gray;
+                    }
+                }
+                else
+                {
+                    // LỖI: ImagePath trong database đang bị trống hoặc NULL
+                    picUserAvatar_Main.BackColor = Color.LightGray;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi hiển thị: " + ex.Message);
+                picUserAvatar_Main.BackColor = Color.DimGray;
+            }
+        }
+
+        private string GetAvaFolderPath()
+        {
+            // 1. Lấy thư mục gốc của file .exe
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+
+            // 2. Thư mục đích mong muốn
+            string folderPath = Path.Combine(baseDir, "Images", "Employees");
+
+            // 3. Nếu chạy trong Visual Studio (Debug), baseDir sẽ nằm sâu trong bin/Debug
+            // Ta kiểm tra nếu không thấy thư mục Images ở đó, ta mới tìm ngược lên
+            if (!Directory.Exists(folderPath))
+            {
+                // Thử tìm ngược lên 3 cấp (bin -> Debug -> net...)
+                DirectoryInfo parent = Directory.GetParent(baseDir);
+                if (parent?.Parent?.Parent != null)
+                {
+                    string projectFolder = parent.Parent.Parent.FullName;
+                    string devPath = Path.Combine(projectFolder, "Images", "Employees");
+                    if (Directory.Exists(devPath)) return devPath;
+                }
+            }
+
+            // 4. Nếu không thấy nữa, tự động tạo thư mục ngay tại nơi chạy file .exe
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            return folderPath;
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            DisplayUserAvatar();
+            if (string.IsNullOrEmpty(UserSession.ImagePath))
+            {
+                MessageBox.Show("Cảnh báo: ImagePath trong Session đang bị trống!");
+            }
         }
     }
 }

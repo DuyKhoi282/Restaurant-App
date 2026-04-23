@@ -93,6 +93,7 @@ AND p.PermissionName IN ('CREATE_ORDER','RATING_SERVICE');
 -- ========================
 -- Account (Dữ liệu tài khoản)
 -- ========================
+
 INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary, isDeleted, imagePath)
 VALUES ('ADM01', '123', 1, N'Nguyen Van A', '2005-04-19', 'avn1@gmail.com', '0901234567', N'141 DPB', N'Phường Bến Nghé', N'Quận 1', N'TP. Hồ Chí Minh', 25000, 0, 'ADM01.jpg');
 
@@ -107,7 +108,6 @@ VALUES ('STF01', '123', 4, N'Pham Thanh D', '2005-04-07', 'dpt1@gmail.com', '090
 
 INSERT INTO Account (userId, Password, RoleId, fullname, birthday, email, phone, address, ward, district, city, salary, isDeleted, imagePath)
 VALUES ('CUSTOMER', '123',5, N'Hoang Anh Tuan', '2003-05-15', 'tna@gmail.com', '0932154347', N'141 DPB', N'Phường Bến Nghé', N'Quận 1', N'TP. Hồ Chí Minh', 0, 0, 'CUSTOMER.jpg');
-
 
 -- 1. INSERT Tỉnh/Thành phố
 INSERT INTO city (cityId, cityName) VALUES 

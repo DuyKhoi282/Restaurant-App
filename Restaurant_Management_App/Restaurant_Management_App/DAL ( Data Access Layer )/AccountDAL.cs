@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Restaurant_Management_App
 {
@@ -12,7 +15,7 @@ namespace Restaurant_Management_App
         public AccountDTO Login(string userId, string password) // hàm login được gọi ở frmLogin
         {
             string query = @"
-        SELECT a.UserId, a.fullName, r.RoleName
+        SELECT a.UserId, a.fullName, r.RoleName, a.imagePath
         FROM Account a
         JOIN Role r ON a.RoleId = r.Id
         WHERE a.UserId = @userId AND a.Password = @password";
@@ -29,7 +32,8 @@ namespace Restaurant_Management_App
             {
                 UserId = row["userId"].ToString(),
                 FullName = row["fullName"].ToString(),
-                RoleName = row["RoleName"].ToString()
+                RoleName = row["RoleName"].ToString(),
+                ImagePath = row["imagePath"] != DBNull.Value ? row["imagePath"].ToString() : null
             };
         }
 
@@ -68,10 +72,19 @@ namespace Restaurant_Management_App
             };
         }
 
+        //HIỂN THỊ USERID LÊN CBX Ở FORM CHANGE PASSWORD HISTORY
+        public DataTable GetListAccountForCbo()
+        {
+            // Chỉ lấy 2 cột cần thiết để ComboBox hoạt động mượt mà
+            string query = "SELECT userId, fullname FROM Account ORDER BY fullname ASC";
+            return Database.Instance.ExecuteQuery(query);
+        }
+
         public DataTable GetAllUsers() // Hàm lấy danh sách tất cả người dùng trong hệ thống - các tài khoản đã được tạo 
         {
             string query = @"
     SELECT 
+        a.RoleId,
         a.userId,   
         a.password,
         a.fullname,
@@ -83,11 +96,13 @@ namespace Restaurant_Management_App
         a.city,
         a.birthday,
         a.salary,
+        a.imagePath,
         r.RoleName
     FROM Account a
-    JOIN Role r ON a.RoleId = r.Id";
+    JOIN Role r ON a.RoleId = r.Id
+    WHERE a.isDeleted = 0";
 
-            return Database.Instance.ExecuteQuery(query); //
+            return Database.Instance.ExecuteQuery(query); 
         }
 
         public DataTable GetCityList()
@@ -107,22 +122,63 @@ namespace Restaurant_Management_App
             return Database.Instance.ExecuteQuery(query, new object[] { districtId });
         }
 
-        public bool UpdateAccount(string password, string  userId, string fullname, DateTime birthday, string phone, string address, string ward, string district, string city, double salary)
+        // Thêm string imageName vào cuối danh sách tham số
+        public bool UpdateAccount(string password, string userId, string fullname, DateTime birthday,
+                           string phone, string address, string ward, string district,
+                           string city, decimal salary, string email, int RoleId, string imageName)
         {
-            // Câu lệnh SQL (Không cần chữ N trước tham số vì dữ liệu đã là không dấu)
-            string query = "UPDATE Account SET password = @pass , fullname = @name , birthday = @birth , phone = @p , address = @addr , ward = @w , district = @d , city = @c , salary = @s WHERE userId = @id";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Database.connStr))
+                {
+                    conn.Open();
+                    // CHÚ Ý: Tuyệt đối không có dấu ngoặc () sau SET
+                    string query = @"UPDATE Account 
+                             SET password = @password, 
+                                 RoleId = @RoleId, 
+                                 fullname = @fullname, 
+                                 phone = @phone, 
+                                 email = @email, 
+                                 birthday = @birthday, 
+                                 address = @address, 
+                                 ward = @ward, 
+                                 district = @district, 
+                                 city = @city, 
+                                 salary = @salary, 
+                                 imagePath = @imagePath
+                             WHERE userId = @userId";
 
-            // Truyền mảng tham số vào
-            object[] parameter = new object[] { password, fullname, birthday, phone, address, ward, district, city, salary, userId };
+                    SqlCommand cmd = new SqlCommand(query, conn);
 
-            int result = Database.Instance.ExecuteNonQuery(query, parameter);
+                    // Khai báo tường minh để tránh lỗi "Must declare variable"
+                    cmd.Parameters.AddWithValue("@password", password);
+                    cmd.Parameters.AddWithValue("@RoleId", RoleId);
+                    cmd.Parameters.AddWithValue("@fullname", fullname);
+                    cmd.Parameters.AddWithValue("@phone", phone);
+                    cmd.Parameters.AddWithValue("@email", email);
+                    cmd.Parameters.AddWithValue("@birthday", birthday);
+                    cmd.Parameters.AddWithValue("@address", address);
+                    cmd.Parameters.AddWithValue("@ward", ward);
+                    cmd.Parameters.AddWithValue("@district", district);
+                    cmd.Parameters.AddWithValue("@city", city);
+                    cmd.Parameters.AddWithValue("@salary", salary);
+                    cmd.Parameters.AddWithValue("@imagePath", (object)imageName ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@userId", userId);
 
-            return result > 0;
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Tạm thời hiện lỗi để biết chính xác nó chết ở đâu
+                MessageBox.Show("Lỗi tại DAL: " + ex.Message);
+                return false;
+            }
         }
 
-//==============================================
-// Change Password - Đổi mật khẩu
-//==============================================
+        //==============================================
+        // Change Password - Đổi mật khẩu
+        //==============================================
         // Kiểm tra mật khẩu cũ
         public bool CheckOldPassword(string userId, string oldPass)
         {
@@ -140,42 +196,38 @@ namespace Restaurant_Management_App
         // Đổi mật khẩu và lưu lịch sử
         public bool ChangePassword(string userId, string oldPass, string newPass)
         {
-            // Câu lệnh 1: Cập nhật mật khẩu mới
-            string queryUpdate = "UPDATE Account SET Password = @new WHERE userId = @id";
+            // 1. Cập nhật bảng Account
+            string q1 = "UPDATE Account SET Password = @new WHERE userId = @id";
+            Database.Instance.ExecuteNonQuery(q1, new object[] { newPass, userId });
 
-            // Câu lệnh 2: Lưu lịch sử
-            string queryHistory = "INSERT INTO PasswordHistory (userId, oldPassword, newPassword, changedBy) VALUES ( @id , @old , @new , @change )";
+            // 2. Ghi lịch sử (Sử dụng UserSession.UserId để biết ai là người thực hiện)
+            string q2 = "INSERT INTO PasswordHistory ( userId , oldPassword , newPassword , changedBy ) VALUES ( @id , @old , @new , @by )";
+            int result = Database.Instance.ExecuteNonQuery(q2, new object[] { userId, oldPass, newPass, UserSession.UserId });
 
-            // Thực thi (Lưu ý: Bạn nên viết một hàm ExecuteTransaction trong lớp Database để chạy cả 2 câu này)
-            int r1 = Database.Instance.ExecuteNonQuery(queryUpdate, new object[] { newPass, userId });
-            int r2 = Database.Instance.ExecuteNonQuery(queryHistory, new object[] { userId, oldPass, newPass, userId });
-
-            
-            return r1 > 0 && r2 > 0;
+            return result > 0;
         }
 
-        // Hàm dành cho Admin: Đổi mật khẩu mà không cần mật khẩu cũ
-        public bool AdminUpdateAccount(string userId, string newPass, string adminId)
+        public bool AdminUpdateAccount(string targetUserId, string newPass)
         {
-            // 1. Cập nhật mật khẩu mới (và các thông tin khác nếu cần)
+            // Lấy mật khẩu cũ để làm cột oldPassword trong lịch sử
+            string oldPass = GetCurrentPassword(targetUserId);
+
+            // 1. Cập nhật mật khẩu mới vào bảng Account
             string queryUpdate = "UPDATE Account SET Password = @new WHERE userId = @id";
+            int r1 = Database.Instance.ExecuteNonQuery(queryUpdate, new object[] { newPass, targetUserId });
 
-            // 2. Lấy mật khẩu hiện tại trước khi đổi để lưu vào lịch sử (optional)
-            // Nếu bạn muốn cột oldPassword trong lịch sử có giá trị thật
-            string currentPass = GetCurrentPassword(userId);
+            // 2. Ghi log vào bảng PasswordHistory
+            // changedBy = UserSession.UserId (Đây là ID của Admin đang cầm máy)
+            string queryHistory = "INSERT INTO PasswordHistory ( userId , oldPassword , newPassword , changedBy ) " +
+                                  "VALUES ( @id , @old , @new , @admin )";
 
-            // 3. Lưu lịch sử
-            string queryHistory = @"INSERT INTO PasswordHistory (userId, oldPassword, newPassword, changedBy) 
-                            VALUES ( @id , @old , @new , @admin )";
-
-            int r1 = Database.Instance.ExecuteNonQuery(queryUpdate, new object[] { newPass, userId });
-            int r2 = Database.Instance.ExecuteNonQuery(queryHistory, new object[] { userId, currentPass, newPass, adminId });
+            int r2 = Database.Instance.ExecuteNonQuery(queryHistory, new object[] { targetUserId, oldPass, newPass, UserSession.UserId });
 
             return r1 > 0 && r2 > 0;
         }
 
         // Hàm phụ để lấy mật khẩu hiện tại (phục vụ việc ghi log)
-        private string GetCurrentPassword(string userId)
+        public string GetCurrentPassword(string userId)
         {
             string query = "SELECT Password FROM Account WHERE userId = @id";
             DataTable dt = Database.Instance.ExecuteQuery(query, new object[] { userId });
@@ -201,5 +253,31 @@ namespace Restaurant_Management_App
             query += " ORDER BY ph.changeDate DESC";
             return Database.Instance.ExecuteQuery(query);
         }
+
+        public bool DeleteAccount(string userId)
+        {
+            // Thay vì DELETE, chúng ta UPDATE cột isDeleted lên 1
+            string query = "UPDATE Account SET isDeleted = 1 WHERE userId = @id";
+
+            int result = Database.Instance.ExecuteNonQuery(query, new object[] { userId });
+
+            return result > 0;
+        }
+        public string GetCurrentImagePath(string userId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Database.connStr))
+                {
+                    conn.Open();
+                    string query = "SELECT imagePath FROM Account WHERE userId = @u";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@u", userId);
+                    object res = cmd.ExecuteScalar();
+                    return res != null ? res.ToString() : "";
+                }
+            }
+            catch { return ""; }
+        }       
     }
 }

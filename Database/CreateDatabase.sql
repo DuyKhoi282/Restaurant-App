@@ -65,10 +65,11 @@ CREATE TABLE Account
     district NVARCHAR(50) NOT NULL,-- Quận/huyện
     city NVARCHAR(50) NOT NULL,-- Thành phố
 	salary decimal(18,2) default 0  NOT NULL, -- Lương của người dùng 
-    imagePath NVARCHAR(MAX) NULL, -- Đường dẫn đến ảnh đại diện của người dùng
-    isDeleted BIT NOT NULL DEFAULT 0, -- Cột để đánh dấu tài khoản đã bị xóa (1) hay chưa (0)
+	isDeleted BIT DEFAULT 0, -- 0: Đang hoạt động, 1: Đã ẩn
+    imagePath NVARCHAR(MAX), -- Đường dẫn hình ảnh đại diện của người dùng
     FOREIGN KEY (RoleId) REFERENCES Role(Id)
 );
+
 
 
 -- 1. Bảng Tỉnh / Thành Phố
@@ -147,7 +148,7 @@ CREATE TABLE PasswordHistory (
     -- Lưu lại ai là người thực hiện (Chính chủ hay Admin đổi hộ)
     changedBy VARCHAR(50), 
     FOREIGN KEY (userId) REFERENCES Account(userId)
-);
+)
 
 GO
 ALTER TABLE Bill

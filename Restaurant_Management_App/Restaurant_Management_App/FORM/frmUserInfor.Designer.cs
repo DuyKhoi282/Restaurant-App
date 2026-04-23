@@ -46,8 +46,6 @@
             this.gbxInformations_UserInfor = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.lblUserId_Detail = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picAvaUser_Detail)).BeginInit();
             this.gbxInformations_UserInfor.SuspendLayout();
             this.SuspendLayout();
@@ -56,7 +54,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(213, 73);
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(189, 61);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(111, 26);
             this.label1.TabIndex = 2;
@@ -215,12 +214,11 @@
             // 
             // gbxInformations_UserInfor
             // 
+            this.gbxInformations_UserInfor.Controls.Add(this.label1);
             this.gbxInformations_UserInfor.Controls.Add(this.label7);
             this.gbxInformations_UserInfor.Controls.Add(this.label4);
             this.gbxInformations_UserInfor.Controls.Add(this.label6);
-            this.gbxInformations_UserInfor.Controls.Add(this.label9);
             this.gbxInformations_UserInfor.Controls.Add(this.label5);
-            this.gbxInformations_UserInfor.Controls.Add(this.label8);
             this.gbxInformations_UserInfor.Controls.Add(this.lblRole_Detail);
             this.gbxInformations_UserInfor.Controls.Add(this.btnEdit_InfoUser);
             this.gbxInformations_UserInfor.Controls.Add(this.label3);
@@ -264,34 +262,11 @@
             this.lblUserId_Detail.TabIndex = 2;
             this.lblUserId_Detail.Text = "IdUser_Detail";
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(1013, 98);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(137, 26);
-            this.label8.TabIndex = 6;
-            this.label8.Text = "Salary_Detail";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.Black;
-            this.label9.Location = new System.Drawing.Point(1013, 61);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(151, 26);
-            this.label9.TabIndex = 6;
-            this.label9.Text = "Salary / hour : ";
-            // 
             // frmUserInfor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1237, 285);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.gbxInformations_UserInfor);
             this.Name = "frmUserInfor";
             this.Text = "frmUserInfor";
@@ -300,7 +275,6 @@
             this.gbxInformations_UserInfor.ResumeLayout(false);
             this.gbxInformations_UserInfor.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -324,7 +298,5 @@
         private System.Windows.Forms.GroupBox gbxInformations_UserInfor;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblUserId_Detail;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
     }
 }

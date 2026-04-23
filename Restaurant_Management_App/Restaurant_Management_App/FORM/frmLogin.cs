@@ -83,7 +83,10 @@ namespace Restaurant_Management_App
                 MessageBox.Show("Đăng nhập thành công!");
 
                 // lưu trạng thái đăng nhập của người dùng vào UserSession để sử dụng trong các form khác
-                UserSession.UserId = user.UserId;           
+                UserSession.UserId = user.UserId;
+                UserSession.FullName = user.FullName; 
+                UserSession.RoleName = user.RoleName;
+                UserSession.ImagePath = user.ImagePath;
 
                 frmMain main = new frmMain(user.RoleName);
                 main.Show();

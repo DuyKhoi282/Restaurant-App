@@ -57,12 +57,12 @@
             this.dgvHistoryChangePass.AllowUserToAddRows = false;
             this.dgvHistoryChangePass.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvHistoryChangePass.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvHistoryChangePass.Location = new System.Drawing.Point(3, 41);
+            this.dgvHistoryChangePass.Location = new System.Drawing.Point(3, 42);
             this.dgvHistoryChangePass.Name = "dgvHistoryChangePass";
             this.dgvHistoryChangePass.RowHeadersVisible = false;
             this.dgvHistoryChangePass.RowHeadersWidth = 51;
             this.dgvHistoryChangePass.RowTemplate.Height = 24;
-            this.dgvHistoryChangePass.Size = new System.Drawing.Size(710, 594);
+            this.dgvHistoryChangePass.Size = new System.Drawing.Size(730, 605);
             this.dgvHistoryChangePass.TabIndex = 1;
             // 
             // cbxIdUser_ChangePass
@@ -74,6 +74,7 @@
             this.cbxIdUser_ChangePass.Name = "cbxIdUser_ChangePass";
             this.cbxIdUser_ChangePass.Size = new System.Drawing.Size(237, 33);
             this.cbxIdUser_ChangePass.TabIndex = 0;
+            this.cbxIdUser_ChangePass.SelectedIndexChanged += new System.EventHandler(this.cbxIdUser_ChangePass_SelectedIndexChanged);
             // 
             // frmChangePasswordHistory
             // 
