@@ -309,7 +309,7 @@
             this.btnRatingService.TabIndex = 3;
             this.btnRatingService.Text = "Đánh giá dịch vụ";
             this.btnRatingService.UseVisualStyleBackColor = true;
-            this.btnRatingService.Click += new System.EventHandler(this.btnSignout_Click);
+            this.btnRatingService.Click += new System.EventHandler(this.btnRatingService_Click);
             // 
             // panelContent
             // 

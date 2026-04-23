@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Restaurant_Management_App
+{
+    public partial class ucQuestion : UserControl
+    {
+        public ucQuestion()
+        {
+            InitializeComponent();
+        }
+        public string NoiDungCauHoi
+        {
+            get => lblQuestionContent.Text;
+            set => lblQuestionContent.Text = value;
+        }
+    }
+}
