@@ -85,7 +85,7 @@
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(513, 68);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Welcome to TheChillRes";
+            this.lblTitle.Text = "Chào mừng tới TheChillRes";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnLogin
@@ -98,7 +98,7 @@
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(513, 41);
             this.btnLogin.TabIndex = 2;
-            this.btnLogin.Text = "L O G I N";
+            this.btnLogin.Text = "Đăng nhập";
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
@@ -109,6 +109,7 @@
             this.txtPassword.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.Location = new System.Drawing.Point(23, 249);
             this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(513, 39);
             this.txtPassword.TabIndex = 4;
             this.txtPassword.UseSystemPasswordChar = true;
@@ -133,7 +134,7 @@
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(513, 45);
             this.lblPassword.TabIndex = 1;
-            this.lblPassword.Text = "Password";
+            this.lblPassword.Text = "Mật khẩu";
             this.lblPassword.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblUserID
@@ -146,7 +147,7 @@
             this.lblUserID.Name = "lblUserID";
             this.lblUserID.Size = new System.Drawing.Size(513, 45);
             this.lblUserID.TabIndex = 1;
-            this.lblUserID.Text = "UserID";
+            this.lblUserID.Text = "Mã tài khoản";
             this.lblUserID.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmLogin

@@ -36,7 +36,7 @@ namespace Restaurant_Management_App
 
         private void btnPay_Click(object sender, EventArgs e)
         {
-            if (txtStatus.Text == "Paid")
+            if (lblStatus.Text == "Paid")
             {
                 // Đã thanh toán → chỉ mở lại hóa đơn
                 frmBillToPrint f = new frmBillToPrint(_idOrder);
@@ -44,7 +44,7 @@ namespace Restaurant_Management_App
                 return;
             }
 
-            if (txtStatusOrders.Text != "Ready")
+            if (lblStatusOrders.Text != "Ready")
             {
                 MessageBox.Show("Đơn hàng chưa hoàn thành, không thể thanh toán");
                 return;
@@ -73,8 +73,8 @@ namespace Restaurant_Management_App
             LoyaltyService loyaltyService = new LoyaltyService();
 
             decimal originalAmount = loyaltyService.GetBillTotal(billId);
-            LoyaltyService.PromotionMatch promo = SelectPromotionForPayment(loyaltyService, txtCustomerName.Text);
-            if (promo == null && !string.IsNullOrWhiteSpace(txtCustomerName.Text))
+            LoyaltyService.PromotionMatch promo = SelectPromotionForPayment(loyaltyService, lblCustomerName.Text);
+            if (promo == null && !string.IsNullOrWhiteSpace(lblCustomerName.Text))
             {
                 // null nghĩa là user chọn "Không áp dụng" hoặc không đủ điều kiện
             }
@@ -113,7 +113,7 @@ namespace Restaurant_Management_App
 
                 if (affected > 0)
                 {
-                    loyaltyService.ApplyPaymentAndPoints(billId, txtCustomerName.Text, finalAmount, pointsUsed, promotionId);
+                    loyaltyService.ApplyPaymentAndPoints(billId, lblCustomerName.Text, finalAmount, pointsUsed, promotionId);
                 }
             }
 
@@ -239,7 +239,6 @@ namespace Restaurant_Management_App
         SELECT 
             b.id ,
             b.idTable,
-            
             CONVERT(DATE, b.dateCheckIn) AS [date],
             CONVERT(TIME, b.dateCheckIn) AS [time],
             b.customerName,
@@ -267,36 +266,29 @@ namespace Restaurant_Management_App
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
 
-                dgvFoodDetails.BackgroundColor = Color.White;
-                dgvFoodDetails.BorderStyle = BorderStyle.None;
-                dgvFoodDetails.RowHeadersVisible = false;
-                dgvFoodDetails.CellBorderStyle = DataGridViewCellBorderStyle.None;
-                dgvFoodDetails.BorderStyle = BorderStyle.None;
-                dgvFoodDetails.GridColor = Color.White;
-
                 if (reader.Read())
                 {
 
-                    txtIdOrder.Text = reader["id"].ToString();
-                    txtIdTable.Text = reader["idTable"].ToString(); 
+                    lblIdOrder.Text = reader["id"].ToString();
+                    lblIdTable.Text = reader["idTable"].ToString(); 
                     gbxListDetails.Text = reader["id"].ToString();
-                    txtDate.Text = reader["date"].ToString();
-                    txtTime.Text = reader["time"].ToString();
-                    txtCustomerName.Text = reader["customerName"].ToString();
-                    txtPayMethod.Text = reader["payMethod"].ToString();
-                    txtStatus.Text = reader["status"].ToString();
-                    txtTotalPrice.Text = reader["totalPrice"].ToString();
+                    lblDate.Text = reader["date"].ToString();
+                    lblTime.Text = reader["time"].ToString();
+                    lblCustomerName.Text = reader["customerName"].ToString();
+                    lblPayMethod.Text = reader["payMethod"].ToString();
+                    lblStatus.Text = reader["status"].ToString();
+                    lblTotalPrice.Text = reader["totalPrice"].ToString();
 
                     string kitchenStatus = reader["kitchenStatus"].ToString();
-                    txtStatusOrders.Text = kitchenStatus; // bạn cần thêm textbox
+                    lblStatusOrders.Text = kitchenStatus; // bạn cần thêm textbox
 
-                    if (txtStatus.Text == "Paid")
+                    if (lblStatus.Text == "Paid")
                     {
-                        btnPay.Text = "View Bill";
+                        btnPay.Text = "Xem Hóa Đơn";
                     }
                     else
                     {
-                        btnPay.Text = "Pay";
+                        btnPay.Text = "Thanh toán";
                     }
                 }
 
@@ -305,7 +297,7 @@ namespace Restaurant_Management_App
 
             // Load danh sách món
             LoadFoodList();
-            btnPay.Enabled = (txtStatusOrders.Text == "Ready" || txtStatus.Text == "Paid");
+            btnPay.Enabled = (lblStatusOrders.Text == "Ready" || lblStatus.Text == "Paid");
         }
 
         void LoadFoodList()
@@ -362,16 +354,26 @@ GROUP BY f.name, f.price";
                 dgvFoodDetails.Columns["TotalPrice"].DefaultCellStyle.Format = "N0";
 
                 dgvFoodDetails.AllowUserToAddRows = false;
+
+                dgvFoodDetails.Columns["FoodName"].HeaderText = "Tên món ăn";
+                dgvFoodDetails.Columns["quantity"].HeaderText = "Số lượng món";
+                dgvFoodDetails.Columns["price"].HeaderText = "Giá tiền 1 món";
+                dgvFoodDetails.Columns["TotalPrice"].HeaderText = "Tổng tiền";
             }
 
             
             }
 
-        
-
-        private void frmOrderDetails_Load(object sender, EventArgs e)
+        private void frmOrderDetails_Load(object sender, EventArgs e)   
         {
             LoadOrderDetails();
+            btnPay.Text= "Thanh toán";
+            btnBack.Text= "Trở về";
+
+            if(lblStatus.Text == "Paid")
+            {
+                btnPay.Text = "Xem hóa đơn";
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -383,6 +385,9 @@ GROUP BY f.name, f.price";
             }
         }
 
+        private void btnReview(object sender, EventArgs e)
+        {
 
+        }
     }
 }

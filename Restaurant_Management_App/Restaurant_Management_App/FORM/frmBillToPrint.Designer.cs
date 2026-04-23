@@ -39,6 +39,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvBill = new System.Windows.Forms.DataGridView();
+            this.btnPrintBill = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBill)).BeginInit();
@@ -46,6 +47,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnPrintBill);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -155,6 +157,23 @@
             this.dgvBill.Size = new System.Drawing.Size(915, 387);
             this.dgvBill.TabIndex = 3;
             // 
+            // btnPrintBill
+            // 
+            this.btnPrintBill.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnPrintBill.AutoSize = true;
+            this.btnPrintBill.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
+            this.btnPrintBill.FlatAppearance.BorderSize = 0;
+            this.btnPrintBill.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrintBill.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrintBill.ForeColor = System.Drawing.Color.White;
+            this.btnPrintBill.Location = new System.Drawing.Point(741, 52);
+            this.btnPrintBill.Name = "btnPrintBill";
+            this.btnPrintBill.Size = new System.Drawing.Size(139, 48);
+            this.btnPrintBill.TabIndex = 20;
+            this.btnPrintBill.Text = "Xuất bill";
+            this.btnPrintBill.UseVisualStyleBackColor = false;
+            this.btnPrintBill.Click += new System.EventHandler(this.btnPrintBill_Click);
+            // 
             // frmBillToPrint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -186,5 +205,6 @@
         private System.Windows.Forms.TextBox txtDiscount;
         private System.Windows.Forms.TextBox txtTotalPrice;
         private System.Windows.Forms.DataGridView dgvBill;
+        private System.Windows.Forms.Button btnPrintBill;
     }
 }

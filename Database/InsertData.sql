@@ -28,7 +28,9 @@ VALUES
 (N'Nước cam', 1, 20000, 'Available', 'Images/Food/nuoc_cam.jpg'),
 (N'Cơm gà', 2, 50000, 'Available', 'Images/Food/com_ga.jpg'),
 (N'Bún bò', 2, 45000, 'Available', 'Images/Food/bun_bo.jpg'),
-(N'Bánh flan', 3, 15000, 'Available', 'Images/Food/flan.jpg')
+(N'Bánh flan', 3, 15000, 'Available', 'Images/Food/flan.jpg'),
+(N'Cơm chiên', 1, 30000, 'Available', 'Images/Food/com_chien.jpg'),
+(N'Nước ngọt', 1, 15000, 'Available', 'Images/Food/nuoc_ngot.jpg')
 
 -- ========================
 -- Role 
@@ -159,12 +161,6 @@ INSERT INTO ward (wardId, wardName, districtId) VALUES
 INSERT INTO ward (wardId, wardName, districtId) VALUES 
 ('32103', N'Phường Chính Gián', '492'), 
 ('32104', N'Phường Thạc Gián', '492');
-
--- Thêm món
-INSERT INTO Food(name, idCategory, price)
-VALUES (N'Cơm chiên', 1, 30000),
-       (N'Nước ngọt', 1, 15000)
-
 
 -- ========================
 -- TẠO BILL

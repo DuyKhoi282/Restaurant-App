@@ -44,9 +44,9 @@
             this.label1.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(27, 60);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(159, 17);
+            this.label1.Size = new System.Drawing.Size(129, 17);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Your current Password :";
+            this.label1.Text = "Mật khẩu hiện tại :";
             // 
             // label2
             // 
@@ -54,9 +54,9 @@
             this.label2.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(27, 113);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(139, 17);
+            this.label2.Size = new System.Drawing.Size(104, 17);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Your new Password :";
+            this.label2.Text = "Mật khẩu mới :";
             // 
             // label3
             // 
@@ -64,9 +64,9 @@
             this.label3.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(27, 166);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(196, 17);
+            this.label3.Size = new System.Drawing.Size(165, 17);
             this.label3.TabIndex = 0;
-            this.label3.Text = "Re-enter your new Password :";
+            this.label3.Text = "Xác nhận mật khẩu mới :";
             // 
             // txtCurrentPass
             // 
@@ -100,7 +100,7 @@
             this.btnBack_ResetPassword.Name = "btnBack_ResetPassword";
             this.btnBack_ResetPassword.Size = new System.Drawing.Size(112, 36);
             this.btnBack_ResetPassword.TabIndex = 2;
-            this.btnBack_ResetPassword.Text = "Back";
+            this.btnBack_ResetPassword.Text = "Trở về";
             this.btnBack_ResetPassword.UseVisualStyleBackColor = true;
             // 
             // btnUpdate_ChangePassword
@@ -111,7 +111,7 @@
             this.btnUpdate_ChangePassword.Name = "btnUpdate_ChangePassword";
             this.btnUpdate_ChangePassword.Size = new System.Drawing.Size(112, 36);
             this.btnUpdate_ChangePassword.TabIndex = 2;
-            this.btnUpdate_ChangePassword.Text = "Update";
+            this.btnUpdate_ChangePassword.Text = "Cập nhật";
             this.btnUpdate_ChangePassword.UseVisualStyleBackColor = true;
             this.btnUpdate_ChangePassword.Click += new System.EventHandler(this.btnUpdate_ChangePassword_Click);
             // 

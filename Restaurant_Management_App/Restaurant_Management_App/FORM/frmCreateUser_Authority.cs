@@ -72,7 +72,26 @@ namespace Restaurant_Management_App
                 dgvAccount.Columns["RoleId"].Visible = false;
             }
             dgvAccount.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvAccount.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;            
+            dgvAccount.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;           
+            if (dgvAccount.Columns.Count > 0)
+                {
+                    if (dgvAccount.Columns["Id"] != null) dgvAccount.Columns["Id"].Visible = false;
+                    dgvAccount.Columns["userId"].HeaderText = "Mã Nhân Viên";
+                    dgvAccount.Columns["password"].HeaderText = "Mật Khẩu";
+                    dgvAccount.Columns["fullname"].HeaderText = "Họ Tên";  
+                    dgvAccount.Columns["phone"].HeaderText = "Số Điện Thoại";
+                    dgvAccount.Columns["email"].HeaderText = "EMAIL";
+                    dgvAccount.Columns["address"].HeaderText = "EMAIL";
+                    dgvAccount.Columns["ward"].HeaderText = "Phường/Xã";
+                    dgvAccount.Columns["district"].HeaderText = "Quận/Huyện";
+                    dgvAccount.Columns["city"].HeaderText = "Thành Phố";
+                    dgvAccount.Columns["birthday"].HeaderText = "Ngày sinh";
+                    dgvAccount.Columns["birthday"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
+                    dgvAccount.Columns["salary"].HeaderText = "Lương";
+                    dgvAccount.Columns["imagePath"].HeaderText = "Ảnh Đại Diện";
+                    dgvAccount.Columns["RoleName"].HeaderText = "Quyền";
+                    dgvAccount.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                }          
         }
 
         private void btnCreate_CUA_Click(object sender, EventArgs e) 
@@ -547,7 +566,7 @@ namespace Restaurant_Management_App
                     row.Selected = true; // Bôi xanh (Select) dòng đó
 
                     // Đặt ô đầu tiên của dòng này làm CurrentCell để hệ thống tiêu điểm vào đây
-                    dgvAccount.CurrentCell = row.Cells[0];
+                    dgvAccount.CurrentCell = row.Cells["userId"];
 
                     // --- B. TỰ ĐỘNG CUỘN (AUTO SCROLL) ---
                     // Lệnh này cực kỳ an toàn cho dù Form to hay nhỏ, ít hay nhiều dòng.
