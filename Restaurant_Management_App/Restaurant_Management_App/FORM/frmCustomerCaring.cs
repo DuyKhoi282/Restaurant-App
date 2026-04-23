@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Restaurant_Management_App.FORM
 {
-    public class frmCustomerCaring : Form
+    public partial class frmCustomerCaring : Form
     {
         private readonly LoyaltyService _loyaltyService = new LoyaltyService();
         private readonly BuffetService _buffetService = new BuffetService();
@@ -48,6 +48,7 @@ namespace Restaurant_Management_App.FORM
 
         public frmCustomerCaring()
         {
+            InitializeComponent();
             Text = "Customer Caring";
             Dock = DockStyle.Fill;
             FormBorderStyle = FormBorderStyle.None;
