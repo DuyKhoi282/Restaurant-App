@@ -45,11 +45,6 @@ namespace Restaurant_Management_App.FORM
             // TITLE
             lblTitle.Font = new Font("Segoe UI", 26F, FontStyle.Bold);
 
-            // STATUS
-            lblPending.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
-            lblCooking.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
-            lblReady.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
-
             // GRID
             StyleGrid(dgvKitchen);
             StyleGrid(dgvDetail);
@@ -147,6 +142,11 @@ namespace Restaurant_Management_App.FORM
                     }
                 }
             }
+
+            dgvKitchen.Columns["Order ID"].HeaderText = "Mã đơn";
+            dgvKitchen.Columns["Customer"].HeaderText = "Tên Khách Hàng";
+            dgvKitchen.Columns["Type"].HeaderText = "Hình thức";
+            dgvKitchen.Columns["Status"].HeaderText = "Trạng thái món";
         }
 
         // ================= LOAD CHI TIẾT =================
