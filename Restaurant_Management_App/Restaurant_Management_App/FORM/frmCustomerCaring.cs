@@ -160,6 +160,26 @@ namespace Restaurant_Management_App.FORM
         {
             _dgvCustomers.DataSource = _loyaltyService.GetCustomerPoints();
             _dgvPromotions.DataSource = _loyaltyService.GetPromotions();
+            ApplyVietnameseColumnHeaders();
+        }
+
+        private void ApplyVietnameseColumnHeaders()
+        {
+            if (_dgvCustomers.Columns.Contains("id")) _dgvCustomers.Columns["id"].HeaderText = "Mã KH";
+            if (_dgvCustomers.Columns.Contains("customerName")) _dgvCustomers.Columns["customerName"].HeaderText = "Tên khách hàng";
+            if (_dgvCustomers.Columns.Contains("phone")) _dgvCustomers.Columns["phone"].HeaderText = "Số điện thoại";
+            if (_dgvCustomers.Columns.Contains("points")) _dgvCustomers.Columns["points"].HeaderText = "Điểm tích lũy";
+            if (_dgvCustomers.Columns.Contains("totalSpent")) _dgvCustomers.Columns["totalSpent"].HeaderText = "Tổng chi tiêu";
+            if (_dgvCustomers.Columns.Contains("updatedAt")) _dgvCustomers.Columns["updatedAt"].HeaderText = "Cập nhật lần cuối";
+
+            if (_dgvPromotions.Columns.Contains("id")) _dgvPromotions.Columns["id"].HeaderText = "Mã CTKM";
+            if (_dgvPromotions.Columns.Contains("promoName")) _dgvPromotions.Columns["promoName"].HeaderText = "Tên CTKM";
+            if (_dgvPromotions.Columns.Contains("description")) _dgvPromotions.Columns["description"].HeaderText = "Mô tả";
+            if (_dgvPromotions.Columns.Contains("startDate")) _dgvPromotions.Columns["startDate"].HeaderText = "Ngày bắt đầu";
+            if (_dgvPromotions.Columns.Contains("endDate")) _dgvPromotions.Columns["endDate"].HeaderText = "Ngày kết thúc";
+            if (_dgvPromotions.Columns.Contains("minPoints")) _dgvPromotions.Columns["minPoints"].HeaderText = "Điểm tối thiểu";
+            if (_dgvPromotions.Columns.Contains("discountPercent")) _dgvPromotions.Columns["discountPercent"].HeaderText = "Giảm (%)";
+            if (_dgvPromotions.Columns.Contains("isActive")) _dgvPromotions.Columns["isActive"].HeaderText = "Đang áp dụng";
         }
 
 
