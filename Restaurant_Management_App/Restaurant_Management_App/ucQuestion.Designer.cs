@@ -40,7 +40,7 @@
             // 
             // tlpUcQuestion
             // 
-            this.tlpUcQuestion.BackColor = System.Drawing.Color.RosyBrown;
+            this.tlpUcQuestion.BackColor = System.Drawing.Color.Salmon;
             this.tlpUcQuestion.ColumnCount = 6;
             this.tlpUcQuestion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tlpUcQuestion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8F));
