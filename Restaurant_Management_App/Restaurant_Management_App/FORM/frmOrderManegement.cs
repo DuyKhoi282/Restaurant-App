@@ -80,7 +80,14 @@ namespace Restaurant_Management_App
                     CONVERT(DATE, b.dateCheckIn) AS [date],
                     CONVERT(TIME, b.dateCheckIn) AS [time],
                     b.idTable,
-                    SUM(f.price * bi.quantity) AS totalPrice,
+                    CASE 
+                        WHEN b.finalAmount IS NULL THEN
+                            CASE 
+                                WHEN ISNULL(b.isBuffet, 0) = 1 THEN 299000 * ISNULL(b.buffetGuestCount, 1)
+                                ELSE ISNULL(SUM(f.price * bi.quantity), 0)
+                            END
+                        ELSE b.finalAmount
+                    END AS totalPrice,
                     b.customerName,
                     CASE WHEN b.status = 0 THEN 'Unpaid' ELSE 'Paid' END AS status,
                     ISNULL(b.kitchenStatus, 'Pending') AS [Kitchen Status]
@@ -89,7 +96,7 @@ namespace Restaurant_Management_App
                 LEFT JOIN Food f ON bi.idFood = f.id
                 WHERE b.status = 1 
                    OR (b.status = 0 AND ISNULL(b.kitchenStatus, 'Pending') <> 'Draft')
-                GROUP BY b.id, b.dateCheckIn, b.idTable, b.customerName, b.status, b.kitchenStatus
+                GROUP BY b.id, b.dateCheckIn, b.idTable, b.customerName, b.status, b.kitchenStatus, b.finalAmount, b.isBuffet, b.buffetGuestCount
                 ORDER BY b.id DESC";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
