@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using OfficeOpenXml.Export.HtmlExport.StyleCollectors.StyleContracts;
 
 namespace Restaurant_Management_App
 { 
@@ -23,8 +24,82 @@ namespace Restaurant_Management_App
             billId = idOrder;
 
         }
-        
-        
+        string connectionString =@"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True";
+        void LoadDanhSachDanhGia()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"
+SELECT 
+    ROW_NUMBER() OVER (ORDER BY MAX(r.CreatedAt) DESC) AS STT,
+    r.BillId,
+    tf.name AS TenBan,
+    AVG(CAST(r.Star AS FLOAT)) AS TrungBinhSao
+FROM RatingService r
+JOIN Bill b ON r.BillId = b.id
+JOIN tableFood tf ON b.idTable = tf.id
+GROUP BY r.BillId, tf.name
+ORDER BY STT";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+
+                DataTable table = new DataTable();
+
+                adapter.Fill(table);
+
+                dgvRating.DataSource = table;
+            }
+        }
+
+
+        void HienThiDanhGiaDaTraLoi(string billId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"
+SELECT Question, Star
+FROM RatingService
+WHERE BillId = @BillId";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@BillId", billId);
+
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                flpQuestion.Controls.Clear();
+
+                while (reader.Read())
+                {
+                    ucQuestion uc = new ucQuestion();
+
+                    uc.NoiDungCauHoi = reader["Question"].ToString();
+
+                    uc.SetStar(Convert.ToInt32(reader["Star"]));
+
+                    uc.Width = flpQuestion.ClientSize.Width - 25;
+
+                    flpQuestion.Controls.Add(uc);
+                }
+
+                conn.Close();
+            }
+        }
+
+
+        private void dgvRating_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                string selectedBillId =
+                    dgvRating.Rows[e.RowIndex].Cells["BillId"].Value.ToString();
+
+                HienThiDanhGiaDaTraLoi(selectedBillId);
+            }
+        }
+
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
@@ -85,17 +160,15 @@ namespace Restaurant_Management_App
 
         private void frmRatingService_Load(object sender, EventArgs e)
         {
+            label2.Text = $"{billId}";
             if (DaDanhGia())
             {
-                MessageBox.Show("Hóa đơn này đã được đánh giá rồi!");
-                Form parent = this.ParentForm;
-                if (parent is frmMain main)
-                {
-                    main.LoadForm(new frmOrderDetails(billId));
-                }
-
-            }else
+                LoadDanhSachDanhGia();
+                dgvRating.CellClick += dgvRating_CellClick;
+            }
+            else
                 HienThiCauHoi();
+            
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -139,8 +212,6 @@ VALUES(@BillId, @Question, @Star)";
 
         }
 
-        
-
         private void btnDelAll_Rating_Click(object sender, EventArgs e)
         {
             // Duyệt qua từng UserControl trong FlowLayoutPanel (ví dụ tên là flpReview)
@@ -166,5 +237,7 @@ VALUES(@BillId, @Question, @Star)";
             }
             this.Hide();
         }
+
+
     }
 }

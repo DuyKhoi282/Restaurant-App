@@ -191,6 +191,12 @@
     <Compile Include="FORM\frmReview.Designer.cs">
       <DependentUpon>frmReview.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmListRatingService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmListRatingService.Designer.cs">
+      <DependentUpon>frmListRatingService.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoyaltyService.cs" />
     <Compile Include="OrderRepository.cs" />
     <Compile Include="Program.cs" />
@@ -255,6 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORM\frmChangePasswordHistory.resx">
       <DependentUpon>frmChangePasswordHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmListRatingService.resx">
+      <DependentUpon>frmListRatingService.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

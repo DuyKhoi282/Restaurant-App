@@ -47,6 +47,24 @@ namespace Restaurant_Management_App
                 }
             }
         }
+        public void SetStar(int star)
+        {
+            SoSao = star;
+            HienThiSoSao();
+        }
+
+        void HienThiSoSao()
+        {
+            RadioButton[] stars = { radioButton1, radioButton2, radioButton3, radioButton4, radioButton5 };
+
+            for (int i = 0; i < stars.Length; i++)
+            {
+                if (i < SoSao)
+                    stars[i].BackColor = Color.Gold;
+                else
+                    stars[i].BackColor = Color.LightGray;
+            }
+        }
 
         public void ClearSelection()
         {

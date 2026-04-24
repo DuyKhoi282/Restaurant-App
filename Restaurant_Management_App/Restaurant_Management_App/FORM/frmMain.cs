@@ -102,7 +102,6 @@ namespace Restaurant_Management_App
                 int row = 2;
                 RemoveButtons(); // Xóa tất cả button trước khi thêm lại theo quyền
                 tlpSidebar.Controls.Add(btnCreateOrder, 0, row++);
-                tlpSidebar.Controls.Add(btnRatingService, 0, row++);
                 btnInfoUser.Visible=false;
                 btnChangePassword.Visible=false;
             }

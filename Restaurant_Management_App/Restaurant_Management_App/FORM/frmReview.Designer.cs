@@ -29,15 +29,16 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.button3 = new System.Windows.Forms.Button();
             this.btnDelAll_Rating = new System.Windows.Forms.Button();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.flpQuestion = new System.Windows.Forms.FlowLayoutPanel();
-            this.button6 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.dgvRating = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRating)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -51,11 +52,11 @@
             this.tableLayoutPanel1.Controls.Add(this.btnDelAll_Rating, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.btnSubmit, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.flpQuestion, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.button3, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.button6, 3, 3);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.dgvRating, 3, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -68,19 +69,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1148, 632);
             this.tableLayoutPanel1.TabIndex = 0;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.DarkRed;
-            this.button3.Location = new System.Drawing.Point(863, 69);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(273, 54);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Xem danh sách đánh giá";
-            this.button3.UseVisualStyleBackColor = true;
             // 
             // btnDelAll_Rating
             // 
@@ -112,26 +100,26 @@
             // 
             this.flpQuestion.AutoScroll = true;
             this.flpQuestion.BackColor = System.Drawing.Color.Brown;
-            this.tableLayoutPanel1.SetColumnSpan(this.flpQuestion, 4);
+            this.tableLayoutPanel1.SetColumnSpan(this.flpQuestion, 3);
             this.flpQuestion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpQuestion.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpQuestion.Location = new System.Drawing.Point(3, 129);
             this.flpQuestion.Name = "flpQuestion";
-            this.flpQuestion.Size = new System.Drawing.Size(1142, 405);
+            this.flpQuestion.Size = new System.Drawing.Size(854, 405);
             this.flpQuestion.TabIndex = 7;
             this.flpQuestion.WrapContents = false;
             // 
-            // button6
+            // label2
             // 
-            this.button6.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.Color.DarkRed;
-            this.button6.Location = new System.Drawing.Point(863, 540);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(113, 57);
-            this.button6.TabIndex = 6;
-            this.button6.Text = "Thoát";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Brown;
+            this.label2.Location = new System.Drawing.Point(186, 66);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(159, 32);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "label2";
             // 
             // label1
             // 
@@ -144,17 +132,17 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Chọn mã đơn :";
             // 
-            // label2
+            // button6
             // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label2.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Brown;
-            this.label2.Location = new System.Drawing.Point(186, 94);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(159, 32);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "label2";
+            this.button6.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.ForeColor = System.Drawing.Color.DarkRed;
+            this.button6.Location = new System.Drawing.Point(863, 540);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(113, 57);
+            this.button6.TabIndex = 6;
+            this.button6.Text = "Thoát";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // label3
             // 
@@ -171,6 +159,18 @@
             this.label3.Text = "Hỏi xoáy đáp xoay cùng TheChillRes nhén Sốp iuuuu <3 ";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // dgvRating
+            // 
+            this.dgvRating.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRating.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvRating.Location = new System.Drawing.Point(863, 129);
+            this.dgvRating.Name = "dgvRating";
+            this.dgvRating.RowHeadersWidth = 51;
+            this.dgvRating.RowTemplate.Height = 24;
+            this.dgvRating.Size = new System.Drawing.Size(282, 405);
+            this.dgvRating.TabIndex = 10;
+            this.dgvRating.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRating_CellClick);
+            // 
             // frmRatingService
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -182,6 +182,7 @@
             this.Load += new System.EventHandler(this.frmRatingService_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRating)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -190,12 +191,12 @@
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnDelAll_Rating;
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.FlowLayoutPanel flpQuestion;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataGridView dgvRating;
     }
 }
