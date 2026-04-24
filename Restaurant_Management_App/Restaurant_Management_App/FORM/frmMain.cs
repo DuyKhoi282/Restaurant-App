@@ -1,4 +1,7 @@
+
 ﻿using Restaurant_Management_App.FORM;
+using Microsoft.VisualBasic;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -65,7 +68,7 @@ namespace Restaurant_Management_App
                 tlpSidebar.Controls.Add(btnRevenueMNG, 0, row++);
                 tlpSidebar.Controls.Add(btnCustomerCaring, 0, row++);
                 tlpSidebar.Controls.Add(btnStaffMNG, 0, row++);
-                tlpSidebar.Controls.Add(btnRatingService, 0, row++);
+                
             }
             else if (currentRole == "Manager")
             {
@@ -76,7 +79,7 @@ namespace Restaurant_Management_App
                 tlpSidebar.Controls.Add(btnItemMNG, 0, row++);
                 tlpSidebar.Controls.Add(btnRevenueMNG, 0, row++);
                 tlpSidebar.Controls.Add(btnCustomerCaring, 0, row++);
-                tlpSidebar.Controls.Add(btnRatingService, 0, row++);
+                
 
             }
             else if (currentRole == "Chef")
@@ -101,7 +104,6 @@ namespace Restaurant_Management_App
                 int row = 2;
                 RemoveButtons(); // Xóa tất cả button trước khi thêm lại theo quyền
                 tlpSidebar.Controls.Add(btnCreateOrder, 0, row++);
-                tlpSidebar.Controls.Add(btnRatingService, 0, row++);
                 btnInfoUser.Visible=false;
                 btnChangePassword.Visible=false;
             }
@@ -127,9 +129,34 @@ namespace Restaurant_Management_App
         // Nút đăng xuất sẽ quay về frmLogin
         private void btnSignout_Click(object sender, EventArgs e)
         {
-            frmLogin LoginForm = new frmLogin();
-            LoginForm.Show();
-            this.Hide();
+            // Giả sử Role của máy buffet bạn đặt tên là "Guest" hoặc "Khách"
+            if (UserSession.RoleName == "Customer")
+            {
+                string confirmPass = Microsoft.VisualBasic.Interaction.InputBox(
+                    "Vui lòng nhập mật khẩu nhân viên để thoát chế độ gọi món:",
+                    "XÁC NHẬN NHÂN VIÊN", "");
+
+                if (confirmPass != "123") // Mật khẩu nhân viên
+                {
+                    if (!string.IsNullOrEmpty(confirmPass))
+                        MessageBox.Show("Mật khẩu không đúng!");
+                    return; // Thoát hàm, không cho đăng xuất
+                }
+            }
+
+            // --- PHẦN ĐĂNG XUẤT CHUNG (Cho cả Admin và Khách sau khi nhập đúng pass) ---
+            DialogResult result = MessageBox.Show("Bạn có muốn đăng xuất không?", "Xác nhận",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                // Mở lại Form Login
+                frmLogin login = new frmLogin();
+                login.Show();
+
+                // Ẩn form hiện tại thay vì Close để tránh mất luồng
+                this.Hide();
+            }
         }
         public void LoadForm(Form frm)//Hàm này dùng để load form con vào panel chinh
         {
@@ -275,6 +302,11 @@ namespace Restaurant_Management_App
         private void frmMain_Load(object sender, EventArgs e)
         {
             DisplayUserAvatar();           
+        }
+
+        private void btnRatingService_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

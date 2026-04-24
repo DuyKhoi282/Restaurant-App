@@ -60,5 +60,10 @@ namespace Restaurant_Management_App
                 MessageBox.Show("Có lỗi xảy ra!");
             }
         }
+
+        private void btnBack_ResetPassword_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
     }
 }

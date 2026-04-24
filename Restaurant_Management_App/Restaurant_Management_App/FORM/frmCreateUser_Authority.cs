@@ -75,7 +75,8 @@ namespace Restaurant_Management_App
             dgvAccount.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;           
             if (dgvAccount.Columns.Count > 0)
                 {
-                    if (dgvAccount.Columns["Id"] != null) dgvAccount.Columns["Id"].Visible = false;
+                    if (dgvAccount.Columns["Id"] != null) 
+                    dgvAccount.Columns["Id"].Visible = false;
                     dgvAccount.Columns["userId"].HeaderText = "Mã Nhân Viên";
                     dgvAccount.Columns["password"].HeaderText = "Mật Khẩu";
                     dgvAccount.Columns["fullname"].HeaderText = "Họ Tên";  
@@ -598,6 +599,25 @@ namespace Restaurant_Management_App
             string userId = dgvAccount.SelectedRows[0].Cells["userId"].Value.ToString();
             string fullName = dgvAccount.SelectedRows[0].Cells["fullname"].Value.ToString();
 
+            string selectedUserId = dgvAccount.CurrentRow.Cells["userId"].Value.ToString();
+            // Ngăn Admin xóa chính tài khoản của mình
+            if (selectedUserId.Equals(UserSession.UserId, StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Bạn không thể xóa (ẩn) tài khoản chính mình đang đăng nhập!",
+                                "Thông báo bảo mật", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return; // Thoát hàm, không thực hiện lệnh xóa bên dưới
+            }
+
+            //  Ngăn Admin xóa các tài khoản Admin khác
+            // 
+            string selectedRole = dgvAccount.CurrentRow.Cells["RoleName"].Value.ToString();
+            if (selectedRole.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Không thể xóa tài khoản thuộc quyền Quản trị viên (Admin) khác!",
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             // 3. Hỏi xác nhận (Tránh bấm nhầm)
             DialogResult result = MessageBox.Show($"Bạn có chắc chắn muốn ẩn tài khoản của nhân viên [{fullName}] không?\n(Dữ liệu sẽ không bị xóa vĩnh viễn)",
                                                    "Xác nhận xóa",
@@ -746,6 +766,79 @@ namespace Restaurant_Management_App
                 conn.Open();
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Đã lưu nhân viên thành công!");
+            }
+        }
+
+        private void btnRestore_CUA_Click(object sender, EventArgs e)
+        {
+            // 1. Kiểm tra xem người dùng đã chọn dòng nào chưa
+            if (dgvAccount.CurrentRow == null || dgvAccount.CurrentRow.IsNewRow)
+            {
+                MessageBox.Show("Vui lòng chọn tài khoản cần khôi phục!");
+                return;
+            }
+
+            // 2. Lấy UserId từ dòng đang chọn
+            string userId = dgvAccount.CurrentRow.Cells["userId"].Value.ToString();
+
+            // 3. Hỏi xác nhận để tránh bấm nhầm
+            DialogResult result = MessageBox.Show($"Bạn có chắc chắn muốn khôi phục tài khoản {userId} không?",
+                "Xác nhận khôi phục", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                AccountDAL dal = new AccountDAL();
+                if (dal.KhoiPhucTaiKhoan(userId))
+                {
+                    MessageBox.Show("Khôi phục tài khoản thành công!", "Thông báo");
+
+                    // 4. Load lại danh sách tương đương (DS đã xóa)
+                    // Sau khi khôi phục, tài khoản đó sẽ biến mất khỏi danh sách này (vì isDeleted đã = 0)
+                    btnDSDaXoa_CUA_Click(null, null);
+                }
+                else
+                {
+                    MessageBox.Show("Khôi phục thất bại, vui lòng kiểm tra lại.");
+                }
+            }
+        }
+
+        private void btnDSKhaDung_CUA_Click(object sender, EventArgs e)
+        {
+            LoadAccountList();
+        }
+
+        private void btnDSDaXoa_CUA_Click(object sender, EventArgs e)
+        {
+            AccountDAL dal = new AccountDAL();
+            DataTable dt = dal.GetDeletedAccounts();
+
+            dgvAccount.DataSource = dt;
+            if (dgvAccount.Columns["isDeleted"] != null) dgvAccount.Columns["isDeleted"].Visible = false;
+            // Thay đổi giao diện để nhận diện
+            dgvAccount.DefaultCellStyle.BackColor = Color.LavenderBlush; // Màu hồng nhạt báo hiệu vùng "thùng rác"
+
+            if (dt.Rows.Count == 0)
+            {
+                MessageBox.Show("Hiện không có tài khoản nào trong danh sách đã xóa.");
+            }
+        }
+
+        private void dgvAccount_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvAccount.CurrentRow != null)
+            {
+                string selectedUserId = dgvAccount.CurrentRow.Cells["userId"].Value.ToString();
+
+                // Nếu dòng đang chọn là chính Admin đang đăng nhập, thì mờ nút Xóa đi
+                if (selectedUserId.Equals(UserSession.UserId, StringComparison.OrdinalIgnoreCase))
+                {
+                    btnDelete_CUA.Enabled = false;
+                }
+                else
+                {
+                    btnDelete_CUA.Enabled = true;
+                }
             }
         }
     }    

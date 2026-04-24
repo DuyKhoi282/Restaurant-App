@@ -390,7 +390,12 @@ GROUP BY f.name, f.price, b.isBuffet";
 
         private void btnReview(object sender, EventArgs e)
         {
-
+            Form parent = this.ParentForm;
+            if (parent is frmMain main)
+            {
+                main.LoadForm(new frmRatingService(_idOrder));
+            }
+            
         }
     }
 }

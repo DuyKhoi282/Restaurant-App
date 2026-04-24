@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Restaurant_Management_App
 {
-    public partial class Frm_Review : Form
+    public partial class ucQuestionHeader : UserControl
     {
-        public Frm_Review()
+        public ucQuestionHeader()
         {
             InitializeComponent();
         }

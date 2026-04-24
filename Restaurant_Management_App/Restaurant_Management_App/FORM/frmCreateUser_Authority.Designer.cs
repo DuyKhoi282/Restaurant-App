@@ -64,9 +64,12 @@
             this.btnHistoryChangePass = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tlpAccounts_CUA = new System.Windows.Forms.TableLayoutPanel();
+            this.btnRestore_CUA = new System.Windows.Forms.Button();
             this.btnDelete_CUA = new System.Windows.Forms.Button();
             this.txtSearchId_CUA = new System.Windows.Forms.TextBox();
             this.btnSearch_CUA = new System.Windows.Forms.Button();
+            this.btnDSKhaDung_CUA = new System.Windows.Forms.Button();
+            this.btnDSDaXoa_CUA = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAccount)).BeginInit();
             this.tlpCUA.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -82,9 +85,9 @@
             this.label6.BackColor = System.Drawing.SystemColors.Control;
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(552, 0);
+            this.label6.Location = new System.Drawing.Point(501, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(64, 52);
+            this.label6.Size = new System.Drawing.Size(86, 52);
             this.label6.TabIndex = 1;
             this.label6.Text = "Email :";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -95,9 +98,9 @@
             this.label7.BackColor = System.Drawing.SystemColors.Control;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(552, 52);
+            this.label7.Location = new System.Drawing.Point(501, 52);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(64, 52);
+            this.label7.Size = new System.Drawing.Size(86, 52);
             this.label7.TabIndex = 1;
             this.label7.Text = "SDT :";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -106,33 +109,35 @@
             // 
             this.txtFullname_CUA.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtFullname_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFullname_CUA.Location = new System.Drawing.Point(253, 11);
+            this.txtFullname_CUA.Location = new System.Drawing.Point(240, 11);
             this.txtFullname_CUA.Name = "txtFullname_CUA";
-            this.txtFullname_CUA.Size = new System.Drawing.Size(280, 30);
+            this.txtFullname_CUA.Size = new System.Drawing.Size(255, 30);
             this.txtFullname_CUA.TabIndex = 3;
             // 
             // dgvAccount
             // 
             this.dgvAccount.BackgroundColor = System.Drawing.Color.White;
             this.dgvAccount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tlpCUA.SetColumnSpan(this.dgvAccount, 2);
+            this.tlpCUA.SetColumnSpan(this.dgvAccount, 4);
             this.dgvAccount.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvAccount.Location = new System.Drawing.Point(3, 278);
             this.dgvAccount.Name = "dgvAccount";
             this.dgvAccount.RowHeadersWidth = 51;
             this.dgvAccount.RowTemplate.Height = 24;
+            this.dgvAccount.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAccount.Size = new System.Drawing.Size(1308, 508);
             this.dgvAccount.TabIndex = 8;
             this.dgvAccount.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAccount_CellClick);
             this.dgvAccount.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvAccount_RowPostPaint_1);
+            this.dgvAccount.SelectionChanged += new System.EventHandler(this.dgvAccount_SelectionChanged);
             // 
             // txtEmail_CUA
             // 
             this.txtEmail_CUA.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtEmail_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmail_CUA.Location = new System.Drawing.Point(622, 11);
+            this.txtEmail_CUA.Location = new System.Drawing.Point(593, 11);
             this.txtEmail_CUA.Name = "txtEmail_CUA";
-            this.txtEmail_CUA.Size = new System.Drawing.Size(282, 30);
+            this.txtEmail_CUA.Size = new System.Drawing.Size(232, 30);
             this.txtEmail_CUA.TabIndex = 3;
             // 
             // label3
@@ -141,9 +146,9 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(163, 104);
+            this.label3.Location = new System.Drawing.Point(148, 104);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 52);
+            this.label3.Size = new System.Drawing.Size(86, 52);
             this.label3.TabIndex = 1;
             this.label3.Text = "Địa chỉ :";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -154,9 +159,9 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(163, 156);
+            this.label2.Location = new System.Drawing.Point(148, 156);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 53);
+            this.label2.Size = new System.Drawing.Size(86, 53);
             this.label2.TabIndex = 1;
             this.label2.Text = "Quận :";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -167,9 +172,9 @@
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label8.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(552, 104);
+            this.label8.Location = new System.Drawing.Point(501, 104);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(64, 52);
+            this.label8.Size = new System.Drawing.Size(86, 52);
             this.label8.TabIndex = 1;
             this.label8.Text = "Thành phố :";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -180,9 +185,9 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(552, 156);
+            this.label1.Location = new System.Drawing.Point(501, 156);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 53);
+            this.label1.Size = new System.Drawing.Size(86, 53);
             this.label1.TabIndex = 1;
             this.label1.Text = "Phường :";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -193,9 +198,9 @@
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(163, 0);
+            this.label4.Location = new System.Drawing.Point(148, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 52);
+            this.label4.Size = new System.Drawing.Size(86, 52);
             this.label4.TabIndex = 1;
             this.label4.Text = "Họ tên :";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -204,9 +209,9 @@
             // 
             this.txtPhone_CUA.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtPhone_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPhone_CUA.Location = new System.Drawing.Point(622, 63);
+            this.txtPhone_CUA.Location = new System.Drawing.Point(593, 63);
             this.txtPhone_CUA.Name = "txtPhone_CUA";
-            this.txtPhone_CUA.Size = new System.Drawing.Size(282, 30);
+            this.txtPhone_CUA.Size = new System.Drawing.Size(232, 30);
             this.txtPhone_CUA.TabIndex = 3;
             // 
             // label5
@@ -215,9 +220,9 @@
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(163, 52);
+            this.label5.Location = new System.Drawing.Point(148, 52);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 52);
+            this.label5.Size = new System.Drawing.Size(86, 52);
             this.label5.TabIndex = 1;
             this.label5.Text = "Ngày sinh:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -226,18 +231,18 @@
             // 
             this.dtpBirthday_CUA.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dtpBirthday_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpBirthday_CUA.Location = new System.Drawing.Point(253, 63);
+            this.dtpBirthday_CUA.Location = new System.Drawing.Point(240, 63);
             this.dtpBirthday_CUA.Name = "dtpBirthday_CUA";
-            this.dtpBirthday_CUA.Size = new System.Drawing.Size(280, 30);
+            this.dtpBirthday_CUA.Size = new System.Drawing.Size(255, 30);
             this.dtpBirthday_CUA.TabIndex = 4;
             // 
             // txtAddress_CUA
             // 
             this.txtAddress_CUA.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtAddress_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAddress_CUA.Location = new System.Drawing.Point(253, 115);
+            this.txtAddress_CUA.Location = new System.Drawing.Point(240, 115);
             this.txtAddress_CUA.Name = "txtAddress_CUA";
-            this.txtAddress_CUA.Size = new System.Drawing.Size(280, 30);
+            this.txtAddress_CUA.Size = new System.Drawing.Size(255, 30);
             this.txtAddress_CUA.TabIndex = 3;
             // 
             // cbxWard_CUA
@@ -250,9 +255,9 @@
             "Phường 1",
             "Phường 2",
             "Phường 3"});
-            this.cbxWard_CUA.Location = new System.Drawing.Point(622, 167);
+            this.cbxWard_CUA.Location = new System.Drawing.Point(593, 167);
             this.cbxWard_CUA.Name = "cbxWard_CUA";
-            this.cbxWard_CUA.Size = new System.Drawing.Size(282, 30);
+            this.cbxWard_CUA.Size = new System.Drawing.Size(232, 30);
             this.cbxWard_CUA.TabIndex = 5;
             // 
             // cbxDistrict_CUA
@@ -266,9 +271,9 @@
             "Phú Nhuận",
             "Thủ Đức",
             "Quận 7"});
-            this.cbxDistrict_CUA.Location = new System.Drawing.Point(253, 167);
+            this.cbxDistrict_CUA.Location = new System.Drawing.Point(240, 167);
             this.cbxDistrict_CUA.Name = "cbxDistrict_CUA";
-            this.cbxDistrict_CUA.Size = new System.Drawing.Size(280, 30);
+            this.cbxDistrict_CUA.Size = new System.Drawing.Size(255, 30);
             this.cbxDistrict_CUA.TabIndex = 5;
             this.cbxDistrict_CUA.SelectedIndexChanged += new System.EventHandler(this.cbxDistrict_CUA_SelectedIndexChanged);
             // 
@@ -284,9 +289,9 @@
             "Nha Trang",
             "Da Nang",
             "Can Tho"});
-            this.cbxCity_CUA.Location = new System.Drawing.Point(622, 115);
+            this.cbxCity_CUA.Location = new System.Drawing.Point(593, 115);
             this.cbxCity_CUA.Name = "cbxCity_CUA";
-            this.cbxCity_CUA.Size = new System.Drawing.Size(282, 30);
+            this.cbxCity_CUA.Size = new System.Drawing.Size(232, 30);
             this.cbxCity_CUA.TabIndex = 5;
             this.cbxCity_CUA.SelectedIndexChanged += new System.EventHandler(this.cbxCity_CUA_SelectedIndexChanged);
             // 
@@ -299,7 +304,7 @@
             this.label9.ForeColor = System.Drawing.Color.Black;
             this.label9.Location = new System.Drawing.Point(3, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(137, 34);
+            this.label9.Size = new System.Drawing.Size(166, 34);
             this.label9.TabIndex = 0;
             this.label9.Text = "Mã nhân viên :";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -313,7 +318,7 @@
             this.label10.ForeColor = System.Drawing.Color.Black;
             this.label10.Location = new System.Drawing.Point(3, 34);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(137, 34);
+            this.label10.Size = new System.Drawing.Size(166, 34);
             this.label10.TabIndex = 0;
             this.label10.Text = "Mật khẩu:";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -327,7 +332,7 @@
             this.label11.ForeColor = System.Drawing.Color.Black;
             this.label11.Location = new System.Drawing.Point(3, 68);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(137, 34);
+            this.label11.Size = new System.Drawing.Size(166, 34);
             this.label11.TabIndex = 1;
             this.label11.Text = "Vai trò :";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -341,7 +346,7 @@
             this.label12.ForeColor = System.Drawing.Color.Black;
             this.label12.Location = new System.Drawing.Point(3, 102);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(137, 34);
+            this.label12.Size = new System.Drawing.Size(166, 34);
             this.label12.TabIndex = 1;
             this.label12.Text = "Lương( / giờ ) :";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -353,9 +358,9 @@
             this.cbxRole_CUA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxRole_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxRole_CUA.FormattingEnabled = true;
-            this.cbxRole_CUA.Location = new System.Drawing.Point(146, 71);
+            this.cbxRole_CUA.Location = new System.Drawing.Point(175, 71);
             this.cbxRole_CUA.Name = "cbxRole_CUA";
-            this.cbxRole_CUA.Size = new System.Drawing.Size(234, 30);
+            this.cbxRole_CUA.Size = new System.Drawing.Size(284, 30);
             this.cbxRole_CUA.TabIndex = 5;
             // 
             // btnCreate_CUA
@@ -365,7 +370,7 @@
             this.btnCreate_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCreate_CUA.Location = new System.Drawing.Point(3, 139);
             this.btnCreate_CUA.Name = "btnCreate_CUA";
-            this.btnCreate_CUA.Size = new System.Drawing.Size(137, 28);
+            this.btnCreate_CUA.Size = new System.Drawing.Size(166, 28);
             this.btnCreate_CUA.TabIndex = 6;
             this.btnCreate_CUA.Text = "Tạo tài khoản";
             this.btnCreate_CUA.UseVisualStyleBackColor = true;
@@ -376,9 +381,9 @@
             this.tlpAccounts_CUA.SetColumnSpan(this.btnUpdate_CUA, 2);
             this.btnUpdate_CUA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnUpdate_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdate_CUA.Location = new System.Drawing.Point(146, 139);
+            this.btnUpdate_CUA.Location = new System.Drawing.Point(175, 139);
             this.btnUpdate_CUA.Name = "btnUpdate_CUA";
-            this.btnUpdate_CUA.Size = new System.Drawing.Size(136, 28);
+            this.btnUpdate_CUA.Size = new System.Drawing.Size(166, 28);
             this.btnUpdate_CUA.TabIndex = 6;
             this.btnUpdate_CUA.Text = "Cập nhật";
             this.btnUpdate_CUA.UseVisualStyleBackColor = true;
@@ -389,9 +394,9 @@
             this.tlpAccounts_CUA.SetColumnSpan(this.txtUserId_CUA, 4);
             this.txtUserId_CUA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtUserId_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUserId_CUA.Location = new System.Drawing.Point(146, 3);
+            this.txtUserId_CUA.Location = new System.Drawing.Point(175, 3);
             this.txtUserId_CUA.Name = "txtUserId_CUA";
-            this.txtUserId_CUA.Size = new System.Drawing.Size(234, 30);
+            this.txtUserId_CUA.Size = new System.Drawing.Size(284, 30);
             this.txtUserId_CUA.TabIndex = 2;
             // 
             // btnBack_CUA
@@ -399,9 +404,9 @@
             this.tlpAccounts_CUA.SetColumnSpan(this.btnBack_CUA, 2);
             this.btnBack_CUA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnBack_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBack_CUA.Location = new System.Drawing.Point(146, 173);
+            this.btnBack_CUA.Location = new System.Drawing.Point(175, 173);
             this.btnBack_CUA.Name = "btnBack_CUA";
-            this.btnBack_CUA.Size = new System.Drawing.Size(136, 33);
+            this.btnBack_CUA.Size = new System.Drawing.Size(166, 33);
             this.btnBack_CUA.TabIndex = 7;
             this.btnBack_CUA.Text = "Trở về";
             this.btnBack_CUA.UseVisualStyleBackColor = true;
@@ -412,9 +417,9 @@
             this.tlpAccounts_CUA.SetColumnSpan(this.txtPassword_CUA, 4);
             this.txtPassword_CUA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtPassword_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword_CUA.Location = new System.Drawing.Point(146, 37);
+            this.txtPassword_CUA.Location = new System.Drawing.Point(175, 37);
             this.txtPassword_CUA.Name = "txtPassword_CUA";
-            this.txtPassword_CUA.Size = new System.Drawing.Size(234, 30);
+            this.txtPassword_CUA.Size = new System.Drawing.Size(284, 30);
             this.txtPassword_CUA.TabIndex = 2;
             // 
             // btnClear_CUA
@@ -424,7 +429,7 @@
             this.btnClear_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear_CUA.Location = new System.Drawing.Point(3, 173);
             this.btnClear_CUA.Name = "btnClear_CUA";
-            this.btnClear_CUA.Size = new System.Drawing.Size(137, 33);
+            this.btnClear_CUA.Size = new System.Drawing.Size(166, 33);
             this.btnClear_CUA.TabIndex = 7;
             this.btnClear_CUA.Text = "Xóa nội dung";
             this.btnClear_CUA.UseVisualStyleBackColor = true;
@@ -435,22 +440,25 @@
             this.tlpAccounts_CUA.SetColumnSpan(this.txtSalary_CUA, 4);
             this.txtSalary_CUA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtSalary_CUA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSalary_CUA.Location = new System.Drawing.Point(146, 105);
+            this.txtSalary_CUA.Location = new System.Drawing.Point(175, 105);
             this.txtSalary_CUA.Name = "txtSalary_CUA";
-            this.txtSalary_CUA.Size = new System.Drawing.Size(234, 30);
+            this.txtSalary_CUA.Size = new System.Drawing.Size(284, 30);
             this.txtSalary_CUA.TabIndex = 2;
             // 
             // tlpCUA
             // 
-            this.tlpCUA.ColumnCount = 2;
-            this.tlpCUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.tlpCUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tlpCUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tlpCUA.ColumnCount = 4;
+            this.tlpCUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64F));
+            this.tlpCUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
+            this.tlpCUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
+            this.tlpCUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
             this.tlpCUA.Controls.Add(this.groupBox1, 0, 0);
             this.tlpCUA.Controls.Add(this.groupBox2, 1, 0);
             this.tlpCUA.Controls.Add(this.dgvAccount, 0, 2);
             this.tlpCUA.Controls.Add(this.txtSearchId_CUA, 0, 1);
             this.tlpCUA.Controls.Add(this.btnSearch_CUA, 1, 1);
+            this.tlpCUA.Controls.Add(this.btnDSKhaDung_CUA, 2, 1);
+            this.tlpCUA.Controls.Add(this.btnDSDaXoa_CUA, 3, 1);
             this.tlpCUA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpCUA.Location = new System.Drawing.Point(0, 0);
             this.tlpCUA.Name = "tlpCUA";
@@ -467,7 +475,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(913, 230);
+            this.groupBox1.Size = new System.Drawing.Size(834, 230);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             // 
@@ -475,10 +483,10 @@
             // 
             this.tlpInformations_CUA.ColumnCount = 5;
             this.tlpInformations_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.64057F));
-            this.tlpInformations_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.599779F));
-            this.tlpInformations_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.28886F));
-            this.tlpInformations_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7.717751F));
-            this.tlpInformations_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.57895F));
+            this.tlpInformations_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.23188F));
+            this.tlpInformations_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.64251F));
+            this.tlpInformations_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.23188F));
+            this.tlpInformations_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.62319F));
             this.tlpInformations_CUA.Controls.Add(this.picAvaUser_CUA, 0, 0);
             this.tlpInformations_CUA.Controls.Add(this.label4, 1, 0);
             this.tlpInformations_CUA.Controls.Add(this.label7, 3, 1);
@@ -524,7 +532,7 @@
             this.tlpInformations_CUA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlpInformations_CUA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlpInformations_CUA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpInformations_CUA.Size = new System.Drawing.Size(907, 209);
+            this.tlpInformations_CUA.Size = new System.Drawing.Size(828, 209);
             this.tlpInformations_CUA.TabIndex = 9;
             // 
             // picAvaUser_CUA
@@ -555,11 +563,12 @@
             // 
             // groupBox2
             // 
+            this.tlpCUA.SetColumnSpan(this.groupBox2, 3);
             this.groupBox2.Controls.Add(this.tlpAccounts_CUA);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(922, 3);
+            this.groupBox2.Location = new System.Drawing.Point(843, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(389, 230);
+            this.groupBox2.Size = new System.Drawing.Size(468, 230);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             // 
@@ -576,6 +585,7 @@
             this.tlpAccounts_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.6678F));
             this.tlpAccounts_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.6678F));
             this.tlpAccounts_CUA.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.6678F));
+            this.tlpAccounts_CUA.Controls.Add(this.btnRestore_CUA, 4, 5);
             this.tlpAccounts_CUA.Controls.Add(this.btnClear_CUA, 0, 5);
             this.tlpAccounts_CUA.Controls.Add(this.label9, 0, 0);
             this.tlpAccounts_CUA.Controls.Add(this.btnCreate_CUA, 0, 4);
@@ -605,17 +615,30 @@
             this.tlpAccounts_CUA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tlpAccounts_CUA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tlpAccounts_CUA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tlpAccounts_CUA.Size = new System.Drawing.Size(383, 209);
+            this.tlpAccounts_CUA.Size = new System.Drawing.Size(462, 209);
             this.tlpAccounts_CUA.TabIndex = 0;
+            // 
+            // btnRestore_CUA
+            // 
+            this.tlpAccounts_CUA.SetColumnSpan(this.btnRestore_CUA, 2);
+            this.btnRestore_CUA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRestore_CUA.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRestore_CUA.Location = new System.Drawing.Point(347, 173);
+            this.btnRestore_CUA.Name = "btnRestore_CUA";
+            this.btnRestore_CUA.Size = new System.Drawing.Size(112, 33);
+            this.btnRestore_CUA.TabIndex = 9;
+            this.btnRestore_CUA.Text = "Khôi phục";
+            this.btnRestore_CUA.UseVisualStyleBackColor = true;
+            this.btnRestore_CUA.Click += new System.EventHandler(this.btnRestore_CUA_Click);
             // 
             // btnDelete_CUA
             // 
             this.tlpAccounts_CUA.SetColumnSpan(this.btnDelete_CUA, 2);
             this.btnDelete_CUA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnDelete_CUA.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.btnDelete_CUA.Location = new System.Drawing.Point(288, 139);
+            this.btnDelete_CUA.Location = new System.Drawing.Point(347, 139);
             this.btnDelete_CUA.Name = "btnDelete_CUA";
-            this.btnDelete_CUA.Size = new System.Drawing.Size(92, 28);
+            this.btnDelete_CUA.Size = new System.Drawing.Size(112, 28);
             this.btnDelete_CUA.TabIndex = 8;
             this.btnDelete_CUA.Text = "Xóa TK";
             this.btnDelete_CUA.UseVisualStyleBackColor = true;
@@ -627,19 +650,41 @@
             this.txtSearchId_CUA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearchId_CUA.Location = new System.Drawing.Point(3, 239);
             this.txtSearchId_CUA.Name = "txtSearchId_CUA";
-            this.txtSearchId_CUA.Size = new System.Drawing.Size(913, 30);
+            this.txtSearchId_CUA.Size = new System.Drawing.Size(834, 30);
             this.txtSearchId_CUA.TabIndex = 11;
             // 
             // btnSearch_CUA
             // 
             this.btnSearch_CUA.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.btnSearch_CUA.Location = new System.Drawing.Point(922, 239);
+            this.btnSearch_CUA.Location = new System.Drawing.Point(843, 239);
             this.btnSearch_CUA.Name = "btnSearch_CUA";
-            this.btnSearch_CUA.Size = new System.Drawing.Size(114, 33);
+            this.btnSearch_CUA.Size = new System.Drawing.Size(151, 33);
             this.btnSearch_CUA.TabIndex = 12;
             this.btnSearch_CUA.Text = "TÌM KIẾM";
             this.btnSearch_CUA.UseVisualStyleBackColor = true;
             this.btnSearch_CUA.Click += new System.EventHandler(this.btnSearchId_CUA_Click);
+            // 
+            // btnDSKhaDung_CUA
+            // 
+            this.btnDSKhaDung_CUA.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.btnDSKhaDung_CUA.Location = new System.Drawing.Point(1000, 239);
+            this.btnDSKhaDung_CUA.Name = "btnDSKhaDung_CUA";
+            this.btnDSKhaDung_CUA.Size = new System.Drawing.Size(151, 33);
+            this.btnDSKhaDung_CUA.TabIndex = 12;
+            this.btnDSKhaDung_CUA.Text = "DS Khả dụng";
+            this.btnDSKhaDung_CUA.UseVisualStyleBackColor = true;
+            this.btnDSKhaDung_CUA.Click += new System.EventHandler(this.btnDSKhaDung_CUA_Click);
+            // 
+            // btnDSDaXoa_CUA
+            // 
+            this.btnDSDaXoa_CUA.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.btnDSDaXoa_CUA.Location = new System.Drawing.Point(1157, 239);
+            this.btnDSDaXoa_CUA.Name = "btnDSDaXoa_CUA";
+            this.btnDSDaXoa_CUA.Size = new System.Drawing.Size(148, 33);
+            this.btnDSDaXoa_CUA.TabIndex = 12;
+            this.btnDSDaXoa_CUA.Text = "DS đã xóa";
+            this.btnDSDaXoa_CUA.UseVisualStyleBackColor = true;
+            this.btnDSDaXoa_CUA.Click += new System.EventHandler(this.btnDSDaXoa_CUA_Click);
             // 
             // frmCreateUser_Authority
             // 
@@ -704,5 +749,8 @@
         private System.Windows.Forms.TextBox txtSearchId_CUA;
         private System.Windows.Forms.Button btnSearch_CUA;
         private System.Windows.Forms.Button btnDelete_CUA;
+        private System.Windows.Forms.Button btnRestore_CUA;
+        private System.Windows.Forms.Button btnDSKhaDung_CUA;
+        private System.Windows.Forms.Button btnDSDaXoa_CUA;
     }
 }

@@ -75,31 +75,37 @@ namespace Restaurant_Management_App
             string userId  = txtUserId.Text.Trim();
             string password = txtPassword.Text.Trim();
 
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+
             AccountDAL dao = new AccountDAL(); // dao giúp tách biệt logic winform và logic truy cập dữ liệu, giúp code dễ bảo trì hơn
             var user = dao.Login(userId, password); // var giúp tự động suy luận kiểu dữ liệu trả về từ hàm Login
 
-            if (user != null)
-            {
-                MessageBox.Show("Đăng nhập thành công!");
-
-                // lưu trạng thái đăng nhập của người dùng vào UserSession để sử dụng trong các form khác
-                UserSession.UserId = user.UserId;
-                UserSession.FullName = user.FullName; 
-                UserSession.RoleName = user.RoleName;
-                UserSession.ImagePath = user.ImagePath;
-
-                frmMain main = new frmMain(user.RoleName);
-                main.Show();
-                this.Hide();
-            }
-            else if ( userId == "" || password == "")
-            {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
-            }
-            else 
+            if (user == null)
             {
                 MessageBox.Show("Sai tài khoản hoặc mật khẩu!");
+                return;
             }
+
+            if (user.IsDeleted == 1)
+            {
+                MessageBox.Show("Tài khoản đã bị xóa hoặc đang bị khóa. Vui lòng liên hệ quản trị viên!");
+                return;
+            }
+            MessageBox.Show("Đăng nhập thành công!");
+
+            // Lưu Session
+            UserSession.UserId = user.UserId;
+            UserSession.FullName = user.FullName;
+            UserSession.RoleName = user.RoleName;
+            UserSession.ImagePath = user.ImagePath;
+
+            frmMain main = new frmMain(user.RoleName);
+            main.Show();
+            this.Hide();
         }
         
 
