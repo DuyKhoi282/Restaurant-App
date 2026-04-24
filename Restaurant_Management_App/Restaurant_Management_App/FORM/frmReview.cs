@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Restaurant_Management_App
 { 
@@ -40,7 +41,7 @@ namespace Restaurant_Management_App
         "5. Giá cả có tương xứng chất lượng?"
     };
 
-            flowLayoutPanel1.Controls.Clear(); // Xóa sạch trước khi thêm
+            flpQuestion.Controls.Clear(); // Xóa sạch trước khi thêm
 
             danhSachCauHoi.Clear();
 
@@ -50,9 +51,9 @@ namespace Restaurant_Management_App
 
                 item.NoiDungCauHoi = cauHoi;
 
-                item.Width = flowLayoutPanel1.ClientSize.Width - 25;
+                item.Width = flpQuestion.ClientSize.Width - 25;
 
-                flowLayoutPanel1.Controls.Add(item);
+                flpQuestion.Controls.Add(item);
 
                 danhSachCauHoi.Add(item);
             }
@@ -136,6 +137,34 @@ VALUES(@BillId, @Question, @Star)";
                 main.LoadForm(new frmOrderDetails(billId));
             }
 
+        }
+
+        
+
+        private void btnDelAll_Rating_Click(object sender, EventArgs e)
+        {
+            // Duyệt qua từng UserControl trong FlowLayoutPanel (ví dụ tên là flpReview)
+            foreach (Control ctr in flpQuestion.Controls)
+            {
+                // Kiểm tra xem control đó có đúng là ucQuestion không
+                if (ctr is ucQuestion uc)
+                {
+                    uc.ClearSelection(); // Gọi hàm xóa của từng UserControl
+                }
+            }
+
+            // (Tùy chọn) Thông báo sau khi đã xóa xong
+            // MessageBox.Show("Đã xóa tất cả lựa chọn đánh giá.");
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Form parent = this.ParentForm;
+            if (parent is frmMain main)
+            {
+                main.LoadForm(new frmOrderDetails(billId));
+            }
+            this.Hide();
         }
     }
 }

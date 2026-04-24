@@ -47,5 +47,18 @@ namespace Restaurant_Management_App
                 }
             }
         }
+
+        public void ClearSelection()
+        {
+            // Duyệt qua tất cả các control nằm trong TableLayoutPanel
+            foreach (Control ctr in tlpUcQuestion.Controls)
+            {
+                // Nếu control đó là RadioButton thì bỏ chọn
+                if (ctr is RadioButton rb)
+                {
+                    rb.Checked = false;
+                }
+            }
+        }
     }
 }
