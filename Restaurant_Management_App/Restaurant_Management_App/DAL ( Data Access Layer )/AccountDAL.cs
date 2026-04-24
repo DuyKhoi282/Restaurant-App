@@ -279,6 +279,36 @@ namespace Restaurant_Management_App
                 }
             }
             catch { return ""; }
-        }       
+        }
+
+        public bool KhoiPhucTaiKhoan(string userId)
+        {
+            string sql = "UPDATE Account SET isDeleted = 0 WHERE userId = @id";
+
+            // Sử dụng mảng object để truyền tham số cho Instance
+            // Lưu ý: Thứ tự tham số trong mảng phải khớp với thứ tự @ trong câu SQL
+            object[] parameter = new object[] { userId };
+
+            try
+            {
+                // Gọi hàm từ Singleton đã nạp sẵn connectionString
+                int rowsAffected = Database.Instance.ExecuteNonQuery(sql, parameter);
+
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                // Log lỗi nếu cần thiết
+                Console.WriteLine("Lỗi khôi phục: " + ex.Message);
+                return false;
+            }
+        }
+
+        public DataTable GetDeletedAccounts()
+        {
+            string query = "SELECT * FROM Account WHERE isDeleted = 1";
+            // Thay vì dùng 'new', ta dùng 'Database.Instance'
+            return Database.Instance.ExecuteQuery(query);
+        }
     }
 }
