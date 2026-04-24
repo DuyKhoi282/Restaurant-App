@@ -217,7 +217,18 @@ IF COL_LENGTH('dbo.LoyaltyPointHistory', 'promotionId') IS NULL
 
         public DataTable GetCustomerPoints()
         {
-            return Database.Instance.ExecuteQuery(@"SELECT id, customerName, phone, points, totalSpent, updatedAt
+            return Database.Instance.ExecuteQuery(@"SELECT id,
+                                                           customerName,
+                                                           phone,
+                                                           points,
+                                                           CASE
+                                                               WHEN points >= 150 THEN N'Vàng'
+                                                               WHEN points >= 80 THEN N'Bạc'
+                                                               WHEN points >= 40 THEN N'Đồng'
+                                                               ELSE N'Thành viên'
+                                                           END AS memberTier,
+                                                           totalSpent,
+                                                           updatedAt
                                                     FROM CustomerLoyalty
                                                     ORDER BY points DESC, updatedAt DESC");
         }
