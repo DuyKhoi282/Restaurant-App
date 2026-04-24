@@ -113,10 +113,24 @@ WHERE BillId = @BillId";
         "2. Thái độ nhân viên phục vụ?",
         "3. Thời gian chờ đợi lên món?",
         "4. Không gian nhà hàng sạch sẽ không?",
-        "5. Giá cả có tương xứng chất lượng?"
+        "5. Giá cả có tương xứng chất lượng?",
+        "6. Quy trình đặt bàn có thuận tiện không?",
+        "7. Sự tiếp đón của lễ tân có nhiệt tình không?",
+        "8. Thực đơn có đa dạng món ăn không?",
+        "9. Độ tươi ngon của nguyên liệu thế nào?",
+        "10. Cách trình bày món ăn có hấp dẫn không?",
+        "11. Nhà vệ sinh có sạch sẽ không?",
+        "12. Ánh sáng và nhiệt độ phòng có thoải mái không?",
+        "13. Vị trí bãi đổ xe có thuận tiện không?",
+        "14. Bạn có sẵn lòng giới thiệu cho bạn bè không?",
+        "15. Khả năng bạn quay lại nhà hàng là bao nhiêu?"
     };
-
             flpQuestion.Controls.Clear(); // Xóa sạch trước khi thêm
+            ucQuestionHeader header = new ucQuestionHeader();
+            header.Width = flpQuestion.Width - 25;
+            flpQuestion.Controls.Add(header);
+
+           
 
             danhSachCauHoi.Clear();
 
@@ -131,6 +145,8 @@ WHERE BillId = @BillId";
                 flpQuestion.Controls.Add(item);
 
                 danhSachCauHoi.Add(item);
+                item.Width = flpQuestion.ClientSize.Width - 25;
+                item.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
             }
         }
 
@@ -225,7 +241,7 @@ VALUES(@BillId, @Question, @Star)";
             }
 
             // (Tùy chọn) Thông báo sau khi đã xóa xong
-            // MessageBox.Show("Đã xóa tất cả lựa chọn đánh giá.");
+            MessageBox.Show("Đã xóa tất cả lựa chọn đánh giá.");
         }
 
         private void button6_Click(object sender, EventArgs e)

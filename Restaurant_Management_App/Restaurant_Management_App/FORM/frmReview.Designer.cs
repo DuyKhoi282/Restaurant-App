@@ -32,6 +32,7 @@
             this.btnDelAll_Rating = new System.Windows.Forms.Button();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.flpQuestion = new System.Windows.Forms.FlowLayoutPanel();
+
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
@@ -108,29 +109,6 @@
             this.flpQuestion.Size = new System.Drawing.Size(854, 405);
             this.flpQuestion.TabIndex = 7;
             this.flpQuestion.WrapContents = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Brown;
-            this.label2.Location = new System.Drawing.Point(186, 66);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(159, 32);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "label2";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 66);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(177, 60);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Chọn mã đơn :";
             // 
             // button6
             // 

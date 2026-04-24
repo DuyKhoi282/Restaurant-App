@@ -207,6 +207,12 @@
     <Compile Include="ucQuestion.Designer.cs">
       <DependentUpon>ucQuestion.cs</DependentUpon>
     </Compile>
+    <Compile Include="ucQuestionHeader.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucQuestionHeader.Designer.cs">
+      <DependentUpon>ucQuestionHeader.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserSession.cs" />
     <EmbeddedResource Include="FORM\frmReview.resx">
       <DependentUpon>frmReview.cs</DependentUpon>
@@ -277,6 +283,9 @@
     </Compile>
     <EmbeddedResource Include="ucQuestion.resx">
       <DependentUpon>ucQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucQuestionHeader.resx">
+      <DependentUpon>ucQuestionHeader.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
