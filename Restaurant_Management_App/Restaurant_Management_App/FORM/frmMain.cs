@@ -1,4 +1,5 @@
-﻿using Restaurant_Management_App.FORM;
+﻿using OfficeOpenXml.Export.HtmlExport.StyleCollectors.StyleContracts;
+using Restaurant_Management_App.FORM;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -279,7 +280,7 @@ namespace Restaurant_Management_App
 
         private void btnRatingService_Click(object sender, EventArgs e)
         {
-            LoadForm(new frmRatingService());
+            
         }
     }
 }

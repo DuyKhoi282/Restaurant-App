@@ -390,7 +390,7 @@ GROUP BY f.name, f.price";
             Form parent = this.ParentForm;
             if (parent is frmMain main)
             {
-                main.LoadForm(new frmRatingService());
+                main.LoadForm(new frmRatingService(_idOrder));
             }
             
         }
