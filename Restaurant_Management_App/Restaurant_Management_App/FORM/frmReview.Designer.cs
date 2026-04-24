@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.button3 = new System.Windows.Forms.Button();
             this.btnDelAll_Rating = new System.Windows.Forms.Button();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.flpQuestion = new System.Windows.Forms.FlowLayoutPanel();
-            this.button6 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -68,19 +68,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1148, 632);
             this.tableLayoutPanel1.TabIndex = 0;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.DarkRed;
-            this.button3.Location = new System.Drawing.Point(863, 69);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(273, 54);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Xem danh sách đánh giá";
-            this.button3.UseVisualStyleBackColor = true;
             // 
             // btnDelAll_Rating
             // 
@@ -121,28 +108,18 @@
             this.flpQuestion.TabIndex = 7;
             this.flpQuestion.WrapContents = false;
             // 
-            // button6
+            // button3
             // 
-            this.button6.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.Color.DarkRed;
-            this.button6.Location = new System.Drawing.Point(863, 540);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(113, 57);
-            this.button6.TabIndex = 6;
-            this.button6.Text = "Thoát";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 66);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(177, 60);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Chọn mã đơn :";
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.button3.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.ForeColor = System.Drawing.Color.DarkRed;
+            this.button3.Location = new System.Drawing.Point(863, 69);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(273, 54);
+            this.button3.TabIndex = 4;
+            this.button3.Text = "Xem danh sách đánh giá";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -154,7 +131,28 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(159, 32);
             this.label2.TabIndex = 8;
-            this.label2.Text = "label2";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 94);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(177, 32);
+            this.label1.TabIndex = 1;
+            // 
+            // button6
+            // 
+            this.button6.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.ForeColor = System.Drawing.Color.DarkRed;
+            this.button6.Location = new System.Drawing.Point(863, 540);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(113, 57);
+            this.button6.TabIndex = 6;
+            this.button6.Text = "Thoát";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // label3
             // 
