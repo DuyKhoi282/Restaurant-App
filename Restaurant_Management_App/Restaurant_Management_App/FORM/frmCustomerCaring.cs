@@ -173,6 +173,7 @@ namespace Restaurant_Management_App.FORM
                 _dgvCustomers.Columns["phone"].Visible = false;
             }
             if (_dgvCustomers.Columns.Contains("points")) _dgvCustomers.Columns["points"].HeaderText = "Điểm tích lũy";
+            if (_dgvCustomers.Columns.Contains("memberTier")) _dgvCustomers.Columns["memberTier"].HeaderText = "Hạng thành viên";
             if (_dgvCustomers.Columns.Contains("totalSpent")) _dgvCustomers.Columns["totalSpent"].HeaderText = "Tổng chi tiêu";
             if (_dgvCustomers.Columns.Contains("updatedAt")) _dgvCustomers.Columns["updatedAt"].HeaderText = "Cập nhật lần cuối";
 
