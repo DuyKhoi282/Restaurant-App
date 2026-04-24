@@ -1,5 +1,7 @@
+
 ﻿using Restaurant_Management_App.FORM;
 using Microsoft.VisualBasic;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -102,7 +104,6 @@ namespace Restaurant_Management_App
                 int row = 2;
                 RemoveButtons(); // Xóa tất cả button trước khi thêm lại theo quyền
                 tlpSidebar.Controls.Add(btnCreateOrder, 0, row++);
-                tlpSidebar.Controls.Add(btnRatingService, 0, row++);
                 btnInfoUser.Visible=false;
                 btnChangePassword.Visible=false;
             }
@@ -301,6 +302,11 @@ namespace Restaurant_Management_App
         private void frmMain_Load(object sender, EventArgs e)
         {
             DisplayUserAvatar();           
+        }
+
+        private void btnRatingService_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

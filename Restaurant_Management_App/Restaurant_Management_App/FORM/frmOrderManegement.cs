@@ -27,7 +27,7 @@ namespace Restaurant_Management_App
             if (currentRole == "Staff")
                 btnStatusOrder.Visible = false;
 
-            // 🎨 Style button đỏ đô
+            //  Style button đỏ đô
             StyleButton(btnReload, Color.FromArgb(158, 27, 27));
             StyleButton(btnStatusOrder, Color.FromArgb(158, 27, 27));
 
