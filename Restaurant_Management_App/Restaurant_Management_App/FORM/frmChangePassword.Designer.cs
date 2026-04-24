@@ -102,6 +102,7 @@
             this.btnBack_ResetPassword.TabIndex = 2;
             this.btnBack_ResetPassword.Text = "Trở về";
             this.btnBack_ResetPassword.UseVisualStyleBackColor = true;
+            this.btnBack_ResetPassword.Click += new System.EventHandler(this.btnBack_ResetPassword_Click);
             // 
             // btnUpdate_ChangePassword
             // 

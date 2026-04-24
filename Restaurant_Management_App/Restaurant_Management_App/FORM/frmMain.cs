@@ -68,7 +68,7 @@ namespace Restaurant_Management_App
                 tlpSidebar.Controls.Add(btnRevenueMNG, 0, row++);
                 tlpSidebar.Controls.Add(btnCustomerCaring, 0, row++);
                 tlpSidebar.Controls.Add(btnStaffMNG, 0, row++);
-                tlpSidebar.Controls.Add(btnRatingService, 0, row++);
+                
             }
             else if (currentRole == "Manager")
             {
@@ -79,7 +79,7 @@ namespace Restaurant_Management_App
                 tlpSidebar.Controls.Add(btnItemMNG, 0, row++);
                 tlpSidebar.Controls.Add(btnRevenueMNG, 0, row++);
                 tlpSidebar.Controls.Add(btnCustomerCaring, 0, row++);
-                tlpSidebar.Controls.Add(btnRatingService, 0, row++);
+                
 
             }
             else if (currentRole == "Chef")
