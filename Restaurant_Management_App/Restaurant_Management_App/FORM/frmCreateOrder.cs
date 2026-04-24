@@ -722,7 +722,7 @@ namespace Restaurant_Management_App.FORM
             _isOrderInfoLocked = isLocked;
 
             txtCustomerName.ReadOnly = isLocked;
-            cbTable.Enabled = !isLocked;
+            cbTable.Enabled = true;
             cbOrderType.Enabled = !isLocked;
             cbCase.Enabled = !isLocked;
             cbPayMethod.Enabled = !isLocked;
